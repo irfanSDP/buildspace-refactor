@@ -46,7 +46,7 @@ samlauth/log/*
 !samlauth/log/.gitignore
 
 # local/real config with secrets
-samlauth/config/*.php
+# samlauth/config/*.php
 # allow example configs to be committed
 !samlauth/config/*.php.example
 
