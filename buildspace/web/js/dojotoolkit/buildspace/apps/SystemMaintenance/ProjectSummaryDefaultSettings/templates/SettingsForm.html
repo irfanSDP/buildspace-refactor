@@ -1,0 +1,72 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.projectSummary} ${nls.defaultSettings}</legend>
+        <table class="table-form">
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.summaryTitle} :</label>
+                </td>
+                <td colspan="2">
+                    <input type="text" name="project_summary_default_setting[summary_title]" style="padding:2px;width:240px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true">
+                    <p class="alert-text-error" id="error-project_summary_default_setting_summary_title"></p>
+                </td>
+
+                <td class="label" style="width:100px;">
+                    <label style="display: inline;">${nls.firstRowText} :</label>
+                </td>
+                <td colspan="3">
+                    <input type="text" name="project_summary_default_setting[first_row_text]" style="padding:2px;width:240px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true">
+                    <p class="alert-text-error" id="error-project_summary_default_setting_first_row_text"></p>
+                </td>
+                
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.includePrintingDate} :</label>
+                </td>
+                <td colspan="2">
+                    <input name="project_summary_default_setting[include_printing_date]" data-dojo-type="dijit/form/CheckBox" value="true" />
+                    <p class="alert-text-error" id="error-project_summary_default_setting_include_printing_date"></p>
+                </td>
+
+                <td class="label" style="width:100px;">
+                    <label style="display: inline;">${nls.secondRowText} :</label>
+                </td>
+                <td colspan="3">
+                    <input type="text" name="project_summary_default_setting[second_row_text]" style="padding:2px;width:240px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true">
+                    <p class="alert-text-error" id="error-project_summary_default_setting_second_row_text"></p>
+                </td>
+
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.carriedToNextPageText} :</label>
+                </td>
+                <td colspan="3">
+                    <input type="text" name="project_summary_default_setting[carried_to_next_page_text]" style="padding:2px;width:350px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true">
+                    <p class="alert-text-error" id="error-project_summary_default_setting_carried_to_next_page_text"></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.continuedFromPreviousText} :</label>
+                </td>
+                <td colspan="3">
+                    <input type="text" name="project_summary_default_setting[continued_from_previous_page_text]" style="padding:2px;width:350px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true">
+                    <p class="alert-text-error" id="error-project_summary_default_setting_continued_from_previous_page_text"></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.pageNumberPrefix} :</label>
+                </td>
+                <td colspan="3">
+                    <input type="text" name="project_summary_default_setting[page_number_prefix]" style="padding:2px;width:100px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true">
+                    <p class="alert-text-error" id="error-project_summary_default_setting_page_number_prefix"></p>
+                </td>
+            </tr>
+        </table>
+
+        <input type="hidden" name="project_summary_default_setting[_csrf_token]" value="">
+    </fieldset>
+</form>

@@ -1,0 +1,65 @@
+RequestForVariationItemClaimCertificate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: request_for_variation_items_claim_certificates
+  actAs: [Timestampable, Signable]
+  indexes:
+    rfv_items_claim_certs_id_idx:
+      fields: [id, variation_order_item_id, claim_certificate_id]
+    rfv_items_claim_certs_fk_idx:
+      fields: [variation_order_item_id, claim_certificate_id]
+    rfv_items_claim_certs_unique_idx:
+      fields: [variation_order_item_id, claim_certificate_id]
+      type: unique
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    variation_order_item_id: { type: integer, notnull: true }
+    claim_certificate_id:    { type: integer, notnull: true }
+  relations:
+    VariationOrderItem:
+      local: variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ClaimCertificates
+      foreignType: many
+    ClaimCertificate:
+      local: claim_certificate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: VariationOrderItems
+      foreignType: many
+
+RequestForVariationItemClaim:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: request_for_variation_item_claims
+  actAs: [Timestampable, Signable]
+  indexes:
+    rfv_item_claims_id_idx:
+      fields: [id, variation_order_item_id]
+    rfv_item_claims_fk_idx:
+      fields: [variation_order_item_id]
+    rfv_item_claims_unique_idx:
+      fields: [variation_order_item_id]
+      type: unique
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    variation_order_item_id: { type: integer, notnull: true }
+    percentage:              { type: decimal, scale: 5, default: 0 }
+    amount:                  { type: decimal, scale: 5, default: 0 }
+  relations:
+    VariationOrderItem:
+      local: variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: RequestForVariationItemClaim
+      foreignType: one

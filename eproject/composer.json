@@ -1,0 +1,84 @@
+{
+    "name": "laravel/laravel",
+    "description": "The Laravel Framework.",
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
+    "license": "MIT",
+    "require": {
+        "laravel/framework": "dev-4.2.19-php7 as 4.2.19",
+        "laracasts/flash": "~1.0",
+        "zizaco/confide": "~4.3@dev",
+        "fzaninotto/faker": "v1.3.0",
+        "laracasts/validation": "~1.0",
+        "baum/baum": "~1.0",
+        "laracasts/utilities": "~1.0",
+        "nitmedia/wkhtml2pdf": "1.0.*@dev",
+        "laracasts/presenter": "0.1.*",
+        "andrewelkins/cabinet": "1.1.x",
+        "fenos/notifynder": "2.1.*",
+        "indatus/dispatcher": "1.4.*@dev",
+        "maartenstaa/laravel-41-route-caching": "dev-master",
+        "knight-swarm/laravel-saml": "dev-master",
+        "guzzlehttp/guzzle": "6.*",
+        "aboyadzhiev/php-math-parser": "^1.0.0",
+        "pear/numbers_words": "dev-master",
+        "google/apiclient": "^1.1",
+        "asimlqt/php-google-spreadsheet-client": "^2.3",
+        "spatie/array-to-xml": "^2.2",
+        "phpoffice/phpword": "^0.13.0",
+        "php-unoconv/php-unoconv": "~0.3",
+        "schuppo/password-strength": "~0.10",
+        "doctrine/dbal": "^2.5",
+        "phpoffice/phpspreadsheet": "^1.6",
+        "mews/purifier": "dev-master-l4",
+        "vlucas/phpdotenv": "1.1"
+    },
+    "require-dev": {
+        "way/generators": "2.*",
+        "laracasts/testdummy": "1.*",
+        "phpunit/phpunit": "5.7.*"
+    },
+    "autoload": {
+        "classmap": [
+            "app/commands",
+            "app/controllers",
+            "app/database/migrations",
+            "app/database/seeds",
+            "app/tests/TestCase.php",
+            "app/tests/RollbackTestCase.php"
+        ],
+        "psr-4": {
+            "PCK\\": "app/PCK"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php artisan clear-compiled"
+        ],
+        "post-update-cmd": [
+            "php artisan clear-compiled"
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "replace": {
+        "ext-pcntl": "*"
+    },
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/legierski/laravel-framework-4.2-php7"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/xbbshampoo/laravel-saml"
+        }
+    ]
+}

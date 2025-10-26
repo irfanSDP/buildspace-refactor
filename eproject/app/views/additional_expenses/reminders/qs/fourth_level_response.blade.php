@@ -1,0 +1,1 @@
+QS {{ HTML::link('#', 'responded', array('data-toggle' => 'modal', 'data-target' => '#step-4-'.$message->id)) }} on {{{ $ae->project->getProjectTimeZoneTime($message->created_at) }}}.

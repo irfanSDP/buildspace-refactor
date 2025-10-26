@@ -1,0 +1,9 @@
+TRUNCATE projects RESTART IDENTITY CASCADE;
+TRUNCATE notifications RESTART IDENTITY CASCADE;
+TRUNCATE conversations RESTART IDENTITY CASCADE;
+TRUNCATE uploads RESTART IDENTITY CASCADE;
+
+TRUNCATE assign_company_in_detail_logs RESTART IDENTITY CASCADE;
+TRUNCATE contract_group_tender_document_permission_logs RESTART IDENTITY CASCADE;
+TRUNCATE contractors_commitment_status_logs RESTART IDENTITY CASCADE;
+TRUNCATE tender_form_verifier_logs RESTART IDENTITY CASCADE;

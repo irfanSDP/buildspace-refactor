@@ -1,0 +1,31 @@
+<head>
+    <?php include_http_metas() ?>
+    <?php include_metas() ?>
+    <?php include_title() ?>
+    <style type="text/css" media="screen">
+        body { background-color: #fff;margin: 0;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+        .container { margin: 50px auto 40px auto; width: 600px; text-align: center; }
+        a { color: #4183c4; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        h1 { width: 800px; position:relative; left: -100px; letter-spacing: -1px; line-height: 60px; font-size: 60px; font-weight: 100; margin: 0 0 50px 0; text-shadow: 0 1px 0 #fff; }
+        p { color: rgba(0, 0, 0, 0.5); margin: 20px 0; line-height: 1.6; }
+        ul { list-style: none; margin: 25px 0; padding: 0; }
+        li { display: table-cell; font-weight: bold; width: 1%; }
+        .logo { display: inline-block; margin-top: 35px; }
+        @media
+        only screen and (-webkit-min-device-pixel-ratio: 2),
+        only screen and (   min--moz-device-pixel-ratio: 2),
+        only screen and (     -o-min-device-pixel-ratio: 2/1),
+        only screen and (        min-device-pixel-ratio: 2),
+        only screen and (                min-resolution: 192dpi),
+        only screen and (                min-resolution: 2dppx) {
+            .logo-img-1x { display: none; }
+        }
+    </style>
+</head>
+<body>
+<?php echo $sf_data->getRaw('sf_content')?>
+<?php include_stylesheets() ?>
+<?php include_javascripts() ?>
+</body>
+</html>

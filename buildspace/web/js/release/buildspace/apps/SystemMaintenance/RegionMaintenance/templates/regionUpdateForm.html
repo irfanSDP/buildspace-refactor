@@ -1,0 +1,98 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.regionMaintenance}</legend>
+        <table class="table-form" style="width: auto;">
+            <tr>
+                <td class="label"><label style="display: inline;"><span class="required">*</span>${nls.country} :</label></td>
+                <td colspan='4'>
+                    <input type="text" name="regions[country]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:true" style="padding:2px;width:100%;" id='region_input-country' autofocus>
+                    <p class="alert-text-error" data-dojo-attach-point="regions_error-country" id="regions_error-country"></p>
+                </td>
+                
+            </tr>
+            
+            <tr>
+                <td class="label"><label style="display: inline;"><span class="required"></span>${nls.currency_code} :</label></td>
+                <td>
+                    <input type="text" name="regions[currency_code]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:false" style="padding:2px;width:100px;" id='region_input-currency_code' >
+                    <p class="alert-text-error" data-dojo-attach-point="regions_error-currency_code" id="regions_error-currency_code"></p>
+                </td>
+                <td>
+                    <div style ='width: 30px'></div>
+                </td>
+                <td class="label"><label style="display: inline;"><span class="required"></span>${nls.currency_name} :</label></td>
+                <td>
+                    <input type="text" name="regions[currency_name]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:false" style="padding:2px;width:280px;" id='region_input-currency_name' >
+                    <p class="alert-text-error" data-dojo-attach-point="regions_error-currency_name" id="regions_error-currency_name"></p>
+                </td>
+            </tr>
+
+             <tr>
+                <td class="label"><label style="display: inline;"><span class="required"></span>${nls.iso} :</label></td>
+                <td>
+                    <input type="text" name="regions[iso]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:false" style="padding:2px;width:100px;" id='region_input-iso' >
+                    <p class="alert-text-error" data-dojo-attach-point="regions_error-iso" id="regions_error-iso"></p>
+                </td>
+                <td>
+                    <div style ='width: 30px'></div>
+                </td>
+                <td class="label"><label style="display: inline;"><span class="required"></span>${nls.iso3} :</label></td>
+                <td>
+                    <input type="text" name="regions[iso3]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:false" style="padding:2px;width:100px;" id='region_input-iso3' >
+                    <p class="alert-text-error" data-dojo-attach-point="regions_error-iso3" id="regions_error-iso3"></p>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="label"><label style="display: inline;"><span class="required"></span>${nls.continent} :</label></td>
+                <td>
+                    <input type="text" name="regions[continent]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:false" style="padding:2px;width:280px;" id='region_input-continent' >
+                    <p class="alert-text-error" data-dojo-attach-point="regions_error-continent" id="regions_error-continent"></p>
+                </td>
+                <td>
+                    <div style ='width: 30px'></div>
+                </td>
+                <td class="label"><label style="display: inline;"><span class="required"></span>${nls.geonameid} :</label></td>
+                <td>
+                    <input type="text" name="regions[geonameid]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:false" style="padding:2px;width:100px;" id='region_input-geonameid' >
+                    <p class="alert-text-error" data-dojo-attach-point="regions_error-geonameid" id="regions_error-geonameid"></p>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label"><label style="display: inline;"><span class="required"></span>${nls.phone_prefix} :</label></td>
+                <td>
+                    <input type="text" name="regions[phone_prefix]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:false" style="padding:2px;width:100px;" id='region_input-phone_prefix' >
+                    <p class="alert-text-error" data-dojo-attach-point="regions_error-phone_prefix" id="regions_error-phone_prefix"></p>
+                </td>
+                <td>
+                    <div style ='width: 30px'></div>
+                </td>
+                <td class="label"><label style="display: inline;"><span class="required"></span>${nls.postal_code} :</label></td>
+                <td>
+                    <input type="text" name="regions[postal_code]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:false" style="padding:2px;width:100px;" id='region_input-postal_code' >
+                    <p class="alert-text-error" data-dojo-attach-point="regions_error-postal_code" id="regions_error-postal_code"></p>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="label"><label style="display: inline;"><span class="required"></span>${nls.fips} :</label></td>
+                <td>
+                    <input type="text" name="regions[fips]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:false" style="padding:2px;width:100px;" id='region_input-fips' >
+                    <p class="alert-text-error" data-dojo-attach-point="regions_error-fips" id="regions_error-fips"></p>
+                </td>
+                <td>
+                    <div style ='width: 30px'></div>
+                </td>
+                <td class="label"><label style="display: inline;"><span class="required"></span>${nls.languages} :</label></td>
+                <td>
+                    <input type="text" name="regions[languages]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:false" style="padding:2px;width:280px;" id='region_input-languages' >
+                    <p class="alert-text-error" data-dojo-attach-point="regions_error-languages" id="regions_error-languages"></p>
+                </td>
+            </tr> 
+            
+        </table>
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="regions[_csrf_token]" value="">
+    </fieldset>
+</form>

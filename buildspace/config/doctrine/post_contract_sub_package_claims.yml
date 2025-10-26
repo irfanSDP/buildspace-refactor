@@ -1,0 +1,93 @@
+SubProjectLatestApprovedClaimRevision:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_project_latest_approved_claim_revisions
+  actAs: [Timestampable]
+  indexes:
+    sp_latest_approved_claim_rev_idx:
+      fields: [id]
+    sp_latest_approved_claim_rev_main_project_claim_rev_id_fk_idx:
+      fields: [main_project_claim_revision_id]
+    sp_latest_approved_claim_rev_sub_project_claim_rev_id_fk_idx:
+      fields: [sub_project_claim_revision_id]
+    sp_latest_approved_claim_rev_unique_idx:
+      fields: [sub_project_claim_revision_id]
+      type: unique
+  columns:
+    id:                             { type: integer, primary: true, notnull: true, autoincrement: true }
+    main_project_id:                { type: integer, notnull: true }
+    main_project_claim_revision_id: { type: integer, notnull: true }
+    sub_project_id:                 { type: integer, notnull: true }
+    sub_project_claim_revision_id:  { type: integer, notnull: true }
+  relations:
+    MainProject:
+      class: ProjectStructure
+      local: main_project_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubProjectLatestApprovedClaimRevision
+      foreignType: many
+    SubProject:
+      class: ProjectStructure
+      local: sub_project_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubProjectLatestApprovedClaimRevision
+      foreignType: many
+    MainProjectClaimRevision:
+      class: PostContractClaimRevision
+      local: main_project_claim_revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubProjectLatestApprovedClaimRevision
+      foreignType: many
+    SubProjectClaimRevision:
+      class: PostContractClaimRevision
+      local: sub_project_claim_revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: MainProjectLatestApprovedClaimRevision
+      foreignType: one
+
+NominatedSubContractorInformation:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: nominated_sub_contractor_information
+  actAs: [Timestampable, Signable ]
+  indexes:
+    nominated_sub_contractor_info_idx:
+      fields: [id]
+    nominated_sub_contractor_info_unique_idx:
+      fields: [project_structure_id, sub_project_id]
+      type: unique
+  columns:
+    id:                               { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id:             { type: integer, notnull: true }
+    sub_project_id:                   { type: integer, notnull: true }
+    profit_and_attendance_percentage: { type: decimal, scale: 5, default: 0 }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: many
+      foreignAlias: NominatedSubContractorInfo
+      foreignType: many
+    SubProject:
+      class: ProjectStructure
+      local: sub_project_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NominatedSubContractorInfo
+      foreignType: many

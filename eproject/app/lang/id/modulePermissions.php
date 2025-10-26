@@ -1,0 +1,26 @@
+<?php
+
+return array(
+    'modulePermissions' => 'Izin modul',
+    'delegate' => 'Tugas',
+    'assign' => 'Pilih',
+    'assignUsers' => 'Pilih Pengguna',
+    'assignedUsers' => 'Pengguna terpilih',
+    'unassignUser' => 'Hapus izin pengguna',
+    'unassignSuccess' => 'Izin pengguna diperbarui',
+    'unassignFailed' => 'Tidak dapat memperbarui izin pengguna',
+    'deleteCompanySuccess' => 'Rekor perusahaan dihapus.',
+    'deleteCompanyFailed' => 'Rekor perusahaan tidak dapat dihapus.',
+    'delegateHelp' => 'Tugaskan orang lain untuk mengambil tugasan yang menjemukan ini!',
+    'maintenanceModules' => 'Modul Pemeliharaan',
+    'tenderDocumentTemplate' => 'Template Dokumen Tender',
+    'formOfTenderTemplate' => 'Template Formulir Tender',
+    'technicalEvaluationTemplate' => 'Template Evaluasi Teknis',
+    'contractorListing' => 'Daftar Kontraktor',
+    'defects' => 'Kecacatan',
+    'userPermissions' => 'Izin Pengguna',
+    'architectInstructions' => 'Isu Perintah',
+    'extensionOfTime' => 'Perpanjangan Tanggal Penyelesaian',
+    'lossAndExpenses' => 'Meminta Ganti Rugi',
+    'earlyWarning' => 'Peringatan Dini',
+);

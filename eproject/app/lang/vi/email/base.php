@@ -1,0 +1,9 @@
+<?php
+
+return array(
+    'to'               => 'Gửi tới',
+    'disclaimerLine_1' => 'Email này được gửi tự động từ hệ thống, vui lòng không trả lời thư.',
+    'disclaimerLine_2' => 'Disclaimer note',
+    'disclaimerLine_3' => 'Tuyên bố từ chối trách nhiệm: Email này và bất kỳ tệp nào được gửi cùng với nó đều được bảo mật và chỉ nhằm mục đích sử dụng cho cá nhân hoặc tổ chức nhận được email. Bảo mật cũng áp dụng cho cá nhân được gửi sai địa chỉ. Nếu bạn đã nhận được email này do nhầm lẫn, vui lòng thông báo cho người gửi hoặc người quản lý hệ thống. Thông báo này chứa thông tin bí mật và chỉ dành cho cá nhân có tên. Nếu bạn không phải là người nhận, bạn không nên phổ biến, gửi cho người khác hoặc sao chép e-mail này. Vui lòng thông báo cho người gửi ngay lập tức bằng e-mail nếu bạn đã nhận được e-mail này do nhầm lẫn và xóa e-mail này khỏi hệ thống của bạn. Nếu bạn không phải là người nhận dự định, bạn sẽ được thông báo rằng việc tiết lộ, sao chép, phân phối hoặc thực hiện bất kỳ hành động nào phụ thuộc vào nội dung của thông tin này đều bị nghiêm cấm. Không có gì trong email này sẽ ràng buộc chúng tôi trừ khi có xác nhận khác bằng văn bản dưới tiêu đề thư của chúng tôi. Bất kỳ quan điểm hoặc ý kiến trong email này là của riêng tác giả và không nhất thiết phải đại diện cho chúng tôi. Chúng tôi sẽ không chịu trách nhiệm cho bất kỳ hoạt động nào có thể được coi là sử dụng email bất hợp pháp hoặc không đúng cách. Email dễ làm hỏng, thu thập, sửa đổi trái phép, giả mạo dữ liệu và lây nhiễm virus. Chúng tôi chỉ gửi và nhận email trên cơ sở rằng chúng tôi sẽ không chịu trách nhiệm cho bất kỳ sự làm hỏng, thu thập, sửa đổi trái phép, giả mạo dữ liệu và lây nhiễm virus nói trên hoặc hậu quả của chúng. Email này và / hoặc bất kỳ trả lời nào cho nó và bất kỳ tệp đính kèm nào (cho dù có liên quan đến chúng tôi hay không) có thể bị chặn, sao chép hoặc theo dõi bởi chúng tôi.',
+);
+

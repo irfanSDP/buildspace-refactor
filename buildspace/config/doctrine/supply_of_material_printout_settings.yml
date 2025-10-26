@@ -1,0 +1,96 @@
+SupplyOfMaterialLayoutSetting:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: som_layout_settings
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    som_layout_set_id_idx:
+      fields: [id, project_structure_id, deleted_at]
+    som_layout_set_fk_idx:
+      fields: [project_structure_id]
+  columns:
+    project_structure_id: { type: integer }
+    font:                 { type: string, default: "Arial" }
+    size:                 { type: integer, default: 11 }
+    comma_total:          { type: boolean, default: false }
+    comma_rate:           { type: boolean, default: false }
+    priceFormat:
+      type: enum
+      values: [normal, opposite]
+      default: normal
+    includeIAndOForBillRef:  { type: boolean, default: false }
+    add_cont:                { type: boolean, default: true }
+    contd:                   { type: string(150), default: "(CONT'd)" }
+    print_element_grid:      { type: boolean, default: true }
+    print_element_grid_once: { type: boolean, default: false }
+    page_no_prefix:          { type: string(150), default: null }
+    align_element_to_left:   { type: boolean, default: false }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignType: one
+      onDelete: CASCADE
+
+SupplyOfMaterialLayoutHeadSetting:
+  connection: main_conn
+  options:
+    orderBy: head
+    symfony:
+      filter: false
+  tableName: som_layout_head_settings
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    som_layout_hset_id_idx:
+      fields: [id, som_layout_setting_id, deleted_at]
+    som_layout_hset_fk_idx:
+      fields: [som_layout_setting_id]
+  columns:
+    som_layout_setting_id: { type: integer, notnull: false }
+    head:                  { type: integer }
+    bold:                  { type: boolean, default: false }
+    underline:             { type: boolean, default: false }
+    italic:                { type: boolean, default: false }
+  relations:
+    SupplyOfMaterialLayoutSetting:
+      local: som_layout_setting_id
+      foreign: id
+      foreignAlias: SOMBillHeadSettings
+      type: one
+      foreignType: many
+      onDelete: CASCADE
+
+SupplyOfMaterialLayoutPhraseSetting:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: som_layout_phrase_settings
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    som_layout_phrase_id_idx:
+      fields: [id, som_layout_setting_id, deleted_at]
+    som_layout_phrase_fk_idx:
+      fields: [som_layout_setting_id]
+  columns:
+    som_layout_setting_id:       { type: integer, notnull: false }
+    to_collection:               { type: string(150), default: 'To Collection' }
+    currency:                    { type: string(150), default: 'RM' }
+    collection_in_grid:          { type: string(150), default: 'Collection' }
+    element_header_bold:         { type: boolean, default: false }
+    element_header_underline:    { type: boolean, default: false }
+    element_header_italic:       { type: boolean, default: false }
+    element_note_top_left_row1:  { type: string(150), notnull: false }
+    element_note_top_left_row2:  { type: string(150), notnull: false }
+    element_note_top_right_row1: { type: string(150), notnull: false }
+  relations:
+    SupplyOfMaterialLayoutSetting:
+      local: som_layout_setting_id
+      foreign: id
+      foreignAlias: SOMBillPhrase
+      type: one
+      foreignType: one
+      onDelete: CASCADE

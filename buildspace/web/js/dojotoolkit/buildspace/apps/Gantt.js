@@ -1,0 +1,23 @@
+require([
+    'jquery/jquery.livequery.min',
+    'jquery/jquery.timers.min',
+    'twgantt/platform',
+    'twgantt/date',
+    'twgantt/i18nJs',
+    'jquery/dateField/jquery.dateField',
+    'jquery/JST/jquery.JST',
+    'jquery/svg/jquery.svg.min',
+    'jquery/svg/jquery.svgdom.min',
+    'twgantt/ganttUtilities',
+    'twgantt/ganttTask',
+    'twgantt/ganttDrawerSVG',
+    'twgantt/ganttGridEditor',
+    'twgantt/ganttMaster',
+    'dijit/Dialog',
+    'dijit/form/ValidationTextBox',
+    'dijit/form/NumberTextBox',
+    'dijit/layout/TabContainer',
+    'dojox/layout/ContentPane',
+    'buildspace/apps/Gantt/_base'
+], function(){
+});

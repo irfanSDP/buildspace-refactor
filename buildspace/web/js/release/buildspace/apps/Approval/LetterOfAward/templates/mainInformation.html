@@ -1,0 +1,277 @@
+<div class="${baseClass} largeForm">
+    <fieldset>
+        <legend>${nls.projectInformation}</legend>
+        <table class="table-form">
+            <tr>
+                <td class="label" style="width:10%;">
+                    <label style="display: inline;">${nls.projectOwner} :</label>
+                </td>
+                <td style="width:90%;">
+                    <label style="display: inline;white-space: pre-wrap;">${project_owner}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:10%;">
+                    <label style="display: inline;">${nls.project} :</label>
+                </td>
+                <td style="width:90%;">
+                    <label style="display: inline;white-space: pre-wrap;">${title}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:10%;">
+                    <label style="display: inline;">${nls.contractor} :</label>
+                </td>
+                <td style="width:90%;">
+                    <label style="display: inline;white-space: pre-wrap;">${sub_con}</label>
+                </td>
+            </tr>
+            <tr style="display:none;" data-dojo-attach-point="awardedTenderAlternativeRowNode">
+                <td class="label" style="width:10%;">
+                    <label style="display: inline;">${nls.tenderAlternative} :</label>
+                </td>
+                <td style="width:90%;">
+                    <label style="display: inline;white-space: pre-wrap;">${tender_alternative_title}</label>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <br />
+    <fieldset>
+        <legend>${nls.contractInformation}</legend>
+        <table class="table-form">
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.type} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;">${type}</label>
+                </td>
+                <td class="label">
+                    <label style="display: inline;">${nls.reference} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;">${reference}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.contractPeriodFrom} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;white-space: pre-wrap;">${contract_period_from}</label>
+                </td>
+                <td class="label">
+                    <label style="display: inline;">${nls.contractPeriodTo} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;">${contract_period_to}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.awardedDate} :</label>
+                </td>
+                <td colspan="3">
+                    <label style="display: inline;white-space: pre-wrap;">${awarded_date}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.trade} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;">${trade}</label>
+                </td>
+                <td class="label">
+                    <label style="display: inline;">${nls.creditorCode} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;">${creditor_code}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.works} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;">${works}</label>
+                </td>
+                <td class="label">
+                    <label style="display: inline;">${nls.works2} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;">${works_2}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.contractSum} :</label>
+                </td>
+                <td colspan="3">
+                    <label style="display: inline;white-space: pre-wrap;">${contract_sum}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.remarks} :</label>
+                </td>
+                <td colspan="3">
+                    <label style="display: inline;white-space: pre-wrap;">${remarks}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.submittedBy} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;">${submitted_by}</label>
+                </td>
+                <td class="label">
+                    <label style="display: inline;">${nls.submittedAt} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;">${submitted_at}</label>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <br>
+    <fieldset>
+        <legend>${nls.retention}</legend>
+        <table class="table-form">
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.retention} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;">${retention} %</label>
+                </td>
+                <td class="label">
+                    <label style="display: inline;">${nls.maximumRetentionSum} :</label>
+                </td>
+                <td style="vertical-align:middle;">
+                    <label>${max_retention_sum} %</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.includeVO} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;"><input type="checkbox" ${includeVO} disabled></label>
+                </td>
+                <td class="label">
+                    <label style="display: inline;">${nls.includeMaterialOnSite} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;"><input type="checkbox" ${includeMaterialOnSite} disabled></label>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <br/>
+    <fieldset>
+        <legend>${nls.waiverOptions}</legend>
+        <table class="table-form">
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.eTenderWaiver} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;"><input type="checkbox" ${eTenderWaiverOptionChecked} disabled></label>
+                </td>
+                <td class="label" data-dojo-attach-point="eTenderWaiverOptionLabel">
+                    <label style="display: inline;">${nls.reason} :</label>
+                </td>
+                <td  data-dojo-attach-point="eTenderWaiverOptionDescription">
+                    <label style="display: inline;">${eTenderWaiverOption} </label>
+                </td>
+                <td class="label" data-dojo-attach-point="eTenderWaiverUserDefinedOptionLabel">
+                    <label style="display: inline;">${nls.userSpecified} :</label>
+                </td>
+                <td data-dojo-attach-point="eTenderWaiverUserDefinedOptionDescription">
+                    <label style="display: inline;">${eTenderWaiverUserDefinedOption} </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.eAuctionWaiver} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;"><input type="checkbox" ${eAuctionWaiverOptionChecked} disabled></label>
+                </td>
+                <td class="label" data-dojo-attach-point="eAuctionWaiverOptionLabel">
+                    <label style="display: inline;">${nls.reason} :</label>
+                </td>
+                <td  data-dojo-attach-point="eAuctionWaiverOptionDescription">
+                    <label style="display: inline;">${eAuctionWaiverOption} </label>
+                </td>
+                <td class="label"data-dojo-attach-point="eAuctionWaiverUserDefinedOptionLabel">
+                    <label style="display: inline;">${nls.userSpecified} :</label>
+                </td>
+                <td data-dojo-attach-point="eAuctionWaiverUserDefinedOptionDescription">
+                    <label style="display: inline;">${eAuctionWaiverUserDefinedOption} </label>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <br/>
+    <fieldset>
+        <legend>${nls.labourRates}</legend>
+        <table class="table-form">
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.normalWorkingHours} :</label>
+                </td>
+                <td>
+                    <label style="display:inline;">${normal_working_hours}</label>
+                </td>
+            </tr>
+        </table>
+        <table class="buildspace-table" style="width:50%;">
+            <thead>
+                <tr class="gridHeader">
+                    <th class="gridCell" style="text-align:center;">&nbsp;</th>
+                    <th class="gridCell" style="text-align:center;">${nls.normalRates}</th>
+                    <th class="gridCell" style="text-align:center;">${nls.otRates}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="label gridCell" style="width:auto;text-align:center;padding:5px;">
+                        ${nls.skilled}
+                    </td>
+                    <td class="gridCell" style="width:120px;text-align:center;padding:5px;">
+                        ${skilled_normal_rates}
+                    </td>
+                    <td class="gridCell" style="width:120px;text-align:center;padding:5px;">
+                        ${skilled_ot_rates}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label gridCell" style="width:auto;text-align:center;padding:5px;">
+                        ${nls.semiSkilled}
+                    </td>
+                    <td class="gridCell" style="width:120px;text-align:center;padding:5px;">
+                        ${semi_skilled_normal_rates}
+                    </td>
+                    <td class="gridCell" style="text-align:center;padding:5px;">
+                        ${semi_skilled_ot_rates}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label gridCell" style="width:auto;text-align:center;padding:5px;">
+                        ${nls.labour}
+                    </td>
+                    <td class="gridCell" style="width:120px;text-align:center;padding:5px;">
+                        ${labour_normal_rates}
+                    </td>
+                    <td class="gridCell" style="width:120px;text-align:center;padding:5px;">
+                        ${labour_ot_rates}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</div>

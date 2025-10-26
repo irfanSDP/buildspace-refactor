@@ -1,0 +1,1 @@
+{{ trans('architectInstructions.unreadSystemMessage', array('senderName' => '%s')) }}

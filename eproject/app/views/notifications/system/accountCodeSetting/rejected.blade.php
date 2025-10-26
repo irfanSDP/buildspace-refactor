@@ -1,0 +1,1 @@
+"%s" has rejected Account Code Setting.

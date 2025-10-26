@@ -1,0 +1,40 @@
+<div class="${baseClass} forms-inputs">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="myForm-${projectId}">
+        <fieldset>
+            <legend>Font &amp; Number Setting</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;width:100px;" for="fontTypeName-${projectId}">Type :</label></td>
+                    <td>
+                        <select data-dojo-type="dijit/form/Select" id="fontTypeName-${projectId}" name="fontTypeName" style="padding:2px!important;width: 180px;">
+                            <option value="Arial" selected="selected">Arial</option>
+                            <option value="Century Gothic" disabled="disabled">Century Gothic</option>
+                            <option value="Courier">Courier</option>
+                            <option value="Times New Roman" disabled="disabled">Times New Roman</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;width:100px;" for="fontSize-${projectId}">Size :</label></td>
+                    <td>
+                        <select data-dojo-type="dijit/form/Select" id="fontSize-${projectId}" name="fontSize" style="padding:2px!important;width: 180px;">
+                            <option value="10" selected>10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:180px;"><label style="display: inline;width:180px;">Exclude commas in number :</label></td>
+                    <td>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="commaOpt1-${projectId}" name="rateCommaRemove"><label for="commaOpt1-${projectId}" class="removeBlock addMarginRight">Rate</label>&nbsp;
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="commaOpt2-${projectId}" name="qtyCommaRemove"><label for="commaOpt2-${projectId}" class="removeBlock">Qty</label>&nbsp;
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="commaOpt3-${projectId}" name="amtCommaRemove"><label for="commaOpt3-${projectId}" class="removeBlock addMarginRight">Amount</label>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>

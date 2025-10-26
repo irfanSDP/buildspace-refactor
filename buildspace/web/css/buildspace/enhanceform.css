@@ -1,0 +1,50 @@
+.forms-inputs {
+	padding: 0 15px;
+	margin: 10px 0 15px 0;
+}
+
+.forms-inputs .pageTitle {
+	margin: 0 0 10px 0;
+}
+
+.forms-inputs fieldset {
+	margin-bottom: 16px;
+}
+
+.forms-inputs .required {
+	color: red;
+}
+
+.forms-inputs .optional {
+	color: green;
+}
+
+.forms-inputs fieldset .form-wrapper {
+	overflow: hidden;
+}
+
+.forms-inputs .left-content, .forms-inputs .right-content {
+	float: left;
+	width: 50%;
+}
+
+.forms-inputs label {
+	font-weight: bold;
+	width: 148px;
+	float: left;
+}
+
+.forms-inputs .removeBlock {
+	display: inline;
+	font-weight: normal;
+	float: none;
+}
+
+.forms-inputs .removeFloat {
+	float: none;
+	display: block;
+}
+
+.forms-inputs .addMarginRight {
+	margin-right: 6px;
+}

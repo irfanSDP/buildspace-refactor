@@ -1,0 +1,19 @@
+define({
+    root: {
+        close: 'Close',
+        description: 'Description',
+        number: 'No.',
+        pleaseWait: 'Please wait',
+        savingData: 'Saving data',
+        error: 'Error',
+        importBackup: 'Import Backup',
+        billInformation: 'Bill Information',
+        uploadingData: 'Uploading Data',
+        selectZipFile: 'Select Zip File',
+        selectBackupFile: 'Select Backup File',
+        title: 'Title',
+        files: 'Files',
+        import: 'Import',
+        delete: 'Delete'
+    }
+});

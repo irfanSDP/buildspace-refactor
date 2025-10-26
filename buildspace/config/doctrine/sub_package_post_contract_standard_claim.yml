@@ -1,0 +1,47 @@
+SubPackagePostContractStandardClaim:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sp_post_contract_standard_claim
+  indexes:
+    sp_post_contract_standard_claim_id_idx:
+      fields: [id]
+    sp_post_contract_standard_claim_fk_idx:
+      fields: [claim_type_ref_id, bill_item_id, revision_id]
+    sp_post_contract_standard_claim_unique_idx:
+      fields: [claim_type_ref_id, bill_item_id, revision_id]
+      type: unique
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    revision_id:             { type: integer, notnull: true }
+    claim_type_ref_id:       { type: integer, notnull: true }
+    bill_item_id:            { type: integer, notnull: true }
+    current_percentage:      { type: decimal, scale: 5, default: 0 }
+    current_amount:          { type: decimal, scale: 5, default: 0 }
+    up_to_date_percentage:   { type: decimal, scale: 5, default: 0 }
+    up_to_date_amount:       { type: decimal, scale: 5, default: 0 }
+    up_to_date_qty:          { type: decimal, scale: 5, default: 0 }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackagePostContractStandardClaims
+      foreignType: many
+    SubPackagePostContractClaimRevision:
+      local: revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackagePostContractStandardClaims
+      foreignType: many
+    PostContractStandardClaimTypeReference:
+      local: claim_type_ref_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackagePostContractStandardClaims
+      foreignType: many

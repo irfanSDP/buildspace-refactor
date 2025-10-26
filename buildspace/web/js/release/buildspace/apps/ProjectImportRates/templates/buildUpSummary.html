@@ -1,0 +1,45 @@
+<div class="${baseClass}" data-dojo-attach-point="focusNode" role="menuitem" tabIndex="-1">
+    <table class="buildspace-table">
+        <thead>
+        <tr class="gridHeader">
+            <th class="gridCell" style="text-align:right;" colspan="2">
+                <a href="#" data-dojo-attach-point="toggleSummaryNode" style="font-weight:normal;">${nls.show}</a>&nbsp;&nbsp;${nls.buildUpSummary}
+            </th>
+        </tr>
+        </thead>
+        <tbody data-dojo-attach-point="tbodyNode" style="display:none;">
+        <tr>
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.totalCost}</td>
+            <td class="gridCell" style="width:200px;text-align:right;padding-right:5px;" data-dojo-attach-point="totalCostNode"></td>
+        </tr>
+        <tr class="${itemId}-conversion_factor-row">
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.conversionFactor}</td>
+            <td class="gridCell" style="width:200px;">
+                <table style="border:0;width:100%;padding:0;margin:0;">
+                    <tr>
+                        <td style="width:50px;" data-dojo-attach-point="conversionFactorOperatorNode"></td>
+                        <td style="text-align:right;padding-right:5px;" data-dojo-attach-point="conversionFactorAmountNode"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="${itemId}-conversion_factor-row">
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.conversionFactorUOM}</td>
+            <td class="gridCell" style="width:200px;text-align:right;padding-right:5px;" data-dojo-attach-point="conversionFactorUOMNode"></td>
+        </tr>
+        <tr class="${itemId}-conversion_factor-row">
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.totalAfterConversion}</td>
+            <td class="gridCell" style="width:200px;text-align:right;padding-right:5px;" data-dojo-attach-point="totalCostAfterConversionNode"></td>
+        </tr>
+        <tr>
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.markup} (%)</td>
+            <td class="gridCell" style="width:200px;text-align:right;padding-right:5px;" data-dojo-attach-point="markupNode"></td>
+        </tr>
+        <tr>
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.finalCost}</td>
+            <td class="gridCell" style="width:200px;text-align:right;padding-right:5px;" data-dojo-attach-point="finalCostNode"></td>
+        </tr>
+        </tbody>
+    </table>
+    <span data-dojo-attach-point="containerNode"></span>
+</div>

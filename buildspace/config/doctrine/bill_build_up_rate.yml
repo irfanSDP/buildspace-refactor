@@ -1,0 +1,248 @@
+BillBuildUpRateResource:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_build_up_rate_resources
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bbr_resource_id_idx:
+      fields: [id]
+    bbr_resource_unique_idx:
+      fields: [bill_item_id, resource_library_id, deleted_at]
+      type: unique
+  columns:
+    id:                  { type: integer, primary: true, notnull: true, autoincrement: true }
+    name:                { type: string(200), notnull: true }
+    bill_item_id:        { type: integer, notnull: true }
+    resource_library_id: { type: integer, notnull: false }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpRateResources
+      foreignType: many
+    ResourceLibrary:
+      class: Resource
+      local: resource_library_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillBuildUpRateResources
+      foreignType: many
+
+BillBuildUpRateResourceTrade:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_build_up_rate_resource_trades
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bbr_resource_trade_id_idx:
+      fields: [id, build_up_rate_resource_id]
+    bbr_resource_trd_prio_unique_idx:
+      fields: [priority, bill_item_id, build_up_rate_resource_id, resource_trade_library_id, deleted_at]
+      type: unique
+  columns:
+    id:                        { type: integer, primary: true, notnull: true, autoincrement: true }
+    description:               { type: string, notnull: false }
+    bill_item_id:              { type: integer, notnull: true }
+    build_up_rate_resource_id: { type: integer, notnull: true }
+    resource_trade_library_id: { type: integer, notnull: false }
+    priority:                  { type: integer, notnull: true, default: 0 }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpRateResourceTrades
+      foreignType: many
+    Resource:
+      class: BillBuildUpRateResource
+      local: build_up_rate_resource_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Trades
+      foreignType: many
+    ResourceTradeLibrary:
+      class: ResourceTrade
+      local: resource_trade_library_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillBuildUpRateResourceTrades
+      foreignType: many
+
+BillBuildUpRateItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_build_up_rate_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bill_br_item_id_idx:
+      fields: [id, bill_item_id, build_up_rate_resource_id, priority]
+    bill_br_item_fk_idx:
+      fields: [bill_item_id, build_up_rate_resource_id, build_up_rate_resource_trade_id, resource_item_library_id, uom_id]
+  columns:
+    id:                              { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_id:                    { type: integer, notnull: true }
+    build_up_rate_resource_id:       { type: integer, notnull: true }
+    build_up_rate_resource_trade_id: { type: integer, notnull: false }
+    resource_item_library_id:        { type: integer, notnull: false }
+    description:                     { type: string, notnull: false }
+    total:                           { type: decimal, scale: 5, default: 0 }
+    line_total:                      { type: decimal, scale: 5, default: 0 }
+    uom_id:                          { type: integer, notnull: false }
+    priority:                        { type: integer, notnull: true, default: 0 }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpRateItems
+      foreignType: many
+    Resource:
+      class: BillBuildUpRateResource
+      local: build_up_rate_resource_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    Trade:
+      class: BillBuildUpRateResourceTrade
+      local: build_up_rate_resource_trade_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    ResourceItemLibrary:
+      class: ResourceItem
+      local: resource_item_library_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillBuildUpRateItems
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillBuilUpRateItems
+      foreignType: many
+
+BillBuildUpRateFormulatedColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_build_up_rate_formulated_columns
+  actAs: [FormulatedColumn, Timestampable, Signable, SoftDelete]
+  indexes:
+    bill_burfc_id_idx:
+      fields: [id, relation_id, value, final_value, column_name, deleted_at]
+    bill_burfc_rel_idx:
+      fields: [relation_id]
+  columns:
+    id:     { type: integer, primary: true, notnull: true, autoincrement: true }
+    linked: { type: boolean, default: false}
+  relations:
+    BuildUpRateItem:
+      class: BillBuildUpRateItem
+      local: relation_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: FormulatedColumns
+      foreignType: many
+
+BillBuildUpRateEdge:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_build_up_rate_edges
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bill_bure_id_idx:
+      fields: [id, node_from, node_to, column_name, deleted_at]
+    bill_bure_fk_idx:
+      fields: [node_from, node_to]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    node_from:   { type: integer, notnull: true }
+    node_to:     { type: integer, notnull: true }
+    column_name: { type: string(50), notnull: true }
+  relations:
+    NodeFrom:
+      class: BillBuildUpRateFormulatedColumn
+      local: node_from
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeFromEdges
+      foreignType: many
+    NodeTo:
+      class: BillBuildUpRateFormulatedColumn
+      local: node_to
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeToEdges
+      foreignType: many
+
+BillBuildUpRateSummary:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_build_up_rate_summaries
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bill_burs_id_idx:
+      fields: [id, bill_item_id, total_cost, final_cost, deleted_at]
+    bill_burs_unique_idx:
+      fields: [bill_item_id, deleted_at]
+      type: unique
+  columns:
+    id:                         { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_id:               { type: integer, notnull: true }
+    total_cost:                 { type: decimal, scale: 5, default: 0 }
+    markup:                     { type: decimal, default: 0 }
+    final_cost:                 { type: decimal, scale: 5, default: 0 }
+    apply_conversion_factor:    { type: boolean, default: false}
+    conversion_factor_amount:   { type: decimal, scale: 5, default: 0 }
+    conversion_factor_uom_id:   { type: integer, notnull: false }
+    conversion_factor_operator: { type: varchar(1), notnull: true }
+    rounding_type:              { type: integer(4), notnull: true }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpRateSummary
+      foreignType: one
+    UnitOfMeasurement:
+      local: conversion_factor_uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillBuilUpRateSummaries
+      foreignType: many

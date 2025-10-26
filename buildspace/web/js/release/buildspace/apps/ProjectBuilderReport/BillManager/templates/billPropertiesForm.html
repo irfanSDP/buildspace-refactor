@@ -1,0 +1,65 @@
+<form data-dojo-attach-point="containerNode" style="margin: 10px 0 0;">
+    <fieldset>
+        <legend>${nls.billInformation}</legend>
+        <table class="table-form">
+            <tr>
+                <td class="label" style="width:20%;">
+                    <label style="display: inline;"><span class="required">*</span>${nls.title} :</label>
+                </td>
+                <td style="width:30%;">
+                    <input type="text" name="bill_setting[title]" style="width:100%;height:18px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:true" data-dojo-attach-point="titleNode" readOnly="readOnly">
+                    <p class="alert-text-error" id="error-bill_setting_title"></p>
+                </td>
+                <td class="label" style="width:20%;">
+                    <label style="display: inline;">${nls.description} :</label>
+                </td>
+                <td colspan="3" style="width:30%;">
+                    <textarea name="bill_setting[description]" style="width:100%;height:18px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true" data-dojo-attach-point="descriptionNode" readOnly="readOnly"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:20%;">
+                    <label style="display: inline;"><span class="required">*</span>${nls.rate} ${nls.roundingOptions} :</label>
+                </td>
+                <td style="width:30%;">
+                    <select name="bill_setting[build_up_rate_rounding_type]" style="height:18px;width:100%;" data-dojo-type="dijit/form/Select" data-dojo-attach-point="buildUpRateRoundingTypeNode" readOnly="readOnly">
+                        <option value="${ROUNDING_TYPE_UPWARD}">${ROUNDING_TYPE_UPWARD_TEXT}</option>
+                        <option value="${ROUNDING_TYPE_DOWNWARD}">${ROUNDING_TYPE_DOWNWARD_TEXT}</option>
+                        <option value="${ROUNDING_TYPE_NEAREST_WHOLE_NUMBER}">${ROUNDING_TYPE_NEAREST_WHOLE_NUMBER_TEXT}</option>
+                        <option value="${ROUNDING_TYPE_NEAREST_TENTH}">${ROUNDING_TYPE_NEAREST_TENTH_TEXT}</option>
+                        <option value="${ROUNDING_TYPE_DISABLED}">${ROUNDING_TYPE_DISABLED_TEXT}</option>
+                    </select>
+                </td>
+                <td class="label" style="width:20%;">
+                    <label style="display: inline;"><span class="required">*</span>${nls.qty} ${nls.roundingOptions} :</label>
+                </td>
+                <td style="width:30%;">
+                    <select name="bill_setting[build_up_quantity_rounding_type]" style="height:18px;width:100%;" data-dojo-type="dijit/form/Select" style="width:300px;" data-dojo-attach-point="buildUpQuantityRoundingTypeNode" readOnly="readOnly">
+                        <option value="${ROUNDING_TYPE_UPWARD}">${ROUNDING_TYPE_UPWARD_TEXT}</option>
+                        <option value="${ROUNDING_TYPE_DOWNWARD}">${ROUNDING_TYPE_DOWNWARD_TEXT}</option>
+                        <option value="${ROUNDING_TYPE_NEAREST_WHOLE_NUMBER}">${ROUNDING_TYPE_NEAREST_WHOLE_NUMBER_TEXT}</option>
+                        <option value="${ROUNDING_TYPE_NEAREST_TENTH}">${ROUNDING_TYPE_NEAREST_TENTH_TEXT}</option>
+                        <option value="${ROUNDING_TYPE_DISABLED}">${ROUNDING_TYPE_DISABLED_TEXT}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:10%;">
+                    <label style="display: inline;">${nls.unitType} :</label>
+                </td>
+                <td style="width:15%;">
+                    <div data-dojo-attach-point="unitTypeTextNode"></div>
+                </td>
+                <td class="label" style="width:10%;">
+                    <label style="display: inline;">${nls.billType} :</label>
+                </td>
+                <td style="width:15%;">
+                    <div data-dojo-attach-point="billTypeTextNode"></div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <input type="hidden" name="bill_setting[_csrf_token]" value="">
+    <input type="hidden" name="bill_setting[unit_type]" value="">
+    <input type="hidden" name="id" value="${billId}">
+</form>

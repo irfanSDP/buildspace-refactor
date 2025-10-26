@@ -1,0 +1,112 @@
+ScheduleOfRate:
+  Building_works:
+    name: 'Building Works'
+  Civil_works:
+    name: 'Civil Works'
+  Electrical:
+    name: 'Electrical'
+  Water_main_works:
+    name: 'Water Main Works'
+
+ScheduleOfRateTrade:
+  Piling_trade:
+    description: Piling
+    ScheduleOfRate: Building_works
+    priority: 1
+  Excavator_trade:
+    description: Excavator
+    ScheduleOfRate: Building_works
+    priority: 2
+  Concretor_trade:
+    description: Concretor
+    ScheduleOfRate: Building_works
+    priority: 3
+  Bricklayer_trade:
+    description: Bricklayer
+    ScheduleOfRate: Building_works
+    priority: 4
+  Drainlayer_trade:
+    description: Drainlayer
+    ScheduleOfRate: Building_works
+    priority: 5
+  Roofer_trade:
+    description: Roofer
+    ScheduleOfRate: Building_works
+    priority: 6
+  Carpenter_and_joiner_trade:
+    description: Carpenter and Joiner
+    ScheduleOfRate: Building_works
+    priority: 7
+  Ironmongery_trade:
+    description: Ironmongery
+    ScheduleOfRate: Building_works
+    priority: 8
+  Steel_and_ironworker:
+    description: Steel and Ironworker
+    ScheduleOfRate: Building_works
+    priority: 9
+  Pavior_plasterer_and_tile_fixer:
+    description: 'Pavior, plasterer and tile fixer'
+    ScheduleOfRate: Building_works
+    priority: 10
+  Earthworks_trade:
+    description: Earthworks
+    ScheduleOfRate: Civil_works
+    priority: 1
+  Drainage_trade:
+    description: Drainage
+    ScheduleOfRate: Civil_works
+    priority: 2
+  Pavement_trade:
+    description: Pavement
+    ScheduleOfRate: Civil_works
+    priority: 3
+  Bridge_trade:
+    description: Bridge
+    ScheduleOfRate: Civil_works
+    priority: 4
+  General_wiring:
+    description: General Wiring
+    ScheduleOfRate: Electrical
+    priority: 1
+  Lighting_accessories:
+    description: Lighting Accessories
+    ScheduleOfRate: Electrical
+    priority: 2
+  Distribution_board:
+    description: Distribution Board
+    ScheduleOfRate: Electrical
+    priority: 3
+  Piling_wmw_trade:
+    description: Piling
+    ScheduleOfRate: Water_main_works
+    priority: 1
+  Ductile_iron_pipe:
+    description: Ductile Iron Pipe
+    ScheduleOfRate: Water_main_works
+    priority: 2
+  Steel_pipe_trade:
+    description: Steel Pipe
+    ScheduleOfRate: Water_main_works
+    priority: 3
+  HDPE_Pipe_trade:
+    description: HDPE Pipe
+    ScheduleOfRate: Water_main_works
+    priority: 4
+  Pipe_laying_trade:
+    description: Pipe Laying
+    ScheduleOfRate: Water_main_works
+    priority: 5
+  Pipe_testing_trade:
+    description: Pipe Testing
+    ScheduleOfRate: Water_main_works
+    priority: 6
+  Trench_excavation_trade:
+    description: Trench Excavation
+    ScheduleOfRate: Water_main_works
+    priority: 7
+  Miscellaneous_trade:
+    description: Miscellaneous
+    ScheduleOfRate: Water_main_works
+    priority: 8
+

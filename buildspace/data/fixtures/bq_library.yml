@@ -1,0 +1,209 @@
+BQLibrary:
+  element_list_library:
+    name: Element List
+  CESMM_library:
+    name: CESMM
+  SMM2_library:
+    name: SMM2
+
+BQElement:
+  PRELIMINARIES_elem_list:
+    description: 'PRELIMINARIES'
+    priority: 0
+    Library: element_list_library
+  PILING_ALL_PROVISIONAL_elem_list:
+    description: 'PILING (ALL PROVISIONAL)'
+    priority: 1
+    Library: element_list_library
+  WORK_BELOW_LOWEST_FLOOR_FINISH_elem_list:
+    description: WORK BELOW LOWEST FLOOR FINISH
+    priority: 2
+    Library: element_list_library
+  FRAME_elem_list:
+    description: FRAME
+    priority: 3
+    Library: element_list_library
+  UPPER_FLOOR_elem_list:
+    description: UPPER FLOOR
+    priority: 4
+    Library: element_list_library
+  ROOF_elem_list:
+    description: ROOF
+    priority: 5
+    Library: element_list_library
+  STAIRS_RAMPS_AND_STAIRCASE_FINISHES_elem_list:
+    description: 'STAIRS, RAMPS AND STAIRCASE FINISHES'
+    priority: 6
+    Library: element_list_library
+  EXTERNAL_WALLS_elem_list:
+    description: EXTERNAL WALLS
+    priority: 7
+    Library: element_list_library
+  INTERNAL_WALLS_AND_PARTITIONS_elem_list:
+    description: INTERNAL WALLS AND PARTITIONS
+    priority: 8
+    Library: element_list_library
+  WINDOWS_elem_list:
+    description: WINDOWS
+    priority: 9
+    Library: element_list_library
+  DOORS_elem_list:
+    description: DOORS
+    priority: 10
+    Library: element_list_library
+  INTERNAL_WALL_FINISHES_elem_list:
+    description: INTERNAL WALL FINISHES
+    priority: 11
+    Library: element_list_library
+  INTERNAL_FLOOR_FINISHES_elem_list:
+    description: INTERNAL FLOOR FINISHES
+    priority: 12
+    Library: element_list_library
+  INTERNAL_CEILING_FINISHES_elem_list:
+    description: INTERNAL CEILING FINISHES
+    priority: 13
+    Library: element_list_library
+  EXTERNAL_FINISHES_elem_list:
+    description: EXTERNAL FINISHES
+    priority: 14
+    Library: element_list_library
+  CLASS_A_GENERAL_ITEMS_cesmm_list:
+    description: 'CLASS A - GENERAL ITEMS'
+    priority: 0
+    Library: CESMM_library
+  CLASS_B_ENVIRONMENTAL_PROTECTION_AND_ENHANCEMENT_cesmm_list:
+    description: 'CLASS B: ENVIRONMENTAL PROTECTION AND ENHANCEMENT'
+    priority: 1
+    Library: CESMM_library
+  CLASS_C_TRAFFIC_MANAGEMENT_AND_CONTROL_cesmm_list:
+    description: 'CLASS C: TRAFFIC MANAGEMENT AND CONTROL'
+    priority: 2
+    Library: CESMM_library
+  CLASS_D_SITE_INVESTIGATION_WORK_cesmm_list:
+    description: 'CLASS D: SITE INVESTIGATION WORK'
+    priority: 3
+    Library: CESMM_library
+  CLASS_E_DEMOLITION_AND_SITE_CLEARANCE_cesmm_list:
+    description: 'CLASS E: DEMOLITION AND SITE CLEARANCE'
+    priority: 4
+    Library: CESMM_library
+  CLASS_F_EARTHWORKS_cesmm_list:
+    description: 'CLASS F: EARTHWORKS'
+    priority: 5
+    Library: CESMM_library
+  CLASS_G_GEOTECHNICAL_WORK_cesmm_list:
+    description: 'CLASS G: GEOTECHNICAL WORK'
+    priority: 6
+    Library: CESMM_library
+  CLASS_H_PILING_WORK_cesmm_list:
+    description: 'CLASS H: PILING WORK'
+    priority: 7
+    Library: CESMM_library
+  CLASS_I_CONCRETE_WORK_cesmm_list:
+    description: 'CLASS I: CONCRETE WORK'
+    priority: 8
+    Library: CESMM_library
+  CLASS_J_BRICKWORK_BLOCKWORK_AND_MASONRY_cesmm_list:
+    description: 'CLASS J: BRICKWORK, BLOCKWORK, AND MASONRY'
+    priority: 9
+    Library: CESMM_library
+  CLASS_K_TIMBER_WORK_cesmm_list:
+    description: 'CLASS K: TIMBER WORK'
+    priority: 10
+    Library: CESMM_library
+  CLASS_L_METALWORK_cesmm_list:
+    description: 'CLASS L: METALWORK'
+    priority: 11
+    Library: CESMM_library
+  CLASS_M_BUILDING_WORK_cesmm_list:
+    description: 'CLASS M: BUILDING WORK'
+    priority: 12
+    Library: CESMM_library
+  CLASS_N_PAINTING_WORK_cesmm_list:
+    description: 'CLASS N: PAINTING WORK'
+    priority: 13
+    Library: CESMM_library
+  CLASS_O_PIPEWORK_cesmm_list:
+    description: 'CLASS O: PIPEWORK'
+    priority: 14
+    Library: CESMM_library
+  CLASS_P_DRAINAGE_WORK_cesmm_list:
+    description: 'CLASS P: DRAINAGE WORK'
+    priority: 15
+    Library: CESMM_library
+  CLASS_Q_ROADS_AND_PAVINGS_cesmm_list:
+    description: 'CLASS Q: ROADS AND PAVINGS'
+    priority: 16
+    Library: CESMM_library
+  CLASS_R_TUNNEL_WORK_cesmm_list:
+    description: 'CLASS R: TUNNEL WORK'
+    priority: 17
+    Library: CESMM_library
+  CLASS_S_RAIL_TRACKS_cesmm_list:
+    description: 'CLASS S: RAIL TRACKS'
+    priority: 18
+    Library: CESMM_library
+  CLASS_T_MISCELLANEOUS_WORK_cesmm_list:
+    description: 'CLASS T: MISCELLANEOUS WORK'
+    priority: 19
+    Library: CESMM_library
+  PRELIMINARIES_smm2_list:
+    description: 'PRELIMINARIES'
+    priority: 0
+    Library: SMM2_library
+  DEMOLITION_smm2_list:
+    description: 'DEMOLITION'
+    priority: 1
+    Library: SMM2_library
+  EXCAVATION_AND_EARTHWORK_smm2_list:
+    description: EXCAVATION AND EARTHWORK
+    priority: 2
+    Library: SMM2_library
+  PILING_AND_DIAPHRAGM_WALLING_smm2_list:
+    description: PILING AND DIAPHRAGM WALLING
+    priority: 3
+    Library: SMM2_library
+  CONCRETE_WORK_smm2_list:
+    description: CONCRETE WORK
+    priority: 4
+    Library: SMM2_library
+  BRICKWORK_AND_BLOCKWORK_smm2_list:
+    description: BRICKWORK AND BLOCKWORK
+    priority: 5
+    Library: SMM2_library
+  UNDERPINNING_smm2_list:
+    description: UNDERPINNING
+    priority: 6
+    Library: SMM2_library
+  MASONRY_smm2_list:
+    description: MASONRY
+    priority: 7
+    Library: SMM2_library
+  WATERPROOFING_AND_ASPHALT_WORK_smm2_list:
+    description: WATERPROOFING AND ASPHALT WORK
+    priority: 8
+    Library: SMM2_library
+  ROOFING_smm2_list:
+    description: ROOFING
+    priority: 9
+    Library: SMM2_library
+  WOODWORK_smm2_list:
+    description: WOODWORK
+    priority: 10
+    Library: SMM2_library
+  STRUCTURAL STEELWORK_smm2_list:
+    description: STRUCTURAL STEELWORK
+    priority: 11
+    Library: SMM2_library
+  METALWORK_smm2_list:
+    description: METALWORK
+    priority: 12
+    Library: SMM2_library
+  PLUMBING_AND_MECHANICAL_ENGINEERING_INSTALLATIONS_smm2_list:
+    description: PLUMBING AND MECHANICAL ENGINEERING INSTALLATIONS
+    priority: 13
+    Library: SMM2_library
+  FLOOR_WALL_AND_CEILING_FINISHINGS_smm2_list:
+    description: 'FLOOR, WALL AND CEILING FINISHINGS'
+    priority: 14
+    Library: SMM2_library

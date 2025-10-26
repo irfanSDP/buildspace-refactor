@@ -1,0 +1,40 @@
+myCompanyProfile:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  actAs: [Timestampable, Signable]
+  indexes:
+    my_com_prof_id_idx:
+      fields: [id]
+    my_com_prof_fk_idx:
+       fields: [region_id, subregion_id]
+  tableName: my_company_profile
+  columns:
+    name:         { type: string(255), default: null }
+    address:      { type: text, default: null }
+    city:         { type: string(255), default: null }
+    region_id:    { type: integer }
+    subregion_id: { type: integer }
+    zipcode:      { type: string(50), default: null }
+    timezone:     { type: string(50), default: null }
+    email:        { type: string(255), default: null }
+    phone_number: { type: string(50), default: null }
+    fax_number:   { type: string(50) }
+    website:      { type: string(255) }
+    company_logo: { type: string, default: null }
+  relations:
+    Regions:
+      local: region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: myCompanyProfile
+      foreignType: many
+    Subregions:
+      local: subregion_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: myCompanyProfile
+      foreignType: many

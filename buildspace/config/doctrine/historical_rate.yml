@@ -1,0 +1,26 @@
+HistoricalRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: historical_rates
+  actAs: [Timestampable, Signable]
+  indexes:
+    historical_rates_id_idx:
+      fields: [id, bill_item_id]
+    historical_rates_unique_idx:
+      fields: [bill_item_id]
+      type: unique
+  columns:
+    id:           { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_id: { type: integer, notnull: true }
+    rate:         { type: decimal, scale: 5, default: 0 }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: HistoricalRate
+      foreignType: one

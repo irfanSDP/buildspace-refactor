@@ -1,0 +1,11 @@
+<?php
+
+class ProjectGroupsAssignmentForm extends BaseProjectStructureForm
+{
+
+    public function configure()
+    {
+        unset($this['title'], $this['type'], $this['priority'], $this['bill_refreshed'], $this['root_id'], $this['lft'], $this['rgt'], $this['level'], $this['tendering_groups_list'], $this['project_management_groups_list'], $this['created_at'], $this['updated_at'], $this['created_by'], $this['updated_by']);
+    }
+
+}

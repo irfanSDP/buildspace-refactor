@@ -1,0 +1,74 @@
+.nihilo .dojoxGridSortBtn {
+    padding-top: 3px;
+}
+.nihilo .dojoxGridSortBtnNested {
+    right: 11px;
+}
+.nihilo .dojoxGridCellOver  .dojoxGridSortBtn,
+.nihilo .dojoxGridCellSortFocus  .dojoxGridSortBtn {
+    background-color: #ccc;
+}
+.nihilo .dojoxGridCellOver .dojoxGridSortNode,
+.nihilo .dojoxGridCellSortFocus .dojoxGridSortNode,
+.nihilo .dojoxGridSingleSorted .dojoxGridHeader .dojoxGridCellOver .dojoxGridSortNodeMain,
+.nihilo .dojoxGridSingleSorted .dojoxGridHeader .dojoxGridCellSortFocus .dojoxGridSortNodeMain {
+    margin-right: 12px;
+}
+.nihilo .dojoxGridSorted .dojoxGridCellOver .dojoxGridSortNode,
+.nihilo .dojoxGridSorted .dojoxGridCellSortFocus .dojoxGridSortNode {
+    margin-right: 31px;
+}
+.nihilo .dojoxGridCellOver .dojoxGridSortNode .dojoxGridSortBtnSingle,
+.nihilo .dojoxGridCellSortFocus .dojoxGridSortNode .dojoxGridSortBtnSingle,
+.nihilo .dojoxGridSorted .dojoxGridCellOver .dojoxGridSortNodeMain .dojoxGridSortBtnSingle,
+.nihilo .dojoxGridSorted .dojoxGridCellSortFocus .dojoxGridSortNodeMain .dojoxGridSortBtnSingle  {
+    right: -12px;
+}
+.nihilo .dojoxGridSorted .dojoxGridCellOver .dojoxGridSortBtnSingle,
+.nihilo .dojoxGridSorted .dojoxGridCellSortFocus .dojoxGridSortBtnSingle,
+.nihilo .dojoxGridNestSorted .dojoxGridCellOver .dojoxGridSortNodeMain .dojoxGridSortBtnSingle,
+.nihilo .dojoxGridNestSorted .dojoxGridCellSortFocus .dojoxGridSortNodeMain .dojoxGridSortBtnSingle {
+    right: -31px;
+}
+.nihilo .dojoxGridSorted .dojoxGridCellOver .dojoxGridSortBtnNested,
+.nihilo .dojoxGridSorted .dojoxGridCellSortFocus .dojoxGridSortBtnNested {
+    right: -20px;
+}
+.nihilo .dojoxGridSortNodeAsc .dojoxGridSortBtnSingle {
+    background-position: -119px 8px;
+}
+.nihilo .dojoxGridSortNodeDesc .dojoxGridSortBtnSingle {
+    background-position: -99px  8px;
+}
+.nihilo .dojoxGridCellOver .dojoxGridSortBtnSingle,
+.nihilo .dojoxGridCellSortFocus .dojoxGridSortBtnSingle {
+    background-position: -159px 8px;
+}
+.nihilo .dojoxGridCellOver .dojoxGridSortNodeAsc .dojoxGridSortBtnSingle,
+.nihilo .dojoxGridCellSortFocus .dojoxGridSortNodeAsc .dojoxGridSortBtnSingle,
+.nihilo .dojoxGrid .dojoxGridCellOver .dojoxGridSortNode .dojoxGridSortBtnAsc,
+.nihilo .dojoxGrid .dojoxGridCellSortFocus .dojoxGridSortNode .dojoxGridSortBtnAsc {
+    background-position: -139px 8px;
+}
+.nihilo .dojoxGridCellOver .dojoxGridSortNodeDesc .dojoxGridSortBtnSingle,
+.nihilo .dojoxGridCellSortFocus .dojoxGridSortNodeDesc .dojoxGridSortBtnSingle,
+.nihilo .dojoxGrid .dojoxGridCellOver .dojoxGridSortNode .dojoxGridSortBtnDesc,
+.nihilo .dojoxGrid .dojoxGridCellSortFocus .dojoxGridSortNode .dojoxGridSortBtnDesc {
+    background-position: -179px 8px;
+}
+.nihilo .dojoxGridCellOver .dojoxGridSortBtnNested,
+.nihilo .dojoxGridCellSortFocus .dojoxGridSortBtnNested {
+    background-position: -150px 8px;
+}
+.nihilo .dojoxGridCellOver .dojoxGridSortNodeAsc .dojoxGridSortBtnNested,
+.nihilo .dojoxGridCellSortFocus .dojoxGridSortNodeAsc .dojoxGridSortBtnNested {
+    background-position: -130px 8px;
+}
+.nihilo .dojoxGridCellOver .dojoxGridSortNodeDesc .dojoxGridSortBtnNested,
+.nihilo .dojoxGridCellSortFocus .dojoxGridSortNodeDesc .dojoxGridSortBtnNested {
+    background-position: -170px 8px;
+}
+.nihilo .dojoxGridNestSorted .dojoxGridCellOver .dojoxGridSortBtnSingle,
+.nihilo .dojoxGridNestSorted .dojoxGridCellSortFocus .dojoxGridSortBtnSingle {
+    background-position: -159px 8px;
+}

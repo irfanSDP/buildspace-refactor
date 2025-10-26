@@ -1,0 +1,1 @@
+"%s" confirmed the {{ trans("tenders.tenderRevision") }}

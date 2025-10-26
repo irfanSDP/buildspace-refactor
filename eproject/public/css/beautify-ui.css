@@ -1,0 +1,41 @@
+.input-group .input-group-addon {
+    font-weight: 500;
+}
+
+select.form-control,
+.form-group .form-control,
+.input input,
+.select select,
+.select2-selection {
+    border-radius: 4px !important;
+}
+
+.select2-container .select2-selection--single,
+.select2-container .select2-selection--multiple {
+    height: 32px;
+    line-height: 32px;
+}
+
+.input-group .form-control:first-child,
+.input-group .input-group-addon:first-child {
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+}
+
+.input-group .form-control:last-child,
+.input-group .input-group-addon:last-child {
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+}
+
+.input-group .form-control.padded-less-left + .input-group-addon {
+    padding: 6px 10px 6px 15px !important;
+}
+.input-group .input-group-addon {
+    padding: 6px 10px;
+}
+
+#login-form input.form-control,
+#login-form .rc-button-submit {
+    border-radius: 4px;
+}

@@ -1,0 +1,19 @@
+<div>
+    <form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="rfqExportForm" style="padding: 0 5px;">
+        <fieldset style="margin-bottom: 10px;">
+            <legend>${nls.exportScheduleOfRateLibraryBuildSpace}</legend>
+
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.fileName}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="fileName" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="height:18px;width:100%;">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-fileName"></span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>

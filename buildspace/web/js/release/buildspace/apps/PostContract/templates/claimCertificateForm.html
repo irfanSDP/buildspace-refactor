@@ -1,0 +1,189 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="claimCertificateForm">
+        <fieldset>
+            <legend>${nls.initialInfo}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;"><span class="required">*</span><span data-dojo-attach-point="contractorSubmittedDateLbl"></span></label>
+                    </td>
+                    <td>
+                        <input type="text" name="claim_certificate[contractor_submitted_date]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="constraints:{ datePattern : 'dd/MM/yyyy' }" value="now" required="true" />
+                        <p class="alert-text-error" id="error-claim_certificate_contractor_submitted_date"></p>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;"><span class="required">*</span><span data-dojo-attach-point="siteVerifiedDateLbl"></span></label>
+                    </td>
+                    <td>
+                        <input type="text" name="claim_certificate[site_verified_date]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="constraints:{ datePattern : 'dd/MM/yyyy' }" value="now" required="true" />
+                        <p class="alert-text-error" id="error-claim_certificate_site_verified_date"></p>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;"><span class="required">*</span><span data-dojo-attach-point="certificateReceivedDateLbl"></span></label>
+                    </td>
+                    <td>
+                        <input type="text" name="claim_certificate[qs_received_date]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="constraints:{ datePattern : 'dd/MM/yyyy' }" value="now" required="true" />
+                        <p class="alert-text-error" id="error-claim_certificate_qs_received_date"></p>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <div style="height:2px;">&nbsp;</div>
+        <fieldset>
+            <legend>${nls.claimCertificateInfo}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.company} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="companyName"></label>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.contractor} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="contractorName"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.letterOfAwardNumber} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="formNumber"></label>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.claimNumber} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="claimNumber"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.works} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="subPackageWork1"></label>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.works} 2 :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="subPackageWork2"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.contractSum} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="contractSum"></label>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.retentionSum} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="retentionSum"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.workDoneAmount} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="workDoneAmount"></label>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.completionPercentage} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="completionPercentage"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.retentionTaxPercentage} :</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="retention_tax_percentage"></div>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.releaseRetentionAmount} :</label>
+                    </td>
+                    <td>
+                        <input type="number" name="claim_certificate[release_retention_amount]" style="padding:2px;width:120px;" data-dojo-attach-point="releaseRetentionAmountInput" data-dojo-type="dijit/form/NumberTextBox" step="any" data-dojo-props="intermediateChanges:true, trim:true"/>
+                        <div data-dojo-attach-point="release_retention_amount_standby" data-dojo-type="dojox.widget.Standby" data-dojo-props="target:'releaseRetentionAmountInput', color: 'lightgrey', image: '/images/loadingimport.gif'"></div>
+                        <p class="alert-text-error" id="error-claim_certificate_release_retention_amount"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.preparedBy} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="claim_certificate[person_in_charge]" style="padding:2px;width:320px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:true" />
+                        <p class="alert-text-error" id="error-claim_certificate_person_in_charge"></p>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.releaseRetention} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="claim_certificate[release_retention_percentage]" style="padding:2px;width:40px;" id="releaseRetentionPercentageInput" data-dojo-attach-point="releaseRetentionPercentageInput" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="intermediateChanges:true, trim:true, constraints:{pattern:'##0.00'}" /> %
+                        <div data-dojo-attach-point="release_retention_percentage_standby" data-dojo-type="dojox.widget.Standby" data-dojo-props="target:'releaseRetentionPercentageInput', color: 'lightgrey', image: '/images/loadingimport.gif'"></div>
+                        <p class="alert-text-error" id="error-claim_certificate_release_retention_percentage"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.dueDate} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="claim_certificate[due_date]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="constraints:{ datePattern : 'dd/MM/yyyy' }" value="now" required="true" />
+                        <p class="alert-text-error" id="error-claim_certificate_due_date"></p>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.budgetDueDate} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="claim_certificate[budget_due_date]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="constraints:{ datePattern : 'dd/MM/yyyy' }" value="now" required="true" />
+                        <p class="alert-text-error" id="error-claim_certificate_budget_due_date"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.budgetAmount} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="claim_certificate[budget_amount]" style="padding:2px;width:120px;" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="trim:true, required:true, constraints:{pattern:'##0.00'}" />
+                        <p class="alert-text-error" id="error-claim_certificate_budget_amount"></p>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.tax} :</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="claim_certificate_tax_percentage"></div>
+                        <p class="alert-text-error" id="error-claim_certificate_tax_percentage"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.accRemarks} :</label>
+                    </td>
+                    <td style="width:36%;">
+                        <textarea name="claim_certificate[acc_remarks]" style="padding:2px;min-height:30px;_height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true"></textarea>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.qsRemarks} :</label>
+                    </td>
+                    <td>
+                        <textarea name="claim_certificate[qs_remarks]" style="padding:2px;min-height:30px;_height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <input type="hidden" name="claim_certificate[retention_limit]" data-dojo-attach-point="retentionLimitValue" value="" data-dojo-type="dijit/form/TextBox">
+        <input type="hidden" name="claim_certificate[_csrf_token]" value="">
+    </form>
+</div>

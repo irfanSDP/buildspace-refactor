@@ -1,0 +1,50 @@
+#!/bin/bash
+# Truncates the bs_projects_structures table and all related tables,
+# then inserts the template data for the tables that require them:
+#   bs_bill_printout_layout_settings and related tables
+#   bs_som_layout_settings and related tables
+
+echo -n "Database > ";
+read db_name;
+
+echo -n "User > ";
+read db_username;
+
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd );
+
+# Checks if database with the given database name exists
+# by parsing the list of databases in postgres and returning the number of databases has a matching name.
+db_exists=`psql -U$db_username -lqt | cut -d \| -f 1 | grep -w $db_name | wc -l`;
+
+if [ $db_exists -ge 1 ]; then
+    # (Database exists)
+
+    echo "Wiping Projects (Buildspace SAML)";
+    echo "Deleting projects...";
+
+    # Creates a back-up in case someone runs this by accident
+    # Creating backup and database folder
+    sudo mkdir -p backup
+    sudo mkdir -p backup/databases
+
+    # Modify user permissions
+    sudo chmod -R 777 $DIR/../backup
+
+    # Creates the dump
+    pg_dump -U$db_username $db_name > $DIR/../backup/databases/$db_name.`date "+%Y_%m_%d-%H_%M_%S"`.sql.backup;
+
+    # Truncate table(s)
+    psql $db_name -U$db_username -f $DIR/sql/sql_buildspace-saml_truncate-projects;
+
+    # Insert template for bill layout settings
+    psql $db_name -U$db_username -f $DIR/sql/sql_buildspace-saml_insert-bill-printout-layout-settings-template;
+
+    # Insert template for supply of materials layout settings
+    psql $db_name -U$db_username -f $DIR/sql/sql_buildspace-saml_insert-supply-of-material-layout-settings-template;
+
+else
+    # (Database does not exist)
+
+    echo "Database $db_name does not exist!";
+
+fi

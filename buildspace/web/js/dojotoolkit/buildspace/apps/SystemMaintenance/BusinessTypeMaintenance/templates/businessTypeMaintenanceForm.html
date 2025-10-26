@@ -1,0 +1,17 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.businessType}</legend>
+        <table class="table-form" style="width: auto;">
+            <tr>
+                <td class="label"><label for="company_business_type_name" style="display: inline;"><span class="required">*</span> ${nls.name} :</label></td>
+                <td>
+                    <input id="company_business_type_name" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:true" name="company_business_type[name]" style="padding:2px;width:240px;">
+                    <span class="alert-text-error" id="company_business_type_error-name"></span>
+                </td>
+            </tr>
+        </table>
+
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="company_business_type[_csrf_token]">
+    </fieldset>
+</form>

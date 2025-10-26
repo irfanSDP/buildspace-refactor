@@ -1,0 +1,36 @@
+<div data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.billInformation}</legend>
+        <div style="height:2px;">&nbsp;</div>
+        <table class="table-form">
+            <tr>
+                <td class="label" style="min-width:10%;">
+                    <label style="display: inline;"><span class="required">*</span>${nls.title} :</label>
+                </td>
+                <td style="min-width:40%;">
+                    <div data-dojo-attach-point="titleNode" style="width:100%;padding:2px;"></div>
+                </td>
+                <td class="label" style="min-width:10%;">
+                    <label style="display: inline;">${nls.description} :</label>
+                </td>
+                <td colspan="3" style="min-width:40%;">
+                    <div data-dojo-attach-point="descriptionNode" style="width:100%;padding:2px;min-height:30px;_height:30px"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="min-width:10%;">
+                    <label style="display: inline;">${nls.unitType} :</label>
+                </td>
+                <td style="min-width:40%;">
+                    <div data-dojo-attach-point="unitTypeTextNode"></div>
+                </td>
+                <td class="label" style="min-width:10%;">
+                    <label style="display: inline;">${nls.billType} :</label>
+                </td>
+                <td style="min-width:40%;">
+                    <div data-dojo-attach-point="billTypeTextNode"></div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</div>

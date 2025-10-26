@@ -1,0 +1,1 @@
+{{ trans('lossAndExpenses.unreadSystemMessage', array('senderName' => '%s')) }}

@@ -1,0 +1,1 @@
+define("buildspace/widget/grid/cells/CheckBox",["dojo/_base/declare","dojo/_base/lang","dojox/grid/cells/dijit","dijit/form/CheckBox"],function(a,b,d,c){return a("buildspace.widget.grid.cells.CheckBox",dojox.grid.cells._Widget,{widgetClass:c,getWidgetProps:function(a){return b.mixin({},this.widgetProps||{},{value:a,style:"padding:5px 0 5px 0;margin:0;color:black;"})}})});

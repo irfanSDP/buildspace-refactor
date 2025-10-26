@@ -1,0 +1,1 @@
+"%s" has declined the approval for an Open Tender form

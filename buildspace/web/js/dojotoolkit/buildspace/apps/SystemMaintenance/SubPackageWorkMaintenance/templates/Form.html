@@ -1,0 +1,16 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.subPackageWork}</legend>
+        <table class="table-form" style="width: auto;">
+            <tr>
+                <td class="label"><label style="display: inline;"><span class="required">*</span> ${nls.name} :</label></td>
+                <td>
+                    <input type="text" name="sub_package_works[name]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:true" style="padding:2px;width:280px;">
+                    <p class="alert-text-error" data-dojo-attach-point="sub_package_works_error-name" id="sub_package_works_error-name"></p>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="sub_package_works[_csrf_token]" value="">
+    </fieldset>
+</form>

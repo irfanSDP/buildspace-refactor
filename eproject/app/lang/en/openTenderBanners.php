@@ -1,0 +1,25 @@
+<?php
+
+return array(
+    'no'                => 'Number',
+    'banners'           => 'Banners',
+    'create_banner'     => 'Create Banner',
+    'add_banner'        => 'Add Banner',
+    'edit_banner'       => 'Edit Banner',
+    'banner_list'       => 'Banner Listing',
+    'banner_detail'     => 'Banner Detail',
+    'status'            => 'Status',
+    'active'            => 'Active',
+    'deactive'          => 'Deactive',
+    'action'            => 'Action',
+    'create'            => 'Create',
+    'edit'              => 'Edit',
+    'image'             => 'Image',
+    'created_at'        => 'Created At',
+    'start_time'        => 'Start Time',
+    'end_time'          => 'End Time',
+    'display_start'     => 'Display Start',
+    'display_end'       => 'Display End',
+    'display_date'      => 'Display Date',
+    'display_order'     => 'Display Order',
+);

@@ -1,0 +1,51 @@
+<div class="${baseClass}" data-dojo-attach-point="containerNode">
+    <link rel="stylesheet" type="text/css" media="screen" href="${relativeUrl}/css/dateField/jquery.dateField.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="${relativeUrl}/css/gantt/gantt.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="${relativeUrl}/css/jquery.svg.css" />
+
+    <div id="${workspaceId}" style="padding:0px; overflow-y:hidden;position:relative;margin:0px;"></div>
+
+    <div id="gantEditorTemplates" style="display:none;">
+        <div class="__template__" type="TASKSEDITHEAD"><!--
+            <table class="gdfTable" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr style="height:40px">
+                        <th class="gdfColHeader" style="width:16px;"></th>
+                        <th class="gdfColHeader gdfResizable" style="width:30px;">Code</th>
+                        <th class="gdfColHeader gdfResizable" style="width:300px;">Name</th>
+                        <th class="gdfColHeader gdfResizable" style="width:80px;">Start</th>
+                        <th class="gdfColHeader gdfResizable" style="width:80px;">End</th>
+                        <th class="gdfColHeader gdfResizable" style="width:45px;">Dur.</th>
+                        <th class="gdfColHeader gdfResizable" style="width:38px;">Dep.</th>
+                    </tr>
+                </thead>
+            </table>
+     --></div>
+        <div class="__template__" type="TASKROW"><!--
+            <tr taskId="(#=obj.id#)" class="taskEditRow (#=obj.isParent()?'isParent':''#)" level="(#=level#)">
+                <th class="gdfCell" align="center"><span class="taskRowIndex">(#=obj.getRow()+1#)</span></th>
+                <td class="gdfCell" align="center">(#=obj.code?obj.code:''#)</td>
+                <td class="gdfCell indentCell" style="padding-left:(#=obj.level*10#)px;">
+                    <div class="(#=obj.isParent()?'exp-controller expcoll exp':'exp-controller'#)" align="center"></div>
+                    (#=obj.name#)
+                </td>
+                <td class="gdfCell" align="center">(#=new Date(obj.start).format()#)</td>
+                <td class="gdfCell" align="center">(#=new Date(obj.end).format()#)</td>
+                <td class="gdfCell" align="center">(#=obj.duration#)</td>
+                <td class="gdfCell" align="center">(#=obj.depends#)</td>
+            </tr>-->
+        </div>
+
+        <div class="__template__" type="TASKEMPTYROW"><!--
+            <tr class="taskEditRow emptyRow" >
+                <th class="gdfCell" align="right"></th>
+                <td class="gdfCell"></td>
+                <td class="gdfCell"></td>
+                <td class="gdfCell"></td>
+                <td class="gdfCell"></td>
+                <td class="gdfCell"></td>
+                <td class="gdfCell"></td>
+            </tr>-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="LocationBillSettingsForm">
+        <fieldset>
+            <legend>${nls.billColumns}</legend>
+            <div style="height:2px;">&nbsp;</div>
+            <table class="buildspace-table">
+                <thead>
+                <tr class="gridHeader" data-dojo-attach-point="LocationBillSettingsTableHeader">
+                    <th class="gridCell" style="text-align:center;" rowspan="2">No.</th>
+                    <th class="gridCell">${nls.name}</th>
+                    <th class="gridCell" style="text-align: center;" rowspan="2">${nls.totalUnit}</th>
+                    <th class="gridCell" style="text-align: center;" rowspan="2">${nls.useQty}</th>
+                </tr>
+                </thead>
+                <tbody data-dojo-attach-point="LocationBillSettingsTableBody"></tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>

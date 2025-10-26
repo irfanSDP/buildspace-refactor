@@ -1,0 +1,16 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.dimensionMaintenance}</legend>
+        <table class="table-form" style="width: auto;">
+            <tr>
+                <td class="label"><label style="display: inline;"><span class="required">*</span>${nls.name} :</label></td>
+                <td>
+                    <input type="text" name="dimension[name]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:true" style="padding:2px;width:280px;">
+                    <p class="alert-text-error" data-dojo-attach-point="dimension_error-name" id="dimension_error-name"></p>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="dimension[_csrf_token]" value="">
+    </fieldset>
+</form>

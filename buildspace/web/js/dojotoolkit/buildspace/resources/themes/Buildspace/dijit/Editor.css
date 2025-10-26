@@ -1,0 +1,19 @@
+.nihilo .dijitToolbar .dijitToolbarSeparator { background: url('../../icons/images/editorIconsEnabled.png'); }
+.nihilo .dijitEditorIcon { background-image: url('../../icons/images/editorIconsEnabled.png'); background-repeat: no-repeat; width: 18px; height: 18px; text-align: center; }
+.nihilo .dijitDisabled .dijitEditorIcon { background-image: url('../../icons/images/editorIconsDisabled.png'); }
+.nihilo .dijitEditorHover .dijitEditorIFrameContainer, .claro .dijitEditorFocused .dijitEditorIFrameContainer {
+    background-image: -moz-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
+    background-image: -webkit-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
+    background-image: -o-linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
+    background-image: linear-gradient(rgba(127, 127, 127, 0.2) 0%, rgba(127, 127, 127, 0) 2px);
+}
+.nihilo .dijitEditorHover .dijitEditorIFrameContainer, .claro .dijitEditorHover .dijitEditorIFrameContainer .dijitEditorIFrame {
+    background-color: #e5f2fe;
+}
+.nihilo .dijitEditor .dijitEditorIFrameContainer {
+    background-color: #ffffff;
+    background-repeat: repeat-x;
+}
+.nihilo .dijitEditorIFrameContainer {
+    padding: 3px 3px 1px 10px;
+}

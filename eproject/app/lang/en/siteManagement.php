@@ -1,0 +1,28 @@
+<?php
+
+return array(
+    'site_management' => 'Site Management',
+    'defect' => 'Defect',
+    'site_diary' => 'Site Diary',
+    'daily_labour_reports' => 'Daily Labour RPT',
+    'update_site_progress' => 'Update Site Progress',
+    'user_management' => 'User Management',
+    'assignUsers' => 'Assign Users',
+    'userManagementHelp' => 'Assign User to Site Management',
+    'viewer' => 'Viewer',
+    'rate_editor' => 'Labour Rate Editor',
+    'editor' => 'Editor',
+    'verifier' => 'Verifier',
+    'submitter' => 'Submitter',
+    'site' => 'Site',
+    'others' => 'QA / QC / Client',
+    'pm' => 'PM',
+    'qs' => 'QS',
+    'filename' => 'File Name',
+    'uploaded' => 'Uploaded',
+    'no_photo_uploaded' => 'No Photo Uploaded',
+    'attachments' => 'Attachment(s)',
+    'backCharge' => 'Backcharge',
+    'instruction_to_contractor' => 'Instruction to Contractor',
+    'no_file_uploaded' => 'No File Uploaded',
+);

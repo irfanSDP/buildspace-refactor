@@ -1,0 +1,72 @@
+CostDataPrimeCostRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: cost_data_prime_cost_rates
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    cost_data_prime_cost_rate_id_idx:
+      fields: [id]
+    cost_data_prime_cost_rate_fk_idx:
+      fields: [cost_data_id, master_cost_data_prime_cost_rate_id]
+  columns:
+    id:                                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    cost_data_id:                         { type: integer, notnull: true }
+    master_cost_data_prime_cost_rate_id:  { type: integer, notnull: true }
+    show:                                 { type: boolean, notnull: true, default: true }
+    units:                                { type: decimal, scale: 5, default: 1 }
+    approved_value:                       { type: decimal, scale: 5, default: 0 }
+    approved_brand:                       { type: string, notnull: false  }
+    awarded_value:                        { type: decimal, scale: 5, default: 0 }
+    awarded_brand:                        { type: string, notnull: false  }
+  relations:
+    CostData:
+      local: cost_data_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataPrimeCostRate
+      foreignType: many
+    MasterCostDataPrimeCostRate:
+      local: master_cost_data_prime_cost_rate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataPrimeCostRate
+      foreignType: many
+
+BillItemCostDataPrimeCostRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_item_cost_data_prime_cost_rate
+  actAs: [Timestampable, Signable]
+  indexes:
+    bill_item_cost_data_prime_cost_rate_id_idx:
+      fields: [id]
+    bill_item_cost_data_prime_cost_rate_unique_idx:
+      fields: [cost_data_prime_cost_rate_id, bill_item_id]
+      type: unique
+  columns:
+    id:                           { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_id:                 { type: integer, notnull: true }
+    cost_data_prime_cost_rate_id: { type: integer, notnull: true }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemCostDataItem
+      foreignType: many
+    CostDataPrimeCostRate:
+      local: cost_data_prime_cost_rate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemCostDataPrimeCostRate
+      foreignType: many

@@ -1,0 +1,1 @@
+define("buildspace/apps/Approval/LetterOfAward/Builder",["../../../../dojo/_base/declare","./ViewArea","buildspace/apps/Approval/BaseBuilder"],function(a,b,c){return a("buildspace.apps.Approval.LetterOfAward.Builder",c,{url:"approval/approveLetterOfAward",initViewArea:function(){return this.viewArea=b({rootProject:this.project})}})});

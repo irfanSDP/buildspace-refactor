@@ -1,0 +1,47 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="fileImportPreviewForm">
+        <fieldset>
+            <legend>${nls.specify} ${nls.import} ${nls.column}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.description} :</label>
+                    </td>
+                    <td colspan="3">
+                        <div data-dojo-attach-point="descriptionFromSelectDivNode"></div>
+                    </td>
+                    <td>
+                        To
+                    </td>
+                    <td colspan="3">
+                        <div data-dojo-attach-point="descriptionToSelectDivNode"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.unit} :</label>
+                    </td>
+                    <td colspan="3">
+                        <div data-dojo-attach-point="unitSelectDivNode"></div>
+                    </td>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.rate} :</label>
+                    </td>
+                    <td colspan="3">
+                        <div data-dojo-attach-point="rateSelectDivNode"></div>
+                    </td>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+            </table>
+            <input type="hidden" name="schedule_of_rate_id" value="${scheduleOfRateId}">
+            <input type="hidden" name="filename" value="${fileName}">
+            <input type="hidden" name="extension" value="${extension}">
+            <input type="hidden" name="colItem" value="">
+            <input type="hidden" name="colAmount" value="">
+            <input type="hidden" name="colQty" value="">
+        </fieldset>
+    </form>
+</div>

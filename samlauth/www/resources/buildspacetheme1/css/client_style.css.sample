@@ -1,0 +1,14 @@
+/*Sample red theme*/
+/*hgroup {
+    background: #e53325;
+}
+.powered{
+    background: #e53325;
+}
+div.background:before {
+    background-color: #de1303;
+    border-bottom: 30px solid hsl(6, 100%, 38%);
+}
+.buttonui {
+    background-color: #f31a02;
+}*/

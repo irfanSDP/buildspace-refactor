@@ -1,0 +1,170 @@
+CostDataPrimeCostSumItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: cost_data_prime_cost_sum_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    cost_data_item_prime_cost_sum_item_id_idx:
+      fields: [id]
+    cost_data_item_prime_cost_sum_item_fk_idx:
+      fields: [cost_data_id, master_cost_data_prime_cost_sum_item_id]
+  columns:
+    id:                                       { type: integer, primary: true, notnull: true, autoincrement: true }
+    cost_data_id:                             { type: integer, notnull: true }
+    master_cost_data_prime_cost_sum_item_id:  { type: integer, notnull: true }
+    show:                                     { type: boolean, notnull: true, default: true }
+    approved_cost:                            { type: decimal, scale: 5, default: 0 }
+    awarded_cost:                             { type: decimal, scale: 5, default: 0 }
+    conversion_factor:                        { type: decimal, scale: 5, default: 1 }
+    awarded_nominated_sub_contractor:         { type: string, notnull: false  }
+    awarded_date:                             { type: date, notnull: false }
+  relations:
+    CostData:
+      local: cost_data_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataPrimeCostSumItem
+      foreignType: many
+    MasterCostDataPrimeCostSumItem:
+      local: master_cost_data_prime_cost_sum_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataPrimeCostSumItem
+      foreignType: many
+
+BillItemCostDataPrimeCostSumItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_item_cost_data_prime_cost_sum_item
+  actAs: [Timestampable, Signable]
+  indexes:
+    bill_item_cost_data_prime_cost_sum_item_id_idx:
+      fields: [id]
+    bill_item_cost_data_prime_cost_sum_item_unique_idx:
+      fields: [cost_data_prime_cost_sum_item_id, bill_item_id]
+      type: unique
+  columns:
+    id:                               { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_id:                     { type: integer, notnull: true }
+    cost_data_prime_cost_sum_item_id: { type: integer, notnull: true }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemCostDataPrimeCostSumItem
+      foreignType: many
+    CostDataItem:
+      local: cost_data_prime_cost_sum_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemCostDataPrimeCostSumItem
+      foreignType: many
+
+CostDataPrimeCostSumColumnDefinition:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: cost_data_prime_cost_sum_column_definitions
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    cost_data_prime_cost_sum_column_definition_id_idx:
+      fields: [id]
+    cost_data_prime_cost_sum_column_definition_unique_idx:
+      fields: [cost_data_id, column_name]
+      type: unique
+  columns:
+    id:           { type: integer, primary: true, notnull: true, autoincrement: true }
+    cost_data_id: { type: integer, notnull: true }
+    column_name:  { type: string, notnull: false }
+    priority:     { type: integer, notnull: true }
+  relations:
+    CostData:
+      local: cost_data_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataPrimeCostSumColumnDefinition
+      foreignType: many
+
+CostDataPrimeCostSumColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: cost_data_prime_cost_sum_columns
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    cost_data_prime_cost_sum_column_id_idx:
+      fields: [id]
+    cost_data_prime_cost_sum_column_unique_idx:
+      fields: [master_cost_data_prime_cost_sum_item_id, cost_data_prime_cost_sum_column_definition_id]
+      type: unique
+  columns:
+    id:                                             { type: integer, primary: true, notnull: true, autoincrement: true }
+    master_cost_data_prime_cost_sum_item_id:        { type: integer, notnull: true }
+    cost_data_prime_cost_sum_column_definition_id:  { type: integer, notnull: true }
+    amount:                                         { type: decimal, scale: 5, default: 0 }
+    conversion_factor:                              { type: decimal, scale: 5, default: 1 }
+  relations:
+    MasterCostDataPrimeCostSumItem:
+      local: master_cost_data_prime_cost_sum_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataPrimeCostSumColumn
+      foreignType: many
+    CostDataPrimeCostSumColumnDefinition:
+      local: cost_data_prime_cost_sum_column_definition_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataPrimeCostSumColumn
+      foreignType: many
+
+BillItemCostDataPrimeCostSumColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_item_cost_data_prime_cost_sum_column
+  actAs: [Timestampable, Signable]
+  indexes:
+    bill_item_cost_data_prime_cost_sum_column_id_idx:
+      fields: [id]
+    bill_item_cost_data_prime_cost_sum_column_unique_idx:
+      fields: [cost_data_prime_cost_sum_column_id, bill_item_id]
+      type: unique
+  columns:
+    id:                                 { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_id:                       { type: integer, notnull: true }
+    cost_data_prime_cost_sum_column_id: { type: integer, notnull: true }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemCostDataPrimeCostSumColumn
+      foreignType: many
+    CostDataPrimeCostSumColumn:
+      local: cost_data_prime_cost_sum_column_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemCostDataPrimeCostSumColumn
+      foreignType: many

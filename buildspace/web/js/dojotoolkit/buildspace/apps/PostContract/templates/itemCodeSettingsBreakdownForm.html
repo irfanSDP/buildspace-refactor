@@ -1,0 +1,25 @@
+<div class="${baseClass}" style="overflow-y:auto;">
+    <p class="alert-text-error" data-dojo-attach-point="item_code_settings_error" id="item_code_settings_error"></p>
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="itemCodeSettingBreakdownForm">
+        <input type="hidden" name="item_code_setting_object[_csrf_token]" value="${data._csrf_token}">
+        <input type="hidden" name="item_code_setting_object[projectStructureId]" value="${project.id}">
+        <input type="hidden" name="item_code_setting_object[claimCertificateId]" value="${claimCertificate.id}">
+        <input type="hidden" name="item_code_setting_object[itemCodeSettingObjectIds]" value="" data-dojo-attach-point="itemCodeSettingObjectIdsHiddenInput" data-dojo-type="dijit/form/TextBox" />
+        <input type="hidden" name="item_code_setting_object[itemCodeSettingIds]" value="" data-dojo-attach-point="itemCodeSettingIdsHiddenInput" data-dojo-type="dijit/form/TextBox" />
+        <fieldset data-dojo-attach-point="parentSubsidiariesSection">
+            <legend>${nls.itemCodes}</legend>
+            <div style="margin:5px;">
+                <table class="buildspace-table">
+                    <thead>
+                        <tr class="gridHeader" data-dojo-attach-point="itemCodeSettingBreakdownColumnHeader">
+                            <th class="gridCell" style="text-align: center;vertical-align: middle;">${nls.description}</th>
+                            <th class="gridCell" style="width:150px;text-align:center;vertical-align:middle;">${nls.currentClaim}</th>
+                        </tr>
+                    </thead>
+                    <tbody data-dojo-attach-point="itemCodeSettingsBreakdownBody">
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>

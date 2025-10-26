@@ -1,0 +1,204 @@
+PreDefinedLocationCode:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  tableName: pre_defined_location_codes
+  indexes:
+    pre_defined_location_code_id_idx:
+      fields: [id, root_id, lft, rgt]
+  columns:
+    id:       { type: integer, primary: true, notnull: true, autoincrement: true }
+    name:     { type: string(255), notnull: false }
+    priority: { type: integer, notnull: true, default: 0 }
+
+ProjectStructureLocationCode:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: project_structure_location_codes
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    project_structure_location_codes_id_idx:
+      fields: [id, root_id, lft, rgt]
+    project_structure_location_codes_fk_idx:
+      fields: [root_id, project_structure_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    description:          { type: string, notnull: false }
+    project_structure_id: { type: integer, notnull: true }
+    priority:             { type: integer, notnull: true, default: 0 }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: LocationCodes
+      foreignType: many
+
+LocationAssignment:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: location_assignments
+  actAs:
+    Timestampable:
+    Signable:
+  indexes:
+    location_assignments_id_idx:
+      fields: [id, pre_defined_location_code_id, project_structure_location_code_id, bill_item_id]
+    location_assignments_unique_idx:
+      fields: [pre_defined_location_code_id, project_structure_location_code_id, bill_item_id]
+      type: unique
+  columns:
+    id:                                 { type: integer, primary: true, notnull: true, autoincrement: true }
+    pre_defined_location_code_id:       { type: integer, notnull: true }
+    project_structure_location_code_id: { type: integer, notnull: true }
+    bill_item_id:                       { type: integer, notnull: true }
+  relations:
+    PreDefinedLocationCode:
+      local: pre_defined_location_code_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: LocationAssignments
+      foreignType: many
+    ProjectStructureLocationCode:
+      local: project_structure_location_code_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: LocationAssignments
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: LocationAssignments
+      foreignType: many
+
+LocationBQSetting:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: location_bq_settings
+  actAs:
+    Timestampable:
+    Signable:
+  indexes:
+    location_bq_settings_id_idx:
+      fields: [bill_column_setting_id]
+  columns:
+    bill_column_setting_id: { type: integer, primary: true, notnull: true }
+    use_original_qty:       { type: boolean, default: true }
+  relations:
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: LocationBQSetting
+      foreignType: one
+
+LocationBillItemQuantityProrate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: location_bill_item_quantity_prorates
+  actAs:
+    Timestampable:
+    Signable:
+  indexes:
+    location_bill_item_quantity_prorates_id_idx:
+      fields: [id, location_assignment_id, bill_column_setting_id, unit]
+    location_bill_item_quantity_prorates_unique_idx:
+      fields: [location_assignment_id, bill_column_setting_id, unit]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    location_assignment_id: { type: integer, notnull: true }
+    bill_column_setting_id: { type: integer, notnull: true }
+    unit:                   { type: integer, notnull: true }
+    percentage:             { type: decimal, notnull: true, scale: 5, default: 0 }
+  relations:
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: LocationBillItemQuantityProrates
+      foreignType: many
+    LocationAssignment:
+      local: location_assignment_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: LocationBillItemQuantityProrates
+      foreignType: many
+
+LocationProgressClaim:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: location_progress_claims
+  actAs:
+    Timestampable:
+    Signable:
+  indexes:
+    location_progress_claims_idx:
+      fields: [id, post_contract_claim_revision_id, location_bill_item_quantity_prorates_id]
+    location_progress_claims_unique_idx:
+      fields: [post_contract_claim_revision_id, location_bill_item_quantity_prorates_id]
+      type: unique
+  columns:
+    id:                                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_claim_revision_id:         { type: integer, notnull: true }
+    location_bill_item_quantity_prorates_id: { type: integer, notnull: true }
+    current_quantity:                        { type: decimal, default: 0 }
+    current_percentage:                      { type: decimal, default: 0 }
+    up_to_date_quantity:                     { type: decimal, default: 0 }
+    up_to_date_percentage:                   { type: decimal, default: 0 }
+    remarks:                                 { type: text, default: null }
+  relations:
+    LocationBillItemQuantityProrate:
+      local: location_bill_item_quantity_prorates_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: LocationProgressClaims
+      foreignType: many
+    PostContractClaimRevision:
+      local: post_contract_claim_revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: LocationProgressClaims
+      foreignType: many

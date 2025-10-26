@@ -1,0 +1,32 @@
+define({
+    root: {
+        workCategory: 'Work Category',
+        cancel: 'Cancel',
+        addRow: 'Add row',
+        delete: 'Delete',
+        deleteRow: 'Delete row',
+        pleaseWait: 'Please wait',
+        addingRow: 'Adding row',
+        deleting: 'Deleting Category',
+        numberOfRows: 'Number of rows',
+        recalculateRows: 'Recalculating rows',
+        savingData: 'Saving data',
+        refresh: "Refresh",
+        name: 'Name',
+        description: 'Description',
+        slug: 'Slug',
+        edit: 'Edit',
+        no: 'No',
+        save: 'Save',
+        updatedAt: 'Updated At',
+        workCategoryList: 'Work Category List',
+        addWorkCategory: 'Add Work Category',
+        editWorkCategory: 'Edit Work Category',
+        categoryMaintenance: 'Work Category Maintenance',
+        cannotDeleteUseInUOM: "This Category cannot be deleted because it's tagged to UOM",
+        itemCannotBeDeleted: 'Item Cannot Be Deleted',
+        confirmationCategory: 'Delete Category Confirmation',
+        firstLevelCategoryDialogMsg: 'Do you really want to delete this category?',
+        secondLevelCategoryDialogMsg: 'Do you really want to delete this category?<br />This action is totally cannot be undo.'
+    }
+});

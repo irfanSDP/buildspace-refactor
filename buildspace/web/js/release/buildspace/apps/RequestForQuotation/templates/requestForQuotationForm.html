@@ -1,0 +1,73 @@
+<div>
+    <form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="rfqForm-${rfqId}" style="padding: 0 5px;">
+        <fieldset style="margin-bottom: 10px;">
+            <legend>${nls.rfqInformation}</legend>
+
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.rfqType}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="typeSelectDivNode"></div>
+                    </td>
+                </tr>
+                <tr data-dojo-attach-point="projectNameContainer" style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.project}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="assignProjectTitle"></div>
+
+                        <a data-dojo-attach-point="assignProjectGridAction" href="javascript:void(0);">${nls.assignProject}</a>
+                    </td>
+                </tr>
+                <tr data-dojo-attach-point="projectSiteAddressContainer" style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.projectSiteAddress}:</label>
+                    </td>
+                    <td style="border-spacing: 0;">
+                        <div data-dojo-attach-point="projectSiteAddress"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.rfqNoPrefix}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="rfq[prefix]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="padding:2px" data-dojo-attach-point="rfqPrefix">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-prefix"></span>
+                    </td>
+                </tr>
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.rfqNo}:</label>
+                    </td>
+                    <td>
+                        <span data-dojo-attach-point="rfqNoContainer" style="font-weight: bold;"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.country}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="countrySelectDivNode"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.state}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="stateSelectDivNode"></div>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <input data-dojo-attach-point="projectStructureIdInput" type="hidden" name="rfq[project_structure_id]" value="">
+        <input data-dojo-attach-point="rfqCountInput" type="hidden" name="rfq[rfq_count]" value="">
+        <input type="hidden" name="rfq[_csrf_token]" value="">
+    </form>
+</div>

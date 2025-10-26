@@ -1,0 +1,352 @@
+BQLibrary:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: bq_libraries
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bq_lib_id_idx:
+      fields: [id]
+    bq_lib_name_unique_idx:
+      fields: [name, deleted_at]
+      type: unique
+  columns:
+    id:   { type: integer, primary: true, notnull: true, autoincrement: true }
+    name: { type: string(200), notnull: true }
+
+BQElement:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bq_elements
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bq_elem_id_idx:
+      fields: [id, library_id]
+    bq_elem_priority_unique_idx:
+      fields: [priority, library_id, deleted_at]
+      type: unique
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    description: { type: string, notnull: false }
+    library_id:  { type: integer, notnull: true }
+    priority:    { type: integer, notnull: true, default: 0 }
+  relations:
+    Library:
+      class: BQLibrary
+      local: library_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Elements
+      foreignType: many
+
+BQItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bq_items
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    bq_items_id_idx:
+      fields: [id, root_id, lft, rgt]
+    bq_items_type_idx:
+      fields: [type]
+    bq_items_fk_idx:
+      fields: [element_id, root_id, uom_id]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    description: { type: string, notnull: false }
+    type:        { type: integer(4), notnull: true }
+    element_id:  { type: integer, notnull: true }
+    uom_id:      { type: integer, notnull: false }
+    priority:    { type: integer, notnull: true, default: 0 }
+  relations:
+    Element:
+      class: BQElement
+      local: element_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BQItems
+      foreignType: many
+
+BQItemFormulatedColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bq_item_formulated_columns
+  actAs: [FormulatedColumn, Timestampable, Signable, SoftDelete]
+  indexes:
+    bq_item_fc_id_idx:
+      fields: [id, relation_id, value, final_value, column_name, deleted_at]
+    bq_item_rel_idx:
+      fields: [relation_id]
+  columns:
+    id:           { type: integer, primary: true, notnull: true, autoincrement: true }
+    has_build_up: { type: boolean, default: false}
+  relations:
+    BQItem:
+      local: relation_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: FormulatedColumns
+      foreignType: many
+
+BQItemEdge:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bq_item_edges
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bq_item_edge_id_idx:
+      fields: [id, node_from, node_to, column_name, deleted_at]
+    bq_item_edge_fk_idx:
+      fields: [node_from, node_to]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    node_from:   { type: integer, notnull: true }
+    node_to:     { type: integer, notnull: true }
+    column_name: { type: string(50), notnull: true }
+  relations:
+    NodeFrom:
+      class: BQItemFormulatedColumn
+      local: node_from
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeFromEdges
+      foreignType: many
+    NodeTo:
+      class: BQItemFormulatedColumn
+      local: node_to
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeToEdges
+      foreignType: many
+
+BQLibraryBuildUpRateResource:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bq_library_build_up_rate_resources
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bq_lib_br_resource_id_idx:
+      fields: [id]
+    bq_lib_br_resource_unique_idx:
+      fields: [bq_item_id, resource_library_id, deleted_at]
+      type: unique
+  columns:
+    id:                  { type: integer, primary: true, notnull: true, autoincrement: true }
+    name:                { type: string(200), notnull: true }
+    bq_item_id:          { type: integer, notnull: true }
+    resource_library_id: { type: integer, notnull: false }
+  relations:
+    BQItem:
+      local: bq_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpRateResources
+      foreignType: many
+    ResourceLibrary:
+      class: Resource
+      local: resource_library_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BQLibraryBuildUpRateResources
+      foreignType: many
+
+BQLibraryBuildUpRateItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bq_library_build_up_rate_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bq_lib_br_item_id_idx:
+      fields: [id, bq_item_id, build_up_rate_resource_id, resource_item_library_id, deleted_at]
+    bq_lib_br_fk_idx:
+      fields: [bq_item_id, build_up_rate_resource_id, resource_item_library_id, uom_id]
+  columns:
+    id:                        { type: integer, primary: true, notnull: true, autoincrement: true }
+    bq_item_id:                { type: integer, notnull: true }
+    build_up_rate_resource_id: { type: integer, notnull: true }
+    resource_trade_library_id: { type: integer, notnull: false }
+    resource_item_library_id:  { type: integer, notnull: false }
+    description:               { type: string, notnull: false }
+    total:                     { type: decimal, scale: 5, default: 0 }
+    line_total:                { type: decimal, scale: 5, default: 0 }
+    uom_id:                    { type: integer, notnull: false }
+    priority:                  { type: integer, notnull: true, default: 0 }
+  relations:
+    BQItem:
+      local: bq_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpRates
+      foreignType: many
+    BQLibraryBuildUpRateResource:
+      local: build_up_rate_resource_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    ResourceTradeLibrary:
+      class: ResourceTrade
+      local: resource_trade_library_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BQLibraryBuildUpRateItems
+      foreignType: many
+    ResourceItemLibrary:
+      class: ResourceItem
+      local: resource_item_library_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BQLibraryBuildUpRateItems
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BQLibraryBuilUpRateItems
+      foreignType: many
+
+BQLibraryBuildUpRateFormulatedColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bq_library_build_up_rate_formulated_columns
+  actAs: [FormulatedColumn, Timestampable, Signable, SoftDelete]
+  indexes:
+    bq_lburfc_id_idx:
+      fields: [id, relation_id, value, final_value, column_name, deleted_at]
+    bq_lburfc_rel_idx:
+      fields: [relation_id]
+  columns:
+    id:     { type: integer, primary: true, notnull: true, autoincrement: true }
+    linked: { type: boolean, default: false}
+  relations:
+    BuildUpRateItem:
+      class: BQLibraryBuildUpRateItem
+      local: relation_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: FormulatedColumns
+      foreignType: many
+
+BQLibraryBuildUpRateEdge:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bq_library_build_up_rate_edges
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bq_lbure_id_idx:
+      fields: [id, node_from, node_to, column_name, deleted_at]
+    bq_lbure_fk_idx:
+      fields: [node_from, node_to]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    node_from:   { type: integer, notnull: true }
+    node_to:     { type: integer, notnull: true }
+    column_name: { type: string(50), notnull: true }
+  relations:
+    NodeFrom:
+      class: BQLibraryBuildUpRateFormulatedColumn
+      local: node_from
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeFromEdges
+      foreignType: many
+    NodeTo:
+      class: BQLibraryBuildUpRateFormulatedColumn
+      local: node_to
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeToEdges
+      foreignType: many
+
+BQLibraryBuildUpRateSummary:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bq_library_build_up_rate_summaries
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bq_lburs_id_idx:
+      fields: [id, bq_item_id, deleted_at]
+    bq_lburs_fk_idx:
+      fields: [bq_item_id]
+  columns:
+    id:                         { type: integer, primary: true, notnull: true, autoincrement: true }
+    bq_item_id:                 { type: integer, notnull: true }
+    total_cost:                 { type: decimal, scale: 5, default: 0 }
+    markup:                     { type: decimal, default: 0 }
+    final_cost:                 { type: decimal, scale: 5, default: 0 }
+    apply_conversion_factor:    { type: boolean, default: false}
+    conversion_factor_amount:   { type: decimal, scale: 5, default: 0 }
+    conversion_factor_uom_id:   { type: integer, notnull: false }
+    conversion_factor_operator: { type: varchar(1), notnull: true }
+  relations:
+    BQItem:
+      local: bq_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpRateSummary
+      foreignType: one
+    UnitOfMeasurement:
+      local: conversion_factor_uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BQLibraryBuilUpRateSummaries
+      foreignType: many

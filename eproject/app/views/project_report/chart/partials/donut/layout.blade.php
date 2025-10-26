@@ -1,0 +1,1 @@
+@include('project_report.chart.partials.pie.layout')

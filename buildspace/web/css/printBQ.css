@@ -1,0 +1,29 @@
+html, body {margin:0;padding:0;}
+.break { page-break-after:always; }
+.pseudo-justify {text-align: justify;}
+.pseudo-justify:after {content:"";display:inline-block;width:100%;}
+.mainTable {text-align: right;border-collapse:collapse;table-layout:fixed;}
+.mainTable tr > td {min-height:12pt!important;height:12pt!important;padding-top:0;padding-bottom:0;margin-top:0;margin-bottom:0;}
+.mainTable tr > td.footer, .mainTable tr > td.footerSumAmount {height: 18pt!important;padding-top: 3px;}
+.mainTable tr, td {line-height:12pt; }
+.summaryPageInGridHeader { text-align: center; font-weight: bold; }
+.rightPageElement { text-align: right; font-weight: bold; }
+td.footer {border-top:1px solid #000;}
+td.footerSumAmount {padding-right:5px;border:1px solid #000;}
+td.pageFooter {text-align:left;}
+td.bqHeadCell {text-align:center;font-weight: bold;border:1px solid #000;}
+td.bqCounterCell {text-align:center;border-left:1px solid #000;border-right:1px solid #000;}
+td.bqDescriptionCell {width:auto;text-align:left;padding-left:5px;padding-right:5px;border-right:1px solid #000;}
+td.bqUnitCell {text-align:center;border-right:1px solid #000;}
+td.bqQtyCell, td.bqRateCell {padding-right:5px;border-right:1px solid #000;}
+td.bqAmountCell {padding-right:5px;border-right:1px solid #000;}
+.pcRateTotal{font-weight: bold;}
+.pcRateLeftColumn, .pcRateRightColumn{padding:0px;margin:0px;float:left;line-height:0!important;}
+.pcRateLeftColumn{width:175px;border-right:none;}
+.pcRateTotal{font-weight:bold;border-top:1px solid #000;border-bottom:1px solid #000;line-height:0!important;}
+.collectionLastDescription{font-weight:bold;text-decoration:none;text-align:center;}
+.collectionTitle{font-weight:bold;text-decoration:none;text-align:center!important;}
+.alignCenter{text-align: center;}
+.alignLeft{text-align: left;}
+.colorRed{color:red;}
+.colorBlack{color:black;}

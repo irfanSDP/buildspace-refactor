@@ -1,0 +1,99 @@
+Regions:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: true
+  tableName: regions
+  indexes:
+    region_id_idx:
+      fields: [id]
+  columns:
+    id:
+      type: integer
+      primary: true
+      notnull: true
+      autoincrement: true
+      sequence: regions_id
+    iso:
+      type: varchar(2)
+      notnull: false
+      default: null
+    iso3:
+      type: varchar(3)
+      notnull: false
+      default: null
+    fips:
+      type: varchar(2)
+      notnull: false
+      default: null
+    country:
+      type: varchar(255)
+      notnull: true
+    continent:
+      type: varchar(255)
+      notnull: false
+      default: null
+    currency_code:
+      type: string(3)
+      notnull: false
+      default: null
+    currency_name:
+      type: string(60)
+      notnull: false
+      default: null
+    phone_prefix:
+      type: varchar(20)
+      notnull: false
+      default: null
+    postal_code:
+      type: varchar(20)
+      notnull: false
+      default: null
+    languages:
+      type: varchar(50)
+      notnull: false
+      default: null
+    geonameid:
+      type: varchar(10)
+      notnull: false
+      default: null
+
+Subregions:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: subregions
+  indexes:
+    subregion_id_idx:
+      fields: [id]
+    subregion_region_id_idx:
+      fields: [region_id]
+    subregion_unique_idx:
+      fields: [region_id, name]
+      type: unique
+  columns:
+    id:
+      type: integer
+      primary: true
+      notnull: true
+      autoincrement: true
+    region_id:
+      type: integer
+      notnull: true
+    name:
+      type: varchar(255)
+      notnull: true
+    timezone:
+      type: varchar(255)
+      notnull: false
+      default: NULL
+  relations:
+    Regions:
+      local: region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Subregions
+      foreignType: many

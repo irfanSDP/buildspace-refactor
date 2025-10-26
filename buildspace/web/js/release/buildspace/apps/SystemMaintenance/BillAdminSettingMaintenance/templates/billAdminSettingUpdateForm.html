@@ -1,0 +1,36 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="billAdminSettingUpdateForm">
+        <fieldset style="margin-bottom: 10px;">
+            <legend>Rounding Options</legend>
+
+            <table class="table-form" style="width: auto;">
+                <tr>
+                    <td class="label"><label><span class="required">*</span>Build Up Qty Rounding:</label></td>
+                    <td>
+                        <span data-dojo-attach-point="buildUpQuantityRoundingInputDivNode"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label><span class="required">*</span>Build Up Rate Rounding:</label></td>
+                    <td>
+                        <span data-dojo-attach-point="buildUpRateRoundingInputDivNode"></span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Unit Type</legend>
+
+            <table class="table-form" style="width: auto;">
+                <tr>
+                    <td class="label"><label><span class="required">*</span>Unit Type:</label></td>
+                    <td>
+                        <span data-dojo-attach-point="unitTypeInputDivNode"></span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <input type="hidden" name="id" value="${billAdminSettingId}">
+    </form>
+</div>

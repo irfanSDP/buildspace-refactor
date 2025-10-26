@@ -1,0 +1,84 @@
+DebitCreditNoteClaim:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+  tableName: debit_credit_note_claims
+  indexes:
+    debit_credit_note_claim_id_idx:
+      fields: [id, project_structure_id, account_group_id]
+    debit_credit_note_claim_fk_idx:
+      fields: [project_structure_id, account_group_id]
+    debit_credit_note_claim_certs_idx:
+      fields: [claim_certificate_id]
+  columns:
+    id:                          { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id:        { type: integer, notnull: true }
+    account_group_id:            { type: integer, notnull: true }
+    claim_certificate_id:        { type: integer, notnull: false }
+    description:                 { type: string, notnull: false }
+    priority:                    { type: integer, notnull: true, default: 0 }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: DebitCreditNoteClaim
+      foreignType: many
+    AccountGroup:
+      local: account_group_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: DebitCreditNoteClaim
+      foreignType: many
+
+DebitCreditNoteClaimItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+  tableName: debit_credit_note_claim_items
+  indexes:
+    debit_credit_note_claim_item_id_idx:
+      fields: [id, debit_credit_note_claim_id, account_code_id]
+    debit_credit_note_claim_item_fk_idx:
+      fields: [debit_credit_note_claim_id, account_code_id]
+  columns:
+    id:                          { type: integer, primary: true, notnull: true, autoincrement: true }
+    debit_credit_note_claim_id:  { type: integer, notnull: true }
+    account_code_id:             { type: integer, notnull: false }
+    invoice_number:              { type: string, notnull: false }
+    invoice_date:                { type: date, notnull: false }
+    due_date:                    { type: date, notnull: false }
+    uom_id:                      { type: integer, notnull: false }
+    quantity:                    { type: decimal, scale: 5, default: 0 }
+    rate:                        { type: decimal, scale: 5, default: 0 }
+    remarks:                     { type: string, notnull: false }
+    priority:                    { type: integer, notnull: true, default: 0 }
+  relations:
+    DebitCreditNoteClaim:
+      local: debit_credit_note_claim_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: DebitCreditNoteClaimItem
+      foreignType: many
+    AccountCode:
+      local: account_code_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: DebitCreditNoteClaimItem
+      foreignType: many

@@ -1,0 +1,120 @@
+BillBuildUpFloorAreaItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_build_up_floor_area_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bill_bufa_item_id_idx:
+      fields: [id, bill_column_setting_id, deleted_at]
+    bill_bufa_item_fk_idx:
+      fields: [bill_column_setting_id]
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_column_setting_id: { type: integer, notnull: true }
+    description:            { type: string, notnull: false }
+    total:                  { type: decimal, scale: 5, default: 0 }
+    sign:                   { type: integer(1), notnull: true, default: 1 }
+    priority:               { type: integer, notnull: true, default: 0 }
+  relations:
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillBuildUpFloorAreas
+      foreignType: many
+
+BillBuildUpFloorAreaFormulatedColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_build_up_floor_area_formulated_columns
+  actAs: [FormulatedColumn, Timestampable, Signable, SoftDelete]
+  indexes:
+    bill_bufafc_id_idx:
+      fields: [id, relation_id, value, final_value, column_name, deleted_at]
+    bill_bufafc_rel_idx:
+      fields: [relation_id]
+  columns:
+    id: { type: integer, primary: true, notnull: true, autoincrement: true }
+  relations:
+    BuildUpFloorAreaItem:
+      class: BillBuildUpFloorAreaItem
+      local: relation_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: FormulatedColumns
+      foreignType: many
+
+BillBuildUpFloorAreaEdge:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_build_up_floor_area_edges
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bill_bufae_id_idx:
+      fields: [id, node_from, node_to, column_name, deleted_at]
+    bill_bufae_fk_idx:
+      fields: [node_from, node_to]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    node_from:   { type: integer, notnull: true }
+    node_to:     { type: integer, notnull: true }
+    column_name: { type: string(50), notnull: true }
+  relations:
+    NodeFrom:
+      class: BillBuildUpFloorAreaFormulatedColumn
+      local: node_from
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeFromEdges
+      foreignType: many
+    NodeTo:
+      class: BillBuildUpFloorAreaFormulatedColumn
+      local: node_to
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeToEdges
+      foreignType: many
+
+BillBuildUpFloorAreaSummary:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_build_up_floor_area_summaries
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bill_bufa_summary_id_idx:
+      fields: [id, bill_column_setting_id, deleted_at]
+    bill_bufa_sum_fk_idx:
+      fields: [bill_column_setting_id]
+  columns:
+    id:                         { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_column_setting_id:     { type: integer, notnull: true }
+    total_floor_area:           { type: decimal, scale: 5, default: 0 }
+    final_floor_area:           { type: decimal, scale: 5, default: 0 }
+    apply_conversion_factor:    { type: boolean, default: false}
+    conversion_factor_amount:   { type: decimal, scale: 5, default: 0 }
+    conversion_factor_operator: { type: varchar(1), notnull: true }
+    rounding_type:              { type: integer(4), notnull: true }
+  relations:
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpFloorAreaSummaries
+      foreignType: many

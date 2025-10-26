@@ -1,0 +1,66 @@
+SubPackagePostContractBillItemRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_package_post_contract_bill_item_rate
+  indexes:
+    sub_package_post_contract_bill_item_rate_id_idx:
+      fields: [id]
+    sub_package_post_contract_bill_item_rate_fk_idx:
+      fields: [sub_package_id, bill_item_id]
+    sub_package_post_contract_bill_item_rate_unique_idx:
+      fields: [sub_package_id, bill_item_id]
+      type: unique
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    sub_package_id:          { type: integer, notnull: true }
+    bill_item_id:            { type: integer, notnull: true }
+    rate:                    { type: decimal, scale: 5, default: 0 }
+    single_unit_grand_total: { type: decimal, scale: 5, default: 0 }
+    grand_total:             { type: decimal, scale: 5, default: 0 }
+  relations:
+    SubPackage:
+      local: sub_package_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackageBillItemRates
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackagePostContractRates
+      foreignType: many
+
+SubPackagePostContractClaimRevision:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+  tableName: sub_package_post_contract_claim_revisions
+  actAs:
+    Timestampable:
+    SoftDelete:
+    Signable:
+  indexes:
+    sub_package_post_contract_revision_version_idx:
+      fields: [sub_package_id, version, current_selected_revision]
+      type: unique
+  columns:
+    sub_package_id:            { type: integer, notnull: true }
+    version:                   { type: integer(2), default: 0, unsigned: true }
+    current_selected_revision: { type: boolean, default: false }
+    locked_status:             { type: boolean, default: false }
+  relations:
+    SubPackage:
+      local: sub_package_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: ClaimRevisions
+      onDelete: CASCADE

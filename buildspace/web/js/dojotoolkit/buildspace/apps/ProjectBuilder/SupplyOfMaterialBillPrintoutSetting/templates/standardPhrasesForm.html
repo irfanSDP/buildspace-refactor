@@ -1,0 +1,31 @@
+<div class="${baseClass} forms-inputs">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="somBillPrintingForms-${somBillLayoutSettingId}">
+        <fieldset>
+            <legend>Standard Page Text</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="toCollection-${somBillLayoutSettingId}">To Collection $ :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true" id="toCollection-${somBillLayoutSettingId}" name="toCollection">
+                    </td>
+					<td class="label" style="width:100px;"><label style="display: inline;" for="currencyPrefix-${somBillLayoutSettingId}">Currency :</label></td>
+                    <td>
+						<input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true" id="currencyPrefix-${somBillLayoutSettingId}" name="currencyPrefix">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Collection Page Text</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="collectionInGridPrefix-${somBillLayoutSettingId}">Collection (Within Grid) :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="trim: true, propercase:true" id="collectionInGridPrefix-${somBillLayoutSettingId}" name="collectionInGridPrefix">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>

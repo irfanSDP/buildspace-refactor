@@ -1,0 +1,17 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.selectContractor}</legend>
+        <table>
+            <tr>
+                <td style="text-align:right;padding:4px;"><label><span class="required">*</span>${nls.contractor} :</label></td>
+                <td>
+                    <div data-dojo-attach-point="contractorSelectDivNode"></div>
+                    <p class="alert-text-error" data-dojo-attach-point="error-company_id" id="error-company_id"></p>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <input type="hidden" name="tender_company[project_structure_id]" value="">
+    <input type="hidden" name="tender_company[_csrf_token]" value="">
+</form>

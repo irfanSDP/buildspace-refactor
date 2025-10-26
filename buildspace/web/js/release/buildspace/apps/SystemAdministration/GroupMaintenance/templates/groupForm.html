@@ -1,0 +1,29 @@
+<div>
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="groupMaintenanceForm">
+        <fieldset>
+            <legend>Group Management</legend>
+
+            <table class="table-form" style="width: auto;">
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.name}:</label>
+                    </td>
+                    <td colspan="3">
+                        <input type="text" name="sf_guard_group[name]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required: true, propercase:true, maxlength:150" id="groupName" style="width:320px;padding:3px;">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-name"></span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <div data-dojo-attach-point="groupMenuPermissionGridContainer">
+            <fieldset style="margin: 18px 0 0 0;">
+                <legend>${nls.allowedMenuPermissions}</legend>
+
+                <div data-dojo-attach-point="groupMenuPermissionGrid"></div>
+            </fieldset>
+        </div>
+
+        <input type="hidden" name="sf_guard_group[_csrf_token]" value="">
+    </form>
+</div>

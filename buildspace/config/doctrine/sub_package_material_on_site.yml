@@ -1,0 +1,103 @@
+connection: main_conn
+
+SubPackageMaterialOnSitePrintSetting:
+  options:
+    symfony:
+      filter: false
+  tableName: sp_material_on_site_print_settings
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sp_mos_print_setting_idx:
+      fields: [sub_package_id, deleted_at]
+  columns:
+    sub_package_id:                      { type: integer }
+    project_name:                        { type: string(285), default: null, notnull: true }
+    site_belonging_address:              { type: string(100), default: "Tarikh Milik Tapak:", notnull: false }
+    original_finished_date:              { type: string(100), default: "Tarikh Siap Asal:", notnull: false }
+    contract_duration:                   { type: string(100), default: "Jangkamasa Kontrak:", notnull: false }
+    contract_original_amount:            { type: string(100), default: "Harga Kontrak Asal:", notnull: false }
+    payment_revision_no:                 { type: string(100), default: "BAYARAN KEMAJUAN NO:", notnull: false }
+    evaluation_date:                     { type: string(100), default: "TARIKH PENILAIAN:", notnull: false }
+    total_text:                          { type: string(100), default: "TOTAL", notnull: true }
+    percentage_of_material_on_site_text: { type: string(100), default: "% OF MATERIAL ON SITE", notnull: true }
+    carried_to_final_summary_text:       { type: string(100), default: "CARRIED TO FINAL SUMMARY", notnull: true }
+  relations:
+    SubPackage:
+      local: sub_package_id
+      foreign: id
+      type: one
+      foreignType: one
+
+SubPackageMaterialOnSite:
+  options:
+    symfony:
+      filter: false
+  tableName: sp_material_on_sites
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sp_material_on_site_idx:
+      fields: [sub_package_id, deleted_at]
+  columns:
+    sub_package_id:        { type: integer }
+    description:           { type: string(100) }
+    status:                { type: integer(1), default: 1 }
+    reduction_percentage:  { type: decimal, scale: 5, default: 0 }
+    total:                 { type: decimal, scale: 5, default: 0 }
+    total_after_reduction: { type: decimal, scale: 5, default: 0 }
+    priority:              { type: integer, notnull: true, default: 0 }
+  relations:
+    SubPackage:
+      local: sub_package_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: SubPackageMaterialOnSites
+
+SubPackageMaterialOnSiteItem:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sp_material_on_site_items
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    sp_mos_items_id_idx:
+      fields: [id, root_id, lft, rgt]
+    sp_mos_items_type_idx:
+      fields: [type]
+    sp_mos_items_fk_idx:
+      fields: [sp_material_on_site_id, root_id, uom_id]
+  columns:
+    sp_material_on_site_id:  { type: integer, notnull: true }
+    import_resource_item_id: { type: integer, notnull: false }
+    description:             { type: string, notnull: false }
+    type:                    { type: integer(4), notnull: true }
+    uom_id:                  { type: integer, notnull: false }
+    delivered_qty:           { type: decimal, scale: 5, default: 0 }
+    used_qty:                { type: decimal, scale: 5, default: 0 }
+    balance_qty:             { type: decimal, scale: 5, default: 0 }
+    rate:                    { type: decimal, scale: 5, default: 0 }
+    amount:                  { type: decimal, scale: 5, default: 0 }
+    priority:                { type: integer, notnull: true, default: 0 }
+  relations:
+    SubPackageMaterialOnSite:
+      local: sp_material_on_site_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackageMaterialOnSiteItems
+      foreignType: many

@@ -1,0 +1,1 @@
+"%s" has declined the approval for a Recommendation of Tenderer form

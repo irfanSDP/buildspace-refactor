@@ -1,0 +1,636 @@
+PostContract:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contracts
+  actAs: [Timestampable, Signable ]
+  indexes:
+    post_contracts_id_idx:
+      fields: [id, project_structure_id, published_type]
+    post_contracts_unique_idx:
+      fields: [project_structure_id]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id: { type: integer, notnull: true }
+    selected_type_rate:   { type: integer, notnull: true }
+    published_type:       { type: integer, notnull: true, default: 1 }
+    published_at:         { type: timestamp }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContract
+      foreignType: one
+
+PostContractBillItemRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contract_bill_item_rates
+  indexes:
+    post_contract_bill_item_rates_id_idx:
+      fields: [id]
+    post_contract_bill_item_rates_fk_idx:
+      fields: [post_contract_id, bill_item_id]
+    post_contract_bill_item_rates_unique_idx:
+      fields: [post_contract_id, bill_item_id]
+      type: unique
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_id:        { type: integer, notnull: true }
+    bill_item_id:            { type: integer, notnull: true }
+    bill_ref_element_no:     { type: string }
+    bill_ref_page_no:        { type: string }
+    bill_ref_char:           { type: string }
+    rate:                    { type: decimal, scale: 5, default: 0 }
+    grand_total:             { type: decimal, scale: 5, default: 0 }
+  relations:
+    PostContract:
+      local: post_contract_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemRates
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractRates
+      foreignType: many
+
+PostContractBillItemType:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contract_bill_item_type
+  indexes:
+    post_contract_bill_item_type_id_idx:
+      fields: [id]
+    post_contract_bill_item_type_fk_idx:
+      fields: [post_contract_id, bill_item_id, bill_column_setting_id]
+    post_contract_bill_item_type_unique_idx:
+      fields: [post_contract_id, bill_item_id, bill_column_setting_id]
+      type: unique
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_id:        { type: integer, notnull: true }
+    bill_item_id:            { type: integer, notnull: true }
+    bill_column_setting_id:  { type: integer, notnull: true }
+    total_quantity:          { type: decimal, scale: 5, default: 0 }
+    grand_total:             { type: decimal, scale: 5, default: 0 }
+    total_per_unit:          { type: decimal, scale: 5, default: 0 }
+    qty_per_unit:            { type: decimal, scale: 5, default: 0 }
+    include:                 { type: boolean, default: 1 }
+  relations:
+    PostContract:
+      local: post_contract_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemTypes
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractBillItemTypeReferences
+      foreignType: many
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractBillItemTypeReferences
+      foreignType: many
+
+PostContractClaimRevision:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+  tableName: post_contract_claim_revisions
+  actAs:
+    Timestampable:
+    SoftDelete:
+    Signable:
+  indexes:
+    post_contract_revision_version_idx:
+      fields: [post_contract_id, version, current_selected_revision]
+      type: unique
+  columns:
+    post_contract_id:          { type: integer, notnull: true }
+    version:                   { type: integer(2), default: 0, unsigned: true }
+    current_selected_revision: { type: boolean, default: false }
+    locked_status:             { type: boolean, default: false }
+    claim_submission_locked:   { type: boolean, default: false }
+  relations:
+    PostContract:
+      local: post_contract_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: ClaimRevisions
+      onDelete: CASCADE
+
+NewPostContractFormInformation:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: true
+  actAs:
+    Timestampable:
+    Signable:
+  tableName: new_post_contract_form_information
+  indexes:
+    new_post_contract_form_information_id_idx:
+      fields: [id]
+    new_post_contract_form_information_project_structure_id_idx:
+      fields: [project_structure_id]
+    new_post_contract_form_information_project_structure_id_unique_idx:
+      fields: [project_structure_id]
+      type: unique
+    new_post_contract_form_information_reference_unique_idx:
+      fields: [reference]
+      type: unique
+  columns:
+    id:                           { type: integer, primary: true, notnull: true, autoincrement: true }
+    type:                         { type: integer, notnull: true }
+    form_number:                  { type: integer, notnull: true }
+    project_structure_id:         { type: integer, notnull: true }
+    contract_period_from:         { type: timestamp, notnull: true }
+    contract_period_to:           { type: timestamp, notnull: true }
+    awarded_date:                 { type: timestamp, notnull: true }
+    pre_defined_location_code_id: { type: integer, notnull: true }
+    creditor_code:                { type: string, notnull: false }
+    remarks:                      { type: string, notnull: false }
+    retention:                    { type: decimal(5), scale: 2, default: 0 }
+    max_retention_sum:            { type: decimal(5), scale: 2, default: 0 }
+    reference:                    { type: string, notnull: true }
+    e_tender_waiver_option_type:  { type: smallint, notnull: false }
+    e_auction_waiver_option_type: { type: smallint, notnull: false }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NewPostContractFormInformation
+      foreignType: one
+    PreDefinedLocationCode:
+      local: pre_defined_location_code_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NewPostContractFormInformation
+      foreignType: many
+
+WaiverUserDefinedOption:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+    Signable:
+  tableName: waiver_user_defined_options
+  indexes:
+    waiver_user_defined_option_id_idx:
+      fields: [id, project_structure_id]
+    waiver_user_defined_option_fx_idx:
+      fields: [project_structure_id]
+    waiver_user_defined_option_unique_idx:
+      fields: [project_structure_id, waiver_option_type]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id: { type: integer, notnull: true }
+    waiver_option_type:   { type: integer, notnull: true }
+    description:          { type: string, notnull: false }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: WaiverUserDefinedOption
+      foreignType: many
+
+LetterOfAwardRetentionSumModules:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+  tableName: letter_of_award_retention_sum_modules
+  indexes:
+    la_retention_sum_modules_id_idx:
+      fields: [id]
+    la_retention_sum_modules_la_id_idx:
+      fields: [new_post_contract_form_information_id]
+    la_retention_sum_modules_unique_idx:
+      fields: [new_post_contract_form_information_id, type]
+      type: unique
+  columns:
+    id:                                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    new_post_contract_form_information_id:  { type: integer, notnull: true }
+    type:                                   { type: integer, notnull: true }
+  relations:
+    NewPostContractFormInformation:
+      local: new_post_contract_form_information_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NewPostContractFormInformation
+      foreignType: many
+
+NewPostContractFormInformationSubPackageWork:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: new_post_contract_form_information_sub_package_work
+  indexes:
+    sub_package_unit_information_sub_package_work_id_idx:
+      fields: [id]
+    sub_package_unit_information_sub_package_work_new_post_contract_information_id_idx:
+      fields: [new_post_contract_form_information_id]
+    sub_package_unit_information_sub_package_work_unique_idx:
+      fields: [new_post_contract_form_information_id, sub_package_work_type]
+      type: unique
+  columns:
+    id:                                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    new_post_contract_form_information_id:  { type: integer, notnull: true }
+    sub_package_work_id:                    { type: integer, notnull: true }
+    sub_package_work_type:                  { type: integer, notnull: true }
+  relations:
+    NewPostContractFormInformation:
+      local: new_post_contract_form_information_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NewPostContractFormInformationSubPackageWork
+      foreignType: many
+    SubPackageWorks:
+      local: sub_package_work_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NewPostContractFormInformationSubPackageWork
+      foreignType: many
+
+ClaimCertificate:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+      form: true
+  actAs:
+    Timestampable:
+    Signable:
+  tableName: claim_certificates
+  indexes:
+    claim_certificates_id_idx:
+      fields: [id, status]
+    claim_certificates_foreign_keys_idx:
+      fields: [post_contract_claim_revision_id]
+    claim_certificates_unique_idx:
+      fields: [post_contract_claim_revision_id]
+      type: unique
+  columns:
+    id:                              { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_claim_revision_id: { type: integer, notnull: true }
+    contractor_submitted_date:       { type: date, notnull: true }
+    site_verified_date:              { type: date, notnull: true }
+    qs_received_date:                { type: date, notnull: true }
+    release_retention_amount:        { type: decimal, scale: 5, default: 0 }
+    release_retention_percentage:    { type: decimal, scale: 5, default: 0 }
+    retention_tax_percentage:        { type: decimal, scale: 5, default: 0 }
+    amount_certified:                { type: decimal, scale: 5, default: 0 }
+    person_in_charge:                { type: string(255), notnull: true }
+    valuation_date:                  { type: date, notnull: false }
+    due_date:                        { type: date, notnull: true }
+    budget_amount:                   { type: decimal, scale: 5, default: 0 }
+    budget_due_date:                 { type: date, notnull: true }
+    tax_percentage:                  { type: decimal, scale: 2, default: 0 }
+    acc_remarks:                     { type: string, notnull: false }
+    qs_remarks:                      { type: string, notnull: false }
+    status:                          { type: smallint, notnull: true }
+  relations:
+    PostContractClaimRevision:
+      local: post_contract_claim_revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ClaimCertificate
+      foreignType: one
+
+ClaimCertificatePrintSetting:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+      form: true
+  actAs:
+    Timestampable:
+    Signable:
+  tableName: claim_certificate_print_settings
+  indexes:
+    claim_certificate_print_settings_id_idx:
+      fields: [id]
+    claim_certificate_print_settings_foreign_keys_idx:
+      fields: [post_contract_id]
+    claim_certificate_print_settings_unique_idx:
+      fields: [post_contract_id]
+      type: unique
+  columns:
+    id:                                            { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_id:                              { type: integer, notnull: true }
+    certificate_title:                             { type: string(255), notnull: false }
+    certificate_print_format:                      { type: smallint, notnull: true }
+    section_a_label:                               { type: string(10), notnull: false }
+    section_b_label:                               { type: string(10), notnull: false }
+    section_c_label:                               { type: string(10), notnull: false }
+    section_d_label:                               { type: string(10), notnull: false }
+    section_misc_label:                            { type: string(255), notnull: false }
+    section_others_label:                          { type: string(255), notnull: false }
+    section_payment_on_behalf_label:               { type: string(255), notnull: false }
+    tax_label:                                     { type: string(255), notnull: false }
+    tax_invoice_by_sub_contractor_label:           { type: string(255), notnull: false }
+    tax_invoice_by_subsidiary_label:               { type: string(255), notnull: false }
+    include_advance_payment:                       { type: boolean, notnull: true, default: true }
+    include_deposit:                               { type: boolean, notnull: true, default: true }
+    include_material_on_site:                      { type: boolean, notnull: true, default: true }
+    include_ksk:                                   { type: boolean, notnull: true, default: true }
+    include_work_on_behalf_mc:                     { type: boolean, notnull: true, default: true }
+    include_work_on_behalf:                        { type: boolean, notnull: true, default: true }
+    include_purchase_on_behalf:                    { type: boolean, notnull: true, default: true }
+    include_penalty:                               { type: boolean, notnull: true, default: true }
+    include_utility:                               { type: boolean, notnull: true, default: true }
+    include_permit:                                { type: boolean, notnull: true, default: true }
+    include_debit_credit_note:                     { type: boolean, notnull: true, default: true }
+    debit_credit_note_with_breakdown:              { type: boolean, notnull: true, default: false }
+    footer_format:                                 { type: integer, notnull: true, default: 1 }
+    footer_bank_label:                             { type: string(50), notnull: false }
+    footer_bank_signature_label:                   { type: string(50), notnull: false }
+    footer_cheque_number_label:                    { type: string(50), notnull: false }
+    footer_cheque_number_signature_label:          { type: string(50), notnull: false }
+    footer_cheque_date_label:                      { type: string(50), notnull: false }
+    footer_cheque_date_signature_label:            { type: string(50), notnull: false }
+    footer_cheque_amount_label:                    { type: string(50), notnull: false }
+    footer_cheque_amount_signature_label:          { type: string(50), notnull: false }
+    display_tax_column:                            { type: boolean, notnull: true, default: true }
+    contractor_submitted_date_label:               { type: string(255), notnull: false }
+    site_verified_date_label:                      { type: string(255), notnull: false }
+    certificate_received_date_label:               { type: string(255), notnull: false }
+    request_for_variation_category_id_to_print:    { type: integer, notnull: false, default: null }
+    display_tax_amount:                            { type: boolean, notnull: true, default: false }
+
+  relations:
+    PostContract:
+      local: post_contract_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ClaimCertificatePrintSetting
+      foreignType: one
+
+ClaimCertificateApprovalLog:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+    Signable:
+  tableName: claim_certificate_approval_logs
+  indexes:
+    claim_certificate_approval_log_id_idx:
+      fields: [id, created_by, status]
+    claim_certificate_approval_log_fk_idx:
+      fields: [claim_certificate_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    claim_certificate_id: { type: integer, notnull: true }
+    status:               { type: smallint, notnull: true }
+    remarks:              { type: string, notnull: false }
+  relations:
+    ClaimCertificate:
+      local: claim_certificate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ApprovalLogs
+      foreignType: many
+
+ClaimCertificatePaymentLog:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+    Signable:
+  tableName: claim_certificate_payment_logs
+  indexes:
+    claim_certificate_payment_log_id_idx:
+      fields: [id]
+    claim_certificate_payment_log_fk_idx:
+      fields: [claim_certificate_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    claim_certificate_id: { type: integer, notnull: true }
+    amount:               { type: decimal, scale: 5, default: 0 }
+    remarks:              { type: string, notnull: false }
+  relations:
+    ClaimCertificate:
+      local: claim_certificate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PaymentLogs
+      foreignType: many
+
+ClaimCertificateInvoice:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+  actAs:
+    Timestampable:
+    Signable:
+  tableName: claim_certificate_invoices
+  indexes:
+    claim_certificate_invoices_id_idx:
+      fields: [id, created_by]
+    claim_certificate_invoices_fk_idx:
+      fields: [claim_certificate_id]
+    claim_certificate_invoices_unique_idx:
+      fields: [claim_certificate_id]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    claim_certificate_id: { type: integer, notnull: true }
+    invoice_date:         { type: date, notnull: true }
+    invoice_number:       { type: string(200), notnull: true }
+    post_month:           { type: string(100), notnull: true }
+  relations:
+    ClaimCertificate:
+      local: claim_certificate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Invoice
+      foreignType: one
+
+ClaimCertificateNote:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+    Signable:
+  tableName: claim_certificate_notes
+  indexes:
+    claim_certificate_notes_id_idx:
+      fields: [id, created_by]
+    claim_certificate_notes_fk_idx:
+      fields: [claim_certificate_id]
+    claim_certificate_notes_unique_idx:
+      fields: [claim_certificate_id]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    claim_certificate_id: { type: integer, notnull: true }
+    note:                 { type: text, notnull: false }
+  relations:
+    ClaimCertificate:
+      local: claim_certificate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Note
+      foreignType: one
+
+PublishToPostContractOption:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: publish_to_post_contract_options
+  indexes:
+    publish_to_post_contract_options_id_idx:
+      fields: [id]
+    publish_to_post_contract_options_project_structure_id_unique_idx:
+      fields: [project_structure_id]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id:   { type: integer, notnull: true }
+    with_not_listed_item:   { type: boolean, notnull: true }
+    rate_type:              { type: integer, notnull: true }
+    assign_users_manually:  { type: boolean, notnull: true, default: false }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PublishToPostContractOption
+      foreignType: one
+
+ClaimCertificateInformation:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+  tableName: claim_certificate_information
+  indexes:
+    claim_certificate_information_id_idx:
+      fields: [id]
+    claim_certificate_information_unique_idx:
+      fields: [claim_certificate_id]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    claim_certificate_id: { type: integer, notnull: true }
+    paid:                 { type: boolean, notnull: true, default: false }
+    approved_amount:      { type: decimal, scale: 5, default: 0 }
+    paid_amount:          { type: decimal, scale: 5, default: 0 }
+  relations:
+    ClaimCertificate:
+      local: claim_certificate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Information
+      foreignType: one
+
+ClaimCertificateTax:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+  tableName: claim_certificate_taxes
+  indexes:
+    claim_certificate_taxes_id_idx:
+      fields: [id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    tax:                  { type: decimal, scale: 5, default: 0 }
+    description:          { type: text, notnull: false }
+    priority:             { type: integer, notnull: true, default: 0 }
+
+
+RetentionSumCode:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: retention_sum_codes
+  indexes:
+    retention_sum_codes_id_idx:
+      fields: [id]
+    retention_sum_codes_code_unique_idx:
+      fields: [code, deleted_at]
+      type: unique
+  actAs: [Timestampable, Signable, SoftDelete]
+  columns:
+    id:   { type: integer, primary: true, notnull: true, autoincrement: true }
+    code: { type: string(50), notnull: true }

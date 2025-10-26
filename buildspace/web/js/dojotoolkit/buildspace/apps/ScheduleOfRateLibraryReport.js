@@ -1,0 +1,18 @@
+require([
+    'dijit/MenuBar',
+    'dijit/layout/SplitContainer',
+    'dijit/layout/TabContainer',
+    'dijit/layout/StackContainer',
+    'dojox/form/Manager',
+    'dojox/layout/ContentPane',
+    'dijit/PopupMenuBarItem',
+    'dijit/ToolbarSeparator',
+    'dijit/tree/ForestStoreModel',
+    'dojo/data/ItemFileWriteStore',
+    'dojox/grid/EnhancedGrid',
+    'buildspace/dijit/EditableTree',
+    'buildspace/apps/ScheduleOfRateLibraryReport/_base',
+    'buildspace/apps/ScheduleOfRateLibraryReport/grid',
+    'buildspace/apps/ScheduleOfRateLibraryReport/buildUpGrid'
+    ], function(){
+});

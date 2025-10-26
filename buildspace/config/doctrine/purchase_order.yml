@@ -1,0 +1,224 @@
+connection: main_conn
+
+PurchaseOrder:
+  options:
+    symfony:
+      filter: false
+  tableName: purchase_orders
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    po_fk_idx:
+      fields: [project_structure_id, region_id, sub_region_id, deleted_at]
+    po_prefix_po_count_uniq_idx:
+      fields: [project_structure_id, prefix, po_count]
+      type: unique
+    po_region_idx:
+      fields: [region_id, sub_region_id, deleted_at]
+  columns:
+    project_structure_id: { type: integer, default: null }
+    prefix:               { type: string }
+    po_count:             { type: integer(2), default: 0 }
+    region_id:            { type: integer, notnull: false }
+    sub_region_id:        { type: integer, notnull: false }
+  relations:
+    Project:
+      class: ProjectStructure
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: PurchaseOrderRequests
+    Region:
+      class: Regions
+      local: region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PurchaseOrderRequests
+      foreignType: many
+    SubRegion:
+      class: Subregions
+      local: sub_region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PurchaseOrderRequests
+      foreignType: many
+
+PurchaseOrderProject:
+  options:
+    symfony:
+      filter: false
+  tableName: purchase_order_projects
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    po_project_unique_idx:
+      fields: [purchase_order_id, project_structure_id, deleted_at]
+      type: unique
+  columns:
+    purchase_order_id:    { type: integer, notnull: true }
+    project_structure_id: { type: integer, default: null }
+  relations:
+    PurchaseOrder:
+      local: purchase_order_id
+      foreign: id
+      type: one
+      foreignType: one
+      foreignAlias: PurchaseOrderProject
+      onDelete: CASCADE
+    Project:
+      class: ProjectStructure
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: PurchaseOrders
+
+PurchaseOrderSupplier:
+  options:
+    symfony:
+      filter: false
+  tableName: purchase_order_suppliers
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    po_supplier_uniq_idx:
+      fields: [purchase_order_id, company_id, deleted_at]
+      type: unique
+  columns:
+    purchase_order_id: { type: integer, notnull: true }
+    company_id:        { type: integer, notnull: true }
+  relations:
+    PurchaseOrder:
+      local: purchase_order_id
+      foreign: id
+      type: one
+      foreignType: one
+      foreignAlias: PurchaseOrderSupplier
+      onDelete: CASCADE
+    Company:
+      local: company_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: PurchaseOrders
+
+PurchaseOrderItem:
+  options:
+    symfony:
+      filter: false
+  tableName: purchase_order_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    po_item_idx:
+      fields: [purchase_order_id, resource_item_id, deleted_at]
+      type: unique
+  columns:
+    purchase_order_id: { type: integer, notnull: true }
+    resource_item_id:  { type: integer, notnull: true }
+    quantity:          { type: decimal, scale: 5, default: 0 }
+    rates:             { type: decimal, scale: 5, default: 0 }
+    remark_id:         { type: integer, default: null, notnull: false }
+  relations:
+    PurchaseOrder:
+      local: purchase_order_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: PurchaseOrderItems
+      onDelete: CASCADE
+    ResourceItem:
+      local: resource_item_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: PurchaseOrderItems
+      onDelete: CASCADE
+    Remark:
+      class: RFQItemRemark
+      local: remark_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: PurchaseOrderItem
+
+PurchaseOrderInformation:
+    options:
+      symfony:
+        filter: false
+    tableName: purchase_order_informations
+    actAs: [Timestampable, Signable, SoftDelete]
+    indexes:
+      po_info_po_idx:
+        fields: [purchase_order_id, deleted_at]
+      po_status_idx:
+        fields: [purchase_order_id, status, deleted_at]
+      po_subpackage_idx:
+        fields: [purchase_order_id, sub_package_id, deleted_at]
+      po_currency_idx:
+        fields: [purchase_order_id, currency_id, deleted_at]
+    columns:
+      purchase_order_id:   { type: integer, notnull: true }
+      sub_package_id:      { type: integer, default: null, notnull: false }
+      currency_id:         { type: integer, notnull: false }
+      ref:                 { type: string(50), default: null, notnull: false }
+      quo_ref:             { type: string(50), default: null, notnull: false }
+      company_address_1:   { type: string(50), default: null, notnull: false }
+      company_address_2:   { type: string(50), default: null, notnull: false }
+      company_address_3:   { type: string(50), default: null, notnull: false }
+      supplier_address_1:  { type: string(50), default: null, notnull: false }
+      supplier_address_2:  { type: string(50), default: null, notnull: false }
+      supplier_address_3:  { type: string(50), default: null, notnull: false }
+      attention_to:        { type: string(50), default: null, notnull: false }
+      ship_to_1:           { type: string(50), default: null, notnull: false }
+      ship_to_2:           { type: string(50), default: null, notnull: false }
+      ship_to_3:           { type: string(50), default: null, notnull: false }
+      note:                { type: string(370), default: null, notnull: false }
+      signature:           { type: text, default: null, notnull: false }
+      status:              { type: integer(1), default: 1 }
+      price_format:        { type: string(20), default: 'normal', notnull: true }
+      print_without_cents: { type: boolean, default: false }
+    relations:
+      PurchaseOrder:
+        local: purchase_order_id
+        foreign: id
+        type: one
+        foreignType: one
+        foreignAlias: PurchaseOrderInformation
+        onDelete: CASCADE
+      SubPackage:
+        local: sub_package_id
+        foreign: id
+        type: one
+        foreignType: many
+        foreignAlias: PurchaseOrderInformations
+        onDelete: CASCADE
+      Currency:
+        local: currency_id
+        foreign: id
+        onDelete: CASCADE
+        type: one
+        foreignAlias: PurchaseOrderInformation
+        foreignType: many
+      PurchaseOrderTaxes:
+        class: PurchaseOrderTax
+        orderBy: id
+        local: id
+        foreign: purchase_order_information_id
+        type: many
+        foreignType: one
+        foreignAlias: PurchaseOrderInformation
+        onDelete: CASCADE
+
+PurchaseOrderTax:
+    options:
+      symfony:
+        filter: false
+    tableName: purchase_order_taxes
+    actAs: [Timestampable, Signable, SoftDelete]
+    indexes:
+      po_tax_idx:
+        fields: [purchase_order_information_id, deleted_at]
+    columns:
+      purchase_order_information_id: { type: integer, notnull: true }
+      tax_name:                      { type: string(150), default: null, notnull: false }
+      percentage:                    { type: decimal, scale: 5, default: 0 }

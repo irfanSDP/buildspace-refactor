@@ -1,0 +1,82 @@
+ContractManagementVerifier:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs: [SoftDelete]
+  tableName: contract_management_verifiers
+  indexes:
+    contract_management_verifiers_id_idx:
+      fields: [id]
+    contract_management_verifiers_project_structure_id_idx:
+      fields: [project_structure_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id: { type: integer, notnull: true }
+    module_identifier:    { type: integer, notnull: true }
+    user_id:              { type: integer, notnull: true }
+    sequence_number:      { type: integer, notnull: true }
+    approved:             { type: boolean, notnull: false }
+    verified_at:          { type: timestamp, notnull: false }
+    start_at:             { type: timestamp, notnull: false }
+    days_to_verify:       { type: integer, notnull: false }
+    remarks:              { type: string, notnull: false }
+    substitute_id:        { type: integer, notnull: false }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ContractManagementVerifier
+      foreignType: many
+    sfGuardUser:
+      local: user_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ContractManagementVerifier
+      foreignType: many
+
+ContractManagementClaimVerifier:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs: [SoftDelete]
+  tableName: contract_management_claim_verifiers
+  indexes:
+    contract_management_claim_verifiers_id_idx:
+      fields: [id]
+    contract_management_claim_verifiers_idx:
+      fields: [project_structure_id, module_identifier, object_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id: { type: integer, notnull: true }
+    module_identifier:    { type: integer, notnull: true }
+    object_id:            { type: integer, notnull: true }
+    user_id:              { type: integer, notnull: true }
+    sequence_number:      { type: integer, notnull: true }
+    approved:             { type: boolean, notnull: false }
+    verified_at:          { type: timestamp, notnull: false }
+    start_at:             { type: timestamp, notnull: false }
+    days_to_verify:       { type: integer, notnull: false }
+    remarks:              { type: string, notnull: false }
+    substitute_id:        { type: integer, notnull: false }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ContractManagementVerifier
+      foreignType: many
+    sfGuardUser:
+      local: user_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ContractManagementVerifier
+      foreignType: many

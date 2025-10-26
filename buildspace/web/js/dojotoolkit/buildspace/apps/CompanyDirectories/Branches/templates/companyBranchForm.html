@@ -1,0 +1,114 @@
+<div>
+	<form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="branchForm-${companyId}-${branchId}" style="padding: 0 5px;">
+		<fieldset style="margin-bottom: 10px;">
+			<legend>${nls.mainInformation}</legend>
+
+			<table class="table-form">
+				<tr>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;"><span class="required">*</span>${nls.branchName}:</label>
+					</td>
+					<td colspan="3">
+						<input type=text name="company_branch[name]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="padding:2px;width:100%;">
+						<span style="color:red; display: none;" data-dojo-attach-point="error-name"></span>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+
+		<fieldset>
+			<legend>${nls.contactInformation}</legend>
+
+			<table class="table-form">
+				<tr>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;"><span class="required">*</span>${nls.branchAddress}:</label>
+					</td>
+					<td colspan="3">
+						<textarea name="company_branch[address]" data-dojo-props="trim:true, required: true" data-dojo-type="dijit/form/Textarea" style="padding:2px;min-height:30px;_height:30px;"></textarea>
+						<span style="color:red; display: none;" data-dojo-attach-point="error-address"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;"><span class="required">*</span>${nls.contactPerson}:</label>
+					</td>
+					<td>
+						<input type=text name="company_branch[contact_person_name]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="padding:2px;">
+						<span style="color:red; display: none;" data-dojo-attach-point="error-contact_person_name"></span>
+					</td>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;">${nls.email}:</label>
+					</td>
+					<td>
+						<input type=text name="company_branch[contact_person_email]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true" style="padding:2px;">
+						<span style="color:red; display: none;" data-dojo-attach-point="error-contact_person_email"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;">${nls.directLine}:</label>
+					</td>
+					<td>
+						<input type=text name="company_branch[contact_person_direct_line]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true" style="padding:2px;">
+						<span style="color:red; display: none;" data-dojo-attach-point="error-contact_person_direct_line"></span>
+					</td>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;">${nls.mobile}:</label>
+					</td>
+					<td>
+						<input type=text name="company_branch[contact_person_mobile]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true" style="padding:2px;">
+						<span style="color:red; display: none;" data-dojo-attach-point="error-contact_person_mobile"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;"><span class="required">*</span>${nls.branchPhone}:</label>
+					</td>
+					<td>
+						<input type=text name="company_branch[phone_number]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="padding:2px;">
+						<span style="color:red; display: none;" data-dojo-attach-point="error-phone_number"></span>
+					</td>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;">${nls.branchFax}:</label>
+					</td>
+					<td>
+						<input type=text name="company_branch[fax_number]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true" style="padding:2px;">
+						<span style="color:red; display: none;" data-dojo-attach-point="error-fax_number"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;">${nls.postcode}:</label>
+					</td>
+					<td>
+						<input type=text name="company_branch[postcode]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true" style="padding:2px;">
+						<span style="color:red; display: none;" data-dojo-attach-point="error-postcode"></span>
+					</td>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;"><span class="required">*</span>${nls.country}:</label>
+					</td>
+					<td>
+						<div data-dojo-attach-point="branchCountrySelectDivNode"></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" style="width:150px;">
+						&nbsp;
+					</td>
+					<td>
+						&nbsp;
+					</td>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;"><span class="required">*</span>${nls.state}:</label>
+					</td>
+					<td>
+						<div data-dojo-attach-point="branchStateSelectDivNode"></div>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+
+		<input type=hidden name="company_branch[_csrf_token]" value="">
+	</form>
+</div>

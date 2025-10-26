@@ -1,0 +1,1 @@
+Based on the total works to be completed by tenderer with contractor's own purchase of material and to complete the works within the Main Contractor's work programme for the whole of the works, from the Date of Commencement or within such extended time as provided by the Conditions of Contract, and the total amount of Tender is the Firm Price Lump Sum of {{{ $currencyName }}}:-

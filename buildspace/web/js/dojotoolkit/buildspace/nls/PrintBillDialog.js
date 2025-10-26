@@ -1,0 +1,33 @@
+define({
+    root: {
+        printBQ: 'Print BQ',
+        description: 'Description',
+        close: 'Close',
+        action: 'Action',
+        numberOfItems: 'Number of Items',
+        summaryPage: 'Summary Page',
+        print: 'Print',
+        printFinalBQ: 'Print Final BQ',
+        printWithPrice: 'Print With Price',
+        printWithoutPrice: 'Print Without Price',
+        printAll: 'Print All',
+        printAllWithoutPrice: 'Print All Without Price',
+        printAllWithPrice: 'Print All With Price',
+        printWithNotListedItem: 'Print With Not Listed Item',
+        printWithoutNotListedItem: 'Print Without Not Listed Item',
+        printAllWithoutNotListedItem: 'Print All Without Not Listed Item',
+        printAllWithNotListedItem: 'Print All With Not Listed Item',
+        notListedItem: 'Not Listed Item',
+        projectSummary: 'Project Summary',
+        withPrice: 'With Price',
+        withoutPrice: 'Without Price',
+        printToPdf: 'Print To PDF',
+        exportToExcel: 'Export To Excel',
+        exportAs: 'Export As',
+        export: 'Export',
+        with: 'With',
+        without: 'Without',
+        w: 'w. ',
+        w_o: "w/o "
+    }
+});

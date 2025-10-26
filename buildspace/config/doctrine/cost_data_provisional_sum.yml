@@ -1,0 +1,30 @@
+CostDataProvisionalSumItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: cost_data_provisional_sum_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    cost_data_item_provisional_sum_item_id_idx:
+      fields: [id]
+    cost_data_item_provisional_sum_item_fk_idx:
+      fields: [cost_data_id]
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    cost_data_id:           { type: integer, notnull: true }
+    description:            { type: string, notnull: false }
+    priority:               { type: integer, notnull: true }
+    approved_cost:          { type: decimal, scale: 5, default: 0 }
+    awarded_cost:           { type: decimal, scale: 5, default: 0 }
+    awarded_date:           { type: date, notnull: false }
+    variation_order_cost:   { type: decimal, scale: 5, notnull: true, default: 0 }
+  relations:
+    CostData:
+      local: cost_data_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataProvisionalSumItem
+      foreignType: many

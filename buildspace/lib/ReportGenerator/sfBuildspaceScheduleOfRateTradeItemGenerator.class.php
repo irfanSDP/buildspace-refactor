@@ -1,0 +1,566 @@
+<?php
+
+class sfBuildspaceScheduleOfRateTradeItemGenerator extends sfBuildspaceBQMasterFunction
+{
+    public $pageTitle;
+    public $billItemIds;
+    public $fontSize;
+    public $headSettings;
+
+    public $scheduleOfRate;
+    public $scheduleOfRateTrade;
+
+    const TOTAL_BILL_ITEM_PROPERTY      = 11;
+    const ROW_BILL_ITEM_MARKUP          = 7;
+    const ROW_BILL_ITEM_TOTAL_QTY       = 8;
+    const ROW_BILL_ITEM_TOTAL_COST      = 9;
+    const ROW_BILL_ITEM_MULTI_RATE      = 10;
+
+    public function __construct($project = false, $scheduleOfRate, $scheduleOfRateTrade, $tradeItemIds, $billItemIds, $pageTitle, $descriptionFormat = self::DESC_FORMAT_FULL_LINE)
+    {
+        $this->pdo                 = ProjectStructureTable::getInstance()->getConnection()->getDbh();
+        $this->project             = $project;
+        $this->tradeItemIds        = $tradeItemIds;
+        $this->billItemIds         = $billItemIds;
+        $this->scheduleOfRate      = $scheduleOfRate;
+        $this->scheduleOfRateTrade = $scheduleOfRateTrade;
+        $this->pageTitle           = $pageTitle;
+        $this->currency            = $this->project->MainInformation->Currency;
+        $this->descriptionFormat   = $descriptionFormat;
+
+        $this->setOrientationAndSize();
+
+        $this->printSettings  = BillLayoutSettingTable::getInstance()->getPrintingLayoutSettings(1, TRUE);
+        $this->fontSize       = $this->printSettings['layoutSetting']['fontSize'];
+        $this->fontType       = self::setFontType($this->printSettings['layoutSetting']['fontTypeName']);
+        $this->headSettings   = $this->printSettings['headSettings'];
+
+        self::setMaxCharactersPerLine();
+    }
+
+    public function generatePages()
+    {
+        $pages           = array();
+        $tradeItemIds    = $this->tradeItemIds;
+        $billItemIds     = $this->billItemIds;
+
+        $printPreviewItems = array();
+        $sorItemIds        = array();
+        $contractorRates   = array();
+        $companies         = array();
+        $results           = array();
+        $billCount         = 0;
+        $sumTotalQuantity  = 0;
+        $sumTotalCost      = 0;
+
+        $totalPage = 0;
+
+        $tradeIdToDescription = array();
+        $billElementIdToDescription = array();
+
+        $formulatedColumnConstants = array(
+            BillItem::FORMULATED_COLUMN_RATE,
+            BillItem::FORMULATED_COLUMN_MARKUP_PERCENTAGE
+        );
+
+        if($this->project->MainInformation->status == ProjectMainInformation::STATUS_TENDERING or $this->project->MainInformation->status == ProjectMainInformation::STATUS_POSTCONTRACT)
+        {
+            $tenderSetting = $this->project->TenderSetting;
+
+            switch($tenderSetting->contractor_sort_by)
+            {
+                case TenderSetting::SORT_CONTRACTOR_NAME_ASC:
+                    $sqlOrder = "c.name ASC";
+                    break;
+                case TenderSetting::SORT_CONTRACTOR_NAME_DESC:
+                    $sqlOrder = "c.name DESC";
+                    break;
+                case TenderSetting::SORT_CONTRACTOR_HIGHEST_LOWEST:
+                    $sqlOrder = "total DESC";
+                    break;
+                case TenderSetting::SORT_CONTRACTOR_LOWEST_HIGHEST:
+                    $sqlOrder = "total ASC";
+                    break;
+                default:
+                    throw new Exception('invalid sort option');
+            }
+
+            $awardedCompanyId = $tenderSetting->awarded_company_id > 0 ? $tenderSetting->awarded_company_id : -1;
+
+            $stmt = $this->pdo->prepare("SELECT c.id, c.name, COALESCE(SUM(r.grand_total), 0) AS total
+            FROM ".CompanyTable::getInstance()->getTableName()." c
+            JOIN ".TenderCompanyTable::getInstance()->getTableName()." xref ON xref.company_id = c.id
+            LEFT JOIN ".TenderBillElementGrandTotalTable::getInstance()->getTableName()." r ON r.tender_company_id = xref.id
+            WHERE xref.project_structure_id = ".$this->project->id."
+            AND c.id <> ".$awardedCompanyId." AND xref.show IS TRUE
+            AND c.deleted_at IS NULL GROUP BY c.id ORDER BY ".$sqlOrder);
+
+            $stmt->execute();
+
+            $companies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if($tenderSetting->awarded_company_id > 0)
+            {
+                $awardedCompany = $tenderSetting->AwardedCompany;
+
+                $company = array(
+                    'id'   => $awardedCompany->id,
+                    'name' => $awardedCompany->name
+                );
+
+                array_unshift($companies, $company);
+
+                unset($company, $awardedCompany);
+            }
+        }
+
+        if ( count($billItemIds) > 0 )
+        {
+            $stmt = $this->pdo->prepare("SELECT DISTINCT p.id, p.element_id, p.root_id, p.description, p.type, p.uom_id, p.grand_total, p.grand_total_quantity, p.level, p.priority, e.priority AS element_priority, p.lft, uom.symbol AS uom_symbol, ifc.relation_id
+            FROM ".BillItemTable::getInstance()->getTableName()." c
+            JOIN ".BillItemTable::getInstance()->getTableName()." p ON c.lft BETWEEN p.lft AND p.rgt
+            LEFT JOIN ".UnitOfMeasurementTable::getInstance()->getTableName()." AS uom ON c.uom_id = uom.id AND uom.deleted_at IS NULL
+            JOIN ".BillItemFormulatedColumnTable::getInstance()->getTableName()." AS bifc ON c.id = bifc.relation_id
+            JOIN ".ScheduleOfRateItemFormulatedColumnTable::getInstance()->getTableName()." AS ifc ON bifc.schedule_of_rate_item_formulated_column_id = ifc.id
+            JOIN ".BillElementTable::getInstance()->getTableName()." AS e ON p.element_id = e.id
+            JOIN ".ProjectStructureTable::getInstance()->getTableName()." AS s ON e.project_structure_id = s.id
+            WHERE c.id IN (".implode(', ', $billItemIds).") AND ifc.relation_id IN (".implode(',', $tradeItemIds).")
+            AND s.root_id = ".$this->project->id."
+            AND c.root_id = p.root_id AND c.element_id = p.element_id
+            AND bifc.column_name = '".BillItem::FORMULATED_COLUMN_RATE."'
+            AND c.project_revision_deleted_at IS NULL AND c.deleted_at IS NULL
+            AND p.project_revision_deleted_at IS NULL AND p.deleted_at IS NULL
+            AND e.deleted_at IS NULL AND ifc.deleted_at IS NULL AND bifc.deleted_at IS NULL AND s.deleted_at IS NULL
+            ORDER BY e.priority, p.priority, p.lft, p.level ASC");
+
+            $stmt->execute();
+
+            $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ( $items as $item )
+            {
+                $sorItemIds[$item['relation_id']] = $item['relation_id'];
+            }
+
+            $stmt = $this->pdo->prepare("SELECT bifc.relation_id, bifc.column_name, bifc.final_value, bifc.linked, bifc.has_build_up
+            FROM ".ProjectStructureTable::getInstance()->getTableName()." AS s
+            JOIN ".BillElementTable::getInstance()->getTableName()." AS e ON s.id = e.project_structure_id
+            JOIN ".BillItemTable::getInstance()->getTableName()." i  ON i.element_id = e.id
+            JOIN ".BillItemFormulatedColumnTable::getInstance()->getTableName()." AS bifc ON i.id = bifc.relation_id
+            JOIN ".BillItemFormulatedColumnTable::getInstance()->getTableName()." AS bifc2 ON bifc.relation_id = bifc2.relation_id
+            JOIN ".ScheduleOfRateItemFormulatedColumnTable::getInstance()->getTableName()." AS ifc ON bifc2.schedule_of_rate_item_formulated_column_id = ifc.id
+            WHERE s.root_id = ".$this->project->id."
+            AND ifc.relation_id IN (".implode(', ', $sorItemIds).") AND bifc.column_name <> '".BillItem::FORMULATED_COLUMN_MARKUP_AMOUNT."'
+            AND s.deleted_at IS NULL AND i.project_revision_deleted_at IS NULL AND i.deleted_at IS NULL
+            AND e.deleted_at IS NULL AND ifc.deleted_at IS NULL AND bifc.deleted_at IS NULL AND bifc2.deleted_at IS NULL
+            ORDER BY ifc.relation_id ASC");
+
+            $stmt->execute();
+
+            $formulatedColumns = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            /*
+            * select bills
+            */
+            $stmt = $this->pdo->prepare("SELECT DISTINCT s.id, s.title, s.lft FROM ".ProjectStructureTable::getInstance()->getTableName()." AS s JOIN
+            ".BillElementTable::getInstance()->getTableName()." AS be ON s.id = be.project_structure_id JOIN
+            ".BillItemTable::getInstance()->getTableName()." AS bi ON be.id = bi.element_id JOIN
+            ".BillItemFormulatedColumnTable::getInstance()->getTableName()." AS bifc ON bi.id = bifc.relation_id JOIN
+            ".ScheduleOfRateItemFormulatedColumnTable::getInstance()->getTableName()." AS ifc ON bifc.schedule_of_rate_item_formulated_column_id = ifc.id
+            WHERE s.root_id = ".$this->project->id." AND ifc.relation_id IN (".implode(', ', $sorItemIds).")
+            AND bifc.column_name = '".BillItem::FORMULATED_COLUMN_RATE."'
+            AND ifc.deleted_at IS NULL AND bifc.deleted_at IS NULL AND bi.project_revision_deleted_at IS NULL AND bi.deleted_at IS NULL AND be.deleted_at IS NULL
+            AND s.deleted_at IS NULL ORDER BY s.lft ASC");
+
+            $stmt->execute();
+
+            $bills = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if($this->project->MainInformation->status == ProjectMainInformation::STATUS_TENDERING or $this->project->MainInformation->status == ProjectMainInformation::STATUS_POSTCONTRACT)
+            {
+                $sql = "SELECT tc.company_id, r.bill_item_id, r.rate FROM ".TenderBillItemRateTable::getInstance()->getTableName()." r
+                JOIN ".TenderCompanyTable::getInstance()->getTableName()." tc ON r.tender_company_id = tc.id
+                WHERE tc.project_structure_id = ".$this->project->id. " AND tc.show IS TRUE";
+
+                $stmt = $this->pdo->prepare($sql);
+
+                $stmt->execute();
+
+                $contractorRateRecords = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                foreach($contractorRateRecords as $record)
+                {
+                    if(!array_key_exists($record['company_id'], $contractorRates))
+                    {
+                        $contractorRates[$record['company_id']] = array();
+                    }
+
+                    if(!array_key_exists($record['bill_item_id'], $contractorRates[$record['company_id']]))
+                    {
+                        $contractorRates[$record['company_id']][$record['bill_item_id']] = 0;
+                    }
+
+                    $contractorRates[$record['company_id']][$record['bill_item_id']] = $record['rate'];
+
+                    unset($record);
+                }
+
+                unset($contractorRateRecords);
+            }
+
+            // get schedule of rate trade item's information
+            $stmt = $this->pdo->prepare("SELECT t.id, t.description, t.root_id, t.lft, t.priority, t.level FROM ".ScheduleOfRateItemTable::getInstance()->getTableName()." t
+            WHERE t.id IN (".implode(', ', $sorItemIds).") AND t.trade_id = ".$this->scheduleOfRateTrade->id." AND t.deleted_at IS NULL
+            ORDER BY t.root_id, t.lft, t.priority, t.level ASC");
+
+            $stmt->execute();
+
+            $tradeItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ( $tradeItems as $tradeItem )
+            {
+                $tradeItemInfo = array(
+                    'id'                   => 'tradeItemId-' . $tradeItem['id'],
+                    'description'          => $tradeItem['description'],
+                    'type'                 => BillItem::PROJECT_ANALYZER_TRADE_ITEM,
+                    'level'                => 0,
+                    'uom_id'               => -1,
+                    'uom_symbol'           => '',
+                    'grand_total_quantity' => 0,
+                    'grand_total'          => 0,
+                    'rate-value'           => 0,
+                    'rate-final_value'     => 0,
+                    'multi-rate'           => false,
+                );
+
+                $tradeIdToDescription[$tradeItem['id']] = $tradeItem['description'];
+
+                if(!array_key_exists($tradeItem['id'], $printPreviewItems))
+                {
+                    $printPreviewItems[$tradeItem['id']] = array();
+                }
+
+                if(!array_key_exists($tradeItem['id'], $pages))
+                {
+                    $pages[$tradeItem['id']] = array();
+                }
+
+                if($this->project->MainInformation->status == ProjectMainInformation::STATUS_TENDERING or $this->project->MainInformation->status == ProjectMainInformation::STATUS_POSTCONTRACT)
+                {
+                    foreach($companies as $company)
+                    {
+                        $tradeItemInfo['contractor_rate-'.$company['id'].'-value']       = '';
+                        $tradeItemInfo['contractor_rate-'.$company['id'].'-final_value'] = number_format(0, 2, '.', '');
+                        $tradeItemInfo['contractor_rate-'.$company['id'].'-has_formula'] = false;
+                    }
+                }
+
+                foreach($formulatedColumnConstants as $formulatedColumnConstant)
+                {
+                    $tradeItemInfo[$formulatedColumnConstant.'-value']        = '';
+                    $tradeItemInfo[$formulatedColumnConstant.'-final_value']  = 0;
+                    $tradeItemInfo[$formulatedColumnConstant.'-linked']       = false;
+                    $tradeItemInfo[$formulatedColumnConstant.'-has_formula']  = false;
+                    $tradeItemInfo[$formulatedColumnConstant.'-has_build_up'] = false;
+                }
+
+                foreach($bills as $bill)
+                {
+                    $stmt = $this->pdo->prepare("SELECT DISTINCT be.id, be.description, be.priority FROM
+                    ".BillElementTable::getInstance()->getTableName()." AS be JOIN
+                    ".BillItemTable::getInstance()->getTableName()." AS bi ON be.id = bi.element_id JOIN
+                    ".BillItemFormulatedColumnTable::getInstance()->getTableName()." AS bifc ON bi.id = bifc.relation_id JOIN
+                    ".ScheduleOfRateItemFormulatedColumnTable::getInstance()->getTableName()." AS ifc ON bifc.schedule_of_rate_item_formulated_column_id = ifc.id
+                    WHERE be.project_structure_id = ".$bill['id']." AND ifc.relation_id = ".$tradeItem['id']."
+                    AND bifc.column_name = '".BillItem::FORMULATED_COLUMN_RATE."'
+                    AND ifc.deleted_at IS NULL AND bifc.deleted_at IS NULL AND bi.project_revision_deleted_at IS NULL AND bi.deleted_at IS NULL AND be.deleted_at IS NULL
+                    ORDER BY be.priority ASC");
+
+                    $stmt->execute();
+
+                    $elements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    foreach($elements as $element)
+                    {
+                        $itemPages = array();
+
+                        $result = array(
+                            'id'               => 'bill-'.$bill['id'].'-elem'.$element['id'].'-billCount-'.$billCount,
+                            'description'      => $bill['title']." > ".$element['description'],
+                            'type'             => -1,
+                            'level'            => 0,
+                            'uom_id'           => -1,
+                            'uom_symbol'       => '',
+                            'rate-value'       => 0,
+                            'rate-final_value' => 0,
+                        );
+
+                        $billElementIdToDescription[$result['id']] = $result['description'];
+
+                        foreach($formulatedColumnConstants as $formulatedColumnConstant)
+                        {
+                            $result[$formulatedColumnConstant.'-value']       = '';
+                            $result[$formulatedColumnConstant.'-final_value'] = 0;
+                            $result[$formulatedColumnConstant.'-linked']      = false;
+                            $result[$formulatedColumnConstant.'-has_formula'] = false;
+                        }
+
+                        if($this->project->MainInformation->status == ProjectMainInformation::STATUS_TENDERING or $this->project->MainInformation->status == ProjectMainInformation::STATUS_POSTCONTRACT)
+                        {
+                            foreach($companies as $company)
+                            {
+                                $result['contractor_rate-'.$company['id'].'-value'] = '';
+                                $result['contractor_rate-'.$company['id'].'-final_value'] = number_format(0, 2, '.', '');
+                                $result['contractor_rate-'.$company['id'].'-has_formula'] = false;
+                            }
+                        }
+
+                        if(!array_key_exists($result['id'], $printPreviewItems[$tradeItem['id']]))
+                        {
+                            $printPreviewItems[$tradeItem['id']][$result['id']] = array();
+                        }
+
+                        $billItem = array('id'=>-1);
+
+                        foreach($items as $k => $item)
+                        {
+                            if($billItem['id'] != $item['id'] && $item['relation_id'] == $tradeItem['id'] && $item['element_id'] == $element['id'])
+                            {
+                                $billItem['id']                   = $item['id'].'-billCount-'.$billCount;
+                                $billItem['description']          = $item['description'];
+                                $billItem['type']                 = $item['type'];
+                                $billItem['grand_total']          = $item['grand_total'];
+                                $billItem['grand_total_quantity'] = $item['grand_total_quantity'];
+                                $billItem['level']                = $item['level'];
+                                $billItem['uom_symbol']           = $item['uom_id'] > 0 ? $item['uom_symbol'] : '';
+
+                                foreach($formulatedColumnConstants as $formulatedColumnConstant)
+                                {
+                                    $billItem[$formulatedColumnConstant.'-value']        = '';
+                                    $billItem[$formulatedColumnConstant.'-final_value']  = 0;
+                                    $billItem[$formulatedColumnConstant.'-linked']       = false;
+                                    $billItem[$formulatedColumnConstant.'-has_formula']  = false;
+                                    $billItem[$formulatedColumnConstant.'-has_build_up'] = false;
+                                }
+
+                                foreach($formulatedColumns as $key => $formulatedColumn)
+                                {
+                                    if($formulatedColumn['relation_id'] == $item['id'])
+                                    {
+                                        $columnName                            = $formulatedColumn['column_name'];
+                                        $billItem[$columnName.'-value']        = $formulatedColumn['final_value'];
+                                        $billItem[$columnName.'-final_value']  = $formulatedColumn['final_value'];
+                                        $billItem[$columnName.'-linked']       = $formulatedColumn['linked'];
+                                        $billItem[$columnName.'-has_formula']  = false;
+                                        $billItem[$columnName.'-has_build_up'] = $formulatedColumn['has_build_up'];
+
+                                        unset($formulatedColumn, $formulatedColumns[$key]);
+                                    }
+                                }
+
+                                if($this->project->MainInformation->status == ProjectMainInformation::STATUS_TENDERING or $this->project->MainInformation->status == ProjectMainInformation::STATUS_POSTCONTRACT)
+                                {
+                                    foreach($companies as $company)
+                                    {
+                                        if(array_key_exists($company['id'], $contractorRates) and array_key_exists($item['id'], $contractorRates[$company['id']]))
+                                        {
+                                            $rate = $contractorRates[$company['id']][$item['id']];
+                                        }
+                                        else
+                                        {
+                                            $rate = number_format(0, 2, '.', '');
+                                        }
+
+                                        $billItem['contractor_rate-'.$company['id'].'-value']       = $rate;
+                                        $billItem['contractor_rate-'.$company['id'].'-final_value'] = $rate;
+                                        $billItem['contractor_rate-'.$company['id'].'-has_formula'] = false;
+                                    }
+                                }
+
+                                array_push($printPreviewItems[$tradeItem['id']][$result['id']], $billItem);
+
+                                unset($items[$k], $item);
+                            }
+                        }
+
+                        if ( ! empty($printPreviewItems[$tradeItem['id']][$result['id']]) )
+                        {
+                            $this->generateItemPages($printPreviewItems[$tradeItem['id']][$result['id']], $result, 1, array(), $itemPages);
+
+                            $page = array(
+                                'description' => $result['description'],
+                                'item_pages' => SplFixedArray::fromArray($itemPages)
+                            );
+
+                            $totalPage+= count($itemPages);
+
+                            $pages[$tradeItem['id']][$result['id']] = $page;
+                        }
+                    }
+
+                    $billCount++;
+                }
+
+                unset($tradeItemInfo);
+            }
+        }
+
+        $this->totalPage = $totalPage;
+        $this->billElementIdToDescription = $billElementIdToDescription;
+        $this->tradeIdToDescription = $tradeIdToDescription;
+
+        return $pages;
+    }
+
+    public function generateItemPages(Array $items, $tradeInfo, $pageCount, $ancestors, &$itemPages, $counterIndex = 0, $newPage = false)
+    {
+        $itemPages[$pageCount] = array();
+        $layoutSettings        = $this->printSettings['layoutSetting'];
+        $maxRows               = $this->getMaxRows();
+        $ancestors = (is_array($ancestors) && count($ancestors)) ? $ancestors : array();
+
+        $blankRow = new SplFixedArray(self::TOTAL_BILL_ITEM_PROPERTY);
+        $blankRow[self::ROW_BILL_ITEM_ID]               = -1;   //id
+        $blankRow[self::ROW_BILL_ITEM_ROW_IDX]          = null; //row index
+        $blankRow[self::ROW_BILL_ITEM_DESCRIPTION]      = null; //description
+        $blankRow[self::ROW_BILL_ITEM_LEVEL]            = 0;    //level
+        $blankRow[self::ROW_BILL_ITEM_TYPE]             = self::ROW_TYPE_BLANK;//type
+        $blankRow[self::ROW_BILL_ITEM_UNIT]             = null;
+        $blankRow[self::ROW_BILL_ITEM_RATE]             = null;
+        $blankRow[self::ROW_BILL_ITEM_MARKUP]          = null;
+        $blankRow[self::ROW_BILL_ITEM_TOTAL_QTY]        = null;
+        $blankRow[self::ROW_BILL_ITEM_TOTAL_COST]       = null;
+
+        array_push($itemPages[$pageCount], $blankRow);
+
+        $rowCount = 1;
+
+        foreach($ancestors as $k => $row)
+        {
+            array_push($itemPages[$pageCount], $row);
+            $rowCount += 1;
+            unset($row);
+        }
+
+        $ancestors = array();
+        $itemIndex    = 1;
+
+        foreach($items as $x => $item)
+        {
+            $occupiedRows = ($items[$x]['type'] == BillItem::TYPE_ITEM_HTML_EDITOR or $items[$x]['type'] == BillItem::TYPE_NOID) ? Utilities::justifyHtmlString($items[$x]['description'], $this->MAX_CHARACTERS) : Utilities::justify($items[$x]['description'], $this->MAX_CHARACTERS);
+
+            if($this->descriptionFormat == self::DESC_FORMAT_ONE_LINE)
+            {
+                $oneLineDesc = $occupiedRows[0];
+                $occupiedRows = new SplFixedArray(1);
+                $occupiedRows[0] = $oneLineDesc;
+            }
+
+            $rowCount += count($occupiedRows);
+
+            if($rowCount <= $maxRows)
+            {
+                foreach($occupiedRows as $key => $occupiedRow)
+                {
+                    if($key == 0 && $item['type'] != BillItem::TYPE_HEADER && $item['type'] != BillItem::TYPE_HEADER_N && $item['type'] != BillItem::TYPE_NOID)
+                    {
+                        $counterIndex++;
+                    }
+
+                    $row = new SplFixedArray(self::TOTAL_BILL_ITEM_PROPERTY);
+
+                    $row[self::ROW_BILL_ITEM_ROW_IDX] = ($key == 0 && $item['type'] != BillItem::TYPE_HEADER && $item['type'] != BillItem::TYPE_HEADER_N && $item['type'] != BillItem::TYPE_NOID) ? $counterIndex : null;
+                    $row[self::ROW_BILL_ITEM_DESCRIPTION] = $occupiedRow;
+                    $row[self::ROW_BILL_ITEM_LEVEL] = $item['level'];
+                    $row[self::ROW_BILL_ITEM_TYPE] =  $item['type'];
+
+                    if($key+1 == $occupiedRows->count() && $item['type'] != BillItem::TYPE_HEADER && $item['type'] != BillItem::TYPE_HEADER_N && $item['type'] != BillItem::TYPE_NOID)
+                    {
+                        $row[self::ROW_BILL_ITEM_ID]    = $item['id'];//only work item will have id set so we can use it to display rates and quantities
+                        $row[self::ROW_BILL_ITEM_UNIT]  = $item['uom_symbol'];
+                        $row[self::ROW_BILL_ITEM_RATE]  = self::gridCurrencyRoundingFormat($item['rate-final_value']);
+                        $row[self::ROW_BILL_ITEM_MARKUP]       = self::gridCurrencyRoundingFormat($item['markup_percentage-final_value']);
+                        $row[self::ROW_BILL_ITEM_TOTAL_QTY]     = self::gridCurrencyRoundingFormat($item['grand_total_quantity']);
+                        $row[self::ROW_BILL_ITEM_TOTAL_COST]    = self::gridCurrencyRoundingFormat($item['grand_total']);
+
+                    }
+                    else
+                    {
+                        $row[self::ROW_BILL_ITEM_ID]    = null;
+                        $row[self::ROW_BILL_ITEM_UNIT]  = null;
+                        $row[self::ROW_BILL_ITEM_RATE]  = null;
+                        $row[self::ROW_BILL_ITEM_MARKUP]      = null;
+                        $row[self::ROW_BILL_ITEM_TOTAL_QTY]    = null;
+                        $row[self::ROW_BILL_ITEM_TOTAL_COST]   = null;
+
+                        if ( $key+1 == $occupiedRows->count() && $item['type'] == BillItem::TYPE_NOID )
+                        {
+                            $row[self::ROW_BILL_ITEM_UNIT] = $item['uom_symbol'];//unit
+                        }
+                    }
+
+                    array_push($itemPages[$pageCount], $row);
+
+                    unset($row);
+                }
+
+                //blank row
+                array_push($itemPages[$pageCount], $blankRow);
+
+                $rowCount++;//plus one blank row;
+                $itemIndex++;
+                $newPage = false;
+
+                unset($items[$x], $occupiedRows);
+            }
+            else
+            {
+                unset($occupiedRows);
+
+                $pageCount++;
+                $this->generateItemPages($items, $tradeInfo, $pageCount, $ancestors, $itemPages, $counterIndex, true);
+                break;
+            }
+        }
+    }
+
+    protected function setOrientationAndSize($orientation = false, $pageFormat = false)
+    {
+        $this->orientation = self::ORIENTATION_PORTRAIT;
+        $this->setPageFormat($this->generatePageFormat(self::PAGE_FORMAT_A4));
+    }
+
+    public function setPageFormat( $pageFormat )
+    {
+        $this->pageFormat = $pageFormat;
+    }
+
+    protected function generatePageFormat($format)
+    {
+        $width = 595;
+
+        $height = 800;
+
+        return $pf = array(
+            'page_format' => self::PAGE_FORMAT_A4,
+            'minimum-font-size' => $this->fontSize,
+            'width' => $width,
+            'height' => $height,
+            'pdf_margin_top' => 8,
+            'pdf_margin_right' => 8,
+            'pdf_margin_bottom' => 3,
+            'pdf_margin_left' => 8
+        );
+    }
+
+    public function setMaxCharactersPerLine()
+    {
+        $this->MAX_CHARACTERS = 45;
+    }
+
+    public function getMaxRows()
+    {
+        return $maxRows = 63;
+    }
+
+}

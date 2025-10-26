@@ -1,0 +1,35 @@
+connection: main_conn
+
+PostContractRemeasurementClaim:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contract_remeasurement_claims
+  indexes:
+    post_contract_remeasurement_claim_uniq_idx:
+      fields: [post_contract_bill_item_rate_id, bill_column_setting_id, deleted_at]
+      type: unique
+  actAs: [Timestampable, Signable, SoftDelete]
+  columns:
+    post_contract_bill_item_rate_id: { type: integer, notnull: true }
+    bill_column_setting_id:          { type: integer, notnull: true }
+    qty_per_unit:                    { type: decimal, scale: 5, default: 0 }
+    total_per_unit:                  { type: decimal, scale: 5, default: 0 }
+    has_build_up:                    { type: boolean, default: false }
+  relations:
+    ItemRate:
+      class: PostContractBillItemRate
+      local: post_contract_bill_item_rate_id
+      foreign: id
+      type: one
+      foreignAlias: PostContractRemeasurementClaims
+      foreignType: many
+      onDelete: CASCADE
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      type: one
+      foreignAlias: PostContractRemeasurementClaims
+      foreignType: many
+      onDelete: CASCADE

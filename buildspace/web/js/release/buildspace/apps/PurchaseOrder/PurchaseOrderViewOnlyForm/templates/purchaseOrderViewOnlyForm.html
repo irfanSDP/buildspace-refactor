@@ -1,0 +1,217 @@
+<div>
+    <form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="rfqForm-${poId}" style="padding: 0 5px;">
+        <fieldset style="margin-bottom: 10px;">
+            <legend>${nls.poInformation}</legend>
+
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;">${nls.status}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="statusSelect-${poId}"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;">${nls.priceDisplayFormat}:</label>
+                    </td>
+                    <td>
+                        <label><input type="radio" data-dojo-type="dijit/form/RadioButton" name="purchase_order_information[price_format]" value="normal" checked="checked">1,000.00</label>
+                        <label><input type="radio" data-dojo-type="dijit/form/RadioButton" name="purchase_order_information[price_format]" value="opposite">1.000,00</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;">${nls.printWithoutCents}:</label>
+                    </td>
+                    <td>
+                        <input name="purchase_order_information[print_without_cents]" data-dojo-type="dijit/form/CheckBox" value="true">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;">${nls.poNo}:</label>
+                    </td>
+                    <td>
+                        ${formInfo.purchase_order_information[poNo]}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;"></span>${nls.ref}:</label>
+                    </td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;" data-dojo-props="maxLength:45, trim:true, propercase:true" name="purchase_order_information[ref]">
+                        <p class="alert-text-error" id="error-purchase_order_information_ref" style="display: none;"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;"></span>${nls.yourQuoRef}:</label>
+                    </td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;" data-dojo-props="maxLength:45, trim:true, propercase:true" name="purchase_order_information[quo_ref]">
+                        <p class="alert-text-error" id="error-purchase_order_information_quo_ref" style="display: none;"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;"></span>${nls.companyAddress}:</label>
+                    </td>
+                    <td>
+                        <div style="margin: 0 0 10px;">
+                            <input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;" data-dojo-props="maxLength:45, trim:true, propercase:true" name="purchase_order_information[company_address_1]">
+                            <p class="alert-text-error" id="error-purchase_order_information_company_address_1" style="display: none;"></p>
+                        </div>
+                        <div style="margin: 0 0 10px;">
+                            <input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;" data-dojo-props="maxLength:45, trim:true, propercase:true" name="purchase_order_information[company_address_2]">
+                            <p class="alert-text-error" id="error-purchase_order_information_company_address_2" style="display: none;"></p>
+                        </div>
+                        <div style="margin: 0 0 10px;">
+                            <input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;" data-dojo-props="maxLength:45, trim:true, propercase:true" name="purchase_order_information[company_address_3]">
+                            <p class="alert-text-error" id="error-purchase_order_information_company_address_3" style="display: none;"></p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;">${nls.project}:</label>
+                    </td>
+                    <td>
+                        ${formInfo.purchase_order_information[project_name]}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;">${nls.currentAssignedSupplier}:</label>
+                    </td>
+                    <td data-dojo-attach-point="currentAssignedSupplierNode">
+                        ${formInfo.currentAssignedSupplier}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;"></span>${nls.supplierAddress}:</label>
+                    </td>
+                    <td>
+                        <div style="margin: 0 0 10px;">
+                            <input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;" data-dojo-props="maxLength:45, trim:true, propercase:true" name="purchase_order_information[supplier_address_1]" data-dojo-attach-point="supplierAddressNode_1">
+                            <p class="alert-text-error" id="error-purchase_order_information_supplier_address_1" style="display: none;"></p>
+                        </div>
+                        <div style="margin: 0 0 10px;">
+                            <input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;" data-dojo-props="maxLength:45, trim:true, propercase:true" name="purchase_order_information[supplier_address_2]" data-dojo-attach-point="supplierAddressNode_2">
+                            <p class="alert-text-error" id="error-purchase_order_information_supplier_address_2" style="display: none;"></p>
+                        </div>
+                        <div style="margin: 0 0 10px;">
+                            <input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;" data-dojo-props="maxLength:45, trim:true, propercase:true" name="purchase_order_information[supplier_address_3]" data-dojo-attach-point="supplierAddressNode_3">
+                            <p class="alert-text-error" id="error-purchase_order_information_supplier_address_3" style="display: none;"></p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;"></span>${nls.attn}:</label>
+                    </td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;" data-dojo-props="maxLength:45, trim:true, propercase:true" name="purchase_order_information[attention_to]">
+                        <p class="alert-text-error" id="error-purchase_order_information_attention_to" style="display: none;"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;">${nls.shipTo}:</label>
+                    </td>
+                    <td>
+                        <div style="margin: 0 0 10px;">
+                            <input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;" data-dojo-props="maxLength:45, trim:true, propercase:true" name="purchase_order_information[ship_to_1]">
+                            <p class="alert-text-error" id="error-purchase_order_information_ship_to_1" style="display: none;"></p>
+                        </div>
+                        <div style="margin: 0 0 10px;">
+                            <input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;" data-dojo-props="maxLength:45, trim:true, propercase:true" name="purchase_order_information[ship_to_2]">
+                            <p class="alert-text-error" id="error-purchase_order_information_ship_to_2" style="display: none;"></p>
+                        </div>
+                        <div style="margin: 0 0 10px;">
+                            <input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;" data-dojo-props="maxLength:45, trim:true, propercase:true" name="purchase_order_information[ship_to_3]">
+                            <p class="alert-text-error" id="error-purchase_order_information_ship_to_3" style="display: none;"></p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;">${nls.subPackage}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="subCon-${poId}">Main</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;">${nls.country}:</label>
+                    </td>
+                    <td>
+                        ${formInfo.region_name}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;">${nls.state}:</label>
+                    </td>
+                    <td>
+                        ${formInfo.sub_region_name}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;">${nls.currency}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="currencySelect-${poId}"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;"></span>${nls.taxes}:</label>
+                    </td>
+                    <td>
+                        <table>
+                            <tr style="text-align:center;">
+                                <td>${nls.taxName}</td>
+                                <td>${nls.taxPercentage} (%)</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" data-dojo-type="dijit/form/TextBox" style="padding: 2px;" data-dojo-props="trim:true, propercase:true" name="tax_name[1]"></td>
+                                <td><input type="text" data-dojo-type="dijit/form/TextBox" style="padding: 2px;" data-dojo-props="trim:true, propercase:true" name="tax_percentage[1]"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" data-dojo-type="dijit/form/TextBox" style="padding: 2px;" data-dojo-props="trim:true, propercase:true" name="tax_name[2]"></td>
+                                <td><input type="text" data-dojo-type="dijit/form/TextBox" style="padding: 2px;" data-dojo-props="trim:true, propercase:true" name="tax_percentage[2]"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;"></span>${nls.note}:</label>
+                    </td>
+                    <td>
+                        <textarea name="purchase_order_information[note]" style="width:550px;padding:2px;min-height:30px;height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true, propercase:true" data-dojo-attach-point="noteNode"></textarea>
+                        <p class="alert-text-error" id="error-purchase_order_information_note" style="display: none;"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;">
+                        <label style="display: inline;"></span>${nls.signature}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="signatureTextBox-${poId}" style="width:100%;outline:none!important;"></div>
+                        <p class="alert-text-error" id="error-purchase_order_information_signature" style="display: none;"></p>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <input type="hidden" name="purchase_order_information[purchase_order_id]" value="${poId}">
+        <input type="hidden" name="purchase_order_information[_csrf_token]" value="${formInfo._csrf_token}">
+    </form>
+</div>

@@ -1,0 +1,138 @@
+connection: main_conn
+
+StockInInvoice:
+  options:
+    symfony:
+      filter: false
+  tableName: stock_in_invoices
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    stock_in_index_idx:
+      fields: [project_structure_id, purchase_order_id, deleted_at]
+    stock_in_uniq_index_idx:
+      fields: [project_structure_id, invoice_no, deleted_at]
+      type: unique
+  columns:
+    project_structure_id: { type: integer }
+    purchase_order_id:    { type: integer }
+    invoice_no:           { type: string(100) }
+    invoice_date:         { type: timestamp }
+    term_type:            { type: integer(1), default: 1 }
+    invoice_upload:       { type: string, default: null, notnull: false }
+  relations:
+    Project:
+      class: ProjectStructure
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: StockInInvoices
+    PurchaseOrder:
+      local: purchase_order_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: StockInInvoices
+
+StockInInvoiceItem:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: stock_in_invoice_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    stock_in_invoice_item_uniq_idx:
+      fields: [stock_in_invoice_id, resource_item_id, deleted_at]
+      type: unique
+    stock_in_invoice_remark_idx:
+      fields: [remark_id, deleted_at]
+  columns:
+    stock_in_invoice_id: { type: integer }
+    resource_item_id:    { type: integer }
+    quantity:            { type: decimal, scale: 5, default: 0 }
+    rates:               { type: decimal, scale: 5, default: 0 }
+    discount_percentage: { type: decimal, scale: 5, default: 0 }
+    tax_percentage:      { type: decimal, scale: 5, default: 0 }
+    total:               { type: decimal, scale: 5, default: 0 }
+    total_without_tax:   { type: decimal, scale: 5, default: 0 }
+    remark_id:           { type: integer, default: null, notnull: false }
+  relations:
+    Invoice:
+      class: StockInInvoice
+      local: stock_in_invoice_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: StockInInvoiceItems
+    ResourceItem:
+      local: resource_item_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: StockInInvoiceItems
+      onDelete: CASCADE
+    Remark:
+      class: RFQItemRemark
+      local: remark_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: StockInInvoiceItem
+
+StockInDeliveryOrder:
+  options:
+    symfony:
+      filter: false
+  tableName: stock_in_delivery_orders
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    stock_in_delivery_order_idx:
+      fields: [stock_in_invoice_id, deleted_at]
+    stock_in_delivery_order_no_uniq_idx:
+      fields: [stock_in_invoice_id, delivery_order_no, deleted_at]
+      type: unique
+  columns:
+    stock_in_invoice_id:   { type: integer, default: null }
+    delivery_order_no:     { type: string(100), default: null, notnull: false }
+    delivery_order_date:   { type: timestamp }
+    delivery_order_upload: { type: string, default:null, notnull: false }
+  relations:
+    Invoice:
+      class: StockInInvoice
+      local: stock_in_invoice_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: StockInDeliveryOrders
+
+StockInDeliveryOrderItemQuantity:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: stock_in_delivery_order_item_quantities
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    stock_in_delivery_order_item_idx:
+      fields: [stock_in_delivery_order_id, stock_in_invoice_item_id, deleted_at]
+      type: unique
+  columns:
+    stock_in_delivery_order_id: { type: integer }
+    stock_in_invoice_item_id:   { type: integer }
+    quantity:                   { type: decimal, scale: 5, default: 0 }
+  relations:
+    StockInDeliveryOrder:
+      local: stock_in_delivery_order_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: StockInDeliveryOrderItemQuantities
+      onDelete: CASCADE
+    StockInInvoiceItem:
+      local: stock_in_invoice_item_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: StockInDeliveryOrderItemQuantities
+      onDelete: CASCADE

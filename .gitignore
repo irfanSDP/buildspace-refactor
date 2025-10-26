@@ -1,0 +1,91 @@
+########################################
+# Composer vendor dirs per app
+########################################
+
+/buildspace/vendor/
+/eproject/vendor/
+
+########################################
+# Symfony / app runtime junk
+########################################
+
+/buildspace/cache/
+/buildspace/log/
+/buildspace/logs/
+/buildspace/sessions/
+/buildspace/session/
+
+/eproject/cache/
+/eproject/log/
+/eproject/logs/
+/eproject/sessions/
+/eproject/session/
+
+# user uploads (keep folders, ignore contents)
+buildspace/web/uploads/*
+!buildspace/web/uploads/.gitignore
+
+buildspace/web/images/profiles/*
+!buildspace/web/images/profiles/.gitignore
+
+eproject/web/uploads/*
+!eproject/web/uploads/.gitignore
+
+eproject/web/images/profiles/*
+!eproject/web/images/profiles/.gitignore
+
+########################################
+# SimpleSAMLphp runtime + secrets
+########################################
+
+# runtime storage
+samlauth/data/*
+!samlauth/data/.gitignore
+
+samlauth/log/*
+!samlauth/log/.gitignore
+
+# local/real config with secrets
+samlauth/config/*.php
+# allow example configs to be committed
+!samlauth/config/*.php.example
+
+########################################
+# SSL, machine paths, temp, etc
+########################################
+
+ssl/
+tmp/
+logs/
+sites-enabled/
+
+*.crt
+*.key
+
+# if you keep local nginx exports in infra, you can allow .example only:
+infra/nginx/*.conf
+!infra/nginx/*.conf.example
+
+########################################
+# Environment / secrets (dotenv etc)
+########################################
+
+**/.env
+**/.env.local
+**/.env.*.local
+
+########################################
+# OS/editor noise
+########################################
+
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.bak
+*.tmp
+.idea/
+.vscode/
+
+# PHPUnit cache (in case)
+.phpunit.result.cache

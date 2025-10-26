@@ -1,0 +1,9 @@
+ganttSuccess:
+  layout: ganttLayout
+  stylesheets: [gantt/ganttSuccess.css, gantt/gantt.css, jquery.svg.css, jquery.multiselect.css, -login.css, -buildspace/main.css]
+  javascripts: [jquery/jquery.min.js, jquery/jquery-ui.min.js, jquery/jquery.livequery.min.js, jquery/jquery.timers.min.js, jquery/dateField/jquery.dateField.js, jquery/JST/jquery.JST.js, jquery/svg/jquery.svg.min.js, jquery/svg/jquery.svgdom.min.js, jquery/jquery.multiselect.js, -dojotoolkit/dojo/dojo.js, -PxLoader/PxLoader.js, -PxLoader/PxLoaderImage.js, -spin.min.js, -lib/equationParser.js]
+
+chartSuccess:
+  layout: chartLayout
+  stylesheets: [-login.css, buildspace/main.css, apexcharts.css]
+  javascripts: [jquery/jquery.min.js, jquery/jquery.number.min.js, apexcharts/apexcharts.min.js, -PxLoader/PxLoader.js, -PxLoader/PxLoaderImage.js, -spin.min.js, -lib/equationParser.js]

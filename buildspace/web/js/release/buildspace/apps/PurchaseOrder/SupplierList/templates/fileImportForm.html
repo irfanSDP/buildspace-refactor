@@ -1,0 +1,9 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="fileImportForm">
+        <fieldset>
+            <legend>${nls.import} ${nls.files}</legend>
+            <input name="uploadedfile" url="${uploadUrl}" uploadOnSelect="true" data-dojo-type="dojox.form.Uploader" label="Select Excel Files" data-dojo-attach-point="fileUploaderNode" />
+            <input type="hidden" name="id" value="${billId}">
+        </fieldset>
+    </form>
+</div>

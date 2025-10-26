@@ -1,0 +1,40 @@
+<div>
+	<form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="otherInformationForm-${companyId}-${otherInformationId}" style="padding: 0 5px;" enctype="multipart/form-data">
+		<fieldset style="margin-bottom: 10px;">
+			<legend>${nls.otherInformation}</legend>
+
+			<table class="table-form">
+				<tr>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;"><span class="required">*</span>${nls.title}:</label>
+					</td>
+					<td colspan="3">
+						<input type=text name="company_other_information[title]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required: true" style="width: 240px;padding:2px;">
+						<span style="color:red; display: none;" data-dojo-attach-point="error-title"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" style="width:150px;">
+						<label style="display: inline;">${nls.description}:</label>
+					</td>
+					<td colspan="3">
+						<textarea data-dojo-props="trim:true, required: true" name="company_other_information[description]" data-dojo-type="dijit/form/Textarea" style="padding:2px;min-height:30px;_height:30px;"></textarea>
+						<span style="color:red; display: none;" data-dojo-attach-point="error-description"></span>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+
+		<fieldset data-dojo-attach-point="uploadedFilesContainer">
+			<legend>${nls.uploadedFiles}</legend>
+
+			<div data-dojo-attach-point="companyDirectoriesOtherInformationFileUploader"></div>
+			<span style="color: red; display: block;" data-dojo-attach-point="error-fileUpload"></span>
+
+			<div data-dojo-attach-point="uploadedFilesGrid"></div>
+		</fieldset>
+
+		<input type="hidden" name="company_other_information[company_id]" value="${companyId}">
+		<input type=hidden name="company_other_information[_csrf_token]" value="">
+	</form>
+</div>

@@ -1,0 +1,19 @@
+define({
+    root: {
+        project: 'Project',
+        approval: 'Approval',
+        approve: 'Approve',
+        reject: 'Reject',
+        confirm: 'Confirm',
+        confirmApprove: 'Are you sure you want to <strong style="color:green;">approve</strong> this?',
+        confirmReject: 'Are you sure you want to <strong style="color:red;">reject</strong> this?',
+        addRemarks: 'Add Remarks',
+        processing: 'Processing',
+        mainInformation: 'Main Information',
+        breakdown: 'Breakdown',
+        letterOfAward: 'Letter of Award',
+        claimCertificate: 'Claim Certificate',
+        projectBreakdown: 'Project Breakdown',
+        alert: 'Alert'
+    }
+});

@@ -1,0 +1,30 @@
+<div>
+    <form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="deliveryOrderForm" style="padding: 0 5px;">
+        <fieldset style="margin-bottom: 10px;">
+            <table class="table-form">
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.deliveryOrderNo}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="stock_in_delivery_order[delivery_order_no]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="padding:2px;width:180px;">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-delivery_order_no"></span>
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-stock_in_invoice_id"></span>
+                    </td>
+                </tr>
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.date_of_delivery_order}:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="stock_in_delivery_order[delivery_order_date]" style="padding:2px;width:180px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="constraints:{ datePattern : 'dd/MM/yyyy' }" value="now" required="true">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-delivery_order_date"></span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <input type="hidden" name="stock_in_delivery_order[stock_in_invoice_id]" value="">
+        <input type="hidden" name="stock_in_delivery_order[_csrf_token]" value="">
+    </form>
+</div>

@@ -1,0 +1,14 @@
+INSERT INTO bs_som_layout_settings (project_structure_id, font, size, comma_total, comma_rate, priceformat, includeiandoforbillref, add_cont, contd, print_element_grid, print_element_grid_once, page_no_prefix, align_element_to_left, created_at, updated_at, created_by, updated_by, deleted_at)
+VALUES (NULL, 'Arial', 11, FALSE, FALSE, 'normal', FALSE, TRUE, 'CONT''d', TRUE, FALSE, NULL, FALSE, NOW(), NOW(), NULL, NULL, NULL);
+
+INSERT INTO bs_som_layout_head_settings (som_layout_setting_id, head, bold, underline, italic, created_at, updated_at, created_by, updated_by, deleted_at)
+VALUES
+	(1, 1, TRUE, TRUE, FALSE, NOW(), NOW(), NULL, NULL, NULL),
+	(1, 2, TRUE, FALSE, FALSE, NOW(), NOW(), NULL, NULL, NULL),
+	(1, 3, FALSE, TRUE, FALSE, NOW(), NOW(), NULL, NULL, NULL),
+	(1, 4, FALSE, FALSE, FALSE, NOW(), NOW(), NULL, NULL, NULL),
+	(1, 5, FALSE, FALSE, FALSE, NOW(), NOW(), NULL, NULL, NULL),
+	(1, 6, FALSE, FALSE, FALSE, NOW(), NOW(), NULL, NULL, NULL);
+	
+INSERT INTO bs_som_layout_phrase_settings (som_layout_setting_id, to_collection, currency, collection_in_grid, element_header_bold, element_header_underline, element_header_italic, element_note_top_left_row1, element_note_top_left_row2, element_note_top_right_row1, created_at, updated_at, created_by, updated_by, deleted_at)
+VALUES (1, 'To Collection', 'RM', 'Collection', FALSE, FALSE, FALSE, NULL, NULL, NULL, NOW(), NOW(), NULL, NULL, NULL);

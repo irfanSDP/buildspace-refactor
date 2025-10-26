@@ -1,0 +1,25 @@
+<form data-dojo-attach-point="containerNode">
+    <table class="buildspace-table">
+        <thead>
+            <tr class="gridHeader">
+                <th class="gridCell" colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="gridCell" style="text-align:center;padding:2px;outline:none!important;">
+                    <div data-dojo-type="dijit/InlineEditBox" data-dojo-props="editor:'dijit/form/TextBox', editorParams:{name: 'project_summary_footer[first_row_text]', trim: true, constraints: {places:0} }, autoSave:true" style="width:100%;outline:none!important;" data-dojo-attach-event="onChange:submit" data-dojo-attach-point="firstRowTextNode"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="gridCell" style="text-align:center;padding:2px;outline:none!important;">
+                    <div data-dojo-type="dijit/InlineEditBox" data-dojo-props="editor:'dijit/form/TextBox', editorParams:{name: 'project_summary_footer[second_row_text]', trim: true, constraints: {places:0} }, autoSave:true" style="width:100%;outline:none!important;" data-dojo-attach-event="onChange:submit" data-dojo-attach-point="secondRowTextNode"></div>
+                </td>
+                <td class="gridCell" style="width:200px;text-align:center;font-weight:bold;padding:5px;" rowspan="2" data-dojo-attach-point="totalCostNode"></td>
+            </tr>
+            </tbody>
+    </table>
+
+    <input type="hidden" name="project_summary_footer[project_structure_id]" value="">
+    <input type="hidden" name="project_summary_footer[_csrf_token]" value="">
+</form>

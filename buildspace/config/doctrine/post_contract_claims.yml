@@ -1,0 +1,313 @@
+PostContractClaim:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contract_claims
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    post_contract_claim_id_idx:
+      fields: [id, project_structure_id,claim_certificate_id]
+    post_contract_claim_unique_idx:
+      fields: [sequence, project_structure_id, deleted_at]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    description:          { type: string,  notnull: false }
+    claim_certificate_id: { type: integer, notnull: false}
+    sequence:             { type: integer, notnull: true, default: 0 }
+    project_structure_id: { type: integer, notnull: true  }
+    status:               { type: integer, notnull: false  }
+    type:                 { type: integer, notnull: true  }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractClaim
+      foreignType: many
+    ClaimCertificate:
+      local: claim_certificate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractClaim
+      foreignType: many
+    AdvancePayment:
+      local: id
+      foreign: post_contract_claim_id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractClaim
+      foreignType: one
+
+AdvancePayment:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: advance_payments
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    advance_payment_id_idx:
+      fields: [id]
+    advance_payment_priority_unique_idx:
+      fields: [post_contract_claim_id, deleted_at]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_claim_id: { type: integer, notnull: true }
+    priority:               { type: integer, notnull: false  }
+  relations:
+    PostContractClaim:
+      local: post_contract_claim_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: AdvancePayments
+      foreignType: one
+
+PostContractClaimItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contract_claim_items
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    post_contract_claim_items_id_idx:
+      fields: [id, root_id, lft, rgt]
+    post_contract_claim_items_type_idx:
+      fields: [type]
+    post_contract_claim_items_fk_idx:
+      fields: [post_contract_claim_id, root_id]
+  columns:
+    id:                             { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_claim_id:         { type: integer, notnull: false }
+    description:                    { type: string, notnull: false }
+    type:                           { type: integer(4), notnull: true }
+    quantity:                       { type: decimal, default: 0 }
+    uom_id:                         { type: integer, notnull: false }
+    rate:                           { type: decimal, scale: 5, default: 0 }
+    sequence:                       { type: integer, notnull: true, default: 0 }
+  relations:
+    PostContractClaim:
+      local: post_contract_claim_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractClaimItems
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractClaimItems
+      foreignType: many
+
+PostContractClaimMaterialOnSite:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contract_claims_material_on_site
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    post_contract_claims_material_on_site_id_idx:
+      fields: [id]
+    post_contract_claims_material_on_site_unique_idx:
+      fields: [post_contract_claim_item_id, deleted_at]
+      type: unique
+  columns:
+    id:                          { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_claim_item_id: { type: integer, notnull: true }
+    reduction_percentage:        { type: decimal, default: 0 }
+    reduction_amount:            { type: decimal, scale: 5, default: 0 }
+    final_amount:                { type: decimal, default: 0 }
+  relations:
+    PostContractClaimItem:
+      local: post_contract_claim_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractClaimMaterialOnSite
+      foreignType: one
+
+PurchaseOnBehalf:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: purchase_on_behalf
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    purchase_on_behalf_id_idx:
+      fields: [id]
+    purchase_on_behalf_unique_idx:
+      fields: [post_contract_claim_item_id, deleted_at]
+      type: unique
+  columns:
+    id:                          { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_claim_item_id: { type: integer, notnull: true }
+    document_number:             { type: string, notnull: false }
+  relations:
+    PostContractClaimItem:
+      local: post_contract_claim_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PurchaseOnBehalf
+      foreignType: one
+
+OutOfContractItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: out_of_contract_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    out_of_contract_item_id_idx:
+      fields: [id]
+    out_of_contract_item_unique_idx:
+      fields: [post_contract_claim_item_id, deleted_at]
+      type: unique
+  columns:
+    id:                          { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_claim_item_id: { type: integer, notnull: true }
+    labour_type:                 { type: integer, notnull: false  }
+  relations:
+    PostContractClaimItem:
+      local: post_contract_claim_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: OutOfContractItem
+      foreignType: one
+
+PostContractClaimClaim:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contract_claim_claims
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    post_contract_claim_claims_id_idx:
+      fields: [id, post_contract_claim_id]
+    post_contract_claim_claims_revision_unique_idx:
+      fields: [revision, post_contract_claim_id, deleted_at]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_claim_id: { type: integer, notnull: true }
+    claim_certificate_id:   { type: integer, notnull: false }
+    status:                 { type: integer(1), notnull: true, default: 1 }
+    revision:               { type: integer(4), notnull: true, default: 1 }
+    is_viewing:             { type: boolean, notnull: true, default: true }
+  relations:
+    PostContractClaim:
+      local: post_contract_claim_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Claims
+      foreignType: many
+    ClaimCertificate:
+      local: claim_certificate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractClaimClaim
+      foreignType: many
+
+
+PostContractClaimClaimItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contract_claim_claim_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    post_contract_claim_claim_items_id_idx:
+      fields: [id, post_contract_claim_claim_id]
+    post_contract_claim_claim_items_fk_idx:
+      fields: [post_contract_claim_claim_id, post_contract_claim_item_id]
+    post_contract_claim_claim_items_unique_idx:
+      fields: [post_contract_claim_claim_id, post_contract_claim_item_id, deleted_at]
+      type: unique
+  columns:
+    id:                           { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_claim_claim_id: { type: integer, notnull: true }
+    post_contract_claim_item_id:  { type: integer, notnull: true }
+    current_quantity:             { type: decimal, default: 0 }
+    current_amount:               { type: decimal, scale: 5, default: 0 }
+    current_percentage:           { type: decimal, default: 0 }
+    up_to_date_quantity:          { type: decimal, default: 0 }
+    up_to_date_amount:            { type: decimal, scale: 5, default: 0 }
+    up_to_date_percentage:        { type: decimal, default: 0 }
+  relations:
+    PostContractClaimClaim:
+      local: post_contract_claim_claim_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    PostContractClaimItem:
+      local: post_contract_claim_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ClaimItems
+      foreignType: many
+
+PostContractClaimTopManagementVerifier:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: true
+  tableName: post_contract_claim_top_management_verifiers
+  actAs: [Timestampable, Signable]
+  indexes:
+    post_contract_claim_top_management_verifiers_id_idx:
+      fields: [id, user_id]
+    post_contract_claim_top_management_verifiers_id_idx:
+      fields: [user_id]
+    post_contract_claim_top_management_verifiers_unique_idx:
+      fields: [object_id, object_type, user_id]
+      type: unique
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    object_id:   { type: integer, notnull: true }
+    object_type: { type: string(255), notnull: true }
+    sequence:    { type: integer, notnull: true }
+    user_id:     { type: integer, notnull: true }
+  relations:
+    sfGuardUser:
+      local: user_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractClaimTopManagementVerifiers
+      foreignType: many
+    

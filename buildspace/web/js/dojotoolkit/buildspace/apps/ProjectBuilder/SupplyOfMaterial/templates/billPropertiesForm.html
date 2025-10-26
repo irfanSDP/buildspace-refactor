@@ -1,0 +1,41 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.billInformation}</legend>
+        <div data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:submit" data-dojo-attach-point="submitButton" data-dojo-props="iconClass:'icon-16-container icon-16-save'">${nls.save}</div>
+        <div style="height:2px;">&nbsp;</div>
+        <table class="table-form">
+            <tr>
+                <td class="label" style="width:20%;">
+                    <label style="display: inline;"><span class="required">*</span>${nls.title} :</label>
+                </td>
+                <td style="width:30%;">
+                    <input type="text" name="supply_of_material[title]" style="width:100%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:true" data-dojo-attach-point="titleNode">
+                    <p class="alert-text-error" id="error-supply_of_material_title"></p>
+                </td>
+                <td class="label" style="width:20%;">
+                    <label style="display: inline;">${nls.description} :</label>
+                </td>
+                <td style="width:30%;">
+                    <textarea name="supply_of_material[description]" style="width:100%;padding:2px;min-height:30px;_height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true" data-dojo-attach-point="descriptionNode"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:20%;">
+                    <label style="display: inline;">${nls.unitType} :</label>
+                </td>
+                <td style="width:30%;">
+                    <div data-dojo-attach-point="unitTypeTextNode"></div>
+                </td>
+                <td class="label" style="width:20%;">
+                    <label style="display: inline;">${nls.billType} :</label>
+                </td>
+                <td style="width:30%;">
+                    ${nls.supplyOfMaterialBill}
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <input type="hidden" name="supply_of_material[_csrf_token]" value="">
+    <input type="hidden" name="supply_of_material[unit_type]" value="">
+    <input type="hidden" name="id" value="${billId}">
+</form>

@@ -1,0 +1,4 @@
+VoFooterDefaultSetting:
+  VoFooter_1:
+    left_text: <div style="text-align: center;">ASSESSED BY</div><div style="text-align: center;"><br /></div><div style="text-align: center;"><br /></div><div style="text-align: center;"><br /></div><div style="text-align: center;">......................................................</div>
+    right_text: <div style="text-align: center;"><div>APPROVED BY</div><div><br /></div><div><br /></div><div><br /></div><div>......................................................</div></div>

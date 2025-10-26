@@ -1,0 +1,17 @@
+VoFooterDefaultSetting:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+  tableName: vo_footer_default_setting
+  actAs:
+    Timestampable:
+    Signable:
+  indexes:
+    vo_printing_default_footer_id_idx:
+      fields: [id]
+  columns:
+    id:             { type: integer, primary: true, notnull: true, autoincrement: true }
+    left_text:      { type: string, notnull: false, default: null }
+    right_text:     { type: string, notnull: false, default: null }

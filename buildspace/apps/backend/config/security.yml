@@ -1,0 +1,15 @@
+# Default for this module: everything requires auth
+default:
+  is_secure: true
+  login_module: auth
+  login_action: login 
+
+# Public (no auth) endpoints so users can log in/out
+# loginGate:
+#   is_secure: false
+
+# login:
+#   is_secure: false
+
+# logout:
+#   is_secure: false

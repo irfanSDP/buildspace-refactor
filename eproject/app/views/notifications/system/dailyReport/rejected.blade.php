@@ -1,0 +1,1 @@
+"%s" has rejected Daily Report Instruction.

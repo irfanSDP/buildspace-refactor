@@ -1,0 +1,569 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+# default rules
+dashboard:
+  url: /dashboard
+  param: { module: default, action: index }
+
+no_access:
+  url: /noAccess
+  param: { module: default, action: noAccess }
+
+sf_guard_signin:
+  url:   /login
+  param: { module: sfSAMLAuth, action: signin }
+
+sf_guard_signout:
+  url:   /logout
+  param: { module: sfSAMLAuth, action: signout }
+
+sf_guard_password:
+  url:   /request_password
+  param: { module: sfGuardAuth, action: password }
+
+bq_library:
+  url: /bqLibraries/id/:id
+  params: { module: bqLibrary, action: getLibrary }
+  requirements:
+    sf_method: [get]
+
+bq_builder:
+  url: /bqBuilder/id/:id
+  params: { module: bqBuilder, action: getProject }
+  requirements:
+    sf_method: [get]
+
+ProjectSummaryPdf:
+  url:   /ProjectSummaryPdf/:pid/:_csrf_token/:withPrice
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: projectSummary, action: printPdf, withPrice: ''}
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+
+TenderAlternativeProjectSummaryPdf:
+  url:   /TenderAlternativeProjectSummaryPdf/:id/:_csrf_token/:withPrice
+  class:   sfDoctrineRoute
+  options: { model: TenderAlternative, type: object }
+  param:   { module: projectSummary, action: tenderAlternativePrintPdf, withPrice: ''}
+  requirements:
+    sf_method: [get]
+    id:  \d+
+
+ClaimCertificatePDF:
+  url:   /ClaimCertificatePDF/:pid/:claimCertificateId
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: postContract, action: printClaimCertificate}
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+
+ContractorProjectSummaryPdf:
+  url:   /ContractorProjectSummaryPdf/:cid/:pid/:tid/:_csrf_token/:with
+  param: { module: projectSummary, action: contractorPrintPdf, with: ''}
+  requirements:
+    sf_method: [get]
+    cid:  \d+
+    pid:  \d+
+
+ProjectSummaryXls:
+  url:   /ProjectSummaryXls/:pid/:_csrf_token/:filename
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: projectSummary, action: exportExcel, filename: '' }
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+
+TenderAlternativeProjectSummaryXls:
+  url:   /TenderAlternativeProjectSummaryXls/:id/:_csrf_token/:filename
+  class:   sfDoctrineRoute
+  options: { model: TenderAlternative, type: object }
+  param:   { module: projectSummary, action: tenderAlternativeExportExcel, filename: '' }
+  requirements:
+    sf_method: [get]
+    id:  \d+
+
+ClaimCertificateXls:
+  url:   /ClaimCertificateXls/:pid/:_csrf_token/:claimCertificateId/:filename
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: postContract, action: exportExcel, filename: '' }
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+
+# AccountingXls:
+#   url:   /AccountingXls/:pid/:_csrf_token/:claimCertificateId/:filename
+#   class:   sfDoctrineRoute
+#   options: { model: ProjectStructure, type: object }
+#   param:   { module: postContract, action: exportAccounting, filename: '' }
+#   requirements:
+#     sf_method: [get]
+#     pid:  \d+
+
+ContractorProjectSummaryXls:
+  url:   /ContractorProjectSummaryXls/:cid/:pid/:tid/:_csrf_token/:with/:filename
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: projectSummary, action: contractorExportExcel, with: '', filename: '' }
+  requirements:
+    sf_method: [get]
+    cid:  \d+
+    pid:  \d+
+
+BQPdf:
+  url:   /BQPdf/:bid/:eid/:_csrf_token/:withPrice/:currentModule
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: index, withPrice: '', currentModule: '' }
+  requirements:
+    sf_method: [get]
+    bid: \d+
+    eid: \d+
+
+BQSummary:
+  url:   /BQSummary/:bid/:_csrf_token/:withPrice/:currentModule
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: summaryPage, withPrice: '', currentModule: '' }
+  requirements:
+    sf_method: [get]
+    bid: \d+
+
+BQPrintAll:
+  url:   /BQPrintAll/:bid/:_csrf_token/:withPrice/:currentModule
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printAllBOQ, withPrice: '', currentModule: '' }
+  requirements:
+    sf_method: [get]
+    bid: \d+
+
+BQPrintAddendum:
+  url:   /BQPrintAddendum/:bid/withPrice/:withPrice/:_csrf_token
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printBOQAddendum }
+  requirements:
+    sf_method: [get]
+    bid: \d+
+
+TenderSubPackagePdf:
+  url:   /TenderSubPackagePdf/:bid/:eid/:_csrf_token/:withPrice/:currentModule
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printTenderSubPackagePdf, withPrice: '', currentModule: '' }
+  requirements:
+    sf_method: [get]
+    bid: \d+
+    eid: \d+
+
+TenderSubPackageSummary:
+  url:   /TenderSubPackageSummary/:bid/:_csrf_token/:withPrice/:currentModule
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printTenderSubPackageSummaryPage, withPrice: '', currentModule: '' }
+  requirements:
+    sf_method: [get]
+    bid: \d+
+
+TenderSubPackagePrintAll:
+  url:   /TenderSubPackagePrintAll/:bid/:_csrf_token/:withPrice/:currentModule
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printTenderSubPackageAll, withPrice: '', currentModule: '' }
+  requirements:
+    sf_method: [get]
+    bid: \d+
+
+SubPackageBQPdf:
+  url:   /SubPackageBQPdf/:sid/:bid/:_csrf_token/:withPrice
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printSubPackage, action: index, withPrice: '' }
+  requirements:
+    sf_method: [get]
+    bid: \d+
+    sid: \d+
+
+SubPackageContractorBQPdf:
+  url:   /SubPackageContractorBQPdf/:sid/:bid/:cid/:_csrf_token/:withPrice
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printSubPackage, action: printContractorBQ, withPrice: '' }
+  requirements:
+    sf_method: [get]
+    bid: \d+
+    sid: \d+
+    cid: \d+
+
+ContractorBQFinalPdf:
+  url:   /ContractorBQFinalPdf/:pid/:bid/:tcid/:_csrf_token/:withNotListedItem
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printContractorBQ, withNotListedItem: '' }
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+    bid:  \d+
+    tcid: \d+
+
+ContractorBQSummary:
+  url:   /ContractorBQSummary/:pid/:tcid/:_csrf_token/:withNotListedItem
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printContractorProjectSummaryPages, withNotListedItem: ''}
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+    tcid: \d+
+
+RationalizedBQFinalPdf:
+  url:   /RationalizedBQFinalPdf/:pid/:bid/:_csrf_token/:withNotListedItem
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printRationalizedBQ, withNotListedItem: '' }
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+    bid:  \d+
+
+RationalizedBQSummary:
+  url:   /RationalizedBQSummary/:pid/:tid/:_csrf_token/:withNotListedItem
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printRationalizedProjectSummaryPages, withNotListedItem: ''}
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+
+EstimationBQFinalPdf:
+  url:   /EstimationBQFinalPdf/:pid/:bid/:_csrf_token/:withNotListedItem
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printEstimationBQ, withNotListedItem: '' }
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+    bid:  \d+
+
+EstimationBQSummary:
+  url:   /EstimationBQSummary/:pid/:tid/:_csrf_token/:withNotListedItem
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printEstimationProjectSummaryPages, withNotListedItem: ''}
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+
+SubPackageEstimationBQFinalPdf:
+  url:   /SubPackageEstimationBQFinalPdf/:pid/:bid/:_csrf_token/:withNotListedItem
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printSubPackageEstimationBQ, withNotListedItem: '' }
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+    bid:  \d+
+
+SubPackageEstimationBQSummary:
+  url:   /SubPackageEstimationBQSummary/:pid/:_csrf_token/:withNotListedItem
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printSubPackageEstimationProjectSummaryPages, withNotListedItem: ''}
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+
+SubPackageRationalizedBQFinalPdf:
+  url:   /SubPackageRationalizedBQFinalPdf/:pid/:bid/:_csrf_token/:withNotListedItem
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printSubPackageRationalizedBQ, withNotListedItem: '' }
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+    bid:  \d+
+
+SubPackageRationalizedBQSummary:
+  url:   /SubPackageRationalizedBQSummary/:pid/:_csrf_token/:withNotListedItem
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printSubPackageRationalizedProjectSummaryPages, withNotListedItem: ''}
+  requirements:
+    sf_method: [get]
+    pid:  \d+
+
+ExportSubPackageByContractor:
+  url:   /ExportSubPackageByContractor/:id/:company_id/:bill_id/:_csrf_token
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: subPackage, action: exportBillToExcelBySupplier }
+  requirements:
+    sf_method: [post]
+    id: \d+
+    company_id: \d+
+    bill_id: \d+
+
+FinalBQPrintList:
+  url:   /finalBQPrintList/:id/:tid
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: getFinalBQPrintList }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+FinalBQPDf:
+  url:   finalBQPdf/:id/:withPrice/:_csrf_token
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printFinalBQ }
+  requirements:
+    sf_method: [get]
+    id: \d+
+    withPrice: \d+
+
+PurchaseOrderPrintout:
+  url:   /PurchaseOrderPrintout/:poId/:_csrf_token
+  class:   sfDoctrineRoute
+  options: { model: PurchaseOrder, type: object }
+  param:   { module: purchaseOrder, action: generatePrintout }
+  requirements:
+    sf_method: [get]
+    poId: \d+
+
+Gantt:
+  url:   /Gantt/:type/:id/:_csrf_token
+  class:   sfDoctrineRoute
+  options: { model: ProjectSchedule, type: object }
+  param:   { module: projectManagement, action: gantt }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+Chart:
+  url:   /Chart/:id/:_csrf_token
+  class:   sfDoctrineRoute
+  options: { model: ProjectSchedule, type: object }
+  param:   { module: projectManagement, action: chart }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+ChartAccumulativeCost:
+  url:   /ChartAccumulativeCost/:id/:_csrf_token
+  class:   sfDoctrineRoute
+  options: { model: ProjectSchedule, type: object }
+  param:   { module: projectManagement, action: chartAccumulativeCost }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+TaskItemList:
+  url:   /TaskItemList/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectSchedule, type: object }
+  param:   { module: projectManagement, action: getTaskItemList }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+ActualTaskItemList:
+  url:   /ActualTaskItemList/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectSchedule, type: object }
+  param:   { module: projectManagement, action: getActualProgressTaskItemList }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+TaskItemListPrint:
+  url:   /TaskItemListPrint/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectSchedule, type: object }
+  param:   { module: projectManagement, action: getPrintTaskItemList }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+GetResourcesBySubPackage:
+  url:   /getResourcesBySubPackage/:id
+  class:   sfDoctrineRoute
+  options: { model: SubPackage, type: object }
+  param:   { module: subPackage, action: getResourcesBySubPackage }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+GetViewTendererProjectBreakdown:
+  url:   /viewTendererProjectBreakdown/:id/:tid
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: viewTenderer, action: getProjectBreakdown }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+GetProjectRevisionInfo:
+  url:   /getProjectRevisionInfo/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: tendering, action: getProjectRevisionInfo }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+GetTenderAlternativeUnlinkBills:
+  url:   /getTenderAlternativeUnlinkBills/:id
+  class:   sfDoctrineRoute
+  options: { model: TenderAlternative, type: object }
+  param:   { module: tenderAlternative, action: getTenderAlternativeUnlinkBills }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+GetTenderAlternativeList:
+  url:   /getTenderAlternatives/:id/:exclude
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: tenderAlternative, action: getTenderAlternatives }
+  requirements:
+    sf_method: [get]
+    id: \d+
+    exclude: \d+
+
+TenderAlternativeProjectSummary:
+  url:   /tenderAlternativeProjectSummary/:id
+  class:   sfDoctrineRoute
+  options: { model: TenderAlternative, type: object }
+  param:   { module: projectSummary, action: tenderAlternativeProjectSummaryData }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+GetTenderAlternativeUntagProjectBills:
+  url:   /getTenderAlternativeUntagProjectBills/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: tenderAlternative, action: getTenderAlternativeUntagProjectBills }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+GetTenderAlternativeBills:
+  url:   /getTenderAlternativeBills/:id
+  class:   sfDoctrineRoute
+  options: { model: TenderAlternative, type: object }
+  param:   { module: tenderAlternative, action: getTenderAlternativeBills }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+GetRationalizeRateTenderAlternatives:
+  url:   /getRationalizeRateTenderAlternatives/:id/:printRationalizeRate
+  class:   sfDoctrineRoute
+  options: { model: TenderAlternative, type: object }
+  param:   { module: tenderAlternative, action: getRationalizeRateTenderAlternatives }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+GetTenderAlternativeProject:
+  url:   /getTenderAlternativeProject/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: tenderAlternative, action: getTenderAlternativeProject }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+GetTenderAlternative:
+  url:   /getTenderAlternative/:id
+  class:   sfDoctrineRoute
+  options: { model: TenderAlternative, type: object }
+  param:   { module: tenderAlternative, action: getTenderAlternative }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+GetTenderAlternativeInfoByBill:
+  url:   /getTenderAlternativeInfoByBill/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: tenderAlternative, action: getTenderAlternativeInfoByBill }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+LinkTenderAlternativeBills:
+  url:   /linkTenderAlternativeBills
+  class:   sfDoctrineRoute
+  options: { model: TenderAlternative, type: object }
+  param:   { module: tenderAlternative, action: linkBills }
+  requirements:
+    sf_method: [post]
+
+UnlinkTenderAlternativeBill:
+  url:   /unlinkTenderAlternativeBill
+  class:   sfDoctrineRoute
+  options: { model: TenderAlternative, type: object }
+  param:   { module: tenderAlternative, action: unlinkBill }
+  requirements:
+    sf_method: [post]
+
+DeleteTenderAlternative:
+  url:   /deleteTenderAlternative
+  class:   sfDoctrineRoute
+  options: { model: TenderAlternative, type: object }
+  param:   { module: tenderAlternative, action: tenderAlternativeDelete }
+  requirements:
+    sf_method: [post]
+
+MyProfile:
+  url:   /myProfile
+  param: { module: default, action: getMyProfile }
+  requirements:
+    sf_method: [get]
+
+get_my_apps:
+  url:   /default/getMyApps
+  param: { module: default, action: getMyApps }
+  requirements:
+    sf_method: [get]
+
+get_eproject_url:
+  url:   /default/getEProjectUrl
+  param: { module: default, action: getEProjectUrl }
+  requirements:
+    sf_method: [get]
+
+auth_login:
+  url:   /auth/login
+  param: { module: auth, action: login }
+
+auth_do_login:
+  url:   /auth/do-login
+  param: { module: auth, action: doLogin }
+
+auth_logout:
+  url:   /auth/logout
+  param: { module: auth, action: logout }
+
+  
+# If you want to use local login instead of SAML on "/"
+homepage:
+  url:   /
+  param: { module: default, action: index }
+  requirements:
+    sf_method: [get]
+
+# fallback
+default:
+  url:   /:module/:action/*
+
+  

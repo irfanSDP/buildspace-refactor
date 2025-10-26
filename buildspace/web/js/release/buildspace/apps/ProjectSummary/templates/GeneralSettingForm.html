@@ -1,0 +1,115 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.projectSummary} ${nls.generalSettings}</legend>
+        <table class="table-form">
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;"></span>${nls.projectTitle} :</label>
+                </td>
+                <td colspan="10">
+                    <textarea name="project_summary_general_setting[project_title]" style="width:550px;padding:2px;min-height:30px;_height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true, propercase:true" data-dojo-attach-point="projectTitleNode"></textarea>
+                    <p class="alert-text-error" id="error-project_summary_general_setting_project_title"></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;"></span>${nls.additionalDescription} :</label>
+                </td>
+                <td colspan="10">
+                    <textarea name="project_summary_general_setting[additional_description]" style="width:550px;padding:2px;min-height:30px;_height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true, propercase:true" data-dojo-attach-point="additionalDescriptionNode"></textarea>
+                    <p class="alert-text-error" id="error-project_summary_general_setting_additional_description"></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.summaryTitle} :</label>
+                </td>
+                <td colspan="10">
+                    <input type="text" name="project_summary_general_setting[summary_title]" style="padding:2px;width:240px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true" data-dojo-attach-point="summaryTitleNode">
+                    <p class="alert-text-error" id="error-project_summary_general_setting_summary_title"></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.includeAdditionalDescription} :</label>
+                </td>
+                <td colspan="10">
+                    <input name="project_summary_general_setting[include_additional_description]" data-dojo-type="dijit/form/CheckBox" value="true" data-dojo-attach-point="includeAdditionalDescriptionNode"/>
+                    <p class="alert-text-error" id="error-project_summary_general_setting_include_additional_description"></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.includePrintingDate} :</label>
+                </td>
+                <td colspan="10">
+                    <input name="project_summary_general_setting[include_printing_date]" data-dojo-type="dijit/form/CheckBox" value="true" data-dojo-attach-point="includePrintingDateNode"/>
+                    <p class="alert-text-error" id="error-project_summary_general_setting_include_printing_date"></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.includeStateAndCountry} :</label>
+                </td>
+                <td colspan="10">
+                    <input name="project_summary_general_setting[include_state_and_country]" data-dojo-type="dijit/form/CheckBox" value="true" data-dojo-attach-point="includeStateAndCountryNode"/>
+                    <p class="alert-text-error" id="error-project_summary_general_setting_include_state_and_country"></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.includeTax} :</label>
+                </td>
+                <td colspan="1">
+                    <input name="project_summary_general_setting[include_tax]" data-dojo-type="dijit/form/CheckBox" value="true" data-dojo-attach-point="includeTaxNode"/>
+                    <p class="alert-text-error" id="error-project_summary_general_setting_include_tax"></p>
+                </td>
+                <td class="label" data-dojo-attach-point="lblTaxName">
+                    <label style="display: inline;">${nls.taxName}:</label>
+                </td>
+                <td colspan="1" data-dojo-attach-point="txtTaxName">
+                    <input name="project_summary_general_setting[tax_name]" data-dojo-type="dijit/form/ValidationTextBox" value="" data-dojo-attach-point="taxNameNode"/>
+                    <p class="alert-text-error" id="error-project_summary_general_setting_tax_name"></p>
+                </td>
+                <td class="label" data-dojo-attach-point="lblTaxPercentage">
+                    <label style="display: inline;">${nls.taxPercentage} :</label>
+                </td>
+                <td colspan="1" data-dojo-attach-point="txtTaxPercentage">
+                    <input name="project_summary_general_setting[tax_percentage]" data-dojo-type="dijit/form/NumberTextBox" value="" data-dojo-attach-point="taxPercentageNode" data-dojo-props="constraints:{min: 0.00, max:100, places:'0,2'}" />
+                    <p class="alert-text-error" id="error-project_summary_general_setting_tax_percentage"></p>
+                </td>
+                <td colspan="7">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.carriedToNextPageText} :</label>
+                </td>
+                <td colspan="10">
+                    <input type="text" name="project_summary_general_setting[carried_to_next_page_text]" style="padding:2px;width:350px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true" data-dojo-attach-point="carriedToNextPageNode">
+                    <p class="alert-text-error" id="error-project_summary_general_setting_carried_to_next_page_text"></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.continuedFromPreviousText} :</label>
+                </td>
+                <td colspan="10">
+                    <input type="text" name="project_summary_general_setting[continued_from_previous_page_text]" style="padding:2px;width:350px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true" data-dojo-attach-point="continuedFromPreviousPageNode">
+                    <p class="alert-text-error" id="error-project_summary_general_setting_continued_from_previous_page_text"></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:180px;">
+                    <label style="display: inline;">${nls.pageNumberPrefix} :</label>
+                </td>
+                <td colspan="10">
+                    <input type="text" name="project_summary_general_setting[page_number_prefix]" style="padding:2px;width:100px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true" data-dojo-attach-point="pageNumberPrefixNode">
+                    <p class="alert-text-error" id="error-project_summary_general_setting_page_number_prefix"></p>
+                </td>
+            </tr>
+        </table>
+
+        <input type="hidden" name="project_summary_general_setting[project_structure_id]" value="">
+        <input type="hidden" name="project_summary_general_setting[_csrf_token]" value="">
+    </fieldset>
+</form>

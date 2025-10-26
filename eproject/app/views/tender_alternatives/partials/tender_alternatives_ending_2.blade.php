@@ -1,0 +1,1 @@
+for the whole of the works, from the Date of Commencement or within such extended time as provided by the Conditions of Contract, and the total amount of Tender is the Firm Price Tender of {{{ $currencyName }}}:-

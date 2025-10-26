@@ -1,0 +1,2 @@
+Based on the total works to be completed by tenderer with contractor's own purchase of material with <strong>FIXED OVERALL COMPLETION PERIOD OF <span style="color: red;">{{{ $projectPeriodByDeveloper }}}</span> {{{ strtoupper($projectPeriodMetric) }}} + <span style="color: red;">{{{ $projectIncentive }}}</span>% PROJECT INCENTIVE</strong>
+@include('tender_alternatives.partials.tender_alternatives_ending', array('currencyName' => $currencyName))

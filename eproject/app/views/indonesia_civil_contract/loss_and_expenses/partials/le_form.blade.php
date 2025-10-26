@@ -1,0 +1,84 @@
+<fieldset>
+	<section>
+		<label class="label">{{ trans('projects.project') }}:</label>
+		<label class="input">
+			{{{ $project->title }}}
+		</label>
+	</section>
+
+	<section>
+		<label class="label">{{ trans('lossAndExpenses.lossAndExpensesReference') }}<span class="required">*</span>:</label>
+		<label class="input {{{ $errors->has('reference') ? 'state-error' : null }}}">
+			{{ Form::text('reference', Input::old('reference'), array('required' => 'required')) }}
+		</label>
+		{{ $errors->first('reference', '<em class="invalid">:message</em>') }}
+	</section>
+
+	<section>
+		<label class="label">{{ trans('lossAndExpenses.subject') }}<span class="required">*</span>:</label>
+		<label class="input {{{ $errors->has('subject') ? 'state-error' : null }}}">
+			{{ Form::text('subject', Input::old('subject'), array('required' => 'required')) }}
+		</label>
+		{{ $errors->first('subject', '<em class="invalid">:message</em>') }}
+	</section>
+
+	@if($clause && (!$clause->items->isEmpty()))
+		<section>
+			<label class="label">{{ trans('lossAndExpenses.clausesThatEmpower') }}:</label>
+			<div style="height: 480px; overflow-y: scroll;">
+				@foreach ( $clause->items as $item )
+					<label>
+						@if ( empty($selectedClauseIds) )
+							{{ Form::checkbox('selected_clauses[]', $item->id) }}
+						@else
+							{{ Form::checkbox('selected_clauses[]', $item->id, in_array($item->id, $selectedClauseIds)) }}
+						@endif
+
+						@include('clause_items.partials.clause_item_description_formatter', ['item' => $item])
+					</label>
+					<br/>
+					<br/>
+				@endforeach
+			</div>
+			{{ $errors->first('selected_clauses', '<em class="invalid">:message</em>') }}
+		</section>
+	@endif
+
+	<section>
+		<label class="label">{{ trans('lossAndExpenses.details') }}<span class="required">*</span>:</label>
+		<label class="textarea {{{ $errors->has('details') ? 'state-error' : null }}}">
+			{{ Form::textarea('details', Input::old('details'), array('required' => 'required', 'rows' => 3)) }}
+		</label>
+		{{ $errors->first('details', '<em class="invalid">:message</em>') }}
+	</section>
+
+	<section>
+		<label class="label">{{ trans('lossAndExpenses.claimAmount') }}<span class="required">*</span>:</label>
+		<label class="input {{{ $errors->has('claim_amount') ? 'state-error' : null }}}">
+			{{ Form::number('claim_amount', Input::old('claim_amount'), array('required' => 'required', 'step' => '0.01')) }}
+		</label>
+		{{ $errors->first('claim_amount', '<em class="invalid">:message</em>') }}
+	</section>
+
+	<section>
+		<label class="label">{{ trans('lossAndExpenses.earlyWarnings') }}<span class="required">*</span>:</label>
+		<label class="input {{{ $errors->has('early_warnings') ? 'state-error' : null }}}">
+			{{ Form::select('early_warnings[]', $warnings, Input::old('early_warnings') ?? $preSelectedWarnings ?? null, array('class' => 'select2', 'multiple' => true)) }}
+		</label>
+		{{ $errors->first('early_warnings', '<em class="invalid">:message</em>') }}
+	</section>
+
+	<section>
+		<label class="label">{{ trans('lossAndExpenses.architectInstruction') }}:</label>
+		<label class="input {{{ $errors->has('indonesia_civil_contract_ai_id') ? 'state-error' : null }}}">
+			{{ Form::select('indonesia_civil_contract_ai_id', $ais, Input::old('indonesia_civil_contract_ai_id') ?? $preSelectedAI ?? null, array('class' => 'select2')) }}
+		</label>
+		{{ $errors->first('indonesia_civil_contract_ai_id', '<em class="invalid">:message</em>') }}
+	</section>
+
+	<section>
+		<label class="label">{{ trans('lossAndExpenses.attachments') }}:</label>
+
+		@include('file_uploads.partials.upload_file_modal')
+	</section>
+</fieldset>

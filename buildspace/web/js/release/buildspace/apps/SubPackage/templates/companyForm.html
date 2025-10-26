@@ -1,0 +1,68 @@
+    <form data-dojo-attach-point="containerNode">
+        <fieldset>
+            <legend>${nls.companyInfo}</legend>
+            <table>
+                <tr>
+                    <td class="label"><label style="display: inline;"><span class="required">*</span>${nls.name} :</label></td>
+                    <td>
+                        <input type="text" name="company[name]" style="height:18px;width:520px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:true">
+                        <p class="alert-text-error" data-dojo-attach-point="error-name" id="error-name"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label style="display: inline;">${nls.shortName} :</label></td>
+                    <td>
+                        <input type="text" maxlength="20" name="company[shortname]" style="height:18px;width:250px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:false">
+                        <p class="alert-text-error" data-dojo-attach-point="error-shortname" id="error-shortname"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.address} :</label>
+                    </td>
+                    <td>
+                        <textarea name="company[address]" style="height:80px;width:350px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.country} :</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="countrySelectDivNode"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.state} :</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="stateSelectDivNode"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label style="display: inline;">${nls.postcode} :</label></td>
+                    <td>
+                        <input type="text" name="company[postcode]" style="height:18px;width:100px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true">
+                        <p class="alert-text-error" data-dojo-attach-point="error-postcode" id="error-postcode"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label style="display: inline;">${nls.phoneNo} :</label></td>
+                    <td>
+                        <input type="text" name="company[phone_number]" style="height:18px;width:100px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true">
+                        <p class="alert-text-error" data-dojo-attach-point="error-phone_number" id="error-phone_number"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label style="display: inline;">${nls.contactPerson} :</label></td>
+                    <td>
+                        <input type="text" name="company[contact_person_name]" style="height:18px;width:250px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true">
+                        <p class="alert-text-error" data-dojo-attach-point="error-contact_person_name" id="error-contact_person_name"></p>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <input type="hidden" name="company[_csrf_token]" value="">
+    </form>

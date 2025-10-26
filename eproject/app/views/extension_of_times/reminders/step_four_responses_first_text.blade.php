@@ -1,0 +1,1 @@
+The Architect to decide to accept/reject the Contractor's application for EOT within {{{ $eot->project->pam2006Detail->deadline_architect_decide_on_contractor_eot_claim }}} weeks, i.e. by <strong>{{{ $eot->extensionOfTimeClaim->deadline_to_process_eot_application }}}</strong>.

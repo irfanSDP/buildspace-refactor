@@ -1,0 +1,110 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="taskEditorForm">
+        <fieldset>
+            <legend>${nls.taskDetails}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:118px;">
+                        <label style="display: inline;">${nls.code} :</label>
+                    </td>
+                    <td colspan="3">
+                        <input type="text" name="code" id="code" style="padding:2px;width:100px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:false, maxLength:255">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.name} :</label>
+                    </td>
+                    <td colspan="3">
+                        <input type="text" name="name" id="name" style="padding:2px;width:320px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:true">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.startDate} :</label>
+                    </td>
+                    <td style="width:120px;">
+                        <input type="text" name="start" id="start" data-dojo-attach-point="startDateNode" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="required:true, constraints:{ datePattern : 'dd/MM/yyyy' }" value="" />
+                    </td>
+                    <td colspan="2">
+                        <input type="checkbox" name="startIsMilestone" id="startIsMilestone" data-dojo-attach-point="startIsMilestoneNode" data-dojo-type="dijit/form/CheckBox">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.endDate} :</label>
+                    </td>
+                    <td style="width:120px;">
+                        <input type="text" name="end" id="end" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-attach-point="endDateNode" data-dojo-props="required:true, constraints:{ datePattern : 'dd/MM/yyyy' }" value="" />
+                    </td>
+                    <td colspan="2">
+                        <input type="checkbox" name="endIsMilestone" id="endIsMilestone" data-dojo-attach-point="endIsMilestoneNode" data-dojo-type="dijit/form/CheckBox">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.duration} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="duration" id="duration" style="padding:2px;width:30px;" data-dojo-type="dijit/form/NumberTextBox" data-dojo-attach-point="durationTextNode" data-dojo-props="trim:true, required:true"> ${nls.days}
+                    </td>
+                    <td colspan="2">
+                        <label style="font-weight:bold;text-align:left;display: inline;">${nls.totalDurationFromProductivity} :</label> <span id="totalDurationNode" data-dojo-attach-point="totalDurationNode">0</span> ${nls.days}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.status} :</label>
+                    </td>
+                    <td>
+                        <div name="status" id="status" value="" data-dojo-type="dijit/form/Select" style="padding:2px!important;width:100px;" data-dojo-props="required:true" data-dojo-attach-point="statusSelectNode">
+                            <span value="STATUS_ACTIVE"><span class="taskStatus cvcColorSquare" status="STATUS_ACTIVE"></span>&nbsp;${nls.active}</span>
+                            <span value="STATUS_DONE"><span class="taskStatus cvcColorSquare" status="STATUS_DONE"></span>&nbsp;${nls.done}</span>
+                            <span value="STATUS_FAILED"><span class="taskStatus cvcColorSquare" status="STATUS_FAILED"></span>&nbsp;${nls.failed}</span>
+                            <span value="STATUS_SUSPENDED"><span class="taskStatus cvcColorSquare" status="STATUS_SUSPENDED"></span>&nbsp;${nls.suspended}</span>
+                            <span value="STATUS_UNDEFINED"><span class="taskStatus cvcColorSquare" status="STATUS_UNDEFINED"></span>&nbsp;${nls.undefined}</span>
+                        </div>
+                    </td>
+                    <td class="label" style="width:120px;">
+                        <label style="display:none;" data-dojo-attach-point="completedDateLabelNode"><span class="required">*</span>${nls.completedDate} :</label>
+                    </td>
+                    <td>
+                        <span style="display:none;" data-dojo-attach-point="completedDateSpanNode">
+                            <input type="text" name="completedDate" id="completedDate" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-attach-point="completedDateNode" data-dojo-props="required:true, constraints:{ datePattern : 'dd/MM/yyyy' }" value="" />
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.progress} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="progress" id="progress" style="padding:2px;width:40px;" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="trim:true, required:true"> %
+                    </td>
+                    <td colspan="2">
+                        <label style="font-weight:bold;text-align:left;display: inline;">${nls.completionBasedOnWorkDone} :</label> <span id="completionPercentageNode" data-dojo-attach-point="completionPercentageNode">0.00</span> %
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.totalCost} ( ${projectSchedule.currency} ) :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="totalCost" id="totalCost" style="padding:2px;width:80px;" data-dojo-type="dijit/form/CurrencyTextBox" data-dojo-props="trim:true, required:true">
+                    </td>
+                    <td colspan="2">
+                        <label style="font-weight:bold;text-align:left;display: inline;">${nls.contractAmount} ( ${projectSchedule.currency} ) :</label> <span id="contractAmountNode" data-dojo-attach-point="contractAmountNode">0.00</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.description} :</label>
+                    </td>
+                    <td colspan="3">
+                        <div data-dojo-attach-point="descriptionDivNode"></div>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>

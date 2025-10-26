@@ -1,0 +1,25 @@
+<?php
+
+return array(
+    'no'                => 'Number',
+    'news'              => 'News',
+    'create_news'       => 'Create News',
+    'add_news'          => 'Add News',
+    'edit_news'         => 'Edit News',
+    'news_list'         => 'News Listing',
+    'news_detail'       => 'News Detail',
+    'description'       => 'Description',
+    'status'            => 'Status',
+    'active'            => 'Active',
+    'deactive'          => 'Deactive',
+    'action'            => 'Action',
+    'create'            => 'Create',
+    'edit'              => 'Edit',
+    'department'        => 'Department',
+    'created_at'        => 'Created At',
+    'start_time'        => 'Start Time',
+    'end_time'          => 'End Time',
+    'display_start'     => 'Display Start',
+    'display_end'       => 'Display End',
+    'display_date'      => 'Display Date',
+);

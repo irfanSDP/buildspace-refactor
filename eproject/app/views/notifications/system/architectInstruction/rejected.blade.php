@@ -1,0 +1,1 @@
+{{ trans('architectInstructions.notifications.rejected') }}

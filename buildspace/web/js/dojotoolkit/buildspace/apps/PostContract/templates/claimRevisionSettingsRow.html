@@ -1,0 +1,31 @@
+<tr style="height: 30px;">
+    <td class="gridCell counter" style="width:30px;text-align: center;vertical-align: middle;padding:5px;"><h1></h1></td>
+    <td class="gridCell" style="vertical-align:middle;padding:5px;">
+        <div style="display: none;">
+            <input type="text" name="${count}-post_contract_claim_revision[revision]" style="width:100%;height:18px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:true" value="${revisionData.version}" data-dojo-attach-point="revisionValue">
+        </div>
+        <div>${nls.version} ${nls.no} ${revisionData.version}</div>
+    </td>
+    <td class="gridCell" style="width:160px;text-align: center;vertical-align: middle;padding:5px;">
+        <span class="icon-16-container icon-16-checkmark2" style="margin: 0 auto; display: none;" data-dojo-attach-point="showRevisionSelectedMarker"></span>
+
+        <a style="display: none;" href="javascript:void(0);" data-dojo-attach-point="showRevisionSelectedLink">${nls.printThisRevision}</a>
+    </td>
+    <td class="gridCell" style="width:120px;text-align: center;vertical-align: middle;padding:5px;">
+        <div data-dojo-attach-point="addendumStatusInput">
+            <select name="${count}-post_contract_claim_revision[locked_status]" data-dojo-type="dijit/form/Select" style="width:120px;" data-dojo-attach-point="lockedStatusValue">
+                <option value="0" selected="selected">${nls.addendumProgressing}</option>
+                <option value="1">${nls.addendumLocked}</option>
+            </select>
+        </div>
+        <div data-dojo-attach-point="addendumStatusView">${revisionData.locked_status}</div>
+    </td>
+    <td class="gridCell" style="width:100px;text-align:center;vertical-align: middle;padding:5px;">
+        <div data-dojo-attach-point="updatedAtView">${revisionData.updated_at}</div>
+    </td>
+    <td class="gridCell" style="width:50px;text-align: center;padding:5px;">
+        <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'icon-16-container icon-16-edit'" style="border:none;" data-dojo-attach-event="onClick:enterEditMode" data-dojo-attach-point="editButton"></button>
+        <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:save" data-dojo-attach-point="saveButton" data-dojo-props="iconClass:'icon-16-container icon-16-save'" style="border:none;"></button>
+        <div data-dojo-attach-point="noActionLabel" style="display: none;">-</div>
+    </td>
+</tr>

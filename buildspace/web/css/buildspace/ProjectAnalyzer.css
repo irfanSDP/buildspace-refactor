@@ -1,0 +1,16 @@
+body.nihilo .dojoxGridHeader .dojoxGridCell.mergedCellChildLeft, body.nihilo .dojoxGridHeader .dojoxGridCell.mergedCellChildLeft{
+    border-bottom:none!important;
+    background:transparent!important;
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+}
+
+body.nihilo .dojoxGridHeader .dojoxGridCell.mergedCellChildRight, body.nihilo .dojoxGridHeader .dojoxGridCell.mergedCellChildRight{
+    border-bottom:none!important;
+    border-left:none!important;
+    background:transparent!important;
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+}

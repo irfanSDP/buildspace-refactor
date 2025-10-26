@@ -1,0 +1,311 @@
+<div class="${baseClass}">
+    <style>
+    #widget_contract_sum.dijitTextBoxDisabled input {color: #000!important;}
+    </style>
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="newPostContractForm">
+        <fieldset>
+            <legend>${nls.projectInformation}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:120px;">
+                        <label style="display: inline;">${nls.project} :</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="projectTitleNode" style="display:inline;white-space:pre-wrap;"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:120px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.contractor} :</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;white-space: pre-wrap;" data-dojo-attach-point="selectedContractorNameNode"></label>
+                    </td>
+                </tr>
+                <tr style="display:none;" data-dojo-attach-point="awardedTenderAlternativeRowNode">
+                    <td class="label" style="width:120px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.tenderAlternative} :</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;white-space: pre-wrap;" data-dojo-attach-point="awardedTenderAlternativeTitleNode"></label>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <div style="height:2px;">&nbsp;</div>
+        <fieldset>
+            <legend id="title">${nls.contractInfo}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.type} :</label>
+                    </td>
+                    <td style="width:36%;">
+                        <div data-dojo-attach-point="formTypeSelectDivNode"></div>
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-type" id="new_post_contract_form_information_error-type"></p>
+                    </td>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span><span id="label_number">${nls.letterOfAwardNo}</span> :</label>
+                    </td>
+                    <td>
+                        <input type="number" name="new_post_contract_form_information[form_number]" id="form_number" style="padding:2px;width:70px;" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="trim:true, required:true, constraints:{min:1}" value=""/>
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-form_number" id="new_post_contract_form_information_error-form_number"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.contractSum} :</label>
+                    </td>
+                    <td>
+                        <p style="margin:0;">
+                            <input type="text" name="new_post_contract_form_information[contract_sum]" id="contract_sum" style="color:#000!important;padding:2px;width:180px;background:none!important;outline:none;border:none;border-color:transparent;" data-dojo-type="dijit/form/TextBox" value="" disabled/>
+                        </p>
+                    </td>
+                    <td class="label">
+                        <label style="display: inline;">${nls.reference} :</label>
+                    </td>
+                    <td>
+                        <input type="text" id="new_post_contract_form_information[reference]" name="new_post_contract_form_information[reference]" style="padding:2px;width:240px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true" />
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-reference" id="new_post_contract_form_information_error-reference"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.contractPeriodFrom} :</label>
+                    </td>
+                    <td id="new_post_contract_form_information-contract_period_from-column">
+                        <input type="text" id="new_post_contract_form_information-contract_period_from" name="new_post_contract_form_information[contract_period_from]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="trim:true, propercase:true, required:true" />
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-contract_period_from" id="new_post_contract_form_information_error-contract_period_from"></p>
+                    </td>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.contractPeriodTo} :</label>
+                    </td>
+                    <td id="new_post_contract_form_information-contract_period_to-column">
+                        <input type="text" id="new_post_contract_form_information-contract_period_to" name="new_post_contract_form_information[contract_period_to]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="trim:true, propercase:true, required:true" />
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-contract_period_to" id="new_post_contract_form_information_error-contract_period_to"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.awardedDate} :</label>
+                    </td>
+                    <td id="new_post_contract_form_information-awarded_date-column" colspan="3">
+                        <input type="text" id="new_post_contract_form_information-awarded_date" name="new_post_contract_form_information[awarded_date]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="trim:true, propercase:true, required:true" />
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-awarded_date" id="new_post_contract_form_information_error-awarded_date"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.trade} :</label>
+                    </td>
+                    <td colspan="3" id="new_post_contract_form_information-trade-column">
+                        <div data-dojo-attach-point="tradeSelectDivNode"></div>
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-pre_defined_location_code_id" id="new_post_contract_form_information_error-pre_defined_location_code_id"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.works} :</label>
+                        <p></p>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="worksSelectDivNode"></div>
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-works_1" id="new_post_contract_form_information_error-works_1"></p>
+                    </td>
+                    <td class="label">
+                        <label style="display: inline;">${nls.works2} :</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="works2SelectDivNode"></div>
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-works_2" id="new_post_contract_form_information_error-works_2"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.creditorCode} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="new_post_contract_form_information[creditor_code]" style="padding:2px;width:240px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true" />
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-creditor_code" id="new_post_contract_form_information_error-creditor_code"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.remarks} :</label>
+                    </td>
+                    <td colspan="3">
+                        <textarea name="new_post_contract_form_information[remarks]" style="padding:2px;min-height:30px;_height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true"></textarea>
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-remarks" id="new_post_contract_form_information_error-remarks"></p>
+                    </td>
+                </tr>
+            </table>
+
+            <input type="hidden" name="new_post_contract_form_information[_csrf_token]" value="" id="new_post_contract_form_information[_csrf_token]" data-dojo-type="dijit/form/ValidationTextBox">
+        </fieldset>
+        <div style="height:2px;">&nbsp;</div>
+        <fieldset>
+            <legend id="retention">${nls.retention}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:1px; white-space: nowrap">
+                        <label style="display: inline;"><span class="required">*</span>${nls.retentionSum} :</label>
+                    </td>
+                    <td style="">
+                        <input type="number" id="new_post_contract_form_information[retention]" name="new_post_contract_form_information[retention]" style="padding:2px;width:70px;" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="trim:true, required:true, constraints:{min:0, max:100}" value="0"/> %
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-retention" id="new_post_contract_form_information_error-retention"></p>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.maximumRetentionSum} :</label>
+                    </td>
+                    <td style="">
+                        <input type="number" id="new_post_contract_form_information[max_retention_sum]" name="new_post_contract_form_information[max_retention_sum]" style="padding:2px;width:70px;" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="trim:true, required:true, constraints:{min:0, max:100}" value="0"/> %
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-retention" id="new_post_contract_form_information_error-max_retention_sum"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.includeVO} :</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="includeVO" name="includeVO" data-dojo-props="intermediateChanges:true">
+                        <div id="includeVODesription" class="yellow-cell" style="padding:4px;margin:0px;overflow:hidden;text-align:center;">${nls.includeVODescription}</div>
+                    </td>
+                    <td class="label">
+                        <label style="display: inline;">${nls.includeMaterialOnSite} :</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" name="includeMaterialOnSite">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <div style="height:2px;">&nbsp;</div>
+        <fieldset>
+            <legend id="retention">${nls.waiverOptions}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:1px; white-space: nowrap">
+                        <label style="display: inline;">${nls.eTenderWaiver} :</label>
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-e_tender_waiver" id="new_post_contract_form_information_error-e_tender_waiver"></p>
+                    </td>
+                    <td>
+                        <input name="new_post_contract_form_information[e_tender_waiver]" data-dojo-type="dijit/form/CheckBox" value="true" data-dojo-attach-point="eTenderWaiverOption"/>
+                    </td>
+                    <td class="label" data-dojo-attach-point="eTenderWaiverOptionLabel">
+                        <label style="display: inline;">${nls.reason}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="eTenderWaiverOptionSelectDivNode"></div>
+                    </td>
+                    <td class="label" data-dojo-attach-point="eTenderWaiverUserDefinedOptionLabel">
+                        <label style="display: inline;">${nls.pleaseSpecify}:</label>
+                    </td>
+                    <td data-dojo-attach-point="eTenderWaiverOptionUserDefinedInputDiv">
+                        <input name="new_post_contract_form_information[eTenderWaiverUserDefinedOption]" data-dojo-type="dijit/form/ValidationTextBox" value="" data-dojo-attach-point="eTenderWaiverUserDefinedOptionInput"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="3">
+                        <div class="yellow-cell" style="padding:4px;margin:0px;overflow:hidden;text-align:center;" data-dojo-attach-point="eTenderWaiverDescription">${nls.eTenderWaiverDescription}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:1px; white-space: nowrap">
+                        <label style="display: inline;">${nls.eAuctionWaiver} :</label>
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-e_auction_waiver" id="new_post_contract_form_information_error-e_auction_waiver"></p>
+                    </td>
+                    <td>
+                        <input name="new_post_contract_form_information[e_auction_waiver]" data-dojo-type="dijit/form/CheckBox" value="true" data-dojo-attach-point="eAuctionWaiverOption"/>
+                    </td>
+                    <td class="label" data-dojo-attach-point="eAuctionWaiverOptionLabel">
+                        <label style="display: inline;">${nls.reason}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="eAuctionWaiverOptionSelectDivNode"></div>
+                    </td>
+                    <td class="label" data-dojo-attach-point="eAuctionWaiverUserDefinedOptionLabel">
+                        <label style="display: inline;">${nls.pleaseSpecify}:</label>
+                    </td>
+                    <td data-dojo-attach-point="eAuctionWaiverOptionUserDefinedInputDiv">
+                        <input name="new_post_contract_form_information[eAuctionWaiverUserDefinedOption]" data-dojo-type="dijit/form/ValidationTextBox" value="" data-dojo-attach-point="eAuctionWaiverUserDefinedOptionInput"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td colspan="3">
+                        <div class="yellow-cell" style="padding:4px;margin:0px;overflow:hidden;text-align:center;" data-dojo-attach-point="eAuctionWaiverDescription">${nls.eAuctionWaiverDescription}</div>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <div style="height:2px;">&nbsp;</div>
+        <fieldset>
+            <legend>${nls.labourRates}</legend>
+            <table class="table-form" style="width:50%;">
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.normalWorkingHours} :</label>
+                    </td>
+                    <td>
+                        <div id="new_post_contract_form_information-labour_rate_hours" data-dojo-attach-point="labourRateHoursDivNode"></div>
+                        <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-labour_rate_hours" id="new_post_contract_form_information_error-labour_rate_hours"></p>
+                    </td>
+                </tr>
+            </table>
+            <table class="buildspace-table">
+                <thead>
+                    <tr class="gridHeader">
+                        <th class="gridCell" style="text-align:center;">&nbsp;</th>
+                        <th class="gridCell" style="text-align:center;">${nls.normalRates}</th>
+                        <th class="gridCell" style="text-align:center;">${nls.otRates}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="label gridCell" style="width:auto;text-align:center;padding:5px;">
+                            ${nls.skilled}
+                        </td>
+                        <td class="gridCell" style="width:120px;text-align:center;padding:5px;">
+                            <div id="new_post_contract_form_information-labour_rate_skilled_normal" data-dojo-attach-point="labourRateSkilledNormalDivNode"></div>
+                            <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-labour_rate_skilled_normal" id="new_post_contract_form_information_error-labour_rate_skilled_normal"></p>
+                        </td>
+                        <td class="gridCell" style="width:120px;text-align:center;padding:5px;">
+                            <div id="new_post_contract_form_information-labour_rate_skilled_ot" data-dojo-attach-point="labourRateSkilledOTDivNode"></div>
+                            <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-labour_rate_skilled_ot" id="new_post_contract_form_information_error-labour_rate_skilled_ot"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label gridCell" style="width:auto;text-align:center;padding:5px;">
+                            ${nls.semiSkilled}
+                        </td>
+                        <td class="gridCell" style="width:120px;text-align:center;padding:5px;">
+                            <div id="new_post_contract_form_information-labour_rate_semi_skilled_normal" data-dojo-attach-point="labourRateSemiSkilledNormalDivNode"></div>
+                            <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-labour_rate_semi_skilled_normal" id="new_post_contract_form_information_error-labour_rate_semi_skilled_normal"></p>
+                        </td>
+                        <td class="gridCell" style="text-align:center;padding:5px;">
+                            <div id="new_post_contract_form_information-labour_rate_semi_skilled_ot" data-dojo-attach-point="labourRateSemiSkilledOTDivNode"></div>
+                            <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-labour_rate_semi_skilled_ot" id="new_post_contract_form_information_error-labour_rate_semi_skilled_ot"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label gridCell" style="width:auto;text-align:center;padding:5px;">
+                            ${nls.labour}
+                        </td>
+                        <td class="gridCell" style="width:120px;text-align:center;padding:5px;">
+                            <div id="new_post_contract_form_information-labour_rate_labour_normal" data-dojo-attach-point="labourRateLabourNormalDivNode"></div>
+                            <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-labour_rate_labour_normal" id="new_post_contract_form_information_error-labour_rate_labour_normal"></p>
+                        </td>
+                        <td class="gridCell" style="width:120px;text-align:center;padding:5px;">
+                            <div id="new_post_contract_form_information-labour_rate_labour_ot" data-dojo-attach-point="labourRateLabourOTDivNode"></div>
+                            <p class="alert-text-error" data-dojo-attach-point="new_post_contract_form_information_error-labour_rate_labour_ot" id="new_post_contract_form_information_error-labour_rate_labour_ot"></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>

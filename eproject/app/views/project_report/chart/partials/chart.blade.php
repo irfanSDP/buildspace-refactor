@@ -1,0 +1,1 @@
+<div class="chart {{ $record->chart_type_label }}-chart" id="chart_{{ $record->id }}"></div>

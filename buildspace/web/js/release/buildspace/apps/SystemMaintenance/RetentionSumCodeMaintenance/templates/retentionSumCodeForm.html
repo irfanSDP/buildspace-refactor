@@ -1,0 +1,17 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.retentionSumCodeMaintenance}</legend>
+        <table class="table-form" style="width:auto">
+            <tr>
+                <td class="label"><label style="display: inline;"><span class="required">*</span>${nls.code} :</label></td>
+                <td>
+                    <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="maxLength:30, trim:true, required:true" name="retention_sum_code[code]" style="padding:2px;width:280px;">
+                    <p class="alert-text-error" data-dojo-attach-point="retention_sum_code_error-code" id="retention_sum_code_error-code"></p>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <input type="hidden" name="id" value="">
+    <input type="hidden" name="retention_sum_code[_csrf_token]" value="">
+</form>
+

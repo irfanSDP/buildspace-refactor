@@ -1,0 +1,1 @@
+"%s" rejected the {{ trans("tenders.tenderRevision") }}

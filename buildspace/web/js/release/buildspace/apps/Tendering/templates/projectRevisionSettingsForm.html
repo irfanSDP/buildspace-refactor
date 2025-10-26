@@ -1,0 +1,25 @@
+<div>
+    <fieldset>
+        <legend>${nls.billRevisionSettings}</legend>
+
+        <div data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:addAddendum" data-dojo-attach-point="addAddendumButton" data-dojo-props="iconClass:'icon-16-container icon-16-add'">${nls.addAddendum}</div>
+
+        <div style="height:2px;">&nbsp;</div>
+
+        <table class="buildspace-table">
+            <thead>
+                <tr class="gridHeader">
+                    <th class="gridCell" style="text-align:center;">No.</th>
+                    <th class="gridCell">${nls.billRevisionDescription}</th>
+                    <th class="gridCell" style="text-align: center;">${nls.export}</th>
+                    <th class="gridCell" style="text-align: center;" data-dojo-attach-point="tableTenderDocumentHeader">${nls.tenderDocument}</th>
+                    <th class="gridCell" style="text-align: center;">${nls.currentPrintingRevision}</th>
+                    <th class="gridCell" style="text-align: center;">${nls.status}</th>
+                    <th class="gridCell" style="text-align: center;">${nls.lastUpdated}</th>
+                    <th class="gridCell" style="text-align: center;">${nls.action}</th>
+                </tr>
+            </thead>
+            <tbody data-dojo-attach-point="tableContainer"></tbody>
+        </table>
+    </fieldset>
+</div>

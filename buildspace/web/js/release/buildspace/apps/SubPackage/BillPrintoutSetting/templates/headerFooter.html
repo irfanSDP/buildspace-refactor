@@ -1,0 +1,61 @@
+<div class="${baseClass} forms-inputs">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="myForm-${projectId}">
+        <fieldset>
+            <legend>Header Note</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;">Styling :</label></td>
+                    <td>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="eleHeadBold-${projectId}" name="eleHeadBold"><label for="eleHeadBold-${projectId}" class="removeBlock addMarginRight" style="font-weight:bold;">Bold</label>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="eleHeadUnderline-${projectId}" name="eleHeadUnderline"><label for="eleHeadUnderline-${projectId}" class="removeBlock" style="text-decoration:underline;">Underline</label>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="eleHeadItalic-${projectId}" name="eleHeadItalic"><label for="eleHeadItalic-${projectId}" class="removeBlock addMarginRight" style="font-style:italic;">Italic</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="topLeftRow1-${projectId}">Top Left Row 1 :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim: true, propercase:true, maxLength:42" id="topLeftRow1-${projectId}" name="topLeftRow1" style="padding:2px;width:320px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="topLeftRow2-${projectId}">Top Left Row 2 :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim: true, propercase:true, maxLength:42" id="topLeftRow2-${projectId}" name="topLeftRow2" style="padding:2px;width:320px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="topRightRow1-${projectId}">Top Right Row 1 :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim: true, propercase:true, maxLength:42" id="topRightRow1-${projectId}" name="topRightRow1" style="padding:2px;width:320px;">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Footer Note</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;">Styling :</label></td>
+                    <td>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="footHeadBold-${projectId}" name="footHeadBold"><label for="footHeadBold-${projectId}" class="removeBlock addMarginRight" style="font-weight:bold;">Bold</label>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="footHeadUnderline-${projectId}" name="footHeadUnderline"><label for="footHeadUnderline-${projectId}" class="removeBlock" style="text-decoration:underline;">Underline</label>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="footHeadItalic-${projectId}" name="footHeadItalic"><label for="footHeadItalic-${projectId}" class="removeBlock addMarginRight" style="font-style:italic;">Italic</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="botLeftRow1-${projectId}">Bottom Left Row 1 :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim: true, propercase:true, maxLength:42" id="botLeftRow1-${projectId}" name="botLeftRow1" style="padding:2px;width:320px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="botLeftRow2-${projectId}">Bottom Left Row 2 :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim: true, propercase:true, maxLength:42" id="botLeftRow2-${projectId}" name="botLeftRow2" style="padding:2px;width:320px;">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>

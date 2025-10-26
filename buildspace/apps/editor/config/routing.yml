@@ -1,0 +1,233 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+homepage:
+  url:   /:oid
+  class:   sfDoctrineRoute
+  options: { model: EProjectProject, type: object }
+  param: { module: sfSAMLAuth, action: signin }
+  requirements:
+    sf_method: [get]
+    oid: \d+
+
+homepage_empty:
+  url: /
+  param: { module: default, action: noAccess }
+
+no_access:
+  url: /noAccess
+  param: { module: default, action: noAccess }
+
+sf_guard_signin:
+  url:   /login
+  param: { module: sfSAMLAuth, action: signin }
+
+sf_guard_signout:
+  url:   /logout/:oid
+  class:   sfDoctrineRoute
+  options: { model: EProjectProject, type: object }
+  param: { module: sfSAMLAuth, action: signout }
+  requirements:
+    sf_method: [get]
+    oid: \d+
+
+project_info:
+  url:   project/:pid
+  class:   sfDoctrineRoute
+  options: { model: EProjectProject, type: object }
+  param: { module: default, action: getProjectInfo }
+  requirements:
+    sf_method: [get]
+    pid: \d+
+
+project_breakdown:
+  url:   projectBreakdown/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param: { module: default, action: getProjectBreakdown }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+bill_units:
+  url:   billUnits/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param: { module: billManager, action: getUnits }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+bill_info:
+  url:   billInfo/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param: { module: billManager, action: getBillInfo }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+addendum_info_by_bill:
+  url:   addendumInfoByBill/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param: { module: billManager, action: getAddendumInfoByBill }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+addendum_info_by_element:
+  url:   addendumInfoByElement/:id
+  class:   sfDoctrineRoute
+  options: { model: BillElement, type: object }
+  param: { module: billManager, action: getAddendumInfoByElement }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+project_revisions:
+  url:   projectRevisions/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param: { module: default, action: getProjectRevisions }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+bill_properties:
+  url:   billProperties/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param: { module: billManager, action: billPropertiesForm }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+bill_elements:
+  url:   billElements/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param: { module: billManager, action: getElementList }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+bill_items:
+  url:   billItems/:id
+  class:   sfDoctrineRoute
+  options: { model: BillElement, type: object }
+  param: { module: billManager, action: getItemList }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+change_current_print_revision:
+  url:   changeCurrentPrintRevision
+  class:   sfDoctrineRoute
+  options: { model: ProjectRevision, type: object }
+  param: { module: default, action: changeCurrentPrintRevision }
+  requirements:
+    sf_method: [post]
+
+print_list:
+  url:   printList/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param: { module: printBQ, action: getPrintList }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+bq_print:
+  url:   BQPdf/:eid/:_csrf_token/:withPrice
+  class:   sfDoctrineRoute
+  options: { model: BillElement, type: object }
+  param:   { module: printBQ, action: index, withPrice: '' }
+  requirements:
+    sf_method: [get]
+    eid: \d+
+
+bq_summary:
+  url:   BQSummary/:bid/:_csrf_token/:withPrice
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: summaryPage, withPrice: '' }
+  requirements:
+    sf_method: [get]
+    bid: \d+
+
+bq_print_all:
+  url:   BQPrintAll/:bid/:_csrf_token/:withPrice
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printAll, withPrice: '' }
+  requirements:
+    sf_method: [get]
+    bid: \d+
+
+addendum_print:
+  url:   BQPrintAddendum/:bid/:_csrf_token/:withPrice
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printBQAddendum, withPrice: '' }
+  requirements:
+    sf_method: [get]
+    bid: \d+
+
+project_summary:
+  url:   projectSummary/:pid/:_csrf_token/:withPrice
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: projectSummary, withPrice: '' }
+  requirements:
+    sf_method: [get]
+    pid: \d+
+
+final_bq_print_list:
+  url:   finalBQPrintList/:id/:tid
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param: { module: printBQ, action: getFinalBQPrintList }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+final_bq_print_pdf:
+  url:   finalBQPdf/:id/:withPrice/:_csrf_token
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: printBQ, action: printFinalBQ }
+  requirements:
+    sf_method: [get]
+    id:  \d+
+    withPrice: \d+
+
+tender_alternatives:
+  url:   getTenderAlternatives/:id
+  class:   sfDoctrineRoute
+  options: { model: ProjectStructure, type: object }
+  param:   { module: default, action: getTenderAlternatives }
+  requirements:
+    sf_method: [get]
+    id:  \d+
+
+tender_alternative_bills:
+  url:   getTenderAlternativeBills/:id
+  class:   sfDoctrineRoute
+  options: { model: TenderAlternative, type: object }
+  param:   { module: default, action: getTenderAlternativeBills }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+tender_alternative_project_summary:
+  url:   tenderAlternativeProjectSummary/:id/:_csrf_token/:withPrice
+  class:   sfDoctrineRoute
+  options: { model: TenderAlternative, type: object }
+  param:   { module: printBQ, action: tenderAlternativeProjectSummary, withPrice: '' }
+  requirements:
+    sf_method: [get]
+    id: \d+
+
+default:
+  url:   /:module/:action/*

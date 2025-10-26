@@ -1,0 +1,23 @@
+define({
+    root: {
+        description: "Description",
+        tax: "Tax",
+        updatedAt: "Updated At",
+        addRow: "Add Row",
+        deleteRow: "Delete Row",
+        savingData: "Saving data",
+        deleting: "Deleting",
+        pleaseWait: "Please wait",
+        deleteCertificateConfirmation: "Delete Certificate Tax Confirmation",
+        doYouReallywantToDeleteCertificate: "Do you really want to delete this certificate tax",
+        deleteTaxCodeConfirmation: "Delete Tax Code Confirmation",
+        doYouReallywantToDeleteTaxCode: "Do you really want to delete this tax code?",
+        cannotDeleteTitle: "Certificate Tax Cannot Be Deleted",
+        cannotDeleteMsg: "Error deleting Certificate Tax",
+        certificate: "Certificate",
+        cannotDeleteCertificateTitle: "Certificate Tax Cannot Be Deleted",
+        cannotDeleteCertificateMsg: "Certificate Tax cannot be deleted because it is being used.",
+        cannotDeleteTaxCodeTitle: "Tax Code Cannot Be Deleted",
+        cannotDeleteTaxCodeMsg: "Tax code cannot be deleted because it is being used."
+    }
+});

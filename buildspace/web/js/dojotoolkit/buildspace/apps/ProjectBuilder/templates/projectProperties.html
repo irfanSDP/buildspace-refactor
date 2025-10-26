@@ -1,0 +1,105 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="mainInfoForm">
+        <fieldset>
+            <legend>${nls.mainInformation}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.reference} :</label>
+                    </td>
+                    <td colspan="3">
+                        <span>${formData.eProjectReference}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.title} :</label>
+                    </td>
+                    <td colspan="3">
+                        <textarea name="project_main_information[title]" style="width:500px;min-height:30px;_height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true,propercase:true" data-dojo-attach-point="inputTitle"></textarea>
+                        <p class="alert-text-error" id="error-project_main_information_title"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.description} :</label>
+                    </td>
+                    <td colspan="3">
+                        <textarea name="project_main_information[description]" style="width:500px;min-height:30px;_height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true" data-dojo-attach-point="inputDescription"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.country} :</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="countrySelectDivNode"></div>
+                    </td>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.state} :</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="stateSelectDivNode"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.siteAddress} :</label>
+                    </td>
+                    <td colspan="3">
+                        <textarea name="project_main_information[site_address]" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true, required:true" style="padding:2px;width:750px;min-height:30px;_height:30px;" data-dojo-attach-point="inputSiteAdress"></textarea>
+                        <p class="alert-text-error" id="error-project_main_information_site_address"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.currency} :</label>
+                    </td>
+                    <td colspan="3">
+                        <div data-dojo-attach-point="currencySelectDivNode"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.client} :</label>
+                    </td>
+                    <td colspan="3">
+                        <input type="text" name="project_main_information[client]" data-dojo-attach-point="inputClient" style="padding:2px;width:350px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:true" />
+                        <p class="alert-text-error" id="error-project_main_information_client"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.workCategory} :</label>
+                    </td>
+                    <td>
+                        <div id="project_main_information_work_category_id"></div>
+                    </td>
+                    <td class="label">
+                        <label style="display: inline;">${nls.projectStatus} :</label>
+                    </td>
+                    <td colspan="3">
+                        <span>${formData.formValues.projectStatus}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.startDate} :</label>
+                    </td>
+                    <td>
+                        <input type="text" data-dojo-attach-point="inputDate" name="project_main_information[start_date]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="constraints:{ datePattern : 'dd/MM/yyyy' }" required="true" />
+                        <p class="alert-text-error" id="error-project_main_information_start_date"></p>
+                    </td>
+                    <td class="label">
+                        <label style="display: inline;">${nls.created_by} :</label>
+                    </td>
+                    <td>
+                        <span>${formData.formValues.createdBy}</span>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="project_main_information[_csrf_token]" value="">
+            <input type="hidden" name="id" value="${rootProject.id}">
+        </fieldset>
+    </form>
+</div>

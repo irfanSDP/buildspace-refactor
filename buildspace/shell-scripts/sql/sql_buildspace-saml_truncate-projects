@@ -1,0 +1,3 @@
+TRUNCATE bs_project_structures RESTART IDENTITY CASCADE;
+
+

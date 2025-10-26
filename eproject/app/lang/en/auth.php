@@ -1,0 +1,25 @@
+<?php
+
+return array(
+    'accountRecoveryLinkHelp'          => 'Please enter your e-mail so that we can send an Account Recovery link to you.',
+    'confirmPassword'                  => 'Confirm Password',
+    'enterNewPassword'                 => 'Please enter your new password.',
+    'forgotPassword'                   => 'Forgot Password',
+    'forgotPassword?'                  => 'Forgot Password?',
+    'loginRequired'                    => 'Please log in to proceed.',
+    'message'                          => 'You will be notified through email when your account is approved by the relevant authorities.',
+    'password'                         => 'Password',
+    'passwordTokenExpired'             => 'Sorry, your reset password token has expired.',
+    'registration'                     => 'Registration',
+    'registrationFailed'               => 'Registration failed. Something went wrong.',
+    'resetPassword'                    => 'Reset Password',
+    'signOut'                          => 'Sign Out',
+    'signOutMessage'                   => 'You can improve your security further after logging out by closing this opened browser',
+    'success'                          => 'Your Registration is Successful!',
+    'accountCreated'                   => 'Your account has been created!',
+    'checkMailBox'                     => 'Please check your mailbox for account activation.',        
+    'thankYouForConfirmingYourAccount' => 'Thank You For Confirming Your Account',
+    'username'                         => 'Username',
+    'welcomeMessage'                   => 'Hi, :name',
+    'youCanNowLogin'                   => "You can now login at <a href=\":route\">:route</a> using these credentials:",
+);

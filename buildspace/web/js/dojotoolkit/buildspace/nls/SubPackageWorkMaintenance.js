@@ -1,0 +1,19 @@
+define({
+    root: {
+        subPackageWork: 'Sub Package Work',
+        addSubPackageWork: 'Add Sub Package Work',
+        name: 'Name',
+        edit: 'Edit',
+        delete: 'Delete',
+        savingData: 'Saving data',
+        pleaseWait: 'Please wait',
+        subPackageWorkList: 'Sub Package Work List',
+        save: 'Save',
+        editSubPackageWork: 'Edit Sub Package Work',
+        deleting: 'Deleting',
+        deleteConfirmation: 'Delete Confirmation',
+        firstLevelCategoryDialogMsg: 'Do you really want to delete this record?',
+        itemCannotBeDeleted: 'Item cannot Be Deleted',
+        cannotDeleteUsedElsewhere: "This item is used elsewhere and cannot be deleted."
+    }
+});

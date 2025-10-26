@@ -1,0 +1,1 @@
+"%s" has submitted an Open Tender Page Information for your approval.

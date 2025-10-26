@@ -1,0 +1,22 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.selectSubContractor}</legend>
+        <table>
+            <tr>
+                <td style="text-align:right;padding:4px;"><label><span class="required">*</span>${nls.subContractor} :</label></td>
+                <td>
+                    <div data-dojo-attach-point="contractorSelectDivNode"></div>
+                    <p class="alert-text-error" data-dojo-attach-point="error-company_id" id="error-company_id"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button data-dojo-type="dijit/form/Button" type="button" data-dojo-props="iconClass:'icon-16-container icon-16-save'" data-dojo-attach-point="saveBtn" data-dojo-attach-event="onClick:submit">${nls.save}</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <input type="hidden" name="sub_package_company[sub_package_id]" value="">
+    <input type="hidden" name="sub_package_company[_csrf_token]" value="">
+</form>

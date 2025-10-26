@@ -1,0 +1,50 @@
+AccountGroup:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+  tableName: account_groups
+  indexes:
+    account_group_id_idx:
+      fields: [id]
+  columns:
+    id:       { type: integer, primary: true, notnull: true, autoincrement: true }
+    name:     { type: string(255), notnull: false }
+    priority: { type: integer, notnull: true, default: 0 }
+    disable: { type: boolean, notnull: true, default: false }
+
+AccountCode:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+  tableName: account_codes
+  indexes:
+    account_code_id_idx:
+      fields: [id]
+  columns:
+    id:                 { type: integer, primary: true, notnull: true, autoincrement: true }
+    account_group_id:   { type: integer, notnull: true }
+    code:               { type: string(255), notnull: false }
+    description:        { type: string(255), notnull: false }
+    tax_code:           { type: string(255), notnull: false }
+    priority:           { type: integer, notnull: true, default: 0 }
+    type:               { type: integer, notnull: true, default: 1 }
+  relations:
+    AccountGroup:
+      local: account_group_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: AccountCode
+      foreignType: many

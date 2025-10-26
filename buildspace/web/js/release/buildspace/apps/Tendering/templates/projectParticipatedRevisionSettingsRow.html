@@ -1,0 +1,14 @@
+<tr style="height: 30px;">
+    <td class="gridCell counter" style="width:30px;text-align: center;vertical-align: middle;padding:5px;"><h1></h1></td>
+    <td class="gridCell" style="vertical-align:middle;padding:5px;">
+        <div style="display: none;">
+            <input type="text" name="${count}-project_revision[revision]" style="width:100%;height:18px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:true" value="${revisionData.revision}" data-dojo-attach-point="revisionValue">
+        </div>
+        <div>${revisionData.revision}</div>
+    </td>
+    <td class="gridCell" style="width:160px;text-align: center;vertical-align: middle;padding:5px;">
+        <span class="icon-16-container icon-16-checkmark2" style="margin: 0 auto; display: none;" data-dojo-attach-point="showRevisionSelectedMarker"></span>
+
+        <a style="display: none;" href="javascript:void(0);" data-dojo-attach-point="showRevisionSelectedLink">${nls.printThisRevision}</a>
+    </td>
+</tr>

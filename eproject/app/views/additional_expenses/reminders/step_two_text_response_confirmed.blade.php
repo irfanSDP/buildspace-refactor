@@ -1,0 +1,3 @@
+<?php $hashTag = '#' . str_replace('%id%', $ae->contractorConfirmDelay->id, PCK\Forms\AEContractorConfirmDelayForm::accordianId); ?>
+
+The Contractor {{ HTML::link($hashTag, 'confirmed') }} that the Variation that leads to the Additional Expense has been completed on {{{ $ae->project->getProjectTimeZoneTime($ae->contractorConfirmDelay->date_on_which_delay_is_over) }}}. The deadline for the Contractor to submit the claim for Additional Expense is <strong>{{{ $ae->project->getProjectTimeZoneTime($ae->contractorConfirmDelay->deadline_to_submit_final_claim) }}}</strong> (i.e. {{{ $ae->project->pam2006Detail->deadline_submitting_final_claim_ae }}} days from the date Variation is completed). The Contractor must provide all necessary to substantiate his claims.

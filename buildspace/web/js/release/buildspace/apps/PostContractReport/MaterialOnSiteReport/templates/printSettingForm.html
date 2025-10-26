@@ -1,0 +1,152 @@
+<div>
+	<form class="${baseClass}" data-dojo-type="dojox/form/Manager"
+		  data-dojo-attach-point="mosPrintSettingForm-${projectId}" style="padding: 0 5px;">
+		<fieldset style="margin-bottom: 10px;">
+			<legend>${nls.printSettingForm}</legend>
+
+			<table class="table-form">
+				<tr>
+					<td class="label" style="width:180px;">
+						<label style="display: inline;"></span>${nls.projectName}:</label>
+					</td>
+					<td>
+						<input type="text" name="material_on_site_print_setting[project_name]" style="width:100%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:true" data-dojo-attach-point="titleNode">
+						<p class="alert-text-error" id="error-material_on_site_print_setting_project_name"
+						   style="display: none;"></p>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" style="vertical-align:middle;width:180px;">
+						${nls.headerRowOne}:
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td>
+									<input type="text" data-dojo-type="dijit/form/TextBox" style="padding: 2px;"
+										   data-dojo-props="trim:true"
+										   name="material_on_site_print_setting[site_belonging_address]">
+
+									<p class="alert-text-error"
+									   id="error-material_on_site_print_setting_site_belonging_address"
+									   style="display: none;"></p>
+								</td>
+								<td>
+									<input type="text" data-dojo-type="dijit/form/TextBox" style="padding: 2px;"
+										   data-dojo-props="trim:true"
+										   name="material_on_site_print_setting[original_finished_date]">
+
+									<p class="alert-text-error"
+									   id="error-material_on_site_print_setting_site_original_finished_date"
+									   style="display: none;"></p>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" style="vertical-align:middle;width:180px;">
+						${nls.headerRowTwo}:
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td>
+									<input type="text" data-dojo-type="dijit/form/TextBox" style="padding: 2px;"
+										   data-dojo-props="trim:true"
+										   name="material_on_site_print_setting[contract_duration]">
+
+									<p class="alert-text-error"
+									   id="error-material_on_site_print_setting_site_contract_duration"
+									   style="display: none;"></p>
+								</td>
+								<td>
+									<input type="text" data-dojo-type="dijit/form/TextBox" style="padding: 2px;"
+										   data-dojo-props="trim:true"
+										   name="material_on_site_print_setting[contract_original_amount]">
+
+									<p class="alert-text-error"
+									   id="error-material_on_site_print_setting_site_contract_original_amount"
+									   style="display: none;"></p>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" style="vertical-align:middle;width:180px;">
+						${nls.headerRowThree}:
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td>
+									<input type="text" data-dojo-type="dijit/form/TextBox" style="padding: 2px;"
+										   data-dojo-props="trim:true"
+										   name="material_on_site_print_setting[payment_revision_no]">
+
+									<p class="alert-text-error"
+									   id="error-material_on_site_print_setting_site_payment_revision_no"
+									   style="display: none;"></p>
+								</td>
+								<td>
+									<input type="text" data-dojo-type="dijit/form/TextBox" style="padding: 2px;"
+										   data-dojo-props="trim:true"
+										   name="material_on_site_print_setting[evaluation_date]">
+
+									<p class="alert-text-error"
+									   id="error-material_on_site_print_setting_site_evaluation_date"
+									   style="display: none;"></p>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" style="width:180px;">
+						<label style="display: inline;"></span>${nls.total}:</label>
+					</td>
+					<td>
+						<input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;"
+							   data-dojo-props="maxLength:45, trim:true"
+							   name="material_on_site_print_setting[total_text]">
+
+						<p class="alert-text-error" id="error-material_on_site_print_setting_total_text"
+						   style="display: none;"></p>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" style="width:180px;">
+						<label style="display: inline;"></span>${nls.percentageMos}:</label>
+					</td>
+					<td>
+						<input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;"
+							   data-dojo-props="maxLength:45, trim:true"
+							   name="material_on_site_print_setting[percentage_of_material_on_site_text]">
+
+						<p class="alert-text-error"
+						   id="error-material_on_site_print_setting_percentage_of_material_on_site_text"
+						   style="display: none;"></p>
+					</td>
+				</tr>
+				<tr>
+					<td class="label" style="width:180px;">
+						<label style="display: inline;"></span>${nls.carriedToSummary}:</label>
+					</td>
+					<td>
+						<input type="text" data-dojo-type="dijit/form/TextBox" style="width: 543px; padding: 2px;"
+							   data-dojo-props="maxLength:45, trim:true"
+							   name="material_on_site_print_setting[carried_to_final_summary_text]">
+
+						<p class="alert-text-error"
+						   id="error-material_on_site_print_setting_carried_to_final_summary_text"
+						   style="display: none;"></p>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+
+		<input type="hidden" name="material_on_site_print_setting[project_structure_id]" value="${projectId}">
+		<input type="hidden" name="material_on_site_print_setting[_csrf_token]" value="${formInfo._csrf_token}">
+	</form>
+</div>

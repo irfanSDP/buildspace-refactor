@@ -1,0 +1,288 @@
+EditorBillItemInfo:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: editor_bill_item_information
+  actAs: [Timestampable, Signable]
+  indexes:
+    editor_bill_item_info_id_idx:
+      fields: [id, bill_item_id, company_id]
+    editor_bill_item_info_fk_idx:
+      fields: [bill_item_id, company_id]
+    editor_bill_item_info_unique_idx:
+      fields: [bill_item_id, company_id]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_id:         { type: integer, notnull: true }
+    company_id:           { type: integer, notnull: true }
+    grand_total_quantity: { type: decimal, scale: 5, default: 0 }
+    grand_total:          { type: decimal, scale: 5, default: 0 }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: EditorBillItemInfo
+      foreignType: many
+    Company:
+      local: company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: EditorBillItemInfo
+      foreignType: many
+
+EditorBillItemFormulatedColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: editor_bill_item_formulated_columns
+  actAs: [FormulatedColumn, Timestampable, Signable, SoftDelete]
+  indexes:
+    editor_bill_ifc_id_idx:
+      fields: [id, relation_id, value, final_value, column_name, deleted_at]
+    editor_bill_ifc_rel_idx:
+      fields: [relation_id]
+  columns:
+    id:     { type: integer, primary: true, notnull: true, autoincrement: true }
+    linked: { type: boolean, default: false}
+  relations:
+    EditorBillItemInfo:
+      local: relation_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: FormulatedColumns
+      foreignType: many
+
+EditorBillItemEdge:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: editor_bill_item_edges
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    editor_bill_item_edge_id_idx:
+      fields: [id, node_from, node_to, column_name, deleted_at]
+    editor_bill_item_edge_fk_idx:
+      fields: [node_from, node_to]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    node_from:   { type: integer, notnull: true }
+    node_to:     { type: integer, notnull: true }
+    column_name: { type: string(50), notnull: true }
+  relations:
+    NodeFrom:
+      class: EditorBillItemFormulatedColumn
+      local: node_from
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeFromEdges
+      foreignType: many
+    NodeTo:
+      class: EditorBillItemFormulatedColumn
+      local: node_to
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeToEdges
+      foreignType: many
+
+EditorBillItemNotListed:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: editor_bill_item_not_listed
+  actAs: [Timestampable, Signable]
+  indexes:
+    editor_bill_item_not_listed_idx:
+      fields: [id]
+    editor_bill_item_not_listed_fk_idx:
+      fields: [company_id, bill_item_id]
+    editor_bill_item_not_listed_unique_idx:
+      fields: [company_id, bill_item_id]
+      type: unique
+  columns:
+    id:           { type: integer, primary: true, notnull: true, autoincrement: true }
+    company_id:   { type: integer, notnull: true }
+    bill_item_id: { type: integer, notnull: true }
+    description:  { type: string, notnull: false }
+    uom_id:       { type: integer, notnull: false }
+  relations:
+    Company:
+      local: company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: EditorBillItemNotListed
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: EditorBillItemNotListed
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: EditorBillItemNotListed
+      foreignType: many
+
+EditorBillItemTypeReference:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: editor_bill_item_type_references
+  actAs: [Timestampable, Signable]
+  indexes:
+    editor_bill_item_type_references_id_idx:
+      fields: [id]
+    editor_bill_item_type_references_fk_idx:
+      fields: [bill_item_info_id, bill_column_setting_id]
+    editor_bill_item_type_references_unique_idx:
+      fields: [bill_item_info_id, bill_column_setting_id]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_info_id:      { type: integer, notnull: true }
+    bill_column_setting_id: { type: integer, notnull: true }
+    quantity_per_unit:      { type: decimal, scale: 5, default: 0 }
+    total_quantity:         { type: decimal, scale: 5, default: 0 }
+    grand_total:            { type: decimal, scale: 5, default: 0 }
+  relations:
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: EditorBillItemTypeReferences
+      foreignType: many
+    EditorBillItemInfo:
+      local: bill_item_info_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: EditorBillItemTypeReferences
+      foreignType: many
+
+EditorBillItemPrimeCostRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: editor_bill_item_prime_cost_rates
+  actAs: [Timestampable, Signable]
+  indexes:
+    editor_bill_ipcr_id_idx:
+      fields: [id, bill_item_info_id, total]
+    editor_bill_ipcr_unique_idx:
+      fields: [bill_item_info_id]
+      type: unique
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_info_id:       { type: integer, notnull: true }
+    supply_rate:             { type: decimal, scale: 5, notnull: true, default: 0 }
+    wastage_percentage:      { type: decimal, scale: 5, notnull: true, default: 0 }
+    wastage_amount:          { type: decimal, scale: 5, notnull: true, default: 0 }
+    labour_for_installation: { type: decimal, scale: 5, notnull: true, default: 0 }
+    other_cost:              { type: decimal, scale: 5, notnull: true, default: 0 }
+    profit_percentage:       { type: decimal, scale: 5, notnull: true, default: 0 }
+    profit_amount:           { type: decimal, scale: 5, notnull: true, default: 0 }
+    total:                   { type: decimal, scale: 5, notnull: true, default: 0 }
+  relations:
+    EditorBillItemInfo:
+      local: bill_item_info_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PrimeCostRate
+      foreignType: one
+
+EditorBillItemLumpSumPercentage:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: editor_bill_item_lump_sum_percentages
+  actAs: [Timestampable, Signable]
+  indexes:
+    editor_bill_ilsp_id_idx:
+      fields: [id, bill_item_info_id, amount]
+    editor_bill_ilsp_unique_idx:
+      fields: [bill_item_info_id]
+      type: unique
+  columns:
+    id:                { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_info_id: { type: integer, notnull: true }
+    rate:              { type: decimal, scale: 5, notnull: true, default: 0 }
+    percentage:        { type: decimal, notnull: true, default: 0 }
+    amount:            { type: decimal, scale: 5, notnull: true, default: 0 }
+  relations:
+    EditorBillItemInfo:
+      local: bill_item_info_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: LumpSumPercentage
+      foreignType: one
+
+EditorProjectInformation:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: editor_project_information
+  actAs: [Timestampable, Signable]
+  indexes:
+    editor_project_info_id_idx:
+      fields: [id, project_structure_id, company_id]
+    editor_project_info_fk_idx:
+      fields: [project_structure_id, company_id, printing_revision_id]
+    editor_project_info_unique_idx:
+      fields: [project_structure_id, company_id]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id: { type: integer, notnull: true }
+    company_id:           { type: integer, notnull: true }
+    printing_revision_id: { type: integer, notnull: true }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: EditorProjectInfo
+      foreignType: many
+    Company:
+      local: company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: EditorProjectInfo
+      foreignType: many
+    PrintRevision:
+      class: ProjectRevision
+      local: printing_revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: EditorProjectInfo
+      foreignType: many

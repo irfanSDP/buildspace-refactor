@@ -1,0 +1,1 @@
+"%s" has rejected Instruction to Contractors.

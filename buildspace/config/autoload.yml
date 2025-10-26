@@ -1,0 +1,6 @@
+autoload:
+  vendor:
+    name:      lib vendor
+    path:      %SF_LIB_DIR%/vendor
+    recursive: true
+    exclude:   [symfony, GuzzleHttp]

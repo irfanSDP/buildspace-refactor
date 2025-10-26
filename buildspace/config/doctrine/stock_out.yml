@@ -1,0 +1,55 @@
+connection: main_conn
+
+StockOutUsedQuantity:
+  options:
+    symfony:
+      filter: false
+  tableName: stock_out_used_quantities
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    stock_out_index_idx:
+      fields: [project_structure_id, running_number, deleted_at]
+      type: unique
+  columns:
+    project_structure_id: { type: integer }
+    running_number:       { type: integer }
+    stock_out_date:       { type: timestamp }
+  relations:
+    Project:
+      class: ProjectStructure
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: StockOutQuantities
+
+StockOutUsedQuantityItemQuantity:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: stock_out_used_quantity_item_quantities
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    stock_out_item_quantity_index_idx:
+      fields: [stock_out_used_quantity_id, resource_item_id, deleted_at]
+      type: unique
+  columns:
+    stock_out_used_quantity_id: { type: integer }
+    resource_item_id:           { type: integer }
+    quantity:                   { type: decimal, scale: 5, default: 0 }
+  relations:
+    StockOutUsedQuantity:
+      local: stock_out_used_quantity_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: StockOutUsedQuantityItemQuantities
+      onDelete: CASCADE
+    ResourceItem:
+      local: resource_item_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: StockOutUsedQuantityItemQuantities
+      onDelete: CASCADE

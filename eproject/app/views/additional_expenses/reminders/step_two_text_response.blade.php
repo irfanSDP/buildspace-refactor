@@ -1,0 +1,1 @@
+The Contractor to confirm that the Variation that leads to the Additional Expense has been completed. The deadline for the Contractor to submit the claim for Additional Expense is {{{ $ae->project->pam2006Detail->deadline_submitting_final_claim_ae }}} days from the date Variation is completed. The Contractor must provide all necessary calculations to substantiate his claims.

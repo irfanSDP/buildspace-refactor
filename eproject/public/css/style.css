@@ -1,0 +1,277 @@
+/* Override / Extend SmartAdmin CSS */
+table.smallFont > tbody td {
+    font-size: 12px !important;
+}
+
+.dmf-settings {
+    display: none;
+}
+
+.modal-dmf {
+    width: 400px;
+}
+
+li > a > i.dmf-settings {
+    color: #a8a8a8 !important;
+}
+
+li:hover > a > i.dmf-settings {
+    display: inline;
+    text-decoration: none !important;
+}
+
+i.dmf-settings:hover {
+    color: #ffffff !important;
+}
+
+span.hover-underline {
+    color: #a8a8a8 !important;
+}
+
+span.hover-underline:hover {
+    color: #ffffff !important;
+    text-decoration: underline !important;
+}
+
+table#dt_basic td {
+    position: relative;
+}
+
+td .title {
+    font-size: 15px;
+    color: #606060;
+}
+
+td h4.title {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+td .action {
+    position: absolute;
+    top: -30px;
+    right: 15px;
+    opacity: 0.4;
+}
+
+dt {
+    font-size: 14px;
+    font-weight: 300;
+    color: #888;
+    padding: 3px 0;
+}
+
+dt.no-top-padding {
+    padding-top: 0;
+}
+
+dt.no-bottom-padding {
+    padding-bottom: 0;
+}
+
+dd {
+    padding: 3px 0;
+}
+
+dl.no-margin {
+    margin-bottom: 0;
+}
+
+td:hover .action {
+    opacity: 1;
+}
+
+/* Smart Form */
+
+.smart-form fieldset.small-padding {
+    padding: 0 14px 0;
+}
+
+div.multiSelectRow .select-action {
+    margin-top: 5px;
+    opacity: 0.4;
+}
+
+div.multiSelectRow .select-action .addCompanySelect {
+    display: none;
+}
+
+div.multiSelectRow:last-child .select-action .removeCompanySelect {
+    display: none;
+}
+
+div.multiSelectRow:last-child .select-action .addCompanySelect {
+    display: block;
+}
+
+div.multiSelectRow:hover .select-action {
+    opacity: 1;
+}
+
+.action-overlap {
+    margin-top: 40px;
+}
+
+.action .btn-group-xs > .btn, .btn-xs {
+    padding: 1px 5px;
+}
+
+.smart-form.widget-body-toolbar.white-bg,
+.widget-body-toolbar.white-bg,
+.dt-toolbar {
+    background: #fff;
+}
+
+.smart-form footer .btn-group-sm > .btn,
+.smart-form footer .btn.btn-sm {
+    padding: 6px 10px 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+#left-panel .divider {
+    display: block;
+    font-size: 12px;
+    height: 39px;
+    color: #fff;
+    border: solid transparent;
+    border-width: 1px 0;
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07);
+    width: 100%;
+    margin: 20px 0 0 0 !important;
+    border-bottom: 1px solid #525151;
+}
+
+#left-panel .pad-top {
+    margin: 20px 0 0 0 !important;
+}
+
+#left-panel .pad-top-small {
+    margin: 10px 0 0 0 !important;
+}
+
+#left-panel .divider > span i {
+    margin-right: 5px;
+}
+
+#left-panel .divider > span {
+    height: 38px;
+    display: block;
+    padding: 0 10px;
+    color: #a8a8a8;
+    display: inline-block;
+    margin-top: 6px;
+    text-transform: capitalize;
+    font-size: 14px;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+/* Override Inbox Style */
+.inbox-side-bar {
+    position: static;
+}
+
+/* Common Helper */
+.table > tbody > tr > td.text-middle,
+.table > tbody > tr > th.text-middle,
+.table > tfoot > tr > td.text-middle,
+.table > tfoot > tr > th.text-middle,
+.table > thead > tr > td.text-middle,
+.table > thead > tr > th.text-middle {
+    vertical-align: middle;
+}
+
+.dateSubmitted {
+    color: red;
+}
+
+.reminderContainer > li {
+    margin: 0 0 12px;
+}
+
+.reminderContainer > li:last-child {
+    margin: 0;
+}
+
+.boxShadow {
+    -webkit-box-shadow: 3px 4px 5px 0px rgba(50, 50, 50, 0.64);
+    -moz-box-shadow: 3px 4px 5px 0px rgba(50, 50, 50, 0.64);
+    box-shadow: 3px 4px 5px 0px rgba(50, 50, 50, 0.64);
+}
+
+.text-red {
+    color: #A90329 !important;
+}
+
+#logo img {
+    width: 90px !important;
+    padding-left: 20px;
+}
+
+#header #logo-group {
+    position: relative;
+}
+
+#logo-group .ribbon-banner-small {
+    background-image: url('../img/buildspace-ribbon-eproject-small.png');
+    width: 52px;
+    height: 50px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.required {
+    color: red;
+}
+
+.notifications {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.notifications-new {
+    background-color: #f6f7f8;
+}
+
+.notifications .notifications-item {
+    padding: 10px 6px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.notifications .notifications-item:last-child {
+    border-bottom: none;
+}
+
+.notificationButton {
+    position: relative;
+}
+
+.notificationButton .notificationBadge {
+    position: absolute;
+    top: -13px;
+    right: -4px;
+    cursor: pointer;
+    background: #0091d9;
+    display: inline-block;
+    font-size: 10px;
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    padding: 2px 4px 3px;
+    text-align: center;
+    line-height: normal;
+}
+
+.select2-hidden-accessible {
+    display: none;
+}

@@ -1,0 +1,72 @@
+<div class="${baseClass}" data-dojo-attach-point="focusNode" role="menuitem" tabIndex="-1">
+    <table class="buildspace-table">
+        <thead>
+        <tr class="gridHeader">
+            <th class="gridCell" style="text-align:right;">
+                ${nls.buildUpSummary}
+            </th>
+            <th class="gridCell" style="text-align:right;">
+                <input type="checkbox" id="${itemId}-chk_conversion_factor" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-event="onClick:doApplyConversionFactor" data-dojo-attach-point="applyConversionFactorNode"/>
+                ${nls.applyConversionFactor}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.totalCost}</td>
+            <td class="gridCell" data-dojo-attach-point="totalCostNode" style="width:200px;text-align:right;padding-right:5px;"></td>
+        </tr>
+        <tr class="${itemId}-conversion_factor-row">
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.conversionFactor}</td>
+            <td class="gridCell" style="width:200px;">
+                <table style="border:0;width:100%;padding:0;margin:0;">
+                    <tr>
+                        <td style="width:50px;">
+                            <select data-dojo-type="dijit/form/Select" data-dojo-attach-event="onChange:submitConversionFactorOperator" style="width:50px;" data-dojo-attach-point="conversionFactorOperatorNode" class="buildspace-large_label-select-input">
+                                <option value="*">*</option>
+                                <option value="/">/</option>
+                            </select>
+                        </td>
+                        <td style="text-align:right;padding-right:5px;">
+                            <div data-dojo-type="dijit/InlineEditBox" data-dojo-props="editor:'dijit/form/TextBox', editorParams:{constraints: {places:0} }, autoSave:true" width="100%" data-dojo-attach-event="onChange:submitConversionFactorAmount" data-dojo-attach-point="conversionFactorAmountNode"></div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="${itemId}-conversion_factor-row">
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.conversionFactorUOM}</td>
+            <td class="gridCell" style="width:200px;text-align:right;padding-right:5px;">
+                <div data-dojo-attach-point="conversionFactorUOMNode"></div>
+            </td>
+        </tr>
+        <tr class="${itemId}-conversion_factor-row">
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.totalAfterConversion}</td>
+            <td class="gridCell" style="width:200px;text-align:right;padding-right:5px;" data-dojo-attach-point="totalCostAfterConversionNode"></td>
+        </tr>
+        <tr>
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.roundingOptions}</td>
+            <td class="gridCell" style="vertical-align: middle;">
+                <select data-dojo-type="dijit/form/Select" style="width:200px;" data-dojo-attach-point="roundingTypeNode" data-dojo-attach-event="onChange:submitRoundingType">
+                        <option value="${ROUNDING_TYPE_UPWARD}">${ROUNDING_TYPE_UPWARD_TEXT}</option>
+                        <option value="${ROUNDING_TYPE_DOWNWARD}">${ROUNDING_TYPE_DOWNWARD_TEXT}</option>
+                        <option value="${ROUNDING_TYPE_NEAREST_WHOLE_NUMBER}">${ROUNDING_TYPE_NEAREST_WHOLE_NUMBER_TEXT}</option>
+                        <option value="${ROUNDING_TYPE_NEAREST_TENTH}">${ROUNDING_TYPE_NEAREST_TENTH_TEXT}</option>
+                        <option value="${ROUNDING_TYPE_DISABLED}">${ROUNDING_TYPE_DISABLED_TEXT}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.markup} (%)</td>
+            <td class="gridCell" style="width:200px;text-align:right;padding-right:5px;">
+                <div data-dojo-type="dijit/InlineEditBox" data-dojo-props="editor:'dijit/form/TextBox', editorParams:{constraints: {places:0} }, autoSave:true" width="100%" data-dojo-attach-event="onChange:submitMarkup" data-dojo-attach-point="markupNode"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="gridCell" style="text-align:right;font-weight:bold;padding-right:5px;">${nls.finalCost}</td>
+            <td class="gridCell" data-dojo-attach-point="finalCostNode" style="width:200px;text-align:right;padding-right:5px;"></td>
+        </tr>
+        </tbody>
+    </table>
+    <span data-dojo-attach-point="containerNode"></span>
+</div>

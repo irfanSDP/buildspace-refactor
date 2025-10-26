@@ -1,0 +1,77 @@
+<div class="${baseClass} largeForm">
+    <fieldset>
+        <legend>${nls.projectInformation}</legend>
+        <table class="table-form">
+            <tr data-dojo-attach-point="scheduleFormSubPackageName" style="display:none;">
+                <td class="label">
+                    <label style="display: inline;">${nls.subPackage} :</label>
+                </td>
+                <td>${subPackageTitle}</td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label style="display: inline;">${nls.title} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;white-space: pre-wrap;">${project.title}</label>
+                </td>
+                <td class="label">
+                    <label style="display: inline;">${nls.startDate} :</label>
+                </td>
+                <td>
+                    <label style="display: inline;white-space: pre-wrap;">${project.start_date}</label>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <div style="padding:2px;">&nbsp;</div>
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="importProjectScheduleForm">
+        <fieldset>
+            <legend>${nls.projectScheduleInformation}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.title} :</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;white-space: pre-wrap;">${projectScheduleInfo.title}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.startDate} :</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;white-space: pre-wrap;">${projectScheduleInfo.start_date}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.timezone} :</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;white-space: pre-wrap;">${projectScheduleInfo.timezone}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.excludeSaturdays} :</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="exclude_saturdays" data-dojo-type="dijit/form/CheckBox">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.excludeSundays} :</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="exclude_sundays" data-dojo-type="dijit/form/CheckBox">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <input type="hidden" name="_csrf_token" value="">
+    </form>
+
+</div>

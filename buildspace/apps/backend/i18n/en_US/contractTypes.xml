@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+    <file datatype="plaintext" source-language="en"
+          target-language="en_US" original="contractTypes">
+        <body>
+            <trans-unit id="0">
+                <source>architect</source>
+                <target>Architect</target>
+            </trans-unit>
+            <trans-unit id="1">
+                <source>contractor</source>
+                <target>Contractor</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>qs_consultant</source>
+                <target>QS Consultant</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>c_and_s_engineer</source>
+                <target>C &amp; S Engineer</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>mep_engineer</source>
+                <target>MEP Engineer</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>land_surveyor</source>
+                <target>Land Surveyor</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>business_unit</source>
+                <target>Business Unit</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>gcd</source>
+                <target>GCD</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

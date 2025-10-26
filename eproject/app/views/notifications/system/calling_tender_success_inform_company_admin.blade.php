@@ -1,0 +1,1 @@
+Your company has been invited for a tender exercise

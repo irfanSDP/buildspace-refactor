@@ -1,0 +1,28 @@
+<?php
+
+return array(
+    'contractor'        => 'Contractor',
+    'projectManager'    => 'Project Manager',
+    'unassigned'        => 'Unassigned',
+    'instructionIssuer' => 'Instruction Issuer',
+    'claimVerifier'     => 'Claim Verifier',
+    'consultant1'       => 'Consultant 1',
+    'consultant2'       => 'Consultant 2',
+    'consultant3'       => 'Consultant 3',
+    'consultant4'       => 'Consultant 4',
+    'consultant5'       => 'Consultant 5',
+    'consultant6'       => 'Consultant 6',
+    'consultant7'       => 'Consultant 7',
+    'consultant8'       => 'Consultant 8',
+    'consultant9'       => 'Consultant 9',
+    'consultant10'      => 'Consultant 10',
+    'consultant11'      => 'Consultant 11',
+    'consultant12'      => 'Consultant 12',
+    'consultant13'      => 'Consultant 13',
+    'consultant14'      => 'Consultant 14',
+    'consultant15'      => 'Consultant 15',
+    'consultant16'      => 'Consultant 16',
+    'consultant17'      => 'Consultant 17',
+    'projectOwner'      => 'Project Owner',
+    'groupContract'     => 'Group Contract',
+);

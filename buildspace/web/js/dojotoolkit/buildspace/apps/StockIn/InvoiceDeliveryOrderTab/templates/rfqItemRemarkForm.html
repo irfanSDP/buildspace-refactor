@@ -1,0 +1,24 @@
+<div>
+    <form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="stockInItemRemarkForm" style="padding: 0 5px;">
+        <fieldset style="margin-bottom: 10px;">
+            <table>
+                <tr>
+                    <td style="text-align:right;padding:4px;"><label><span class="required">*</span>${nls.itemRemark}:</label></td>
+                    <td>
+                        <textarea name="rfq_item_remark[description]" data-dojo-type="dijit/form/SimpleTextarea" style="width: 625px; height: 80px;"></textarea>
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-description"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <button data-dojo-type="dijit/form/Button" type="button" data-dojo-props="iconClass:'icon-16-container icon-16-save'" data-dojo-attach-point="stockInItemRemarkFormSaveButton">${nls.save}</button>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <input type="hidden" name="rfq_item_remark[resource_item_id]" value="${resourceItemId}">
+        <input type="hidden" name="rfq_item_remark[_csrf_token]" value="">
+    </form>
+</div>

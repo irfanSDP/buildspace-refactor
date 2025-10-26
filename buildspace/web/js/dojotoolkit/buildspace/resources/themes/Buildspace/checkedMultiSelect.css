@@ -1,0 +1,53 @@
+.dojoxCheckedMultiSelectHidden{ display: none;}
+.dojoxCheckedMultiSelect .dojoxCheckedMultiSelectWrapper {
+    border: solid black 1px;
+    margin: 1px 0;
+    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100px;
+}
+.dj_ie .dojoxCheckedMultiSelectWrapper,
+.dj_webkit .dojoxCheckedMultiSelectWrapper {
+    padding-right: 15px;
+}
+.dojoxMultiSelectItem {
+    cursor: default;
+    padding: 0.1em 0.2em;
+    white-space: nowrap;
+}
+.dojoxCheckedMultiSelectItem {
+    white-space: nowrap;
+    padding:.1em .2em;
+    cursor:default;
+}
+.dojoxCheckedMultiSelectDisabled *,
+.dojoxCheckedMultiSelectReadOnly * {
+    color:gray !important;
+}
+.dojoxCheckedMultiSelectItemLabel { margin-left: .2em;}
+.dojoxCheckedMultiSelect .dojoxCheckedMultiSelectWrapper { margin: 0em 0.1em;}
+.dojoxCheckedMultiSelectCheckBoxInput { opacity: 0.01;}
+.dj_ie .dojoxCheckedMultiSelectCheckBoxInput {
+    filter: alpha(opacity=0);
+    width: 15px;
+    height: 16px;
+}
+.dijit_a11y .dojoxCheckedMultiSelectCheckBoxInput { opacity: 1;filter: none;}
+.dojoxCheckedMultiSelectMenu td.dijitMenuArrowCell { display: none;}
+.dojoxCheckedMultiSelectMenu td.dijitMenuItemLabel { position: static;padding: 2px;}
+
+.nihilo .dojoxCheckedMultiSelect .dojoxCheckedMultiSelectWrapper {
+    background:#fff url("./dijit/images/validationInputBg.png") repeat-x top left;
+    border:1px solid #d3d3d3;
+    line-height: normal;
+}
+.nihilo .dojoxCheckedMultiSelectFocused .dojoxCheckedMultiSelectWrapper { border-color:#b3b3b3;}
+table.dojoxCheckedMultiSelectButton {width:100%;height:100%;}
+
+div.multiSelectDropDown {border: 1px solid #ccc!important;background:#fff;text-align:left;height:180px;padding:0;margin:0;}
+.multiSelectDropDown:focus { outline: none;border-color: inherit;-webkit-box-shadow: none;box-shadow: none;}
+div.multiSelectDropDown .dojoxGridHeader { border-bottom: 1px solid #ccc!important;}
+div.multiSelectDropDown .dojoxGrid { background-color: #fff!important;}
+div.multiSelectDropDown .dojoxGridHeader .dojoxGridCell { height:22px!important;}
+div.multiSelectDropDown .dojoxGridCell { border:none!important;}

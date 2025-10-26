@@ -1,0 +1,23 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.workCategory}</legend>
+        <table class="table-form" style="width: auto;">
+            <tr>
+                <td class="label"><label style="display: inline;"><span class="required">*</span> ${nls.name} :</label></td>
+                <td>
+                    <input type="text" id="work_category1" name="work_category[name]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:true" style="padding:2px;width:280px;">
+                    <p class="alert-text-error" data-dojo-attach-point="work_category_error-name" id="work_category_error-name"></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="label"><label style="display: inline;">${nls.description} :</label></td>
+                <td>
+                    <textarea id="work_category2" name="work_category[description]" style="min-height:30px;_height:30px;width:280px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true"></textarea>
+                    <p class="alert-text-error" data-dojo-attach-point="work_category_error-description" id="work_category_error-description"></p>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="work_category[_csrf_token]" value="">
+    </fieldset>
+</form>

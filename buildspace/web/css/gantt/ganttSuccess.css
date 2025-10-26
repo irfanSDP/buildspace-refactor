@@ -1,0 +1,7 @@
+h1,h2,h3,h4,h5,h6,pre,code,table{font-size:11px;margin:0;padding:0}
+a img,:link img,:visited img{border:none}
+:active,:link,:visited{text-decoration:none}
+.ui-page { visibility: hidden!important; }
+html,body{overflow:hidden;width:100%;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;font:81.25% "Helvetica Neue", Helvetica, Arial, sans-serif;color:#000;margin:0;padding:0;text-align:left;height:100%;direction:ltr;unicode-bidi:embed;}
+ul, li {margin: 0;padding: 0;list-style: none;}.printOptions{margin:0;padding:0;display:inline-block;min-width:80px;min-height:24px;vertical-align:top;zoom:1;*display:inline;}
+.colname-code{text-align: center;}.colname-start{text-align: center;}.colname-end{text-align: center;}.colname-dur{text-align: center;}.colname-dep{text-align: center;}.colname-plan{text-align: center;}.colname-actual{text-align: center;}

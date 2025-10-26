@@ -1,0 +1,146 @@
+<div class="${baseClass} forms-inputs">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="myForm-${projectId}">
+
+    <fieldset>
+        <legend>General Setting</legend>
+        <table class="table-form">
+            <tr>
+                <td colspan="2">
+                    <label class="removeBlock" style="font-weight:bold;">Price Display Format</label>
+                    <input type="radio" data-dojo-type="dijit/form/RadioButton" name="priceFormat" id="priceFormat1-${projectId}" value="normal">
+                    <label for="priceFormat1" class="removeBlock">1,000.00</label>
+                    <input type="radio" data-dojo-type="dijit/form/RadioButton" name="priceFormat" id="priceFormat2-${projectId}" value="opposite">
+                    <label for="priceFormat2" class="removeBlock">1.000,00</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption1-${projectId}" name="printAmountOnly">
+                    <label for="printOption1-${projectId}" class="removeBlock">Print Amount column only</label>
+                </td>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption2-${projectId}" name="printNoPrice">
+                    <label for="printOption2-${projectId}" class="removeBlock">Print without price</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption4-${projectId}" name="printDollarCents">
+                    <label for="printOption4-${projectId}" class="removeBlock">Print BQ with Dollar &amp; Cents <span style="font-weight: bold;">(For Single Type BQ)</span></label>
+                </td>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption5-${projectId}" name="printNoCents">
+                    <label for="printOption5-${projectId}" class="removeBlock">Print BQ without cents</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption6-${projectId}" name="toggleArgment">
+                    <label for="printOption6-${projectId}" class="removeBlock">Toggle column arrangement to Qty-Unit-Rate <span style="font-weight: bold;">(For Single Type BQ)</span></label>
+                </td>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption7-${projectId}" name="indentItem">
+                    <label for="printOption7-${projectId}" class="removeBlock">Indent all item description by 3 characters</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption200-${projectId}" name="includeIandO">
+                    <label for="printOption200-${projectId}" class="removeBlock">Include item numbers I and O on BOQ Printout</label>
+                </td>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption201-${projectId}" name="printDateOfPrinting">
+                    <label for="printOption201-${projectId}" class="removeBlock">Print Date of Printing</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printGrandTotalQty-${projectId}" name="printGrandTotalQty">
+                    <label for="printGrandTotalQty-${projectId}" class="removeBlock">Print Grand Total Quantity</label>
+                </td>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printFullDecimal-${projectId}" name="printFullDecimal">
+                    <label for="printFullDecimal-${projectId}" class="removeBlock">Print Full Decimal (Auto-shrink)</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="closeGrid" name="closeGrid">
+                    <label for="closeGrid" class="removeBlock">Close Grid</label>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Continued</legend>
+        <table class="table-form">
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption9-${projectId}" name="printContdEndDesc">
+                    <label for="printOption9-${projectId}" class="removeBlock">Print (Cont'd) at end of the description</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="removeBlock" style="font-weight:bold;" for="contdPrefix-${projectId}">(Cont'd) :</label>
+                    <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="contdPrefix-${projectId}" name="contdPrefix">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Trade Name</legend>
+        <table class="table-form">
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption10-${projectId}" name="printElementInGridOnce">
+                    <label for="printOption10-${projectId}" class="removeBlock">Print trade name once per trade within grid on BOQ</label>
+                </td>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption11-${projectId}" name="printElementTitle">
+                    <label for="printOption11-${projectId}" class="removeBlock">Print trade name at the top right corner on BOQ</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption12-${projectId}" name="printElementInGrid">
+                    <label for="printOption12-${projectId}" class="removeBlock">Print trade name within grid on BOQ</label>
+                </td>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption203-${projectId}" name="alignElementTitleToTheLeft">
+                    <label for="printOption203-${projectId}" class="removeBlock">Align trade name to the left <strong>(Only Applicable if generated with print trade name on)</strong></label>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Page Numbering</legend>
+        <table class="table-form">
+            <tr>
+                <td>
+                    <label class="removeBlock"><input type="radio" data-dojo-type="dijit/form/RadioButton" disabled="disabled" name="pageNumberingOption" value="bookPage"> Use BQ/1 page numbering format on BOQ</label>
+                </td>
+                <td>
+                    <label class="removeBlock"><input type="radio" data-dojo-type="dijit/form/RadioButton" name="pageNumberingOption" value="numericElement"> Use 1/1 page numbering format on BOQ</label>
+                </td>
+                <td>
+                    <label class="removeBlock"><input type="radio" data-dojo-type="dijit/form/RadioButton" disabled="disabled" name="pageNumberingOption" value="alphaElement"> Use A/1 page numbering format on BOQ</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <label class="removeBlock" style="font-weight:bold;" for="pageNoPrefix-${projectId}">Page No. Prefix :</label>
+                    <input type="text" data-dojo-type="dijit/form/ValidationTextBox" id="pageNoPrefix-${projectId}" name="pageNoPrefix" style="padding:2px;width:240px;" data-dojo-props="trim: true, maxLength:9">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    </form>
+</div>

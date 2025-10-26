@@ -1,0 +1,2 @@
+Based on the total works to be completed by tenderer with subject to employer arrangement for <strong>Supply of Material</strong> with <strong>FIXED OVERALL COMPLETION PERIOD OF <span style="color: red;">{{{ $projectPeriodByDeveloper }}}</span> {{{ strtoupper($projectPeriodMetric) }}}</strong>
+@include('tender_alternatives.partials.tender_alternatives_ending', array('currencyName' => $currencyName))

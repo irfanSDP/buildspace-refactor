@@ -1,0 +1,38 @@
+all:
+  version: $BUILDSPACE_VERSION
+  register:
+    buildspace_id: buildspace
+  default_user_password: $BUILDSPACE_DEFAULT_USER_PASSWORD
+  default_currency_abbreviation: $BUILDSPACE_DEFAULT_CURRENCY_ABBREVIATION
+  rfq_project_ref_no_zero_fill_length: "%05d"
+  rfq_resource_ref_no_zero_fill_length: "%06d"
+  stock_out_ref_no_zero_fill_length: "%05d"
+  maximum_users: $BUILDSPACE_MAXIMUM_USERS
+  wkhtmltopdf_bin_path: /usr/bin/wkhtmltopdf
+  saml_sp_name: buildspace-sp
+  can_online: true
+  e_project_url: https://$EPROJECT_HOST
+  guzzle_ssl_verification: true
+  eproject_shared_folder: /usr/local/etc/buildspace/eproject/app/storage/buildspace
+  post_contract_disabled_modules:
+    water_deposit:                        $BUILDSPACE_POST_CONTRACT_DISABLED_MODULES_WATER_DEPOSIT
+    deposit:                              $BUILDSPACE_POST_CONTRACT_DISABLED_MODULES_DEPOSIT
+    out_of_contract_item:                 $BUILDSPACE_POST_CONTRACT_DISABLED_MODULES_OUT_OF_CONTRACT_ITEM
+    purchase_on_behalf:                   $BUILDSPACE_POST_CONTRACT_DISABLED_MODULES_PURCHASE_ON_BEHALF
+    advanced_payment:                     $BUILDSPACE_POST_CONTRACT_DISABLED_MODULES_ADVANCE_PAYMENT
+    work_on_behalf:                       $BUILDSPACE_POST_CONTRACT_DISABLED_MODULES_WORK_ON_BEHALF
+    work_on_behalf_back_charge:           $BUILDSPACE_POST_CONTRACT_DISABLED_MODULES_WORK_ON_BEHALF_BACK_CHARGE
+    penalty:                              $BUILDSPACE_POST_CONTRACT_DISABLED_MODULES_PENALTY
+    permit:                               $BUILDSPACE_POST_CONTRACT_DISABLED_MODULES_PERMIT
+    post_contract_claim_material_on_site: $BUILDSPACE_POST_CONTRACT_DISABLED_MODULES_POST_CONTRACT_CLAIM_MATERIAL_ON_SITE
+    request_for_variation_claim:          $BUILDSPACE_POST_CONTRACT_DISABLED_MODULES_REQUEST_FOR_VARIATION_CLAIM
+    debit_credit_note:                    $BUILDSPACE_POST_CONTRACT_DISABLED_MODULES_DEBIT_CREDIT_NOTE
+  sf_guard_plugin:
+    signin_form: BsAuthSigninForm
+#    algorithm_callable: sha256
+    profile_class:               sfGuardUserProfile
+    profile_field_name:          user_id
+    allow_login_with_email:      true
+    success_signin_url:          @homepage
+    remember_key_expiration_age: 86400   # 30 days in seconds
+    remember_cookie_name:        bsRememberMe

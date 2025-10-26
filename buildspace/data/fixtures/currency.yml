@@ -1,0 +1,466 @@
+Currency:
+  Currency_1:
+    currency_name: 'Andorran Peseta'
+    currency_code: ADP
+  Currency_2:
+    currency_name: 'United Arab Emirates Dirham'
+    currency_code: AED
+  Currency_3:
+    currency_name: 'Afghanistan Afghani'
+    currency_code: AFN
+  Currency_4:
+    currency_name: 'Albanian Lek'
+    currency_code: ALL
+  Currency_5:
+    currency_name: 'Netherlands Antillian Guilder'
+    currency_code: ANG
+  Currency_6:
+    currency_name: 'Angolan Kwanza'
+    currency_code: AOK
+  Currency_7:
+    currency_name: 'Argentine Peso'
+    currency_code: ARS
+  Currency_9:
+    currency_name: 'Australian Dollar'
+    currency_code: AUD
+  Currency_10:
+    currency_name: 'Aruban Florin'
+    currency_code: AWG
+  Currency_11:
+    currency_name: 'Barbados Dollar'
+    currency_code: BBD
+  Currency_12:
+    currency_name: 'Bangladeshi Taka'
+    currency_code: BDT
+  Currency_14:
+    currency_name: 'Bulgarian Lev'
+    currency_code: BGN
+  Currency_15:
+    currency_name: 'Bahraini Dinar'
+    currency_code: BHD
+  Currency_16:
+    currency_name: 'Burundi Franc'
+    currency_code: BIF
+  Currency_17:
+    currency_name: 'Bermudian Dollar'
+    currency_code: BMD
+  Currency_18:
+    currency_name: 'Brunei Dollar'
+    currency_code: BND
+  Currency_19:
+    currency_name: 'Bolivian Boliviano'
+    currency_code: BOB
+  Currency_20:
+    currency_name: 'Brazilian Real'
+    currency_code: BRL
+  Currency_21:
+    currency_name: 'Bahamian Dollar'
+    currency_code: BSD
+  Currency_22:
+    currency_name: 'Bhutan Ngultrum'
+    currency_code: BTN
+  Currency_23:
+    currency_name: 'Burma Kyat'
+    currency_code: BUK
+  Currency_24:
+    currency_name: 'Botswanian Pula'
+    currency_code: BWP
+  Currency_25:
+    currency_name: 'Belize Dollar'
+    currency_code: BZD
+  Currency_26:
+    currency_name: 'Canadian Dollar'
+    currency_code: CAD
+  Currency_27:
+    currency_name: 'Swiss Franc'
+    currency_code: CHF
+  Currency_28:
+    currency_name: 'Chilean Unidades de Fomento'
+    currency_code: CLF
+  Currency_29:
+    currency_name: 'Chilean Peso'
+    currency_code: CLP
+  Currency_30:
+    currency_name: 'Yuan (Chinese) Renminbi'
+    currency_code: CNY
+  Currency_31:
+    currency_name: 'Colombian Peso'
+    currency_code: COP
+  Currency_32:
+    currency_name: 'Costa Rican Colon'
+    currency_code: CRC
+  Currency_33:
+    currency_name: 'Czech Republic Koruna'
+    currency_code: CZK
+  Currency_34:
+    currency_name: 'Cuban Peso'
+    currency_code: CUP
+  Currency_35:
+    currency_name: 'Cape Verde Escudo'
+    currency_code: CVE
+  Currency_36:
+    currency_name: 'Cyprus Pound'
+    currency_code: CYP
+  Currency_40:
+    currency_name: 'Danish Krone'
+    currency_code: DKK
+  Currency_41:
+    currency_name: 'Dominican Peso'
+    currency_code: DOP
+  Currency_42:
+    currency_name: 'Algerian Dinar'
+    currency_code: DZD
+  Currency_43:
+    currency_name: 'Ecuador Sucre'
+    currency_code: ECS
+  Currency_44:
+    currency_name: 'Egyptian Pound'
+    currency_code: EGP
+  Currency_45:
+    currency_name: 'Estonian Kroon (EEK)'
+    currency_code: EEK
+  Currency_46:
+    currency_name: 'Ethiopian Birr'
+    currency_code: ETB
+  Currency_47:
+    currency_name: Euro
+    currency_code: EUR
+  Currency_49:
+    currency_name: 'Fiji Dollar'
+    currency_code: FJD
+  Currency_50:
+    currency_name: 'Falkland Islands Pound'
+    currency_code: FKP
+  Currency_52:
+    currency_name: 'British Pound'
+    currency_code: GBP
+  Currency_53:
+    currency_name: 'Ghanaian Cedi'
+    currency_code: GHC
+  Currency_54:
+    currency_name: 'Gibraltar Pound'
+    currency_code: GIP
+  Currency_55:
+    currency_name: 'Gambian Dalasi'
+    currency_code: GMD
+  Currency_56:
+    currency_name: 'Guinea Franc'
+    currency_code: GNF
+  Currency_58:
+    currency_name: 'Guatemalan Quetzal'
+    currency_code: GTQ
+  Currency_59:
+    currency_name: 'Guinea-Bissau Peso'
+    currency_code: GWP
+  Currency_60:
+    currency_name: 'Guyanan Dollar'
+    currency_code: GYD
+  Currency_61:
+    currency_name: 'Hong Kong Dollar'
+    currency_code: HKD
+  Currency_62:
+    currency_name: 'Honduran Lempira'
+    currency_code: HNL
+  Currency_63:
+    currency_name: 'Haitian Gourde'
+    currency_code: HTG
+  Currency_64:
+    currency_name: 'Hungarian Forint'
+    currency_code: HUF
+  Currency_65:
+    currency_name: 'Indonesian Rupiah'
+    currency_code: IDR
+  Currency_66:
+    currency_name: 'Irish Punt'
+    currency_code: IEP
+  Currency_67:
+    currency_name: 'Israeli Shekel'
+    currency_code: ILS
+  Currency_68:
+    currency_name: 'Indian Rupee'
+    currency_code: INR
+  Currency_69:
+    currency_name: 'Iraqi Dinar'
+    currency_code: IQD
+  Currency_70:
+    currency_name: 'Iranian Rial'
+    currency_code: IRR
+  Currency_73:
+    currency_name: 'Jamaican Dollar'
+    currency_code: JMD
+  Currency_74:
+    currency_name: 'Jordanian Dinar'
+    currency_code: JOD
+  Currency_75:
+    currency_name: 'Japanese Yen'
+    currency_code: JPY
+  Currency_76:
+    currency_name: 'Kenyan Schilling'
+    currency_code: KES
+  Currency_77:
+    currency_name: 'Kampuchean (Cambodian) Riel'
+    currency_code: KHR
+  Currency_78:
+    currency_name: 'Comoros Franc'
+    currency_code: KMF
+  Currency_79:
+    currency_name: 'North Korean Won'
+    currency_code: KPW
+  Currency_80:
+    currency_name: '(South) Korean Won'
+    currency_code: KRW
+  Currency_81:
+    currency_name: 'Kuwaiti Dinar'
+    currency_code: KWD
+  Currency_82:
+    currency_name: 'Cayman Islands Dollar'
+    currency_code: KYD
+  Currency_83:
+    currency_name: 'Lao Kip'
+    currency_code: LAK
+  Currency_84:
+    currency_name: 'Lebanese Pound'
+    currency_code: LBP
+  Currency_85:
+    currency_name: 'Sri Lanka Rupee'
+    currency_code: LKR
+  Currency_86:
+    currency_name: 'Liberian Dollar'
+    currency_code: LRD
+  Currency_87:
+    currency_name: 'Lesotho Loti'
+    currency_code: LSL
+  Currency_89:
+    currency_name: 'Libyan Dinar'
+    currency_code: LYD
+  Currency_90:
+    currency_name: 'Moroccan Dirham'
+    currency_code: MAD
+  Currency_91:
+    currency_name: 'Malagasy Franc'
+    currency_code: MGF
+  Currency_92:
+    currency_name: 'Mongolian Tugrik'
+    currency_code: MNT
+  Currency_93:
+    currency_name: 'Macau Pataca'
+    currency_code: MOP
+  Currency_94:
+    currency_name: 'Mauritanian Ouguiya'
+    currency_code: MRO
+  Currency_95:
+    currency_name: 'Maltese Lira'
+    currency_code: MTL
+  Currency_96:
+    currency_name: 'Mauritius Rupee'
+    currency_code: MUR
+  Currency_97:
+    currency_name: 'Maldive Rufiyaa'
+    currency_code: MVR
+  Currency_98:
+    currency_name: 'Malawi Kwacha'
+    currency_code: MWK
+  Currency_99:
+    currency_name: 'Mexican Peso'
+    currency_code: MXP
+  Currency_100:
+    currency_name: 'Malaysian Ringgit'
+    currency_code: MYR
+  Currency_101:
+    currency_name: 'Mozambique Metical'
+    currency_code: MZM
+  Currency_102:
+    currency_name: 'Namibian Dollar'
+    currency_code: NAD
+  Currency_103:
+    currency_name: 'Nigerian Naira'
+    currency_code: NGN
+  Currency_104:
+    currency_name: 'Nicaraguan Cordoba'
+    currency_code: NIO
+  Currency_105:
+    currency_name: 'Norwegian Kroner'
+    currency_code: NOK
+  Currency_106:
+    currency_name: 'Nepalese Rupee'
+    currency_code: NPR
+  Currency_107:
+    currency_name: 'New Zealand Dollar'
+    currency_code: NZD
+  Currency_108:
+    currency_name: 'Omani Rial'
+    currency_code: OMR
+  Currency_109:
+    currency_name: 'Panamanian Balboa'
+    currency_code: PAB
+  Currency_110:
+    currency_name: 'Peruvian Nuevo Sol'
+    currency_code: PEN
+  Currency_111:
+    currency_name: 'Papua New Guinea Kina'
+    currency_code: PGK
+  Currency_112:
+    currency_name: 'Philippine Peso'
+    currency_code: PHP
+  Currency_113:
+    currency_name: 'Pakistan Rupee'
+    currency_code: PKR
+  Currency_114:
+    currency_name: 'Polish Zloty'
+    currency_code: PLN
+  Currency_116:
+    currency_name: 'Paraguay Guarani'
+    currency_code: PYG
+  Currency_117:
+    currency_name: 'Qatari Rial'
+    currency_code: QAR
+  Currency_118:
+    currency_name: 'Romanian Leu'
+    currency_code: RON
+  Currency_119:
+    currency_name: 'Rwanda Franc'
+    currency_code: RWF
+  Currency_120:
+    currency_name: 'Saudi Arabian Riyal'
+    currency_code: SAR
+  Currency_121:
+    currency_name: 'Solomon Islands Dollar'
+    currency_code: SBD
+  Currency_122:
+    currency_name: 'Seychelles Rupee'
+    currency_code: SCR
+  Currency_123:
+    currency_name: 'Sudanese Pound'
+    currency_code: SDP
+  Currency_124:
+    currency_name: 'Swedish Krona'
+    currency_code: SEK
+  Currency_125:
+    currency_name: 'Singapore Dollar'
+    currency_code: SGD
+  Currency_126:
+    currency_name: 'St. Helena Pound'
+    currency_code: SHP
+  Currency_127:
+    currency_name: 'Sierra Leone Leone'
+    currency_code: SLL
+  Currency_128:
+    currency_name: 'Somali Schilling'
+    currency_code: SOS
+  Currency_129:
+    currency_name: 'Suriname Guilder'
+    currency_code: SRG
+  Currency_130:
+    currency_name: 'Sao Tome and Principe Dobra'
+    currency_code: STD
+  Currency_131:
+    currency_name: 'Russian Ruble'
+    currency_code: RUB
+  Currency_132:
+    currency_name: 'El Salvador Colon'
+    currency_code: SVC
+  Currency_133:
+    currency_name: 'Syrian Potmd'
+    currency_code: SYP
+  Currency_134:
+    currency_name: 'Swaziland Lilangeni'
+    currency_code: SZL
+  Currency_135:
+    currency_name: 'Thai Baht'
+    currency_code: THB
+  Currency_136:
+    currency_name: 'Tunisian Dinar'
+    currency_code: TND
+  Currency_137:
+    currency_name: 'Tongan Paanga'
+    currency_code: TOP
+  Currency_138:
+    currency_name: 'East Timor Escudo'
+    currency_code: TPE
+  Currency_139:
+    currency_name: 'Turkish Lira'
+    currency_code: TRY
+  Currency_140:
+    currency_name: 'Trinidad and Tobago Dollar'
+    currency_code: TTD
+  Currency_141:
+    currency_name: 'Taiwan Dollar'
+    currency_code: TWD
+  Currency_142:
+    currency_name: 'Tanzanian Schilling'
+    currency_code: TZS
+  Currency_143:
+    currency_name: 'Uganda Shilling'
+    currency_code: UGX
+  Currency_144:
+    currency_name: 'US Dollar'
+    currency_code: USD
+  Currency_145:
+    currency_name: 'Uruguayan Peso'
+    currency_code: UYU
+  Currency_146:
+    currency_name: 'Venezualan Bolivar'
+    currency_code: VEF
+  Currency_147:
+    currency_name: 'Vietnamese Dong'
+    currency_code: VND
+  Currency_148:
+    currency_name: 'Vanuatu Vatu'
+    currency_code: VUV
+  Currency_149:
+    currency_name: 'Samoan Tala'
+    currency_code: WST
+  Currency_150:
+    currency_name: 'CommunautÃ© FinanciÃ¨re Africaine BEAC, Francs'
+    currency_code: XAF
+  Currency_151:
+    currency_name: 'Silver, Ounces'
+    currency_code: XAG
+  Currency_152:
+    currency_name: 'Gold, Ounces'
+    currency_code: XAU
+  Currency_153:
+    currency_name: 'East Caribbean Dollar'
+    currency_code: XCD
+  Currency_154:
+    currency_name: 'International Monetary Fund (IMF) Special Drawing Rights'
+    currency_code: XDR
+  Currency_155:
+    currency_name: 'CommunautÃ© FinanciÃ¨re Africaine BCEAO - Francs'
+    currency_code: XOF
+  Currency_156:
+    currency_name: 'Palladium Ounces'
+    currency_code: XPD
+  Currency_157:
+    currency_name: 'Comptoirs FranÃ§ais du Pacifique Francs'
+    currency_code: XPF
+  Currency_158:
+    currency_name: 'Platinum, Ounces'
+    currency_code: XPT
+  Currency_159:
+    currency_name: 'Democratic Yemeni Dinar'
+    currency_code: YDD
+  Currency_160:
+    currency_name: 'Yemeni Rial'
+    currency_code: YER
+  Currency_161:
+    currency_name: 'New Yugoslavia Dinar'
+    currency_code: YUD
+  Currency_162:
+    currency_name: 'South African Rand'
+    currency_code: ZAR
+  Currency_163:
+    currency_name: 'Zambian Kwacha'
+    currency_code: ZMK
+  Currency_164:
+    currency_name: 'Zaire Zaire'
+    currency_code: ZRZ
+  Currency_165:
+    currency_name: 'Zimbabwe Dollar'
+    currency_code: ZWD
+  Currency_166:
+    currency_name: 'Slovak Koruna'
+    currency_code: SKK
+  Currency_167:
+    currency_name: 'Armenian Dram'
+    currency_code: AMD

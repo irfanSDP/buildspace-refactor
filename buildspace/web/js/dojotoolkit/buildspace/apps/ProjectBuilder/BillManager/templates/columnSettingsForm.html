@@ -1,0 +1,84 @@
+<tr>
+    <td class="gridCell counter" style="width:30px;text-align: center;vertical-align: middle;"><h1></h1></td>
+    <td class="gridCell" style="vertical-align:middle;padding-right:5px;">
+        <div data-dojo-attach-point="nameInputDivNode">
+            <input type="text" name="${count}-bill_column_setting[name]" data-dojo-attach-point="nameNode" style="width:100%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:true, maxlength:42" />
+            <span class="alert-text-error" data-dojo-attach-point="error-name"></span>
+        </div>
+        <div data-dojo-attach-point="nameViewDivNode"></div>
+    </td>
+    <td class="gridCell" style="width:60px;text-align: center;vertical-align: middle;">
+        <div data-dojo-attach-point="quantityInputDivNode">
+            <input type="text" name="${count}-bill_column_setting[quantity]" data-dojo-attach-point="quantityNode" style="width:60px;padding:2px;" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="trim:true, required:true" />
+            <span class="alert-text-error" data-dojo-attach-point="error-quantity"></span>
+        </div>
+        <div data-dojo-attach-point="quantityViewDivNode"></div>
+    </td>
+    <td class="gridCell" style="width:100px;text-align:center;vertical-align: middle;">
+        <div data-dojo-attach-point="remeasurementQuantityEnabledInputDivNode">
+            <input type="checkbox" name="${count}-bill_column_setting[remeasurement_quantity_enabled]" data-dojo-attach-point="remeasurementQuantityEnabledNode" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-event="onClick:doEnableRemeasurementQuantity">
+        </div>
+        <div data-dojo-attach-point="remeasurementQuantityEnabledViewDivNode"></div>
+    </td>
+    <td class="gridCell" style="width:80px;text-align:center;vertical-align: middle;">
+        <div data-dojo-attach-point="originalQtyInputDivNode">
+            <input name="${count}-bill_column_setting[use_original_quantity]" data-dojo-attach-point="originalQtyNode" value="true" type="radio" data-dojo-type="dijit/form/RadioButton" />
+        </div>
+        <div data-dojo-attach-point="originalQtyViewDivNode"></div>
+    </td>
+    <td class="gridCell" style="width:80px;text-align: center;vertical-align:middle;">
+        <div data-dojo-attach-point="remeasurementQtyInputDivNode">
+            <input name="${count}-bill_column_setting[use_original_quantity]" data-dojo-attach-point="remeasurementQtyNode" value="false" type="radio" data-dojo-type="dijit/form/RadioButton" />
+        </div>
+        <div data-dojo-attach-point="remeasurementQtyViewDivNode"></div>
+    </td>
+    <td class="gridCell" style="width:25px;text-align: center;vertical-align: middle;">
+        <div data-dojo-attach-point="floorAreaUseMetricInputDivNode">
+            <input name="${count}-bill_column_setting[floor_area_use_metric]" data-dojo-attach-event="onChange:doChangeFloorAreaUseMetric" data-dojo-attach-point="floorAreaUseMetricNode" value="true" type="radio" data-dojo-type="dijit/form/RadioButton" />
+        </div>
+    </td>
+    <td class="gridCell" style="width:60px;text-align: center;vertical-align: middle;">
+        <div data-dojo-attach-point="totalFloorAreaM2InputDivNode">
+            <input type="text" name="${count}-bill_column_setting[total_floor_area_m2]" data-dojo-attach-point="totalFloorAreaM2Node" style="width:60px;padding:2px;" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="trim:true, required:false" />
+            <span class="alert-text-error" data-dojo-attach-point="error-total_floor_area_m2"></span>
+        </div>
+        <div data-dojo-attach-point="totalFloorAreaM2ViewDivNode"></div>
+    </td>
+    <td class="gridCell" style="width:25px;text-align: center;vertical-align: middle;">
+        <div data-dojo-attach-point="floorAreaUseImperialInputDivNode">
+            <input name="${count}-bill_column_setting[floor_area_use_metric]" data-dojo-attach-event="onChange:doChangeFloorAreaUseMetric" data-dojo-attach-point="floorAreaUseImperialNode" value="false" type="radio" data-dojo-type="dijit/form/RadioButton" />
+        </div>
+    </td>
+    <td class="gridCell" style="width:70px;text-align: center;vertical-align: middle;">
+        <div data-dojo-attach-point="totalFloorAreaFT2InputDivNode">
+            <input type="text" name="${count}-bill_column_setting[total_floor_area_ft2]" data-dojo-attach-point="totalFloorAreaFT2Node" style="width:60px;padding:2px;" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="trim:true, required:false" />
+            <span class="alert-text-error" data-dojo-attach-point="error-total_floor_area_ft2"></span>
+        </div>
+        <div data-dojo-attach-point="totalFloorAreaFT2ViewDivNode"></div>
+    </td>
+    <td class="gridCell" style="width:65px;text-align: center;vertical-align: middle;">
+        <div data-dojo-attach-point="floorAreaDisplayMetricInputDivNode">
+            <input name="${count}-bill_column_setting[floor_area_display_metric]" data-dojo-attach-point="floorAreaDisplayMetricNode" value="true" type="radio" data-dojo-type="dijit/form/RadioButton" />
+        </div>
+        <div data-dojo-attach-point="floorAreaDisplayMetricViewDivNode"></div>
+    </td>
+    <td class="gridCell" style="width:65px;text-align: center;vertical-align: middle;">
+        <div data-dojo-attach-point="floorAreaDisplayImperialInputDivNode">
+            <input name="${count}-bill_column_setting[floor_area_display_metric]" data-dojo-attach-point="floorAreaDisplayImperialNode" value="false" type="radio" data-dojo-type="dijit/form/RadioButton" />
+        </div>
+        <div data-dojo-attach-point="floorAreaDisplayImperialViewDivNode"></div>
+    </td>
+    <td class="gridCell" style="width:100px;text-align:center;vertical-align: middle;">
+        <div data-dojo-attach-point="showEstimatedTotalCostInputDivNode">
+            <input type="checkbox" name="${count}-bill_column_setting[show_estimated_total_cost]" data-dojo-attach-point="showEstimatedTotalCostNode" data-dojo-type="dijit/form/CheckBox">
+        </div>
+        <div data-dojo-attach-point="showEstimatedTotalCostViewDivNode"></div>
+    </td>
+    <td class="gridCell" style="width:50px;text-align: center;">
+        <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:edit" data-dojo-attach-point="editButton" data-dojo-props="iconClass:'icon-16-container icon-16-edit'" style="border:none;"></button>
+        <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:save" data-dojo-attach-point="saveButton" data-dojo-props="iconClass:'icon-16-container icon-16-save'" style="border:none;"></button>
+    </td>
+    <td class="gridCell" style="width:50px;text-align: center;">
+        <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:removeColumn" data-dojo-attach-point="removeColumnButton" data-dojo-props="iconClass:'icon-16-container icon-16-delete'" style="border:none;"></button>
+    </td>
+</tr>

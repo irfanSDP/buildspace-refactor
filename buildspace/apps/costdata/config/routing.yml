@@ -1,0 +1,24 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+# default rules
+no_access:
+  url: /noAccess
+  param: { module: default, action: noAccess }
+
+sf_guard_signin:
+  url:   /login
+  param: { module: sfSAMLAuth, action: signin }
+
+sf_guard_signout:
+  url:   /logout
+  param: { module: sfSAMLAuth, action: signout }
+
+cost_data:
+  url:   /
+  param: { module: sfSAMLAuth, action: signin }
+  requirements:
+    sf_method: [get]
+
+default:
+  url:   /:module/:action/*

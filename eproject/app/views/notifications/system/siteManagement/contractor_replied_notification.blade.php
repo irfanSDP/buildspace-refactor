@@ -1,0 +1,1 @@
+A Contractor has responded to the defect form.

@@ -1,0 +1,447 @@
+SubPackage:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_packages
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sub_packages_id_idx:
+      fields: [id, project_structure_id]
+    sub_packages_priority_unique_idx:
+      fields: [priority, project_structure_id, deleted_at]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    name:                   { type: string, notnull: false }
+    project_structure_id:   { type: integer, notnull: true }
+    priority:               { type: integer, notnull: true, default: 0 }
+    sub_contractor_sort_by: { type: integer(2), notnull: true, default: 1 }
+    selected_company_id:    { type: integer, notnull: false }
+    locked:                 { type: boolean, notnull: true, default: false }
+  relations:
+    ResourceItems:
+      class: ResourceItem
+      local: sub_package_id
+      foreign: resource_item_id
+      refClass: SubPackageResourceItem
+      foreignAlias: SubPackages
+    ScheduleOfRateItems:
+      class: ScheduleOfRateItem
+      local: sub_package_id
+      foreign: schedule_of_rate_item_id
+      refClass: SubPackageScheduleOfRateItem
+      foreignAlias: SubPackages
+    BillItems:
+      class: BillItem
+      local: sub_package_id
+      foreign: bill_item_id
+      refClass: SubPackageBillItem
+      foreignAlias: SubPackages
+    Companies:
+      class: Company
+      local: sub_package_id
+      foreign: company_id
+      refClass: SubPackageCompany
+      foreignAlias: SubPackages
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackages
+      foreignType: many
+    SelectedCompany:
+      class: Company
+      local: selected_company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: AwardedSubPackages
+      foreignType: many
+
+SubPackageResourceItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_packages_resource_items
+  actAs: [Timestampable, Signable]
+  indexes:
+    spri_sub_package_id_idx:
+      fields: [sub_package_id]
+    spri_resource_item_id_idx:
+      fields: [resource_item_id]
+    spri_unique_idx:
+      fields: [sub_package_id, resource_item_id]
+      type: unique
+  columns:
+    sub_package_id:   { type: integer, notnull: true }
+    resource_item_id: { type: integer, notnull: true }
+  relations:
+    SubPackage:
+      class: SubPackage
+      local: sub_package_id
+      onDelete: CASCADE
+    ResourceItem:
+      class: ResourceItem
+      local: resource_item_id
+      onDelete: CASCADE
+
+SubPackageScheduleOfRateItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_packages_schedule_of_rate_items
+  actAs: [Timestampable, Signable]
+  indexes:
+    spsori_sub_package_id_idx:
+      fields: [sub_package_id]
+    spsori_resource_item_id_idx:
+      fields: [schedule_of_rate_item_id]
+    spsori_unique_idx:
+      fields: [sub_package_id, schedule_of_rate_item_id]
+      type: unique
+  columns:
+    sub_package_id:           { type: integer, notnull: true }
+    schedule_of_rate_item_id: { type: integer, notnull: true }
+  relations:
+    SubPackage:
+      class: SubPackage
+      local: sub_package_id
+      onDelete: CASCADE
+    ScheduleOfRateItem:
+      class: ScheduleOfRateItem
+      local: schedule_of_rate_item_id
+      onDelete: CASCADE
+
+SubPackageBillItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_packages_bill_items
+  actAs: [Timestampable, Signable]
+  indexes:
+    sub_package_bill_item_id_idx:
+      fields: [id]
+    sub_package_bill_item_fk_idx:
+      fields: [sub_package_id, bill_item_id]
+    sub_package_bill_item_unique_idx:
+      fields: [sub_package_id, bill_item_id]
+      type: unique
+  columns:
+    id:             { type: integer, primary: true, notnull: true, autoincrement: true }
+    sub_package_id: { type: integer, notnull: true }
+    bill_item_id:   { type: integer, notnull: true }
+  relations:
+    SubPackage:
+      class: SubPackage
+      local: sub_package_id
+      onDelete: CASCADE
+    BillItem:
+      class: BillItem
+      local: bill_item_id
+      onDelete: CASCADE
+
+SubPackageCompany:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: sub_packages_companies
+  actAs: [Timestampable, Signable]
+  indexes:
+    sp_companies_sub_package_id_idx:
+      fields: [sub_package_id]
+    sp_companies_company_id_idx:
+      fields: [company_id]
+    sp_companies_unique_idx:
+      fields: [sub_package_id, company_id]
+      type: unique
+  columns:
+    id:             { type: integer, primary: true, notnull: true, autoincrement: true }
+    sub_package_id: { type: integer, notnull: true }
+    company_id:     { type: integer, notnull: true }
+  relations:
+    SubPackage:
+      class: SubPackage
+      local: sub_package_id
+      onDelete: CASCADE
+    Company:
+      class: Company
+      local: company_id
+      onDelete: CASCADE
+
+SubPackageBillItemRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_packages_bill_item_rates
+  actAs: [Timestampable, Signable]
+  indexes:
+    sp_bill_item_rates_id_idx:
+      fields: [id]
+    sp_bill_item_rates_fk_idx:
+      fields: [sub_package_company_id, bill_item_id]
+    sp_bill_item_rates_unique_idx:
+      fields: [sub_package_company_id, bill_item_id]
+      type: unique
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    sub_package_company_id:  { type: integer, notnull: true }
+    bill_item_id:            { type: integer, notnull: true }
+    rate:                    { type: decimal, scale: 5, default: 0 }
+    single_unit_grand_total: { type: decimal, scale: 5, default: 0 }
+    grand_total:             { type: decimal, scale: 5, default: 0 }
+  relations:
+    SubPackageCompany:
+      local: sub_package_company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemRates
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackageCompanyRates
+      foreignType: many
+
+SubPackageTypeReference:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_package_type_references
+  actAs: [Timestampable, Signable]
+  indexes:
+    sub_package_type_reference_id_idx:
+      fields: [id]
+    sub_package_type_reference_fk_idx:
+      fields: [sub_package_id, bill_column_setting_id]
+    sub_package_type_reference_unique_idx:
+      fields: [sub_package_id, bill_column_setting_id, counter]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    sub_package_id:         { type: integer, notnull: true }
+    bill_column_setting_id: { type: integer, notnull: true }
+    counter:                { type: integer, notnull: true }
+  relations:
+    SubPackage:
+      local: sub_package_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackageTypeReferences
+      foreignType: many
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackageTypeReferences
+      foreignType: many
+
+SubPackageBillLayoutSetting:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: sub_package_bill_printout_layout_settings
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sub_package_bill_layout_set_id_idx:
+      fields: [id, sub_package_id, deleted_at]
+    sub_package_bill_layout_set_fk_idx:
+      fields: [sub_package_id]
+  columns:
+    sub_package_id:          { type: integer }
+    font:                    { type: string, default: "Arial" }
+    rounding_type:           { type: integer(4), default: 1 }
+    size:                    { type: integer, default: 11 }
+    comma_total:             { type: boolean, default: false }
+    comma_rate:              { type: boolean, default: false }
+    comma_qty:               { type: boolean, default: false }
+    priceFormat:
+      type: enum
+      values: [normal, opposite]
+      default: normal
+    print_amt_col_only:         { type: boolean, default: false }
+    print_without_price:        { type: boolean, default: false }
+    print_full_decimal:         { type: boolean, default: false }
+    add_psum_pcsum:             { type: boolean, default: false }
+    print_dollar_cent:          { type: boolean, default: false }
+    print_without_cent:         { type: boolean, default: false }
+    switch_qty_unit_rate:       { type: boolean, default: false }
+    indent_item:                { type: boolean, default: false }
+    includeIAndOForBillRef:     { type: boolean, default: false }
+    apply_binding_alignment:    { type: boolean, default: false }
+    add_cont:                   { type: boolean, default: true }
+    contd:                      { type: string(150), default: "(CONT'd)" }
+    print_element_header:       { type: boolean, default: true }
+    print_element_grid:         { type: boolean, default: true }
+    print_element_grid_once:    { type: boolean, default: false }
+    page_numbering_option:      { type: varchar(60), default: numericElement }
+    page_no_prefix:             { type: string(150), default: null }
+    print_date_of_printing:     { type: boolean, default: false }
+    print_grand_total_quantity: { type: boolean, default: false }
+    align_element_to_left:      { type: boolean, default: false }
+    close_grid:                 { type: boolean, default: true }
+  relations:
+    SubPackage:
+      local: sub_package_id
+      foreign: id
+      type: one
+      foreignType: one
+      onDelete: CASCADE
+
+SubPackageBillLayoutHeadSetting:
+  connection: main_conn
+  options:
+    orderBy: head ASC
+    symfony:
+      filter: false
+  tableName: sub_package_bill_printout_layout_head_settings
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sub_package_bill_layout_hset_id_idx:
+      fields: [id, sub_package_bill_layout_setting_id, deleted_at]
+    sub_package_bill_layout_hset_fk_idx:
+      fields: [sub_package_bill_layout_setting_id]
+  columns:
+    sub_package_bill_layout_setting_id: { type: integer }
+    head:                               { type: integer }
+    bold:                               { type: boolean, default: false }
+    underline:                          { type: boolean, default: false }
+    italic:                             { type: boolean, default: false }
+  relations:
+    SubPackageBillHeadSetting:
+      class: SubPackageBillLayoutSetting
+      local: sub_package_bill_layout_setting_id
+      foreign: id
+      foreignAlias: SubPackageBillHeadSettings
+      type: one
+      foreignType: many
+      onDelete: CASCADE
+
+SubPackageBillLayoutPhrase:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: sub_package_bill_printout_layout_phrases
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sub_package_bill_layout_phrase_id_idx:
+      fields: [id, sub_package_bill_layout_setting_id, deleted_at]
+    sub_package_bill_layout_phrase_fk_idx:
+      fields: [sub_package_bill_layout_setting_id]
+  columns:
+    sub_package_bill_layout_setting_id:  { type: integer, notnull: false }
+    to_collection:               { type: string(150), default: 'To Collection' }
+    table_header_description:    { type: string(150), default: 'Description' }
+    table_header_unit:           { type: string(150), default: 'Unit' }
+    table_header_qty:            { type: string(150), default: 'Qty' }
+    table_header_rate:           { type: string(150), default: 'Rate' }
+    table_header_amt:            { type: string(150), default: 'Amount' }
+    currency:                    { type: string(150), default: 'RM' }
+    cents:                       { type: string(150), default: 'sen' }
+    collection_in_grid:          { type: string(150), default: 'Collection' }
+    summary:                     { type: string(150), default: 'Summary' }
+    summary_in_grid:             { type: string(150), default: 'Summary' }
+    totalPerUnitPrefix:          { type: string(150), default: 'Total per Unit' }
+    totalUnitPrefix:             { type: string(150), default: 'Total Unit(s)' }
+    totalPerTypePrefix:          { type: string(150), default: 'Total per Type' }
+    summary_page_no:             { type: string(150), default: 'Page No' }
+    summary_tender:              { type: string(150), default: 'Total Amount To Form Of Tender' }
+    summary_page_one:            { type: string(150), default: 'Summary Page I' }
+    summary_page_two:            { type: string(150), default: 'Summary Page II' }
+    summary_page_three:          { type: string(150), default: 'Summary Page III' }
+    summary_page_four:           { type: string(150), default: 'Summary Page IV' }
+    summary_page_five:           { type: string(150), default: 'Summary Page V' }
+    summary_page_six:            { type: string(150), default: 'Summary Page VI' }
+    summary_page_seven:          { type: string(150), default: 'Summary Page VII' }
+    summary_page_eight:          { type: string(150), default: 'Summary Page VIII' }
+    summary_page_nine:           { type: string(150), default: 'Summary Page IX' }
+    element_header_bold:         { type: boolean, default: false }
+    element_header_underline:    { type: boolean, default: false }
+    element_header_italic:       { type: boolean, default: false }
+    element_footer_bold:         { type: boolean, default: false }
+    element_footer_underline:    { type: boolean, default: false }
+    element_footer_italic:       { type: boolean, default: false }
+    element_note_top_left_row1:  { type: string(150), notnull: false }
+    element_note_top_left_row2:  { type: string(150), notnull: false }
+    element_note_top_right_row1: { type: string(150), notnull: false }
+    element_note_bot_left_row1:  { type: string(150), notnull: false }
+    element_note_bot_left_row2:  { type: string(150), notnull: false }
+    element_note_bot_right_row1: { type: string(150), notnull: false }
+    element_note_bot_right_row2: { type: string(150), notnull: false }
+  relations:
+    SubPackageBillLayoutSetting:
+      class: SubPackageBillLayoutSetting
+      local: sub_package_bill_layout_setting_id
+      foreign: id
+      foreignAlias: SubPackageBillPhrase
+      type: one
+      foreignType: one
+      onDelete: CASCADE
+
+SubPackageUnitInformation:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_package_unit_information
+  indexes:
+    sub_package_unit_information_id_idx:
+      fields: [id]
+    sub_package_unit_information_fk_idx:
+      fields: [bill_column_setting_id]
+    sub_package_unit_information_unique_idx:
+      fields: [bill_column_setting_id, counter]
+      type: unique
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_column_setting_id:  { type: integer, notnull: true }
+    counter:                 { type: integer, notnull: true }
+  relations:
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackageUnitInformation
+      foreignType: many
+
+SubPackageWorks:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: true
+  tableName: sub_package_works
+  indexes:
+    sub_package_works_id_idx:
+      fields: [id]
+    sub_package_works_type_idx:
+      fields: [type]
+    sub_package_works_name_unique_idx:
+      fields: [name]
+      type: unique
+  columns:
+    id:   { type: integer, primary: true, notnull: true, autoincrement: true }
+    name: { type: string, notnull: true }
+    type: { type: integer, notnull: true }

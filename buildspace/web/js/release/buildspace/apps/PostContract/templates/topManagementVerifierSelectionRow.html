@@ -1,0 +1,20 @@
+<tr>
+    <td class="gridCell counter" style="width:30px;text-align: center;vertical-align: middle;"><h1></h1></td>
+    <td class="gridCell" style="vertical-align:middle;padding-right:5px;">
+        <div data-dojo-attach-point="verifierSelectDivNode">
+            <span data-dojo-attach-point="verifierSelectNode"></span>
+            <span class="alert-text-error" data-dojo-attach-point="error-name"></span>
+        </div>
+        <div data-dojo-attach-point="verifierViewNode"></div>
+    </td>
+    <td class="gridCell" style="width:400px;text-align: center;">
+        <div data-dojo-attach-point="verifierEmailNode"></div>
+    </td>
+    <td class="gridCell" style="width:50px;text-align: center;" data-dojo-attach-point="actionColumnNode">
+        <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:edit" data-dojo-attach-point="editButton" data-dojo-props="iconClass:'icon-16-container icon-16-edit'" style="border:none;"></button>
+        <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:save" data-dojo-attach-point="saveButton" data-dojo-props="iconClass:'icon-16-container icon-16-save'" style="border:none;"></button>
+    </td>
+    <td class="gridCell" style="width:50px;text-align: center;" data-dojo-attach-point="deleteColumnNode">
+        <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:removeColumn" data-dojo-attach-point="removeRowButton" data-dojo-props="iconClass:'icon-16-container icon-16-delete'" style="border:none;"></button>
+    </td>
+</tr>

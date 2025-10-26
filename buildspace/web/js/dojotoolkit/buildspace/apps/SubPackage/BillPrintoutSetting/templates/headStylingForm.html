@@ -1,0 +1,14 @@
+<div class="${baseClass} forms-inputs">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="myForm-${projectId}">
+        <fieldset>
+            <legend style="margin-bottom: 10px;">Head Styling</legend>
+
+            <table class="table-form" data-dojo-attach-point="tableContainer-${projectId}"></table>
+
+            <input type="hidden" name="projectId" value="${projectId}">
+            <input type="hidden" name="subPackageId" value="${subPackageId}">
+            <input type="hidden" name="layoutSettingId" value="${layoutSettingId}">
+            <input type="hidden" name="type" value="headStyling">
+        </fieldset>
+    </form>
+</div>

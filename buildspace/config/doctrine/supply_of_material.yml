@@ -1,0 +1,203 @@
+SupplyOfMaterial:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: supply_of_materials
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    supply_of_material_id_idx:
+      fields: [id, project_structure_id, deleted_at]
+    supply_of_material_fk_idx:
+      fields: [project_structure_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    title:                { type: string(200), notnull: true }
+    description:          { type: string, notnull: false }
+    project_structure_id: { type: integer, notnull: true }
+    unit_type:            { type: integer(4), notnull: true }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SupplyOfMaterial
+      foreignType: one
+    UnitOfMeasurementType:
+      local: unit_type
+      foreign: id
+      type: one
+      foreignAlias: SupplyOfMaterials
+      foreignType: many
+
+SupplyOfMaterialElement:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: supply_of_material_elements
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    supply_of_material_elem_id_idx:
+      fields: [id, project_structure_id]
+    supply_of_material_elem_priority_unique_idx:
+      fields: [priority, project_structure_id, deleted_at]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    description:          { type: string, notnull: false }
+    note:                 { type: string, notnull: false }
+    project_structure_id: { type: integer, notnull: true }
+    tender_origin_id:     { type: string, notnull:false, default: null}
+    priority:             { type: integer, notnull: true, default: 0 }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SupplyOfMaterialElements
+      foreignType: many
+
+SupplyOfMaterialItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: supply_of_material_items
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    supply_of_material_items_id_idx:
+      fields: [id, root_id, lft, rgt]
+    supply_of_material_items_type_idx:
+      fields: [type]
+    supply_of_material_items_fk_idx:
+      fields: [element_id, root_id, uom_id, bill_import_item_id]
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    description:            { type: string, notnull: false }
+    note:                   { type: string, notnull: false }
+    type:                   { type: integer(4), notnull: true }
+    element_id:             { type: integer, notnull: true }
+    uom_id:                 { type: integer, notnull: false }
+    supply_rate:            { type: decimal, scale: 5, default: 0 }
+    contractor_supply_rate: { type: decimal, scale: 5, default: 0 }
+    estimated_qty:          { type: decimal, scale: 5, default: 0 }
+    percentage_of_wastage:  { type: decimal, scale: 5, default: 0 }
+    difference:             { type: decimal, scale: 5, default: 0 }
+    amount:                 { type: decimal, scale: 5, default: 0 }
+    bill_import_item_id:    { type: integer, notnull: false }
+    tender_origin_id:       { type: string, notnull:false, default: null}
+    priority:               { type: integer, notnull: true, default: 0 }
+  relations:
+    Element:
+      class: SupplyOfMaterialElement
+      local: element_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SupplyOfMaterialItems
+      foreignType: many
+
+TenderSupplyOfMaterialRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_supply_of_material_rates
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_supply_of_material_rates_id_idx:
+      fields: [id]
+    tender_supply_of_material_rates_fk_idx:
+      fields: [tender_company_id, supply_of_material_item_id]
+    tender_supply_of_material_rates_unique_idx:
+      fields: [tender_company_id, supply_of_material_item_id]
+      type: unique
+  columns:
+    id:                         { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_company_id:          { type: integer, notnull: true }
+    supply_of_material_item_id: { type: integer, notnull: true }
+    supply_rate:                { type: decimal, scale: 5, default: 0 }
+    contractor_supply_rate:     { type: decimal, scale: 5, default: 0 }
+    estimated_qty:              { type: decimal, scale: 5, default: 0 }
+    percentage_of_wastage:      { type: decimal, scale: 5, default: 0 }
+    difference:                 { type: decimal, scale: 5, default: 0 }
+    amount:                     { type: decimal, scale: 5, default: 0 }
+  relations:
+    TenderCompany:
+      local: tender_company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SupplyOfMaterialItemRates
+      foreignType: many
+    SupplyOfMaterialItem:
+      local: supply_of_material_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderCompanyRates
+      foreignType: many
+
+TenderSupplyOfMaterialItemRateLog:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_supply_of_material_item_rate_logs
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_supply_of_material_item_rate_logs_id_idx:
+      fields: [id]
+    tender_supply_of_material_item_rate_logs_fk_idx:
+      fields: [tender_company_id, supply_of_material_item_id]
+    tender_supply_of_material_item_rate_logs_unique_idx:
+      fields: [tender_company_id, supply_of_material_item_id, changes_count]
+      type: unique
+  columns:
+    id:                         { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_company_id:          { type: integer, notnull: true }
+    supply_of_material_item_id: { type: integer, notnull: true }
+    supply_rate:                { type: decimal, scale: 5, default: 0 }
+    contractor_supply_rate:     { type: decimal, scale: 5, default: 0 }
+    estimated_qty:              { type: decimal, scale: 5, default: 0 }
+    percentage_of_wastage:      { type: decimal, scale: 5, default: 0 }
+    difference:                 { type: decimal, scale: 5, default: 0 }
+    amount:                     { type: decimal, scale: 5, default: 0 }
+    type:                       { type: enum, values: [IMPORT, MANUAL], notnull: true }
+    changes_count:              { type: integer, notnull: true, default: 0 }
+  relations:
+    TenderCompany:
+      local: tender_company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SupplyOfMaterialItemRateLogs
+      foreignType: many
+    SupplyOfMaterialItem:
+      local: supply_of_material_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderCompanyRateLogs
+      foreignType: many

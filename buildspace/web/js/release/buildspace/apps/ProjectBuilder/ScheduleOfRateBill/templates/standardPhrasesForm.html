@@ -1,0 +1,31 @@
+<div class="${baseClass} forms-inputs">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="scheduleOfRateBillStandardPhrasesForm-${sorBillLayoutSettingId}">
+        <fieldset>
+            <legend>Standard Page Text</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="scheduleOfRateBillStandardPhrasesForm_toCollection-${sorBillLayoutSettingId}">To Collection $ :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true" id="scheduleOfRateBillStandardPhrasesForm_toCollection-${sorBillLayoutSettingId}" name="toCollection">
+                    </td>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="scheduleOfRateBillStandardPhrasesForm_currencyPrefix-${sorBillLayoutSettingId}">Currency :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true" id="scheduleOfRateBillStandardPhrasesForm_currencyPrefix-${sorBillLayoutSettingId}" name="currencyPrefix">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Collection Page Text</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="scheduleOfRateBillStandardPhrasesForm_collectionInGridPrefix-${sorBillLayoutSettingId}">Collection (Within Grid) :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="trim: true, propercase:true" id="scheduleOfRateBillStandardPhrasesForm_collectionInGridPrefix-${sorBillLayoutSettingId}" name="collectionInGridPrefix">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>

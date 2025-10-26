@@ -1,0 +1,146 @@
+ProjectSummaryFooter:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+  tableName: project_summary_footers
+  actAs:
+    Timestampable:
+    Signable:
+  indexes:
+    project_sum_footer_id_idx:
+      fields: [id, project_structure_id]
+    project_sum_footer_type_idx:
+      fields: [project_structure_id]
+      type: unique
+  columns:
+    id:
+      type: integer
+      primary: true
+      notnull: true
+      autoincrement: true
+    project_structure_id:
+      type: integer
+      notnull: true
+    first_row_text:
+      type: string
+      notnull: false
+      default: null
+    second_row_text:
+      type: string
+      notnull: false
+      default: null
+    left_text:
+      type: string
+      notnull: false
+      default: null
+    right_text:
+      type: string
+      notnull: false
+      default: null
+  relations:
+    Project:
+      class: ProjectStructure
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignType: one
+      foreignAlias: ProjectSummaryFooter
+      onDelete: CASCADE
+
+ProjectSummaryBillStyle:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+      form: false
+  tableName: project_summary_bill_styles
+  actAs: [Timestampable, Signable]
+  indexes:
+    project_sum_bill_sty_id_idx:
+      fields: [id, project_structure_id]
+    project_sum_bill_sty_unique_idx:
+      fields: [project_structure_id]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id: { type: integer, notnull: true }
+    reference_char:       { type: string, notnull: false }
+    is_bold:              { type: boolean, default: false }
+    is_italic:            { type: boolean, default: false }
+    is_underline:         { type: boolean, default: false }
+  relations:
+    Bill:
+      class: ProjectStructure
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignType: one
+      foreignAlias: ProjectSummaryStyle
+      onDelete: CASCADE
+
+ProjectSummaryGeneralSetting:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+  tableName: project_summary_general_settings
+  actAs: [Timestampable, Signable]
+  indexes:
+    project_sum_gen_setting_id_idx:
+      fields: [id, project_structure_id]
+    project_sum_gen_setting_unique_idx:
+      fields: [project_structure_id]
+      type: unique
+  columns:
+    id:                                { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id:              { type: integer, notnull: true }
+    project_title:                     { type: string, notnull: false }
+    summary_title:                     { type: varchar(50), notnull: false }
+    include_printing_date:             { type: boolean, default: false }
+    carried_to_next_page_text:         { type: varchar(100), notnull: false }
+    continued_from_previous_page_text: { type: varchar(100), notnull: false }
+    page_number_prefix:                { type: varchar(20), notnull: false }
+    include_state_and_country:         { type: boolean, default: true }
+    include_additional_description:    { type: boolean, default: true }
+    include_tax:                       { type: boolean, default: false }
+    tax_name:                          { type: varchar(100), notnull: false }
+    tax_percentage:                    { type: decimal, scale: 5, notnull: false }
+    additional_description:            { type: varchar(260), default: null }
+  relations:
+    Project:
+      class: ProjectStructure
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignType: one
+      foreignAlias: ProjectSummaryGeneralSetting
+      onDelete: CASCADE
+
+ProjectSummaryDefaultSetting:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+  tableName: project_summary_default_setting
+  actAs:
+    Timestampable:
+    Signable:
+  indexes:
+    project_sum_default_footer_id_idx:
+      fields: [id]
+  columns:
+    id:                                { type: integer, primary: true, notnull: true, autoincrement: true }
+    first_row_text:                    { type: string, notnull: false, default: null }
+    second_row_text:                   { type: string, notnull: false, default: null }
+    left_text:                         { type: string, notnull: false, default: null }
+    right_text:                        { type: string, notnull: false, default: null }
+    summary_title:                     { type: varchar(50), notnull: false }
+    include_printing_date:             { type: boolean, default: false }
+    carried_to_next_page_text:         { type: varchar(100), notnull: false }
+    continued_from_previous_page_text: { type: varchar(100), notnull: false }
+    page_number_prefix:                { type: varchar(20), notnull: false }

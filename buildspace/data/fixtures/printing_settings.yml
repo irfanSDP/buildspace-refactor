@@ -1,0 +1,31 @@
+BillLayoutSetting:
+  Setting_1:
+    bill_id: null
+
+BillLayoutPhrase:
+  Phrase_1:
+    BillLayoutSetting: Setting_1
+
+BillLayoutHeadSetting:
+  Head_Setting_1:
+    BillHeadSetting: Setting_1
+    head: 1
+    bold: true
+    underline: true
+  Head_Setting_2:
+    BillHeadSetting: Setting_1
+    head: 2
+    bold: true
+  Head_Setting_3:
+    BillHeadSetting: Setting_1
+    head: 3
+    underline: true
+  Head_Setting_4:
+    BillHeadSetting: Setting_1
+    head: 4
+  Head_Setting_5:
+    BillHeadSetting: Setting_1
+    head: 5
+  Head_Setting_6:
+    BillHeadSetting: Setting_1
+    head: 6

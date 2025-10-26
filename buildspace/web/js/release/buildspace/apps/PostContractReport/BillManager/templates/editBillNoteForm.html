@@ -1,0 +1,16 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="editItemNoteForm">
+        <fieldset>
+            <legend>${nls.note}</legend>
+            <table class="table-form">
+                <tr>
+                    <td>
+                        <div data-dojo-attach-point="noteInputDivNode"></div>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="id" value="${noteItemId}">
+            <input type="hidden" name="bill_id" value="${billId}">
+        </fieldset>
+    </form>
+</div>

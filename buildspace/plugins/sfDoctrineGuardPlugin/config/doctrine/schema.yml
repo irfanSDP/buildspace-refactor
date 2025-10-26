@@ -1,0 +1,224 @@
+sfGuardGroup:
+  connection: main_conn
+  actAs: [Timestampable]
+  columns:
+    name:
+      type: string(255)
+      unique: true
+    description: string(1000)
+    is_super_admin:
+      type: boolean
+      default: false
+  relations:
+    Users:
+      class: sfGuardUser
+      refClass: sfGuardUserGroup
+      local: group_id
+      foreign: user_id
+      foreignAlias: Groups
+    Permissions:
+      class: sfGuardPermission
+      local: group_id
+      foreign: permission_id
+      refClass: sfGuardGroupPermission
+      foreignAlias: Groups
+    Menus:
+      class: Menu
+      local: group_id
+      foreign: menu_id
+      refClass: sfGuardGroupMenu
+      foreignAlias: Groups
+    Projects:
+      class: ProjectStructure
+      local: group_id
+      foreign: project_structure_id
+      refClass: sfGuardProjectGroup
+      foreignAlias: ProjectGroups
+    TenderingProjects:
+      class: ProjectStructure
+      local: group_id
+      foreign: project_structure_id
+      refClass: sfGuardTenderingProjectGroup
+      foreignAlias: TenderingGroups
+    PostContractProjects:
+      class: ProjectStructure
+      local: group_id
+      foreign: project_structure_id
+      refClass: sfGuardPostContractProjectGroup
+      foreignAlias: PostContractGroups
+    ProjectManagementProjects:
+      class: ProjectStructure
+      local: group_id
+      foreign: project_structure_id
+      refClass: sfGuardProjectManagementGroup
+      foreignAlias: ProjectManagementGroups
+
+sfGuardPermission:
+  connection: main_conn
+  actAs: [Timestampable]
+  columns:
+    name:
+      type: string(255)
+      unique: true
+    description: string(1000)
+
+sfGuardGroupPermission:
+  connection: main_conn
+  options:
+    symfony:
+      form:   false
+      filter: false
+  actAs: [Timestampable]
+  columns:
+    group_id:
+      type: integer
+      primary: true
+    permission_id:
+      type: integer
+      primary: true
+  relations:
+    Group:
+      class: sfGuardGroup
+      local: group_id
+      onDelete: CASCADE
+    Permission:
+      class: sfGuardPermission
+      local: permission_id
+      onDelete: CASCADE
+
+sfGuardUser:
+  connection: main_conn
+  actAs: [Timestampable, SoftDelete]
+  indexes:
+    sf_guard_user_user_name_idx:
+      fields: [email_address, username, deleted_at]
+      type: unique
+    is_active_idx:
+      fields: [is_active]
+  columns:
+    first_name: string(255)
+    last_name: string(255)
+    email_address:
+      type: string(255)
+      notnull: true
+    username:
+      type: string(128)
+      notnull: true
+    algorithm:
+      type: string(128)
+      default: sha1
+      notnull: true
+    salt: string(128)
+    password: string(128)
+    is_active:
+      type: boolean
+      default: 1
+    is_super_admin:
+      type: boolean
+      default: false
+    last_login:
+      type: timestamp
+  relations:
+    Groups:
+      class: sfGuardGroup
+      local: user_id
+      foreign: group_id
+      refClass: sfGuardUserGroup
+      foreignAlias: Users
+    Permissions:
+      class: sfGuardPermission
+      local: user_id
+      foreign: permission_id
+      refClass: sfGuardUserPermission
+      foreignAlias: Users
+
+sfGuardUserPermission:
+  connection: main_conn
+  options:
+    symfony:
+      form:   false
+      filter: false
+  actAs: [Timestampable]
+  columns:
+    user_id:
+      type: integer
+      primary: true
+    permission_id:
+      type: integer
+      primary: true
+  relations:
+    User:
+      class: sfGuardUser
+      local: user_id
+      onDelete: CASCADE
+    Permission:
+      class: sfGuardPermission
+      local: permission_id
+      onDelete: CASCADE
+
+sfGuardUserGroup:
+  connection: main_conn
+  options:
+    symfony:
+      form:   false
+      filter: false
+  actAs: [Timestampable]
+  columns:
+    user_id:
+      type: integer
+      primary: true
+    group_id:
+      type: integer
+      primary: true
+  relations:
+    User:
+      class: sfGuardUser
+      local: user_id
+      onDelete: CASCADE
+    Group:
+      class: sfGuardGroup
+      local: group_id
+      onDelete: CASCADE
+
+sfGuardRememberKey:
+  connection: main_conn
+  options:
+    symfony:
+      form:   false
+      filter: false
+  actAs: [Timestampable]
+  columns:
+    user_id: integer
+    remember_key: string(32)
+    ip_address: string(50)
+  relations:
+    User:
+      class: sfGuardUser
+      local: user_id
+      foreignAlias: RememberKeys
+      foreignType: one
+      onDelete: CASCADE
+
+sfGuardForgotPassword:
+  connection: main_conn
+  options:
+    symfony:
+      form:   false
+      filter: false
+  actAs: [Timestampable]
+  columns:
+    user_id:
+      type: integer
+      notnull: true
+    unique_key: string(255)
+    expires_at:
+      type: timestamp
+      notnull: true
+  relations:
+    User:
+      class: sfGuardUser
+      local: user_id
+      type: one
+      foreignType: one
+      foreignAlias: ForgotPassword
+      onDelete: CASCADE

@@ -1,0 +1,143 @@
+Menu:
+  library_menu:
+    title: Library Manager
+    icon: library
+    is_app: false
+    priority: 1
+    children:
+      resource_library_menu:
+        title: Resources Library
+        is_app: true
+        sysname: ResourceLibrary
+      schedule_of_rate_library_menu:
+        title: Schedule of Rates
+        is_app: true
+        sysname: ScheduleOfRateLibrary
+      bq_library_menu:
+        title: BQ Library
+        is_app: true
+        sysname: BQLibrary
+  project_builder_menu:
+    title: Project Builder
+    icon: project_builder
+    is_app: true
+    sysname: ProjectBuilder
+    priority: 2
+  tendering_menu:
+    title: Tendering
+    icon: tendering
+    is_app: true
+    sysname: Tendering
+    priority: 3
+  post_contract_menu:
+    title: Post Contract
+    icon: post_contract
+    is_app: true
+    sysname: PostContract
+    priority: 4
+  project_management_menu:
+    title: Project Management
+    icon: project_management
+    is_app: true
+    sysname: ProjectManagement
+    priority: 5
+  report_menu:
+    title: Reports
+    icon: reports
+    is_app: false
+    priority: 7
+    children:
+      project_builder_report_menu:
+        title: Project Builder Report
+        sysname: ProjectBuilderReport
+        is_app: true
+        priority: 0
+      tendering_report_menu:
+        title: Tendering Report
+        sysname: TenderingReport
+        is_app: true
+        priority: 1
+      post_contract_report_menu:
+        title: Post Contract Report
+        sysname: PostContractReport
+        is_app: true
+        priority: 2
+      library_manager_reports_group:
+        title: Library Manager Report
+        is_app: false
+        priority: 3
+        children:
+          resource_library_report:
+            title: Resource Library Report
+            sysname: ResourceLibraryReport
+            is_app: true
+          schedule_of_rate_report:
+            title: Schedule of Rate Report
+            sysname: ScheduleOfRateLibraryReport
+            is_app: true
+          bq_library:
+            title: BQ Library Report
+            sysname: BQLibraryReport
+            is_app: true
+      finance_reports_group:
+        title: Finance Report
+        is_app: false
+        priority: 4
+        children:
+          stock_in_report:
+            title: Stock In Report
+            sysname: StockInReport
+            is_app: true
+          stock_out_report:
+            title: Stock Out Report
+            sysname: StockOutReport
+            is_app: true
+  finance_menu:
+    title: Finance
+    icon: finance
+    is_app: false
+    priority: 6
+    children:
+      company_directories_menu:
+        title: Company Directory
+        sysname: CompanyDirectories
+        is_app: true
+        priority: 0
+      request_for_quotation_menu:
+        title: Request For Quotation
+        sysname: RequestForQuotation
+        is_app: true
+        priority: 1
+      purchase_order_menu:
+        title: Purchase Order
+        sysname: PurchaseOrder
+        is_app: true
+        priority: 2
+      stock_in_menu:
+        title: Stock In
+        sysname: StockIn
+        is_app: true
+        priority: 3
+      stock_out_menu:
+        title: Stock Out
+        sysname: StockOut
+        is_app: true
+        priority: 4
+  administration_menu:
+    title: Administration
+    icon: administration
+    is_app: false
+    priority: 8
+    children:
+      printing_layout_setting_menu:
+        title: BQ Global Layout Setting
+        sysname: PrintingLayoutSetting
+        is_app: true
+      system_maintenance_menu:
+        title: System Maintenance
+        sysname: SystemMaintenance
+        is_app: true
+      system_administration_menu:
+        title: System Administration
+        sysname: SystemAdministration
+        is_app: true

@@ -1,0 +1,38 @@
+<div>
+    <form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="prelimWorkBasedClaimForm" style="padding: 0 5px;">
+        <fieldset style="margin-bottom: 10px;">
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.buildersWorkDone}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="sub_package_preliminaries_work_based_claim[builders_work_done]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="height:18px;width:100%;" data-dojo-attach-point="buildersWorkDoneInput">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-builders_work_done"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.totalBuildersWork}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="sub_package_preliminaries_work_based_claim[total_builders_work]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="height:18px;width:100%;" data-dojo-attach-point="totalBuildersWorkInput">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-total_builders_work"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.total} (%):</label>
+                    </td>
+                    <td>
+                        <span data-dojo-attach-point="workBasedClaimCalculatedRates">${total}</span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <input type=hidden name="sub_package_preliminaries_work_based_claim[sub_package_post_contract_bill_item_rate_id]" value="">
+        <input type=hidden name="sub_package_preliminaries_work_based_claim[revision_id]" value="${currentClaimRevision.id}">
+        <input type=hidden name="sub_package_preliminaries_work_based_claim[_csrf_token]" value="">
+    </form>
+</div>

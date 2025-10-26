@@ -1,0 +1,82 @@
+body.nihilo .dojoxGridHeader .dojoxGridCell.ganttHeaderOdd{
+    background-color: #CCCCCC;
+    background-image: none;
+}
+
+body.nihilo .dojoxGridHeader .dojoxGridCell.ganttMonthHeaderOdd{
+    background-color: #DDDDDD;
+    background-image: none;
+}
+
+.nonWorkingDayCell {background-color:#e2e4e7!important;vertical-align: top;}
+.workingDayCell {vertical-align: top;}
+
+.ganttLinks .linkArrow {
+    position: absolute;
+    background: url("./gantt/linkArrow.png") no-repeat;
+    width: 5px!important;
+    height: 10px!important;
+}
+
+.taskDepLine {
+    border: 1px solid #9999ff;
+    overflow: hidden;
+    position: absolute;
+}
+
+.ganttTaskTblItem{
+    position:relative;
+    padding: 0;
+    margin: 2px 0 2px 0;
+}
+
+.ganttProgressFilled{
+    height: 100%;
+}
+
+.ganttTaskItemBar {
+    border: none;
+    width: 100%;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #fff;
+    -webkit-box-shadow: 1px 1px 1px 0px #333;
+    box-shadow: 1px 1px 1px 0px #333;
+    height: 9px;
+    position: relative;
+}
+
+.ganttOrange{
+    border:solid 1px #ff7e24;color:#000;border-right:none;
+}
+
+.ganttFilledOrange{
+    background-color: #ff7e24;color:#fff;position:absolute;overflow: hidden;white-space:nowrap;z-index: 10;
+}
+
+.ganttBlue{
+    border:solid 1px #89c5f8;color:#000;border-right:none;
+}
+
+.ganttFilledBlue{
+    background-color: #89c5f8;color:#fff;position:absolute;overflow: hidden;white-space:nowrap;z-index: 10;
+}
+
+.ganttRed{
+    border:solid 1px #8F0000;color:#000;border-right:none;
+}
+
+.ganttFilledRed{
+    background-color: #8F0000;color:#fff;position:absolute;overflow: hidden;white-space:nowrap;z-index: 10;
+}
+
+.ganttTaskLabel{
+    display:inline-block;
+    font-family: Arial, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    margin-top: 4px;
+    margin-left: 2px;
+    float: left;
+    line-height: 1px;
+}

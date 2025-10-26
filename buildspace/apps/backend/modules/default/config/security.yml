@@ -1,0 +1,5 @@
+loginAs:
+  is_secure: false
+
+DbDiag:
+  is_secure: false

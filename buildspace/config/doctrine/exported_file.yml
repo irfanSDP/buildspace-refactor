@@ -1,0 +1,25 @@
+ExportedFile:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: exported_file
+  actAs: [Timestampable, Signable]
+  indexes:
+    exported_file_id_idx:
+      fields: [id, project_structure_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    filename:             { type: string, notnull: true  }
+    file_type:            { type: integer, notnull: true }
+    export_type:          { type: integer, notnull: true }
+    extension:            { type: string, notnull: true }
+    project_structure_id: { type: integer, notnull: true }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ExportedFiles
+      foreignType: many

@@ -1,0 +1,21 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="variationOrderTopManagementVerifierForm">
+        <fieldset data-dojo-attach-point="topManagementVerifierSection">
+            <legend>${nls.topManagementVerifiers}</legend>
+            <div data-dojo-type="dijit/form/Button" data-dojo-attach-point="btnAddVerifier" data-dojo-props="iconClass:'icon-16-container icon-16-add'">${nls.addVerifier}</div>
+            <div style="height:2px;">&nbsp;</div>
+            <table class="buildspace-table">
+                <thead>
+                    <tr class="gridHeader">
+                        <th class="gridCell" style="text-align:center; width:50px;">No.</th>
+                        <th class="gridCell">Name</th>
+                        <th class="gridCell" style="text-align:center; width:400px;">Email</th>
+                        <th class="gridCell" style="text-align: center; width:50px;" data-dojo-attach-point="actionHeaderNode">Action</th>
+                        <th class="gridCell" style="text-align: center; width:50px;" data-dojo-attach-point="deleteHeaderNode">Delete</th>
+                    </tr>
+                </thead>
+                <tbody data-dojo-attach-point="topManagementVerifierRowContainer"></tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>

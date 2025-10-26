@@ -1,0 +1,46 @@
+<?php
+
+require_once '/usr/local/etc/buildspace/symfony/lib/autoload/sfCoreAutoload.class.php';
+require_once '/usr/local/etc/buildspace/samlauth/lib/_autoload.php';
+
+sfCoreAutoload::register();
+
+require_once(dirname(__FILE__) . '/../lib/autoloader/SplClassLoader.php');
+require_once(dirname(__FILE__) . '/../lib/vendor/GuzzleHttp/functions.php');
+require_once(dirname(__FILE__) . '/../lib/vendor/GuzzleHttp/Psr7/functions.php');
+require_once(dirname(__FILE__) . '/../lib/vendor/GuzzleHttp/Promise/functions.php');
+
+$classLoader = new SplClassLoader('GuzzleHttp', dirname(__FILE__) . '/../lib/vendor');
+$classLoader->register();
+
+$classLoader = new SplClassLoader('Psr', dirname(__FILE__) . '/../lib/vendor');
+$classLoader->register();
+
+class ProjectConfiguration extends sfProjectConfiguration
+{
+    public function setup()
+    {
+        $this->enablePlugins('sfDoctrinePlugin', 'sfDoctrineGuardPlugin', 'sfSAMLPlugin', 'sfDoctrineActAsSignablePlugin', 'sfThumbnailPlugin', 'sfPhpExcelPlugin');
+
+        sfConfig::set('sf_profile_image_dir', sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR .'profiles'.DIRECTORY_SEPARATOR);
+        sfConfig::set('sf_upload_dir', sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.'uploads');
+
+        sfConfig::set('sf_sys_temp_dir', sys_get_temp_dir().DIRECTORY_SEPARATOR);
+
+        sfConfig::set('sf_upload_dir_company_directories', sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'company_directories');
+
+        if ($this instanceof sfApplicationConfiguration && !$this->isDebug())
+        {
+            require_once sfConfig::get('sf_lib_dir') . DIRECTORY_SEPARATOR.'Doctrine.compiled.php';
+        }
+
+        $this->dispatcher->connect('doctrine.configure', array('ProjectConfiguration', 'configureDoctrine'));
+    }
+
+    public static function configureDoctrine(sfEvent $event)
+    {
+        $manager = $event->getSubject();
+        // Enable callbacks so that softDelete behavior can be used
+        $manager->setAttribute(Doctrine_Core::ATTR_USE_DQL_CALLBACKS, true);
+    }
+}

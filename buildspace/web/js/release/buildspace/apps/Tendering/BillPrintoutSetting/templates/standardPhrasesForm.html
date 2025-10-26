@@ -1,0 +1,77 @@
+<div class="${baseClass} forms-inputs">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="myForm-${billId}">
+        <fieldset>
+            <legend>Summary Page Numbering</legend>
+
+            <table class="table-form" style="width: 30%;">
+                <tr>
+                    <td class="label" style="width:20%;">
+                        <label style="display: inline;" for="summaryPageNumbering[1]-${billId}"><span class="required">*</span>Page 1:</label>
+                    </td>
+                    <td style="width:30%;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true" id="summaryPageNumbering[1]-${billId}" name="tendering_standard_phrases[summary_page_one]" style="padding: 2px;">
+                    </td>
+                    <td class="label" style="width:20%;">
+                        <label style="display: inline;" for="summaryPageNumbering[6]-${billId}"><span class="required">*</span>Page 6:</label>
+                    </td>
+                    <td style="width:30%;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true" id="summaryPageNumbering[6]-${billId}" name="tendering_standard_phrases[summary_page_six]" style="padding: 2px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:20%;">
+                        <label style="display: inline;" for="summaryPageNumbering[2]-${billId}"><span class="required">*</span>Page 2:</label>
+                    </td>
+                    <td style="width:30%;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true" id="summaryPageNumbering[2]-${billId}" name="tendering_standard_phrases[summary_page_two]" style="padding: 2px;">
+                    </td>
+                    <td class="label" style="width:20%;">
+                        <label style="display: inline;" for="summaryPageNumbering[7]-${billId}"><span class="required">*</span>Page 7:</label>
+                    </td>
+                    <td style="width:30%;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true" id="summaryPageNumbering[7]-${billId}" name="tendering_standard_phrases[summary_page_seven]" style="padding: 2px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:20%;">
+                        <label style="display: inline;" for="summaryPageNumbering[3]-${billId}"><span class="required">*</span>Page 3:</label>
+                    </td>
+                    <td style="width:30%;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true" id="summaryPageNumbering[3]-${billId}" name="tendering_standard_phrases[summary_page_three]" style="padding: 2px;">
+                    </td>
+                    <td class="label" style="width:20%;">
+                        <label style="display: inline;" for="summaryPageNumbering[8]-${billId}"><span class="required">*</span>Page 8:</label>
+                    </td>
+                    <td style="width:30%;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true" id="summaryPageNumbering[8]-${billId}" name="tendering_standard_phrases[summary_page_eight]" style="padding: 2px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:20%;">
+                        <label style="display: inline;" for="summaryPageNumbering[4]-${billId}"><span class="required">*</span>Page 4:</label>
+                    </td>
+                    <td style="width:30%;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true" id="summaryPageNumbering[4]-${billId}" name="tendering_standard_phrases[summary_page_four]" style="padding: 2px;">
+                    </td>
+                    <td class="label" style="width:20%;">
+                        <label style="display: inline;" for="summaryPageNumbering[9]-${billId}"><span class="required">*</span>Page 9:</label>
+                    </td>
+                    <td style="width:30%;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true" id="summaryPageNumbering[9]-${billId}" name="tendering_standard_phrases[summary_page_nine]" style="padding: 2px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:20%;">
+                        <label style="display: inline;" for="summaryPageNumbering[5]-${billId}"><span class="required">*</span>Page 5:</label>
+                    </td>
+                    <td style="width:30%;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true" id="summaryPageNumbering[5]-${billId}" name="tendering_standard_phrases[summary_page_five]" style="padding: 2px;">
+                    </td>
+                </tr>
+            </table>
+
+            <input type="hidden" name="tendering_standard_phrases[_csrf_token]" value="">
+            <input type="hidden" name="billId" value="${billId}">
+        </fieldset>
+    </form>
+</div>

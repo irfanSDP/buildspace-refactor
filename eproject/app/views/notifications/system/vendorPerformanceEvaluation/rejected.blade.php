@@ -1,0 +1,1 @@
+"%s" has rejected a Vendor Performance Evaluation.

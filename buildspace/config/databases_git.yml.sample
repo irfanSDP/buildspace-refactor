@@ -1,0 +1,19 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/07-Databases
+
+all:
+  eproject_conn:
+    class: sfDoctrineDatabase
+    param:
+      dsn:      pgsql:host=$EPROJECT_DB_HOST;dbname=$EPROJECT_DB_DATABASE
+      username: $EPROJECT_DB_USERNAME
+      password: $EPROJECT_DB_PASSWORD
+  main_conn:
+    class: sfDoctrineDatabase
+    param:
+      profiler: false
+      attributes:
+        tblname_format: BS_%s
+      dsn:      pgsql:host=$BUILDSPACE_DB_HOST;dbname=$BUILDSPACE_DB_DATABASE
+      username: $BUILDSPACE_DB_USERNAME
+      password: $BUILDSPACE_DB_PASSWORD

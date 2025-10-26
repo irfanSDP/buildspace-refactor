@@ -1,0 +1,7 @@
+noAccessSuccess:
+  layout: noAccessLayout
+  stylesheets:    [-buildspace/main.css, buildspace/noAccess.css]
+  javascripts:    [-PxLoader/PxLoader.js, -PxLoader/PxLoaderImage.js, -spin.min.js, -lib/equationParser.js]
+
+all:
+  has_layout: true

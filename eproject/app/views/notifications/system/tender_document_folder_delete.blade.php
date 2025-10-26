@@ -1,0 +1,1 @@
+"%s" deleted folder from Tender Documents Module

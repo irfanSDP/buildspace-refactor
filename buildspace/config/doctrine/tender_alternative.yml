@@ -1,0 +1,70 @@
+TenderAlternative:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: tender_alternatives
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    tender_alternative_id_idx:
+      fields: [id, project_structure_id, project_revision_deleted_at]
+    tender_alternative_fk_idx:
+      fields: [project_structure_id, project_revision_id, deleted_at_project_revision_id]
+  columns:
+    id:                             { type: integer, primary: true, notnull: true, autoincrement: true }
+    title:                          { type: string, notnull: true  }
+    description:                    { type: string, notnull: false }
+    project_structure_id:           { type: integer, notnull: true }
+    tender_origin_id:               { type: string, notnull:false, default: null}
+    project_revision_id:            { type: integer }
+    deleted_at_project_revision_id: { type: integer }
+    project_revision_deleted_at:    { type: timestamp }
+    is_awarded:                     { type: boolean, notnull: true, default: false }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderAlternatives
+      foreignType: many
+    ProjectRevision:
+      local: project_revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderAlternatives
+      foreignType: many
+
+TenderAlternativeBill:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_alternatives_bills
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_alternatives_bills_id_idx:
+      fields: [tender_alternative_id, project_structure_id]
+    tender_alternatives_bills_unique_idx:
+      fields: [tender_alternative_id, project_structure_id]
+      type: unique
+  columns:
+    tender_alternative_id: { type: integer, notnull: true, primary: true }
+    project_structure_id:  { type: integer, notnull: true, primary: true }
+  relations:
+    TenderAlternative:
+      local: tender_alternative_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Bills
+      foreignType: many
+    Bills:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderAlternatives
+      foreignType: many

@@ -1,0 +1,1 @@
+<script src="{{ asset('js/common-functions.js').'?v='.time() }}"></script>

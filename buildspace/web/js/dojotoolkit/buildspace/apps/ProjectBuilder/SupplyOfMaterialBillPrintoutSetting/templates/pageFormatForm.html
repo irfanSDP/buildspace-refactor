@@ -1,0 +1,82 @@
+<div class="${baseClass} forms-inputs">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="somBillPrintingForms-${somBillLayoutSettingId}">
+
+    <fieldset>
+        <legend>General Setting</legend>
+        <table class="table-form">
+            <tr>
+                <td colspan="2">
+                    <label class="removeBlock" style="font-weight:bold;">Price Display Format</label>
+                    <input type="radio" data-dojo-type="dijit/form/RadioButton" name="priceFormat" id="priceFormat1-${somBillLayoutSettingId}" value="normal">
+                    <label for="priceFormat1" class="removeBlock">1,000.00</label>
+                    <input type="radio" data-dojo-type="dijit/form/RadioButton" name="priceFormat" id="priceFormat2-${somBillLayoutSettingId}" value="opposite">
+                    <label for="priceFormat2" class="removeBlock">1.000,00</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption200-${somBillLayoutSettingId}" name="includeIandO">
+                    <label for="printOption200-${somBillLayoutSettingId}" class="removeBlock">Include item numbers I and O on BOQ Printout</label>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Continued</legend>
+        <table class="table-form">
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption9-${somBillLayoutSettingId}" name="printContdEndDesc">
+                    <label for="printOption9-${somBillLayoutSettingId}" class="removeBlock">Print (Cont'd) at end of the description</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="removeBlock" style="font-weight:bold;" for="contdPrefix-${somBillLayoutSettingId}">(Cont'd) :</label>
+                    <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="contdPrefix-${somBillLayoutSettingId}" name="contdPrefix">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Trade Name</legend>
+        <table class="table-form">
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption10-${somBillLayoutSettingId}" name="printElementInGridOnce">
+                    <label for="printOption10-${somBillLayoutSettingId}" class="removeBlock">Print trade name once per trade within grid on BOQ</label>
+                </td>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption11-${somBillLayoutSettingId}" name="printElementTitle">
+                    <label for="printOption11-${somBillLayoutSettingId}" class="removeBlock">Print trade name at the top right corner on BOQ</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption12-${somBillLayoutSettingId}" name="printElementInGrid">
+                    <label for="printOption12-${somBillLayoutSettingId}" class="removeBlock">Print trade name within grid on BOQ</label>
+                </td>
+                <td>
+                    <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="printOption203-${somBillLayoutSettingId}" name="alignElementTitleToTheLeft">
+                    <label for="printOption203-${somBillLayoutSettingId}" class="removeBlock">Align trade name to the left <strong>(Only Applicable if generated with print trade name on)</strong></label>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Page Numbering</legend>
+        <table class="table-form">
+            <tr>
+                <td>
+                    <label class="removeBlock" style="font-weight:bold;" for="pageNoPrefix-${somBillLayoutSettingId}">Page No. Prefix :</label>
+                    <input type="text" data-dojo-type="dijit/form/ValidationTextBox" id="pageNoPrefix-${somBillLayoutSettingId}" name="pageNoPrefix" style="padding:2px;width:240px;" data-dojo-props="trim: true, maxLength:9">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    </form>
+</div>

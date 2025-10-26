@@ -1,0 +1,167 @@
+Company:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: companies
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    company_reference_id_unique_idx:
+      fields: [reference_id]
+      type: unique
+    company_registration_no_unique_idx:
+      fields: [registration_no]
+      type: unique
+    company_name_unique_idx:
+      fields: [name, deleted_at]
+      type: unique
+    company_fk_idx:
+      fields: [region_id, sub_region_id]
+  columns:
+    id:                         { type: integer, primary: true, notnull: true, autoincrement: true }
+    reference_id:               { type: varchar(16), notnull: true }
+    registration_no:            { type: varchar(60), notnull: true }
+    name:                       { type: varchar(250), notnull: true }
+    shortname:                  { type: varchar(20), notnull: false }
+    contact_person_name:        { type: varchar(150) }
+    contact_person_email:       { type: varchar(150), notnull: false, default: null }
+    contact_person_direct_line: { type: varchar(20), notnull: false, default: null }
+    contact_person_mobile:      { type: varchar(20), notnull: false, default: null }
+    address:                    { type: text, notnull: true }
+    about:                      { type: text, notnull: false }
+    region_id:                  { type: integer, notnull: true }
+    sub_region_id:              { type: integer, notnull: true }
+    phone_number:               { type: varchar(20), notnull: true }
+    fax_number:                 { type: varchar(20), notnull: true }
+    website:                    { type: string, default: null }
+  relations:
+    Region:
+      class: Regions
+      local: region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Companies
+      foreignType: many
+    SubRegion:
+      class: Subregions
+      local: sub_region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Companies
+      foreignType: many
+    CompanyOtherInformations:
+      class: CompanyOtherInformation
+      local: id
+      foreign: company_id
+      onDelete: CASCADE
+      type: many
+      foreignAlias: Company
+      foreignType: one
+
+CompanyBranch:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: company_branches
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    company_branch_name_unique_idx:
+      fields: [name, deleted_at]
+      type: unique
+    company_branch_company_id_idx:
+      fields: [company_id]
+    company_branch_fk_idx:
+      fields: [region_id, sub_region_id]
+  columns:
+    id:                         { type: integer, primary: true, notnull: true, autoincrement: true }
+    company_id:                 { type: integer, notnull: true }
+    name:                       { type: varchar(250), notnull: true }
+    contact_person_name:        { type: varchar(150) }
+    contact_person_email:       { type: varchar(150), notnull: false, default: null }
+    contact_person_direct_line: { type: varchar(20), notnull: false, default: null }
+    contact_person_mobile:      { type: varchar(20), notnull: false, default: null }
+    address:                    { type: string, notnull: true }
+    region_id:                  { type: integer, notnull: false }
+    sub_region_id:              { type: integer, notnull: false }
+    postcode:                   { type: varchar(20), notnull: false, default: null }
+    phone_number:               { type: varchar(20) }
+    fax_number:                 { type: varchar(20) }
+  relations:
+    Company:
+      local: company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CompanyBranches
+      foreignType: many
+    Region:
+      class: Regions
+      local: region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CompanyBranches
+      foreignType: many
+    SubRegion:
+      class: Subregions
+      local: sub_region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CompanyBranches
+      foreignType: many
+
+CompanyOtherInformation:
+  connection: main_conn
+  tableName: company_other_informations
+  options:
+    symfony:
+      filter: false
+  actAs: [Timestampable, SoftDelete]
+  indexes:
+    company_other_information_company_id_idx:
+      fields: [company_id]
+  columns:
+    company_id:  { type: integer, notnull: true }
+    title:       { type: string, notnull: true }
+    description: { type: text }
+  relations:
+    Files:
+      class: CompanyOtherInformationFile
+      local: id
+      foreign: company_other_information_id
+      onDelete: CASCADE
+      type: many
+      foreignAlias: CompanyOtherInformation
+      foreignType: one
+
+CompanyOtherInformationFile:
+  connection: main_conn
+  tableName: company_other_information_files
+  options:
+    symfony:
+      filter: false
+  actAs: [Timestampable, SoftDelete]
+  indexes:
+    company_other_information_id_idx:
+      fields: [company_other_information_id]
+  columns:
+    company_other_information_id:  { type: integer, notnull: true }
+    original_file_name:            { type: string, notnull: true }
+    uploaded_file_name:            { type: string, notnull: true }
+
+CompanyBusinessType:
+  connection: main_conn
+  tableName: company_business_types
+  options:
+    symfony:
+      filter: false
+  actAs: [Timestampable, SoftDelete]
+  indexes:
+    company_business_type_id_idx:
+      fields: [id]
+  columns:
+    name: { type: varchar(250), notnull: true }

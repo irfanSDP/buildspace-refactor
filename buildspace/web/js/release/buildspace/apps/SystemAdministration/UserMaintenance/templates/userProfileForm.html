@@ -1,0 +1,34 @@
+<div>
+    <div class="profileFormTopContainer" style="overflow: hidden;">
+        <div class="profilePhotoColumn" style="width: 20%; float: left;">
+            <div class="profilePhotoHolder">
+                <img data-dojo-attach-point="profilePhotoHolder" src="${imgPath}" alt="" style="margin: 0 auto; padding: 3px; border: 1px dotted black; display: block; margin-bottom: 8px; height: 96px; width: 96px;">
+            </div>
+        </div>
+
+        <div class="profileFieldsColumn" style="float: left;">
+            <table class="table-form" style="min-width:300px;max-width:315px;">
+                <tr>
+                    <td class="label" style="min-width:100px;"><label for="name">${nls.name}:</label></td>
+                    <td style="min-width:200px;">${user.name}</td>
+                </tr>
+                <tr>
+                    <td class="label"><label for="email">${nls.email}:</label></td>
+                    <td>${user.email}</td>
+                </tr>
+                <tr>
+                    <td class="label"><label for="company">${nls.company}:</label></td>
+                    <td>${user.company}</td>
+                </tr>
+                <tr>
+                    <td class="label"><label for="contact_num">${nls.contactNum}:</label></td>
+                    <td>${user.contact_number}</td>
+                </tr>
+                <tr>
+                    <td class="label"><label>${nls.assignedGroups}:</label></td>
+                    <td><span style="padding: 4px;line-height: 18px; font-weight: bold;">${user.assignedGroups}</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

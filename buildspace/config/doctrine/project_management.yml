@@ -1,0 +1,285 @@
+ProjectSchedule:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: project_schedules
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    project_schedules_id_idx:
+      fields: [id, project_structure_id, type, deleted_at]
+    project_schedules_fk_idx:
+      fields: [project_structure_id, sub_package_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    title:                { type: string(180), notnull: true  }
+    description:          { type: string, notnull: false }
+    type:                 { type: integer(4), notnull: true }
+    exclude_saturdays:    { type: boolean, default: true }
+    exclude_sundays:      { type: boolean, default: true }
+    start_date:           { type: date, notnull: true }
+    timezone:             { type: string(50), notnull: true }
+    project_structure_id: { type: integer, notnull: true }
+    sub_package_id:       { type: integer, notnull: false, default: null }
+    zoom:                 { type: varchar(1), notnull: true, default: 'm' }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ProjectSchedules
+      foreignType: many
+    SubPackage:
+      local: sub_package_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ProjectSchedules
+      foreignType: many
+
+ScheduleCalendarEventWorkingDay:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: project_schedule_calendar_event_working_days
+  actAs: [Timestampable]
+  indexes:
+    pscewd_id_idx:
+      fields: [id, project_schedule_id]
+    pscewd_fk_idx:
+      fields: [project_schedule_id]
+    pscewd_unique_idx:
+      fields: [project_schedule_id, event_date]
+      type: unique
+  columns:
+    id:                  { type: integer, primary: true, notnull: true, autoincrement: true }
+    event_date:          { type: date, notnull: true }
+    project_schedule_id: { type: integer, notnull: true }
+  relations:
+    ProjectSchedule:
+      local: project_schedule_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CalendarEventWorkingDays
+      foreignType: many
+
+ScheduleTaskItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: project_schedule_task_items
+  actAs:
+    Timestampable:
+    Signable:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    pst_items_id_idx:
+      fields: [id, root_id, lft, rgt]
+    pst_items_status_idx:
+      fields: [status]
+    pst_items_fk_idx:
+      fields: [project_schedule_id, root_id]
+  columns:
+    id:                  { type: integer, primary: true, notnull: true, autoincrement: true }
+    title:               { type: varchar(255), notnull: true }
+    description:         { type: string, notnull: false }
+    code:                { type: varchar(100), notnull: false }
+    status:              { type: integer(4), notnull: true }
+    start_date:          { type: date, notnull: true }
+    end_date:            { type: date, notnull: true }
+    completed_date:      { type: date, notnull: false }
+    progress:            { type: decimal(5), scale: 2, default: 0 }
+    duration:            { type: integer(4), notnull: true }
+    total_cost:          { type: decimal, scale: 5, default: 0 }
+    start_is_milestone:  { type: boolean, default: false }
+    end_is_milestone:    { type: boolean, default: false }
+    depends:             { type: string, notnull: false }
+    hours_per_day:       { type: decimal, scale: 2, notnull: true, default: 8 }
+    priority:            { type: integer, notnull: true, default: 0 }
+    project_schedule_id: { type: integer, notnull: true }
+    temp_deleted:        { type: boolean, default: false }
+  relations:
+    ProjectSchedule:
+      local: project_schedule_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TaskItems
+      foreignType: many
+      
+ScheduleTaskItemBillItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_task_item_bill_items
+  actAs: [Timestampable, Signable]
+  indexes:
+    schedule_task_item_bill_item_idx:
+      fields: [id, schedule_task_item_id, bill_item_id, bill_column_setting_id]
+    schedule_task_item_bill_item_fk_idx:
+      fields: [schedule_task_item_id, bill_item_id, bill_column_setting_id]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    schedule_task_item_id:  { type: integer, notnull: true }
+    bill_item_id:           { type: integer, notnull: true }
+    bill_column_setting_id: { type: integer, notnull: true }
+  relations:
+    ScheduleTaskItem:
+      local: schedule_task_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItems
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleTaskItems
+      foreignType: many
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleTaskItems
+      foreignType: many
+
+ScheduleTaggedBillItemTypeReference:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_tagged_bill_item_type_references
+  actAs: [Timestampable, Signable]
+  indexes:
+    stbi_type_reference_idx:
+      fields: [id, schedule_task_item_bill_item_id, sub_package_type_reference_id, standard_type_reference_id]
+    stbi_type_reference_unique_idx:
+      fields: [sub_package_type_reference_id, standard_type_reference_id]
+      type: unique
+  columns:
+    id:                              { type: integer, primary: true, notnull: true, autoincrement: true }
+    schedule_task_item_bill_item_id: { type: integer, notnull: true }
+    sub_package_type_reference_id:   { type: integer, notnull: false, default: NULL }
+    standard_type_reference_id:      { type: integer, notnull: false, default: NULL }
+  relations:
+    ScheduleTaskItemBillItem:
+      local: schedule_task_item_bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TaggedBillItemTypeReferences
+      foreignType: many
+    PostContractStandardClaimTypeReference:
+      local: standard_type_reference_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TaggedBillItemTypeReferences
+      foreignType: many
+    SubPackageTypeReference:
+      local: sub_package_type_reference_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TaggedBillItemTypeReferences
+      foreignType: many
+
+ScheduleBillItemProductivity:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: project_schedule_bill_item_productivities
+  actAs: [Timestampable, Signable]
+  indexes:
+    schedule_bill_item_productivity_idx:
+      fields: [id, schedule_task_item_bill_item_id]
+    schedule_bill_item_productivity_unique_idx:
+      fields: [schedule_task_item_bill_item_id]
+      type: unique
+  columns:
+    id:                              { type: integer, primary: true, notnull: true, autoincrement: true }
+    schedule_task_item_bill_item_id: { type: integer, notnull: true }
+    productivity:                    { type: decimal, scale: 2, default: 0 }
+    productivity_type:               { type: integer, notnull: true }
+    number_of_gang:                  { type: integer, notnull: true, default: 0 }
+    duration_days:                   { type: decimal, scale: 2, notnull: true, default: 0 }
+    duration_hours:                  { type: decimal, scale: 2, notnull: true, default: 0 }
+  relations:
+    ScheduleTaskItemBillItem:
+      local: schedule_task_item_bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ProductivityInfo
+      foreignType: one
+
+sfGuardProjectManagementGroup:
+  connection: main_conn
+  options:
+    symfony:
+      form:   false
+      filter: false
+  actAs: [Timestampable]
+  indexes:
+    sf_guard_project_management_group_fk_idx:
+      fields: [group_id, project_structure_id]
+  columns:
+    group_id:
+      type: integer
+      primary: true
+    project_structure_id:
+      type: integer
+      primary: true
+  relations:
+    Group:
+      class: sfGuardGroup
+      local: group_id
+      onDelete: CASCADE
+    Project:
+      local: project_structure_id
+      onDelete: CASCADE
+
+ProjectManagementCalendar:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: project_management_calendar
+  actAs: [Timestampable, Signable]
+  indexes:
+    project_management_calendar_id_idx:
+      fields: [id, project_structure_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id: { type: integer, notnull: true }
+    description:          { type: string, notnull: true  }
+    event_type:           { type: integer, notnull: true }
+    is_holiday:           { type: boolean, default: true }
+    start_date:           { type: date, notnull: true }
+    end_date:             { type: date, notnull: true }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CalendarEvents
+      foreignType: many

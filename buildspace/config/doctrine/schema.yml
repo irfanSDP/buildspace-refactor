@@ -1,0 +1,221 @@
+Menu:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: menus
+  actAs:
+    Timestampable:
+    Signable:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    menu_id_idx:
+      fields: [id, is_app, lft, rgt]
+    menu_root_id_idx:
+      fields: [root_id]
+  columns:
+    id:       { type: integer, primary: true, notnull: true, autoincrement: true }
+    title:    { type: varchar(40), notnull: true}
+    is_app:   { type: boolean, notnull: true, default: false }
+    icon:     { type: varchar(20), notnull: false}
+    sysname:  { type: varchar(40), notnull: false}
+    priority: { type: integer, notnull: true, default: 0 }
+
+sfGuardUserProfile:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  actAs: [Timestampable, Signable, SoftDelete]
+  tableName: sf_guard_user_profile
+  indexes:
+    profile_unique_idx:
+      fields: [user_id, eproject_user_id, deleted_at]
+      type: unique
+    profile_id_idx:
+      fields: [id]
+    profile_user_id_idx:
+      fields: [user_id]
+    profile_name_idx:
+      fields: [name]
+  columns:
+    id:                    { type: integer, primary: true, notnull: true, autoincrement: true }
+    user_id:               { type: integer, notnull: true }
+    eproject_user_id:      { type: integer, notnull: true }
+    name:                  { type: string(255), notnull: true }
+    contact_num:           { type: varchar(50) }
+    profile_photo:         { type: string, default: null }
+    language:              { type: string(10), notnull: true, default: "en_US" }
+  relations:
+    sfGuardUser:
+      local: user_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Profile
+      foreignType: one
+
+WorkCategory:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: work_categories
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    work_category_id_idx:
+      fields: [id, name]
+    work_category_unique_idx:
+      fields: [name, deleted_at]
+      type: unique
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    name:        { type: string(100), notnull: true }
+    description: { type: string, notnull: false }
+
+UnitOfMeasurementType:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  actAs: [Timestampable, Signable, SoftDelete]
+  tableName: units_of_measurement_type
+  indexes:
+    uomt_id_idx:
+      fields: [id]
+    uomt_name_unique_idx:
+      fields: [name, deleted_at]
+      type: unique
+  columns:
+    id:     { type: integer, primary: true, notnull: true, autoincrement: true }
+    name:   { type: string(255), notnull: true }
+
+UnitOfMeasurement:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  actAs: [Timestampable, Signable, SoftDelete]
+  tableName: unit_of_measurements
+  indexes:
+    uom_id_idx:
+      fields: [id]
+    uom_sym_unique_idx:
+      fields: [symbol, type, deleted_at]
+      type: unique
+  columns:
+    id:      { type: integer, primary: true, notnull: true, autoincrement: true }
+    name:    { type: string(200), notnull: true }
+    symbol:  { type: varchar(10), notnull: true }
+    display: { type: boolean, notnull: true, default: false }
+    type:    { type: integer, notnull: true }
+  relations:
+    Dimensions:
+      class: Dimension
+      local: unit_of_measurement_id
+      foreign: dimension_id
+      refClass: UnitOfMeasurementDimensions
+      foreignAlias: UnitOfMeasurements
+    UnitOfMeasurementType:
+      local: type
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: UnitOfMeasurements
+      foreignType: many
+
+Dimension:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: dimensions
+  indexes:
+    dimension_id_idx:
+      fields: [id]
+    dimension_name_unique_idx:
+      fields: [name, deleted_at]
+      type: unique
+  actAs: [Timestampable, Signable, SoftDelete]
+  columns:
+    id:   { type: integer, primary: true, notnull: true, autoincrement: true }
+    name: { type: string(50), notnull: true }
+
+UnitOfMeasurementDimensions:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs: [Timestampable]
+  tableName: unit_of_measurement_dimensions
+  indexes:
+    uom_dim_priority_unique_idx:
+      fields: [unit_of_measurement_id, priority]
+      type: unique
+    uom_dim_unique_idx:
+      fields: [unit_of_measurement_id, dimension_id]
+      type: unique
+  columns:
+    unit_of_measurement_id: { type: integer, notnull: true }
+    dimension_id:           { type: integer, notnull: true }
+    priority:               { type: integer, notnull: true }
+  relations:
+    UnitOfMeasurement:
+      local: unit_of_measurement_id
+      onDelete: CASCADE
+    Dimension:
+      local: dimension_id
+      onDelete: CASCADE
+
+BillAdminSetting:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  actAs: [Timestampable]
+  tableName: bill_admin_settings
+  columns:
+    build_up_quantity_rounding_type: { type: integer(4), notnull: false, default: 1 }
+    build_up_rate_rounding_type:     { type: integer(4), notnull: false, default: 1 }
+    unit_type:                       { type: integer(4), notnull: false, default: 1 }
+
+ProjectUserPermission:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs: [Timestampable, Signable]
+  tableName: project_user_permissions
+  indexes:
+    project_user_perm_unique_idx:
+      fields: [project_structure_id, user_id, project_status]
+      type: unique
+    project_user_perm_fk_idx:
+      fields: [project_structure_id, user_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id: { type: integer, notnull: true }
+    user_id:              { type: integer, notnull: true }
+    project_status:       { type: integer, notnull: true }
+    is_admin:             { type: boolean, notnull: true, default: false }
+  relations:
+    sfGuardUser:
+      local: user_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ProjectPermissions
+      foreignType: many
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: UserPermissions
+      foreignType: many

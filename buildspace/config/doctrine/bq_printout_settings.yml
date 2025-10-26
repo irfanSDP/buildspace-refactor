@@ -1,0 +1,143 @@
+BillLayoutSetting:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: bill_printout_layout_settings
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bill_layout_set_id_idx:
+      fields: [id, bill_id, deleted_at]
+    bill_layout_set_fk_idx:
+      fields: [bill_id]
+  columns:
+    bill_id:                 { type: integer }
+    font:                    { type: string, default: "Arial" }
+    rounding_type:           { type: integer(4), default: 1 }
+    size:                    { type: integer, default: 11 }
+    comma_total:             { type: boolean, default: false }
+    comma_rate:              { type: boolean, default: false }
+    comma_qty:               { type: boolean, default: false }
+    priceFormat:
+      type: enum
+      values: [normal, opposite]
+      default: normal
+    print_amt_col_only:         { type: boolean, default: false }
+    print_without_price:        { type: boolean, default: false }
+    print_full_decimal:         { type: boolean, default: false }
+    add_psum_pcsum:             { type: boolean, default: false }
+    print_dollar_cent:          { type: boolean, default: false }
+    print_without_cent:         { type: boolean, default: false }
+    switch_qty_unit_rate:       { type: boolean, default: false }
+    indent_item:                { type: boolean, default: false }
+    includeIAndOForBillRef:     { type: boolean, default: false }
+    apply_binding_alignment:    { type: boolean, default: false }
+    add_cont:                   { type: boolean, default: true }
+    contd:                      { type: string(150), default: "(CONT'd)" }
+    print_element_header:       { type: boolean, default: true }
+    print_element_grid:         { type: boolean, default: true }
+    print_element_grid_once:    { type: boolean, default: false }
+    page_numbering_option:      { type: varchar(60), default: numericElement }
+    page_no_prefix:             { type: string(150), default: null }
+    print_date_of_printing:     { type: boolean, default: false }
+    print_grand_total_quantity: { type: boolean, default: false }
+    align_element_to_left:      { type: boolean, default: false }
+    close_grid:                 { type: boolean, default: true }
+  relations:
+    ProjectStructure:
+      local: bill_id
+      foreign: id
+      type: one
+      foreignType: one
+      onDelete: CASCADE
+
+BillLayoutHeadSetting:
+  connection: main_conn
+  options:
+    orderBy: head
+    symfony:
+      filter: false
+  tableName: bill_printout_layout_head_settings
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bill_layout_hset_id_idx:
+      fields: [id, bill_layout_setting_id, deleted_at]
+    bill_layout_hset_fk_idx:
+      fields: [bill_layout_setting_id]
+  columns:
+    bill_layout_setting_id: { type: integer }
+    head:                   { type: integer }
+    bold:                   { type: boolean, default: false }
+    underline:              { type: boolean, default: false }
+    italic:                 { type: boolean, default: false }
+  relations:
+    BillHeadSetting:
+      class: BillLayoutSetting
+      local: bill_layout_setting_id
+      foreign: id
+      foreignAlias: BillHeadSettings
+      type: one
+      foreignType: many
+      onDelete: CASCADE
+
+BillLayoutPhrase:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: bill_printout_layout_phrases
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    bill_layout_phrase_id_idx:
+      fields: [id, bill_layout_setting_id, deleted_at]
+    bill_layout_phrase_fk_idx:
+      fields: [bill_layout_setting_id]
+  columns:
+    bill_layout_setting_id:      { type: integer, notnull: false }
+    to_collection:               { type: string(150), default: 'To Collection' }
+    table_header_description:    { type: string(150), default: 'Description' }
+    table_header_unit:           { type: string(150), default: 'Unit' }
+    table_header_qty:            { type: string(150), default: 'Qty' }
+    table_header_rate:           { type: string(150), default: 'Rate' }
+    table_header_amt:            { type: string(150), default: 'Amount' }
+    currency:                    { type: string(150), default: 'RM' }
+    cents:                       { type: string(150), default: 'sen' }
+    collection_in_grid:          { type: string(150), default: 'Collection' }
+    summary:                     { type: string(150), default: 'Summary' }
+    summary_in_grid:             { type: string(150), default: 'Summary' }
+    totalPerUnitPrefix:          { type: string(150), default: 'Total per Unit' }
+    totalUnitPrefix:             { type: string(150), default: 'Total Unit(s)' }
+    totalPerTypePrefix:          { type: string(150), default: 'Total per Type' }
+    summary_page_no:             { type: string(150), default: 'Page No' }
+    summary_tender:              { type: string(150), default: 'Total Amount To Form Of Tender' }
+    summary_page_one:            { type: string(150), default: 'Summary Page I' }
+    summary_page_two:            { type: string(150), default: 'Summary Page II' }
+    summary_page_three:          { type: string(150), default: 'Summary Page III' }
+    summary_page_four:           { type: string(150), default: 'Summary Page IV' }
+    summary_page_five:           { type: string(150), default: 'Summary Page V' }
+    summary_page_six:            { type: string(150), default: 'Summary Page VI' }
+    summary_page_seven:          { type: string(150), default: 'Summary Page VII' }
+    summary_page_eight:          { type: string(150), default: 'Summary Page VIII' }
+    summary_page_nine:           { type: string(150), default: 'Summary Page IX' }
+    element_header_bold:         { type: boolean, default: false }
+    element_header_underline:    { type: boolean, default: false }
+    element_header_italic:       { type: boolean, default: false }
+    element_footer_bold:         { type: boolean, default: false }
+    element_footer_underline:    { type: boolean, default: false }
+    element_footer_italic:       { type: boolean, default: false }
+    element_note_top_left_row1:  { type: string(150), notnull: false }
+    element_note_top_left_row2:  { type: string(150), notnull: false }
+    element_note_top_right_row1: { type: string(150), notnull: false }
+    element_note_bot_left_row1:  { type: string(150), notnull: false }
+    element_note_bot_left_row2:  { type: string(150), notnull: false }
+    element_note_bot_right_row1: { type: string(150), notnull: false }
+    element_note_bot_right_row2: { type: string(150), notnull: false }
+  relations:
+    BillLayoutSetting:
+      class: BillLayoutSetting
+      local: bill_layout_setting_id
+      foreign: id
+      foreignAlias: BillPhrase
+      type: one
+      foreignType: one
+      onDelete: CASCADE

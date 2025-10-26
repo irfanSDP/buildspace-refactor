@@ -1,0 +1,64 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="billForm">
+        <fieldset>
+            <legend>${nls.billInformation}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.name} :</label>
+                    </td>
+                    <td colspan="3">
+                        <input type="text" name="bill_setting[title]" style="padding:2px;width:240px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:true">
+                        <p class="alert-text-error" id="error-bill_setting_title"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.description} :</label>
+                    </td>
+                    <td colspan="3">
+                        <textarea name="bill_setting[description]" style="width:240px;padding:2px;min-height:30px;_height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.billType} :</label>
+                    </td>
+                    <td colspan="3">
+                        <div data-dojo-attach-point="billTypeInputDivNode"></div>
+                        <div class="billTitleViewNode" data-dojo-attach-point="billTypeViewDivNode"></div>
+                        <p class="billDescriptionViewNode" data-dojo-attach-point="billTypeDescriptionViewDivNode"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.unitType} :</label>
+                    </td>
+                    <td colspan="3">
+                        <div data-dojo-attach-point="unitTypeInputDivNode"></div>
+                        <div data-dojo-attach-point="unitTypeViewDivNode"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.buildUp} ${nls.qty} ${nls.rounding} :</label>
+                    </td>
+                    <td colspan="3">
+                        <div data-dojo-attach-point="buildUpQuantityRoundingTypeInputDivNode"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.buildUpRate} ${nls.rounding} :</label>
+                    </td>
+                    <td colspan="3">
+                        <div data-dojo-attach-point="buildUpRateRoundingTypeInputDivNode"></div>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="bill_setting[_csrf_token]" value="">
+            <input type="hidden" name="parent_id" value="${parentId}">
+            <input type="hidden" name="id" value="${billId}">
+        </fieldset>
+    </form>
+</div>

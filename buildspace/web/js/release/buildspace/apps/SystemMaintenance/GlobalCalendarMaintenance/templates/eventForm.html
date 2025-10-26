@@ -1,0 +1,50 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="eventForm">
+        <div><label style="display: inline;"><span class="required">*</span>${nls.summary} :</label></div>
+        <div>
+            <input type="text" name="global_calendar[description]" data-dojo-attach-point="itemSummaryEditor" style="padding:2px 0;width:100%;margin-top: 3px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:true" />
+        </div>
+        <div style="margin-top:5px;"><label style="display: inline;"><span class="required">*</span>${nls.eventType} :</label></div>
+        <div>
+            <div data-dojo-attach-point="eventTypeSelectDivNode"></div>
+        </div>
+        <div data-dojo-attach-point="isHolidayDiv" style="margin-top:5px;display:none;">
+            <label style="display: inline;">${nls.isHoliday} :</label>
+            <input type="checkbox" name="global_calendar[is_holiday]" data-dojo-attach-point="isHolidayCheckBox" data-dojo-type="dijit/form/CheckBox" />
+        </div>
+        <div style="margin-top:5px;"><label style="display: inline;"><span class="required">*</span>${nls.state} :</label></div>
+        <div>
+            <div data-dojo-attach-point="stateSelectDivNode"></div>
+        </div>
+        <div>
+            <table style="width:100%;margin-top:5px;">
+                <tr>
+                    <td style="width:50%;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.startDate} :</label>
+                    </td>
+                    <td style="width:50%;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.endDate} :</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:50%;margin-top:5px;">
+                        <input type="text" name="global_calendar[start_date]" style="padding:2px 0;width: 100%;margin-top: 3px;" data-dojo-attach-point="evtStartDate" data-dojo-type="dijit/form/DateTextBox" data-dojo-props='constraints:{ datePattern : "dd/MM/yyyy" }, type:"text", required: true' value="" />
+                    </td>
+                    <td style="width:50%;margin-top:5px;">
+                        <input type="text" name="global_calendar[end_date]" style="padding:2px 0;width: 100%;margin-top: 3px;" data-dojo-attach-point="evtEndDate" data-dojo-type="dijit/form/DateTextBox" data-dojo-props='constraints:{ datePattern : "dd/MM/yyyy" }, type:"text", required: true' value="" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin-top:10px; text-align:right">
+            <span style="text-align:left">
+                <button data-dojo-attach-point="deleteItemButton" class="deleteButton" data-dojo-type="dijit.form.Button"  data-dojo-props="disabled:true">${nls.delete}</button>
+            </span>
+            <span style="text-align:right">
+                <button data-dojo-attach-point="saveItemButton" data-dojo-type="dijit.form.Button">${nls.save}</button>
+            </span>
+        </div>
+        <input type="hidden" name="id" value="-1">
+        <input type="hidden" name="global_calendar[_csrf_token]">
+    </form>
+</div>

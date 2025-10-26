@@ -1,0 +1,82 @@
+<div>
+    <fieldset>
+        <legend>${nls.markupSettings}</legend>
+        <table style="width:100%;">
+            <tr>
+                <td>
+                    <table class="buildspace-table">
+                        <thead><tr class="gridHeader">
+                            <th class="gridCell" style="text-align:center;">No.</th>
+                            <th class="gridCell">${nls.name}</th>
+                            <th class="gridCell" style="text-align: center;">${nls.enable}</th>
+                            <th class="gridCell" style="text-align: center;">${nls.action}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="gridCell counter" style="width:30px;text-align: center;vertical-align: middle;"><h1></h1></td>
+                            <td class="gridCell" style="vertical-align:middle;padding-right:5px;">${nls.element} ${nls.markup}</td>
+                            <td class="gridCell" style="text-align:center;vertical-align:middle;width:40px;">
+                                <div data-dojo-attach-point="elementMarkupEnabledInputDivNode" style="display:none;">
+                                    <input type="checkbox" name="bill_markup_setting[element_markup_enabled]" data-dojo-attach-point="elementMarkupEnabledNode" data-dojo-type="dijit/form/CheckBox">
+                                </div>
+                                <div data-dojo-attach-point="elementMarkupEnabledViewDivNode"></div>
+                            </td>
+                            <td class="gridCell" style="width:50px;text-align: center;">
+                                <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:editElementMarkup" data-dojo-attach-point="editElementMarkupButton" data-dojo-props="iconClass:'icon-16-container icon-16-edit'" style="border:none;"></button>
+                                <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:saveElementMarkup" data-dojo-attach-point="saveElementMarkupButton" data-dojo-props="iconClass:'icon-16-container icon-16-save'" style="border:none;display:none;"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="gridCell counter" style="width:30px;text-align: center;vertical-align: middle;"><h1></h1></td>
+                            <td class="gridCell" style="vertical-align:middle;padding-right:5px;">${nls.item} ${nls.markup}</td>
+                            <td class="gridCell" style="text-align:center;vertical-align:middle;width:40px;">
+                                <div data-dojo-attach-point="itemMarkupEnabledInputDivNode" style="display:none;">
+                                    <input type="checkbox" name="bill_markup_setting[item_markup_enabled]" data-dojo-attach-point="itemMarkupEnabledNode" data-dojo-type="dijit/form/CheckBox">
+                                </div>
+                                <div data-dojo-attach-point="itemMarkupEnabledViewDivNode"></div>
+                            </td>
+                            <td class="gridCell" style="width:50px;text-align: center;">
+                                <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:editItemMarkup" data-dojo-attach-point="editItemMarkupButton" data-dojo-props="iconClass:'icon-16-container icon-16-edit'" style="border:none;"></button>
+                                <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:saveItemMarkup" data-dojo-attach-point="saveItemMarkupButton" data-dojo-props="iconClass:'icon-16-container icon-16-save'" style="border:none;display:none;"></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td width="450px;">
+                    <fieldset>
+                        <legend>${nls.roundingOptions}</legend>
+                        <table class="buildspace-table">
+                            <thead><tr class="gridHeader">
+                                <th class="gridCell">${nls.options}</th>
+                                <th class="gridCell" style="text-align: center;">${nls.action}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="gridCell" style="vertical-align: middle;">
+                                    <div data-dojo-attach-point="roundingTypeInputDivNode" style="display:none;">
+                                        <select name="bill_markup_setting[rounding_type]" data-dojo-type="dijit/form/Select" style="width:200px;padding:2px!important;" data-dojo-attach-point="roundingTypeNode">
+                                            <option value="${ROUNDING_TYPE_UPWARD}">${ROUNDING_TYPE_UPWARD_TEXT}</option>
+                                            <option value="${ROUNDING_TYPE_DOWNWARD}">${ROUNDING_TYPE_DOWNWARD_TEXT}</option>
+                                            <option value="${ROUNDING_TYPE_NEAREST_WHOLE_NUMBER}">${ROUNDING_TYPE_NEAREST_WHOLE_NUMBER_TEXT}</option>
+                                            <option value="${ROUNDING_TYPE_NEAREST_TENTH}">${ROUNDING_TYPE_NEAREST_TENTH_TEXT}</option>
+                                            <option value="${ROUNDING_TYPE_DISABLED}">${ROUNDING_TYPE_DISABLED_TEXT}</option>
+                                        </select>
+                                    </div>
+                                    <div data-dojo-attach-point="roundingTypeViewDivNode"></div>
+                                </td>
+                                <td class="gridCell" style="width:50px;text-align: center;">
+                                    <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:editRoundingType" data-dojo-attach-point="editRoundingTypeButton" data-dojo-props="iconClass:'icon-16-container icon-16-edit'" style="border:none;"></button>
+                                    <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:saveRoundingType" data-dojo-attach-point="saveRoundingTypeButton" data-dojo-props="iconClass:'icon-16-container icon-16-save'" style="border:none;display:none;"></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</div>

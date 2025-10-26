@@ -1,0 +1,20 @@
+Attachments:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: attachments
+  actAs: [Timestampable, Signable]
+  indexes:
+    attachments_id_idx:
+      fields: [id]
+    attachments_non_unique_idx:
+      fields: [object_class]
+  columns:
+    id:           { type: integer, primary: true, notnull: true, autoincrement: true }
+    object_id:    { type: integer, notnull: true }
+    object_class: { type: string, notnull: true }
+    filepath:     { type: string, notnull: true }
+    filename:     { type: string, notnull: true }
+    extension:    { type: string, notnull: false }

@@ -1,0 +1,30 @@
+ProjectCodeSettings:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: true
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+  tableName: project_code_settings
+  indexes:
+    project_code_settings_id_idx:
+      fields: [id, eproject_subsidiary_id, project_structure_id]
+    project_code_settings_fx_idx:
+      fields: [project_structure_id]
+  columns:
+    id:                          { type: integer, primary: true, notnull: true, autoincrement: true }
+    eproject_subsidiary_id:      { type: integer, notnull: true }
+    project_structure_id:        { type: integer, notnull: true }
+    subsidiary_code:             { type: string(255), notnull: false }
+    type:                        { type: smallint, notnull: true }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ProjectCodeSettings
+      foreignType: many

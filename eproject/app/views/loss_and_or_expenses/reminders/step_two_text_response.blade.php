@@ -1,0 +1,1 @@
+The Contractor to confirm that "The matters referred to in the claim [that have led to the Loss And/Or Expense]" have ended. The deadline for the Contractor to submit the claim for the Loss And/Or Expense is {{{ $loe->project->pam2006Detail->deadline_submitting_final_claim_l_and_e }}} days from date the matters referred have ended.

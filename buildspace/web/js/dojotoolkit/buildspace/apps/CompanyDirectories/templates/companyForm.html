@@ -1,0 +1,120 @@
+<div>
+    <form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="companyForm-${companyId}" style="padding: 0 5px;">
+        <fieldset style="margin-bottom: 10px;">
+            <legend>${nls.mainInformation}</legend>
+
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.companyName}:</label>
+                    </td>
+                    <td colspan="3">${companyInfo.name}</td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.shortName}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="company[shortname]" maxlength="20" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="padding:2px;width:180px;">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-shortname"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.registrationNum}:</label>
+                    </td>
+                    <td>${companyInfo.registration_no}</td>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.businessType}:</label>
+                    </td>
+                    <td style="width:120px;">${companyInfo.business_type}</td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.officeAddress}:</label>
+                    </td>
+                    <td colspan="3"><label style="display: inline;white-space: pre-wrap;">${companyInfo.address}</label></td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.state}:</label>
+                    </td>
+                    <td>${companyInfo.sub_region}</td>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.country}:</label>
+                    </td>
+                    <td style="width:120px;">${companyInfo.region}</td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.officePhone}:</label>
+                    </td>
+                    <td>${companyInfo.phone_number}</td>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.officeFax}:</label>
+                    </td>
+                    <td style="width:120px;">${companyInfo.fax_number}</td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.aboutCompany}:</label>
+                    </td>
+                    <td colspan="3">
+                        <textarea name="company[about]" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true" style="padding:2px;min-height:30px;_height:30px;"></textarea>
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-about"></span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>${nls.contactInformation}</legend>
+
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.contactPerson}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="company[contact_person_name]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="padding:2px;">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-contact_person_name"></span>
+                    </td>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.email}:</label>
+                    </td>
+                    <td>
+                        <input name="company[contact_person_email]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true" style="padding:2px;">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-contact_person_email"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.directLine}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="company[contact_person_direct_line]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true" style="padding:2px;">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-contact_person_direct_line"></span>
+                    </td>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.mobile}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="company[contact_person_mobile]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true" style="padding:2px;">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-contact_person_mobile"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.website}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="company[website]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim: true, regExp: dojox.validate.regexp.url, invalidMessage:'Invalid URL.'" style="padding:2px;">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-website"></span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <input type="hidden" name="company[_csrf_token]" value="">
+    </form>
+</div>

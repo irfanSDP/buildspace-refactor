@@ -1,0 +1,25 @@
+sfGuardGroupMenu:
+  connection: main_conn
+  options:
+    symfony:
+      form:   false
+      filter: false
+  actAs: [Timestampable]
+  indexes:
+    sf_guard_group_menu_fk_idx:
+      fields: [group_id, menu_id]
+  columns:
+    group_id:
+      type: integer
+      primary: true
+    menu_id:
+      type: integer
+      primary: true
+  relations:
+    Group:
+      class: sfGuardGroup
+      local: group_id
+      onDelete: CASCADE
+    Menu:
+      local: menu_id
+      onDelete: CASCADE

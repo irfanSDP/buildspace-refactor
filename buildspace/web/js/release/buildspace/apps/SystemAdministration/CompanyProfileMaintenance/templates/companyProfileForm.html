@@ -1,0 +1,85 @@
+<div class="{$baseClass} forms-inputs">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="myCompanyProfileForm" enctype="multipart/form-data">
+        <fieldset>
+            <legend>${nls.formDesc}</legend>
+
+            <div class="formContainer" style="padding: 5px 0;">
+
+                <div style="margin-bottom:18px; overflow:hidden;">
+                    <div class="companyLogoPhotoHolder" style="width: 40%;">
+                        <div class="companyLogoPhoto">
+                            <img data-dojo-attach-point="companyLogoPhoto" src="${imgPath}" alt="" style="margin: 0 auto; padding: 3px; border: 1px dotted black; display: block; margin-bottom: 8px; height: 96px; width: 96px;">
+                        </div>
+
+                        <span style="color:red; display: none; text-align: center; margin: 4px 0;" data-dojo-attach-point="error-company_logo"></span>
+
+                        <div data-dojo-attach-point="myCompanyLogoUploader" style="text-align: center;"></div>
+                    </div>
+                </div>
+
+                <table class="table-form" style="width: 90%;">
+                    <tr>
+                        <td class="label" style="width: 150px;"><label style="text-align: right; line-height: 18px;" for="companyName-companyProfile" style="padding: 4px;"><span class="required">*</span>${nls.companyName}:</label></td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, propercase:true, trim: true" id="companyName-companyProfile" name="my_company_profile[name]" style="padding: 3px; width:100%;">
+                        </td>
+                        <td class="label" style="width: 150px;"><label style="text-align: right; line-height: 18px;" style="padding: 4px;"><span class="required">*</span>${nls.email}:</label></td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true, validator: dojox.validate.isEmailAddress, invalidMessage:'This is not a valid email !'" id="email-companyProfile" name="my_company_profile[email]" style="padding: 3px; width: 178px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label" style="width: 150px;"><label style="text-align: right; line-height: 18px;" for="address-companyProfile" style="padding: 4px;"><span class="required">*</span>${nls.address}:</label></td>
+                        <td>
+                            <textarea data-dojo-type="dijit/form/Textarea" data-dojo-props="required: true, trim: true" id="address-companyProfile" name="my_company_profile[address]" style="padding:2px;min-height:30px;_height:30px;"></textarea>
+                        </td>
+                        <td class="label" style="width: 150px;"><label style="text-align: right; line-height: 18px;" for="phoneNumber-companyProfile" style="padding: 4px;"><span class="required">*</span>${nls.phoneNum}:</label></td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true" id="phoneNumber-companyProfile" name="my_company_profile[phone_number]" style="padding: 3px; width: 178px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label" style="width: 150px;"><label style="text-align: right; line-height: 18px;" style="padding: 4px;"><span class="required">*</span>${nls.country}:</label></td>
+                        <td>
+                            <div data-dojo-attach-point="countrySelectDivNode"></div>
+                        </td>
+                        <td class="label" style="width: 150px;"><label style="text-align: right; line-height: 18px;" for="faxNumber-companyProfile" style="padding: 4px;">${nls.faxNum}:</label></td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim: true" id="faxNumber-companyProfile" name="my_company_profile[fax_number]" style="padding: 3px; width: 178px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label" style="width: 150px;"><label style="text-align: right; line-height: 18px;" for="state-companyProfile" style="padding: 4px;"><span class="required">*</span>${nls.state}:</label></td>
+                        <td>
+                            <div data-dojo-attach-point="stateSelectDivNode"></div>
+                        </td>
+                        <td class="label" style="width: 150px;"><label style="text-align: right; line-height: 18px;" for="website-companyProfile" style="padding: 4px;">${nls.website}:</label></td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim: true, regExp: dojox.validate.regexp.url, invalidMessage:'Invalid URL.'" id="website-companyProfile" name="my_company_profile[website]" style="padding: 3px; width: 178px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label" style="width: 150px;"><label style="text-align: right; line-height: 18px;" for="city-companyProfile" style="padding: 4px;"><span class="required">*</span>${nls.city}:</label></td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true" id="city-companyProfile" name="my_company_profile[city]" style="padding: 3px; width: 178px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label" style="width: 150px;"><label style="text-align: right; line-height: 18px;" for="zipcode-companyProfile" style="padding: 4px;"><span class="required">*</span>${nls.zipcode}:</label></td>
+                        <td>
+                            <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required: true, trim: true" id="zipcode-companyProfile" name="my_company_profile[zipcode]" style="padding: 3px; width: 178px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label" style="width: 150px;"><label style="text-align: right; line-height: 18px;" for="timezone-companyProfile" style="padding: 4px;"><span class="required">*</span>${nls.timezone}:</label></td>
+                        <td>
+                            <div data-dojo-attach-point="timezoneSelectDiv"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <input type="hidden" name="my_company_profile[_csrf_token]" value="">
+        </fieldset>
+    </form>
+</div>

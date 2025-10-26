@@ -1,0 +1,309 @@
+ScheduleOfQuantity:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_of_quantities
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    soq_id_idx:
+      fields: [id, project_structure_id]
+    soq_unique_idx:
+      fields: [project_structure_id, priority, deleted_at]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id:   { type: integer, notnull: true }
+    third_party_identifier: { type: varchar(255), notnull: false, default: null }
+    identifier_type:        { type: integer(4), notnull: true, default: 1 }
+    title:                  { type: string, notnull: false }
+    priority:               { type: integer, notnull: true, default: 0 }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfQuantities
+      foreignType: many
+
+ScheduleOfQuantityTrade:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: soq_trades
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    soq_trade_id_idx:
+      fields: [id, schedule_of_quantity_id, identifier_type]
+    soq_trade_identifier_id_idx:
+      fields: [third_party_identifier]
+    soq_trade_unique_idx:
+      fields: [schedule_of_quantity_id, priority, deleted_at]
+      type: unique
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    schedule_of_quantity_id: { type: integer, notnull: true }
+    third_party_identifier:  { type: varchar(255), notnull: false, default: null }
+    identifier_type:         { type: integer(4), notnull: true }
+    description:             { type: string, notnull: false }
+    priority:                { type: integer, notnull: true, default: 0 }
+  relations:
+    ScheduleOfQuantity:
+      local: schedule_of_quantity_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfQuantityTrades
+      foreignType: many
+
+ScheduleOfQuantityItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: soq_items
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    soq_items_id_idx:
+      fields: [id, root_id, lft, rgt, identifier_type]
+    soq_items_identifier_id_idx:
+      fields: [third_party_identifier]
+    soq_items_type_idx:
+      fields: [type]
+    soq_items_fk_idx:
+      fields: [schedule_of_quantity_trade_id, root_id, uom_id]
+  columns:
+    id:                            { type: integer, primary: true, notnull: true, autoincrement: true }
+    third_party_identifier:        { type: varchar(255), notnull: false, default: null }
+    identifier_type:               { type: integer(4), notnull: true }
+    description:                   { type: string, notnull: false }
+    type:                          { type: integer(4), notnull: true }
+    schedule_of_quantity_trade_id: { type: integer, notnull: true }
+    uom_id:                        { type: integer, notnull: false }
+    priority:                      { type: integer, notnull: true, default: 0 }
+  relations:
+    Trade:
+      class: ScheduleOfQuantityTrade
+      local: schedule_of_quantity_trade_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfQuantityItems
+      foreignType: many
+
+ScheduleOfQuantityItemFormulatedColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: soq_item_formulated_columns
+  actAs: [FormulatedColumn, Timestampable, Signable, SoftDelete]
+  indexes:
+    soq_ifc_id_idx:
+      fields: [id, relation_id, value, final_value, column_name, deleted_at]
+    soq_ifc_rel_idx:
+      fields: [relation_id]
+  columns:
+    id:           { type: integer, primary: true, notnull: true, autoincrement: true }
+    linked:       { type: boolean, default: false}
+    has_build_up: { type: boolean, default: false}
+  relations:
+    ScheduleOfQuantityItem:
+      local: relation_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: FormulatedColumns
+      foreignType: many
+
+ScheduleOfQuantityItemEdge:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: soq_item_edges
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    soq_item_edge_id_idx:
+      fields: [id, node_from, node_to, column_name, deleted_at]
+    soq_item_edge_fk_idx:
+      fields: [node_from, node_to]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    node_from:   { type: integer, notnull: true }
+    node_to:     { type: integer, notnull: true }
+    column_name: { type: string(50), notnull: true }
+  relations:
+    NodeFrom:
+      class: ScheduleOfQuantityItemFormulatedColumn
+      local: node_from
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeFromEdges
+      foreignType: many
+    NodeTo:
+      class: ScheduleOfQuantityItemFormulatedColumn
+      local: node_to
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeToEdges
+      foreignType: many
+
+ScheduleOfQuantityBuildUpItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: soq_build_up_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    soq_bu_item_id_idx:
+      fields: [id, schedule_of_quantity_item_id, can_edit, deleted_at]
+    soq_bu_item_fk_idx:
+      fields: [schedule_of_quantity_item_id]
+  columns:
+    id:                           { type: integer, primary: true, notnull: true, autoincrement: true }
+    schedule_of_quantity_item_id: { type: integer, notnull: true }
+    description:                  { type: string, notnull: false }
+    total:                        { type: decimal, scale: 5, default: 0 }
+    sign:                         { type: integer(1), notnull: true, default: 1 }
+    priority:                     { type: integer, notnull: true, default: 0 }
+    can_edit:                     { type: boolean, default: true }
+  relations:
+    ScheduleOfQuantityItem:
+      local: schedule_of_quantity_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpQuantities
+      foreignType: many
+
+ScheduleOfQuantityBuildUpFormulatedColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: soq_build_up_formulated_columns
+  actAs: [FormulatedColumn, Timestampable, Signable, SoftDelete]
+  indexes:
+    soq_bufc_id_idx:
+      fields: [id, relation_id, value, final_value, column_name, deleted_at]
+    soq_bufc_rel_idx:
+      fields: [relation_id]
+  columns:
+    id: { type: integer, primary: true, notnull: true, autoincrement: true }
+  relations:
+    BuildUpQuantityItem:
+      class: ScheduleOfQuantityBuildUpItem
+      local: relation_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: FormulatedColumns
+      foreignType: many
+
+ScheduleOfQuantityBuildUpEdge:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: soq_build_up_edges
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    soq_bue_id_idx:
+      fields: [id, node_from, node_to, column_name, deleted_at]
+    soq_bue_fk_idx:
+      fields: [node_from, node_to]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    node_from:   { type: integer, notnull: true }
+    node_to:     { type: integer, notnull: true }
+    column_name: { type: string(50), notnull: true }
+  relations:
+    NodeFrom:
+      class: ScheduleOfQuantityBuildUpFormulatedColumn
+      local: node_from
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeFromEdges
+      foreignType: many
+    NodeTo:
+      class: ScheduleOfQuantityBuildUpFormulatedColumn
+      local: node_to
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeToEdges
+      foreignType: many
+
+ScheduleOfQuantityBillItemXref:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: soq_bill_item_xrefs
+  actAs: [Timestampable, Signable]
+  indexes:
+    soq_bi_xref_id_idx:
+      fields: [id, schedule_of_quantity_item_id, bill_item_id, bill_column_setting_id, type]
+    soq_bi_xref_fk_idx:
+      fields: [schedule_of_quantity_item_id, bill_item_id, bill_column_setting_id]
+    soq_bi_xref_unique_idx:
+      fields: [schedule_of_quantity_item_id, bill_item_id, bill_column_setting_id, type]
+      type: unique
+  columns:
+    id:                           { type: integer, primary: true, notnull: true, autoincrement: true }
+    schedule_of_quantity_item_id: { type: integer, notnull: true }
+    bill_item_id:                 { type: integer, notnull: true }
+    bill_column_setting_id:       { type: integer, notnull: true }
+    type:                         { type: integer(2), notnull: true }
+  relations:
+    ScheduleOfQuantityItem:
+      local: schedule_of_quantity_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItems
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfQuantities
+      foreignType: many
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfQuantities
+      foreignType: many

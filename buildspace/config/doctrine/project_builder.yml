@@ -1,0 +1,347 @@
+ProjectStructure:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: project_structures
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    project_struct_id_idx:
+      fields: [id, root_id, type, lft, rgt]
+    project_struct_fk_idx:
+      fields: [root_id]
+  columns:
+    id:               { type: integer, primary: true, notnull: true, autoincrement: true }
+    title:            { type: string, notnull: true  }
+    type:             { type: integer, notnull: true }
+    priority:         { type: integer, notnull: true, default: 0 }
+    tender_origin_id: { type: string, notnull:false, default: null }
+    bill_refreshed:   { type: boolean, default: false }
+    project_revision_id: {type: integer, notnull: false, default: null}
+  relations:
+    ProjectRevision:
+      local: project_revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignType: many
+
+# store Project's Revision (Addendum)
+ProjectRevision:
+  connection: main_conn
+  options:
+    orderBy: id
+    symfony:
+      filter: false
+  tableName: project_revisions
+  actAs:
+    Timestampable:
+    SoftDelete:
+    Signable:
+  indexes:
+    project_revision_version_idx:
+      fields: [project_structure_id, version, current_selected_revision]
+      type: unique
+  columns:
+    project_structure_id:      { type: integer }
+    revision:                  { type: varchar(100), default: Original Bill }
+    version:                   { type: integer(2), default: 0, unsigned: true }
+    current_selected_revision: { type: boolean, default: false }
+    locked_status:             { type: boolean, default: false }
+    tender_origin_id:          { type: string, notnull:false, default: null }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: ProjectRevisions
+      onDelete: CASCADE
+
+sfGuardProjectGroup:
+  connection: main_conn
+  options:
+    symfony:
+      form:   false
+      filter: false
+  actAs: [Timestampable]
+  indexes:
+    sf_guard_project_group_fk_idx:
+      fields: [group_id, project_structure_id]
+  columns:
+    group_id:
+      type: integer
+      primary: true
+    project_structure_id:
+      type: integer
+      primary: true
+  relations:
+    Group:
+      class: sfGuardGroup
+      local: group_id
+      onDelete: CASCADE
+    Project:
+      local: project_structure_id
+      onDelete: CASCADE
+
+sfGuardTenderingProjectGroup:
+  connection: main_conn
+  options:
+    symfony:
+      form:   false
+      filter: false
+  actAs: [Timestampable]
+  indexes:
+    sf_guard_tendering_project_group_fk_idx:
+      fields: [group_id, project_structure_id]
+  columns:
+    group_id:
+      type: integer
+      primary: true
+    project_structure_id:
+      type: integer
+      primary: true
+  relations:
+    Group:
+      class: sfGuardGroup
+      local: group_id
+      onDelete: CASCADE
+    Project:
+      local: project_structure_id
+      onDelete: CASCADE
+
+sfGuardPostContractProjectGroup:
+  connection: main_conn
+  options:
+    symfony:
+      form:   false
+      filter: false
+  actAs: [Timestampable]
+  indexes:
+    sf_guard_post_contract_project_group_fk_idx:
+      fields: [group_id, project_structure_id]
+  columns:
+    group_id:
+      type: integer
+      primary: true
+    project_structure_id:
+      type: integer
+      primary: true
+  relations:
+    Group:
+      class: sfGuardGroup
+      local: group_id
+      onDelete: CASCADE
+    Project:
+      local: project_structure_id
+      onDelete: CASCADE
+
+ProjectMainInformation:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: project_main_information
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    project_main_info_id_idx:
+      fields: [id, project_structure_id, deleted_at]
+    project_eproject_origin_id:
+      fields: [eproject_origin_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    eproject_origin_id:   { type: integer, notnull: false, default: null }
+    title:                { type: string, notnull: true  }
+    description:          { type: string, notnull: false }
+    project_structure_id: { type: integer, notnull: true }
+    region_id:            { type: integer, notnull: false }
+    subregion_id:         { type: integer, notnull: false }
+    site_address:         { type: text, notnull: true }
+    status:               { type: integer, notnull: false }
+    currency_id:          { type: integer, notnull: false }
+    client:               { type: string(255), notnull: false }
+    tender_type_id:       { type: integer, notnull: false, default: null }
+    work_category_id:     { type: integer, notnull: false, default: null }
+    start_date:           { type: date, notnull: false }
+    published_at:         { type: timestamp }
+    unique_id:            { type: string, notnull: false, default: null}
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: MainInformation
+      foreignType: one
+    WorkCategory:
+      local: work_category_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Projects
+      foreignType: many
+    Regions:
+      local: region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ProjectsInformation
+      foreignType: many
+    Subregions:
+      local: subregion_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ProjectsInformation
+      foreignType: many
+    Currency:
+      local: currency_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ProjectsInformation
+      foreignType: many
+
+ProjectLevel:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: project_levels
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    project_lvl_id_idx:
+      fields: [id, project_structure_id, deleted_at]
+    project_lvl_fk_idx:
+      fields: [project_structure_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    title:                { type: string(200), notnull: true }
+    description:          { type: string, notnull: false }
+    project_structure_id: { type: integer, notnull: true }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Level
+      foreignType: one
+
+BillCollectionPage:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_collection_pages
+  actAs: [Timestampable]
+  indexes:
+    bill_collection_page_idx:
+      fields: [element_id, revision_id, page_no]
+  columns:
+    element_id:   { type: integer, notnull: true }
+    revision_id:  { type: integer, default: null }
+    page_no:      { type: varchar(80) }
+  relations:
+    Element:
+      class: BillElement
+      local: element_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignType: many
+      foreignAlias: BillCollectionPages
+    Revision:
+      class: ProjectRevision
+      local: revision_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: RevisionCollectionPages
+      onDelete: CASCADE
+
+BillPage:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_pages
+  actAs: [Timestampable]
+  indexes:
+    bill_page_idx:
+      fields: [element_id, page_no, revision_id, new_revision_id]
+  columns:
+    element_id:       { type: integer, notnull: true }
+    page_no:          { type: varchar(80) }
+    revision_id:      { type: integer, notnull: true }
+    new_revision_id:  { type: integer }
+    total_amount:     { type: text, default: null }
+    tender_origin_id: { type: string, notnull:false, default: null }
+  relations:
+    Element:
+      class: BillElement
+      local: element_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignType: many
+      foreignAlias: BillPages
+    OldRevision:
+      class: ProjectRevision
+      local: revision_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: OldRevisionBillPages
+      onDelete: CASCADE
+    NewRevision:
+      class: ProjectRevision
+      local: new_revision_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: NewRevisionBillPages
+      onDelete: CASCADE
+
+BillPageItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_page_items
+  actAs: [Timestampable]
+  indexes:
+    bill_page_item_idx:
+      fields: [bill_page_id, bill_item_id]
+  columns:
+    bill_page_id:               { type: integer, notnull: true }
+    bill_item_id:               { type: integer, notnull: true }
+    new_item_from_new_revision: { type: boolean, default: false }
+    tender_origin_id:           { type: string, notnull:false, default: null }
+  relations:
+    Items:
+      class: BillItem
+      local: bill_item_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: BillPages
+      onDelete: CASCADE
+    Page:
+      class: BillPage
+      local: bill_page_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: Items
+      onDelete: CASCADE

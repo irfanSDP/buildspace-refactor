@@ -1,0 +1,52 @@
+<div>
+    <form class="${baseClass}" data-dojo-type="dojox/form/Manager" style="padding: 0 5px;">
+        <fieldset style="margin-bottom: 10px;">
+            <table class="table-form">
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.invoiceNo}:</label>
+                    </td>
+                    <td style="color: red;">${formInfo.stock_in_invoice[invoice_no]}</td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.selectPO}:</label>
+                    </td>
+                    <td style="color: red;">${formInfo.stock_in_invoice[selected_po_name]}</td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.supplier}:</label>
+                    </td>
+                    <td>${formInfo.stock_in_invoice[selected_supplier_name]}</td>
+                </tr>
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.term}:</label>
+                    </td>
+                    <td>${formInfo.stock_in_invoice[term_type_text]}</td>
+                </tr>
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.date_of_invoice}:</label>
+                    </td>
+                    <td>${formInfo.stock_in_invoice[invoice_date_text]}</td>
+                </tr>
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.uploadFile}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="invoiceFileUploadContainer-${invoiceId}"></div>
+
+                        <!--will include download link to download attached file-->
+                        <div data-dojo-attach-point="invoiceFileDownloadLink-${invoiceId}" style="display: none;"></div>
+
+                        <!--will include remove link to remove attached file-->
+                        <div data-dojo-attach-point="invoiceFileRemoveLink-${invoiceId}" style="display: none;"></div>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>

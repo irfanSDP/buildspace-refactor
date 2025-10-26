@@ -1,0 +1,30 @@
+<?php
+
+return array(
+    'day'                           => 'Day',
+    'days'                          => 'Days',
+    'month'                         => 'Month',
+    'months'                        => 'Months',
+    'year'                          => 'Year',
+    'years'                         => 'Years',
+    'daily'                         => 'Daily',
+    'monthly'                       => 'Monthly',
+    'quarterly'                     => 'Quarterly',
+    'quarter1'                      => 'Quarter 1',
+    'quarter2'                      => 'Quarter 2',
+    'quarter3'                      => 'Quarter 3',
+    'quarter4'                      => 'Quarter 4',
+    'yearly'                        => 'Yearly',
+    'january'                       => 'January',
+    'february'                      => 'February',
+    'march'                         => 'March',
+    'april'                         => 'April',
+    'may'                           => 'May',
+    'june'                          => 'June',
+    'july'                          => 'July',
+    'august'                        => 'August',
+    'september'                     => 'September',
+    'october'                       => 'October',
+    'november'                      => 'November',
+    'december'                      => 'December'
+);

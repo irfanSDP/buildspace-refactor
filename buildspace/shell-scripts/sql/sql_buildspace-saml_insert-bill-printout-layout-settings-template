@@ -1,0 +1,14 @@
+INSERT INTO bs_bill_printout_layout_settings (bill_id, font, rounding_type, size, comma_total, comma_rate, comma_qty, priceformat, print_amt_col_only, print_without_price, print_full_decimal, add_psum_pcsum, print_dollar_cent, print_without_cent, switch_qty_unit_rate, indent_item, includeiandoforbillref, apply_binding_alignment, add_cont, contd, print_element_header, print_element_grid, print_element_grid_once, page_numbering_option, page_no_prefix, print_date_of_printing, print_grand_total_quantity, align_element_to_left, close_grid, created_at, updated_at, created_by, updated_by, deleted_at)
+VALUES (NULL, 'Arial', 1, 12, FALSE, FALSE, FALSE, 'normal', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, '(CONT''d)', TRUE, TRUE, FALSE, 'numericElement', NULL, FALSE, FALSE, FALSE, TRUE, NOW(), NOW(), NULL, NULL, NULL);
+
+INSERT INTO bs_bill_printout_layout_head_settings (bill_layout_setting_id, head, bold, underline, italic, created_at, updated_at, created_by, updated_by, deleted_at)
+VALUES
+    (1, 1, TRUE, TRUE, FALSE, NOW(), NOW(), NULL, NULL, NULL),
+	(1, 2, TRUE, FALSE, FALSE, NOW(), NOW(), NULL, NULL, NULL),
+	(1, 3, FALSE, TRUE, FALSE, NOW(), NOW(), NULL, NULL, NULL),
+	(1, 4, FALSE, FALSE, FALSE, NOW(), NOW(), NULL, NULL, NULL),
+	(1, 5, FALSE, FALSE, FALSE, NOW(), NOW(), NULL, NULL, NULL),
+	(1, 6, FALSE, FALSE, FALSE, NOW(), NOW(), NULL, NULL, NULL);
+
+INSERT INTO bs_bill_printout_layout_phrases (bill_layout_setting_id, to_collection, table_header_description, table_header_unit, table_header_qty, table_header_rate, table_header_amt, currency, cents, collection_in_grid, summary, summary_in_grid, totalperunitprefix, totalunitprefix, totalpertypeprefix, summary_page_no, summary_tender, summary_page_one, summary_page_two, summary_page_three, summary_page_four, summary_page_five, summary_page_six, summary_page_seven, summary_page_eight, summary_page_nine, element_header_bold, element_header_underline, element_header_italic, element_footer_bold, element_footer_underline, element_footer_italic, element_note_top_left_row1, element_note_top_left_row2, element_note_top_right_row1, element_note_bot_left_row1, element_note_bot_left_row2, element_note_bot_right_row1, element_note_bot_right_row2, created_at, updated_at, created_by, updated_by, deleted_at)
+VALUES (1, 'To Collection', 'Description', 'Unit', 'Qty', 'Rate', 'Amount', 'RM', 'sen', 'Collection', 'Summary', 'Summary', 'Total per Unit', 'Total Unit(s)', 'Total per Type', 'Page No', 'Total Amount To Form Of Tender', 'Summary Page I', 'Summary Page II', 'Summary Page III', 'Summary Page IV', 'Summary Page V', 'Summary Page VI', 'Summary Page VII', 'Summary Page VIII', 'Summary Page IX', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, '', '', '', '', '', '', '', NOW(), NOW(), NULL, NULL, NULL)

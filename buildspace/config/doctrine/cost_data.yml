@@ -1,0 +1,317 @@
+CostData:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: true
+  tableName: cost_data
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    cost_data_id_idx:
+      fields: [id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    master_cost_data_id:  { type: integer, notnull: true }
+    name:                 { type: string(200), notnull: true }
+    subsidiary_id:        { type: integer, notnull: true }
+    approved_date:        { type: timestamp, notnull: false }
+    awarded_date:         { type: timestamp, notnull: false }
+    adjusted_date:        { type: timestamp, notnull: false }
+    cost_data_type_id:    { type: integer, notnull: true }
+    region_id:            { type: integer, notnull: true }
+    subregion_id:         { type: integer, notnull: true }
+    currency_id:          { type: integer, notnull: true }
+    tender_date:          { type: timestamp, notnull: false }
+    award_date:           { type: timestamp, notnull: false }
+  relations:
+    MasterCostData:
+      local: master_cost_data_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostData
+      foreignType: many
+    CostDataType:
+      local: cost_data_type_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostData
+      foreignType: many
+    Region:
+      class: Regions
+      local: region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostData
+      foreignType: many
+    SubRegion:
+      class: Subregions
+      local: sub_region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostData
+      foreignType: many
+    Currency:
+      local: currency_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostData
+      foreignType: many
+
+CostDataParticular:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: cost_data_particulars
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    cost_data_particular_id_idx:
+      fields: [id]
+    cost_data_particular_fk_idx:
+      fields: [cost_data_id, master_cost_data_particular_id]
+  columns:
+    id:                             { type: integer, primary: true, notnull: true, autoincrement: true }
+    cost_data_id:                   { type: integer, notnull: true }
+    master_cost_data_particular_id: { type: integer, notnull: true }
+    value:                          { type: decimal, scale: 5, default: 0 }
+  relations:
+    CostData:
+      local: cost_data_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataParticular
+      foreignType: many
+    MasterCostDataParticular:
+      local: master_cost_data_particular_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataParticular
+      foreignType: many
+
+CostDataItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: cost_data_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    cost_data_item_id_idx:
+      fields: [id]
+    cost_data_item_fk_idx:
+      fields: [cost_data_id, master_cost_data_item_id]
+  columns:
+    id:                       { type: integer, primary: true, notnull: true, autoincrement: true }
+    cost_data_id:             { type: integer, notnull: true }
+    master_cost_data_item_id: { type: integer, notnull: true }
+    show:                     { type: boolean, notnull: true, default: true }
+    approved_cost:            { type: decimal, scale: 5, default: 0 }
+    awarded_cost:             { type: decimal, scale: 5, default: 0 }
+    conversion_factor:        { type: decimal, scale: 5, default: 1 }
+    remarks:                  { type: string, notnull: false  }
+    variation_order_cost:     { type: decimal, scale: 5, notnull: true, default: 0 }
+  relations:
+    CostData:
+      local: cost_data_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataItem
+      foreignType: many
+    MasterCostDataItem:
+      local: master_cost_data_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataItem
+      foreignType: many
+
+BillItemCostDataItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: bill_item_cost_data_item
+  actAs: [Timestampable, Signable]
+  indexes:
+    cost_data_item_bill_item_id_idx:
+      fields: [id]
+    cost_data_item_bill_item_unique_idx:
+      fields: [cost_data_item_id, bill_item_id]
+      type: unique
+  columns:
+    id:                 { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_id:       { type: integer, notnull: true }
+    cost_data_item_id:  { type: integer, notnull: true }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemCostDataItem
+      foreignType: many
+    CostDataItem:
+      local: cost_data_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemCostDataItem
+      foreignType: many
+
+CostDataProject:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: cost_data_project
+  actAs: [Timestampable, Signable]
+  indexes:
+    cost_data_project_id_idx:
+      fields: [id]
+    cost_data_project_fk_idx:
+      fields: [cost_data_id, project_structure_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    cost_data_id:         { type: integer, notnull: true }
+    project_structure_id: { type: integer, notnull: true }
+  relations:
+    CostData:
+      local: cost_data_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataProject
+      foreignType: many
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataProject
+      foreignType: many
+
+CostDataProjectInformation:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: cost_data_project_information
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    cost_data_project_information_id_idx:
+      fields: [id]
+    cost_data_project_information_fk_idx:
+      fields: [cost_data_id, master_cost_data_project_information_id]
+  columns:
+    id:                                       { type: integer, primary: true, notnull: true, autoincrement: true }
+    cost_data_id:                             { type: integer, notnull: true }
+    master_cost_data_project_information_id:  { type: integer, notnull: true }
+    description:                              { type: string, notnull: false }
+  relations:
+    CostData:
+      local: cost_data_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataProjectInformation
+      foreignType: many
+    MasterCostDataProjectInformation:
+      local: master_cost_data_project_information_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataProjectInformation
+      foreignType: many
+
+VariationOrderItemCostDataItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: variation_order_item_cost_data_item
+  actAs: [Timestampable, Signable]
+  indexes:
+    cost_data_item_variation_order_item_id_idx:
+      fields: [id]
+    cost_data_item_variation_order_item_unique_idx:
+      fields: [cost_data_item_id, variation_order_item_id]
+      type: unique
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    variation_order_item_id: { type: integer, notnull: true }
+    cost_data_item_id:       { type: integer, notnull: true }
+  relations:
+    VariationOrderItem:
+      local: variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: VariationOrderItemCostDataItem
+      foreignType: many
+    CostDataItem:
+      local: cost_data_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: VariationOrderItemCostDataItem
+      foreignType: many
+
+CostDataNodelessItemRemark:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: cost_data_nodeless_item_remarks
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    cost_data_nodeless_item_remarks_id_idx:
+      fields: [id]
+    cost_data_nodeless_item_remarks_unique_idx:
+      fields: [cost_data_id, type]
+      type: unique
+  columns:
+    id:            { type: integer, primary: true, notnull: true, autoincrement: true }
+    cost_data_id:  { type: integer, notnull: true }
+    type:          { type: integer, notnull: true }
+    remarks:       { type: string, notnull: false  }
+  relations:
+    CostData:
+      local: cost_data_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CostDataNodelessItemRemarks
+      foreignType: many
+
+CostDataType:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: cost_data_types
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    cost_data_types_id_idx:
+      fields: [id]
+    cost_data_types_unique_idx:
+      fields: [name]
+      type: unique
+  columns:
+    id:   { type: integer, primary: true, notnull: true, autoincrement: true }
+    name: { type: string(200), notnull: true }

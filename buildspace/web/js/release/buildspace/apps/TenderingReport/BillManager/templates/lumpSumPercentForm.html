@@ -1,0 +1,37 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="lumpSumPercentageForm">
+        <fieldset>
+            <legend>${nls.rateAndPercentage}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:140px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.amount} :</label>
+                    </td>
+                    <td>
+                        ${currencyAbbreviation}&nbsp;<input type="text" name="bill_item_lump_sum_percentage[rate]" style="width:120px;" data-dojo-attach-point="rateNode" data-dojo-type="dijit/form/CurrencyTextBox" data-dojo-props="trim:true, required:true">
+                        <p class="alert-text-error" id="error-bill_item_lump_sum_percentage_rate"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.percentage} (%) :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="bill_item_lump_sum_percentage[percentage]" style="width:40px;" data-dojo-attach-point="percentageNode" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="trim:true, required:true, readOnly:true">
+                        <p class="alert-text-error" id="error-bill_item_lump_sum_percentage_percentage"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.total} :</label>
+                    </td>
+                    <td>
+                        ${currencyAbbreviation}&nbsp;<input type="text" name="bill_item_lump_sum_percentage[amount]" style="width:100px;" data-dojo-attach-point="amountNode" data-dojo-type="dijit/form/CurrencyTextBox" data-dojo-props="readOnly:true">
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="bill_item_lump_sum_percentage[_csrf_token]" value="">
+            <input type="hidden" name="id" value="${itemObj.id}">
+        </fieldset>
+    </form>
+</div>

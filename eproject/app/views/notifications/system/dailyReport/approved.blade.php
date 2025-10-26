@@ -1,0 +1,1 @@
+An Daily Report Instruction has been approved.

@@ -1,0 +1,20 @@
+pageGeneratorExceptionSuccess:
+  http_metas:
+    X-UA-Compatible: IE=edge,chrome=1
+    content-type: text/html
+
+  metas:
+    charset:  utf-8
+    language: en
+    robots:   noindex
+    viewport: width=device-width
+
+  stylesheets:    [-buildspace/main.css]
+
+  javascripts:    [-dojotoolkit/dojo/dojo.js, -PxLoader/PxLoader.js, -PxLoader/PxLoaderImage.js, -spin.min.js, -lib/equationParser.js ]
+
+  has_layout: true
+
+  layout: printBQLayout
+
+

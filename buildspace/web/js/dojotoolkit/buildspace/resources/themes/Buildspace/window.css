@@ -1,0 +1,9 @@
+.win { border: 0px; padding: 0px; margin: 0px; }
+.win-title { color: #e5e5e5; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 11px; text-shadow: 1px 1px 1px #000; font-weight: normal; padding-top: 4px; margin-right: 55px; width: auto; overflow: hidden; padding-left: 0px; position: relative; }
+.win-tr, .win-tl { height: 20px; }
+.win-tr { padding-right: 10px; }
+.win-tl { background-color: rgba(35, 35, 35, .85); padding-left: 10px; }
+.win-mc { background-color: white; margin-bottom: 14px; }
+.win > .win-bmw { top: 20px; }
+.win-bc { background-color: rgba(35, 35, 35, .85);padding-top:2px; height: 14px; color: #000; font-family: arial, helvetica, sans-serif; font-size: 9px; text-shadow: 1px 1px 1px #FFFFFF; text-align: center; }
+

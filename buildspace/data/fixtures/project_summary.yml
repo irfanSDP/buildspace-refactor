@@ -1,0 +1,11 @@
+ProjectSummaryDefaultSetting:
+  ProjectSummary_1:
+    first_row_text: TOTAL CARRIED TO FORM OF TENDER
+    second_row_text: ( COMPLETION PERIOD : ________ WEEKS )
+    left_text: ..............................................................................................<div style="text-align: center;">TENDERER'S SIGNATURE</div><div style="text-align: center;"><br /></div><div style="text-align: left;">FULL NAME: ........................................................................</div><div style="text-align: left;"><br /></div><div style="text-align: left;">IN THE CAPACITY OF: ........................................................</div><div style="text-align: left;"><br /></div><div style="text-align: left;"><font size="1">Duly authorised to sign this Tender for and on behalf of :</font></div><div style="text-align: left;"><br /></div><div style="text-align: left;"><br /></div><div style="text-align: left;"><br /></div><div style="text-align: left;">..............................................................................................</div><div style="text-align: center;">TENDERER'S STAMP OR SEAL</div><div style="text-align: center;"><br /></div><div style="text-align: left;">DATE: ..................................</div>
+    right_text: .....................................................................................<div style="text-align: center;">WITNESS'S SIGNATURE</div><div style="text-align: center;"><br /></div><div>FULL NAME: ...............................................................</div><div><br /></div><div>DESIGNATION: ...........................................................</div><div><br /></div><div>ADDRESS: ...................................................................</div><div><br /></div><div>.....................................................................................</div><div><br /></div><div>.....................................................................................</div><div><br /></div><div style="text-align: center;"><br /></div><div>DATE: ..................................</div>
+    summary_title: TENDER SUMMARY
+    include_printing_date: true
+    carried_to_next_page_text: CARRIED FORWARD TO NEXT SUMMARY PAGE
+    continued_from_previous_page_text: CONTINUED FROM PREVIOUS SUMMARY PAGE
+    page_number_prefix: ST/

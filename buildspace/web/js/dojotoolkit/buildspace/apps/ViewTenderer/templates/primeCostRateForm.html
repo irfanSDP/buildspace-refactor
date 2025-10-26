@@ -1,0 +1,66 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="primeCostRateForm">
+        <fieldset>
+            <legend>${nls.ratePerNo}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:140px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.supplyRate} :</label>
+                    </td>
+                    <td>
+                        ${currencyAbbreviation}&nbsp;<input type="text" name="tender_bill_item_prime_cost_rate[supply_rate]" style="width:120px;padding:2px;" data-dojo-attach-point="supplyRateNode" data-dojo-type="dijit/form/CurrencyTextBox" data-dojo-props="trim:true, required:true">
+                        <p class="alert-text-error" id="error-tender_bill_item_prime_cost_rate_supply_rate"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.wastage} (%) :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="tender_bill_item_prime_cost_rate[wastage_percentage]" style="width:40px;padding:2px;" data-dojo-attach-point="wastagePercentageNode" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="trim:true">
+                        ${currencyAbbreviation}&nbsp;<input type="text" name="tender_bill_item_prime_cost_rate[wastage_amount]" style="width:100px;padding:2px;" data-dojo-attach-point="wastageAmountNode" data-dojo-type="dijit/form/CurrencyTextBox" data-dojo-props="readOnly:true">
+                        <p class="alert-text-error" id="error-tender_bill_item_prime_cost_rate_wastage_percentage"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.labourForInstallation} :</label>
+                    </td>
+                    <td>
+                        ${currencyAbbreviation}&nbsp;<input type="text" name="tender_bill_item_prime_cost_rate[labour_for_installation]" style="width:120px;padding:2px;" data-dojo-attach-point="labourForInstallationNode" data-dojo-type="dijit/form/CurrencyTextBox" data-dojo-props="trim:true">
+                        <p class="alert-text-error" id="error-tender_bill_item_prime_cost_rate_labour_for_installation"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.otherCost} :</label>
+                    </td>
+                    <td>
+                        ${currencyAbbreviation}&nbsp;<input type="text" name="tender_bill_item_prime_cost_rate[other_cost]" style="width:120px;" data-dojo-attach-point="otherCostNode" data-dojo-type="dijit/form/CurrencyTextBox" data-dojo-props="trim:true">
+                        <p class="alert-text-error" id="error-tender_bill_item_prime_cost_rate_other_cost"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.profit} (%) :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="tender_bill_item_prime_cost_rate[profit_percentage]" style="width:40px;" data-dojo-attach-point="profitPercentageNode" data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="trim:true">
+                        ${currencyAbbreviation}&nbsp;<input type="text" name="tender_bill_item_prime_cost_rate[profit_amount]" style="width:100px;" data-dojo-attach-point="profitAmountNode" data-dojo-type="dijit/form/CurrencyTextBox" data-dojo-props="readOnly:true">
+                        <p class="alert-text-error" id="error-tender_bill_item_prime_cost_rate_profit_percentage"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.total} :</label>
+                    </td>
+                    <td>${currencyAbbreviation}&nbsp;<input type="text" name="tender_bill_item_prime_cost_rate[total]" style="width:120px;" data-dojo-attach-point="totalNode" data-dojo-type="dijit/form/CurrencyTextBox" data-dojo-props="readOnly:true"></td>
+                </tr>
+            </table>
+            <input type="hidden" name="tender_bill_item_prime_cost_rate[_csrf_token]" value="">
+            <input type="hidden" name="id" value="${itemObj.id}">
+            <input type="hidden" name="pid" value="${projectId}">
+            <input type="hidden" name="cid" value="${companyId}">
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,54 @@
+<div>
+    <form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="invoiceForm" style="padding: 0 5px;">
+        <fieldset style="margin-bottom: 10px;">
+            <table class="table-form">
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.invoiceNo}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="stock_in_invoice[invoice_no]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="padding:2px;width:180px;">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-invoice_no"></span>
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-project_structure_id"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.selectPO}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="purchaseOrderSelection"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.supplier}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="supplierDivNode">-</div>
+                    </td>
+                </tr>
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.term}:</label>
+                    </td>
+                    <td style="border-spacing: 0;">
+                        <div data-dojo-attach-point="termTypeSelection"></div>
+                    </td>
+                </tr>
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.date_of_invoice}:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="stock_in_invoice[invoice_date]" style="padding:2px;width:180px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="constraints:{ datePattern : 'dd/MM/yyyy' }" value="now" required="true">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-invoice_date"></span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <input data-dojo-attach-point="projectStructureIdInput" type="hidden" name="stock_in_invoice[project_structure_id]" value="">
+        <input type="hidden" name="stock_in_invoice[_csrf_token]" value="">
+    </form>
+</div>

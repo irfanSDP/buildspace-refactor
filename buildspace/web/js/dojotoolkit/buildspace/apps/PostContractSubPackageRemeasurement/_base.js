@@ -1,0 +1,86 @@
+define(["../../../dojo/_base/declare",
+    "dojo/when",
+    'buildspace/apps/PostContractSubPackage/Builder',
+    './RemeasurementContainer',
+    'dojo/i18n!buildspace/nls/PostContractRemeasurement'
+    ], function(declare, when, PostContractSubPackageBuilder, RemeasurementContainer, nls) {
+
+    var Base = declare('buildspace.apps.PostContractSubPackageRemeasurement', buildspace.apps._App, {
+        win: null,
+        type: null,
+        opt: null,
+        project: null,
+        subPackage: null,
+        init: function(args){
+            this.type       = args.type;
+            this.subPackage = args.subPackage;
+
+            var project = this.project = args.project,
+                opt = this.opt = args.opt,
+                container = new dijit.layout.BorderContainer({
+                    style:"padding:0;width:100%;height:100%;",
+                    gutters: false,
+                    liveSplitters: true
+                });
+
+            var win = this.win = new buildspace.widget.Window({
+                title: nls.postContract + ' > ' + nls.subPackage + ' ' + nls.remeasureProvisional + ' (' + nls[opt] + ')' + ' - ' + buildspace.truncateString(project.title, 100),
+                onClose: dojo.hitch(this, "kill")
+            });
+
+            var toolbar = new dijit.Toolbar({region:"top", style:"outline:none!important;border-top:0px;padding:2px;overflow:hidden;"});
+
+            toolbar.addChild(
+                new dijit.form.Button({
+                    label: nls.backToSubPackage,
+                    iconClass: "icon-16-container icon-16-directional_left",
+                    style:"outline:none!important;",
+                    onClick: dojo.hitch(this, 'openSubPackageWin', project)
+                })
+            );
+
+            var remeasurementContainer = new RemeasurementContainer({
+                project: project,
+                subPackage: this.subPackage,
+                region: "center",
+                opt: opt
+            });
+
+            remeasurementContainer.startup();
+
+            container.addChild(toolbar);
+            container.addChild(remeasurementContainer);
+
+            win.addChild(container);
+            win.show();
+            win.startup();
+        },
+        openSubPackageWin: function(project){
+            var self = this;
+
+            this.kill();
+            this.project = project;
+            this.opt = null;
+            this.win = new buildspace.widget.Window({
+                title: nls.postContractReport + ' > ' + buildspace.truncateString(project.title, 100) + ' (' + nls.status + '::' + project.status[0].toUpperCase() + ')',
+                onClose: dojo.hitch(this, "kill")
+            });
+
+            var builder = new PostContractSubPackageBuilder({
+                project: project,
+                subPackage: self.subPackage
+            });
+
+            this.win.addChild(builder);
+            this.win.show();
+            this.win.startup();
+        },
+        kill: function(){
+            if (typeof(this.win) != "undefined"){
+                this.win.close();
+            }
+        }
+    });
+
+    return Base;
+});

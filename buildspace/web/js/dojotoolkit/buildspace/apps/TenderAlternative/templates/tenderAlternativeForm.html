@@ -1,0 +1,29 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="tenderAlternativeForm">
+        <fieldset>
+            <legend>${nls.tenderAlternativeInformation}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.title} :</label>
+                    </td>
+                    <td colspan="3">
+                        <input type="text" name="tender_alternative[title]" style="padding:2px;width:240px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:true">
+                        <p class="alert-text-error" id="error-tender_alternative_title"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.description} :</label>
+                    </td>
+                    <td colspan="3">
+                        <textarea name="tender_alternative[description]" style="width:240px;padding:2px;min-height:30px;_height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="tender_alternative[project_structure_id]" value="">
+            <input type="hidden" name="tender_alternative[_csrf_token]" value="">
+            <input type="hidden" name="id" value="${tenderAlternativeId}">
+        </fieldset>
+    </form>
+</div>

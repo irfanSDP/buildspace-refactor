@@ -1,0 +1,28 @@
+<div class="forms-inputs">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="myForm">
+        <fieldset>
+            <legend>Reserve Words Styling</legend>
+
+            <p>
+                <a data-dojo-attach-point="addReserveWord" href="#">Add Reserve Word</a>
+            </p>
+
+            <table id="reserveWordTable">
+                <thead>
+                    <tr>
+                        <th>Text</th>
+                        <th>Bold</th>
+                        <th>Underline</th>
+                        <th>Italic</th>
+                        <th>Color</th>
+                    </tr>
+                </thead>
+                <tbody data-dojo-attach-point="tableContainer">
+                </tbody>
+            </table>
+
+            <input type="hidden" name="projectId" value="${projectId}">
+            <input type="hidden" name="type" value="reserveWords">
+        </fieldset>
+    </form>
+</div>

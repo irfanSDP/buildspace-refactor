@@ -1,0 +1,50 @@
+<?php
+/**
+ * SAML 2.0 remote IdP metadata for SimpleSAMLphp.
+ *
+ * Remember to remove the IdPs you don't use from this file.
+ *
+ * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-idp-remote 
+ */
+
+$metadata['https://' . getenv('SAMLAUTH_HOST') . '/saml2/idp/metadata.php'] = array (
+  'metadata-set' => 'saml20-idp-remote',
+  'entityid' => 'https://' . getenv('SAMLAUTH_HOST') . '/saml2/idp/metadata.php',
+  'SingleSignOnService' =>
+  array (
+    0 =>
+    array (
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+      'Location' => 'https://' . getenv('SAMLAUTH_HOST') . '/saml2/idp/SSOService.php',
+    ),
+  ),
+  'SingleLogoutService' =>
+  array (
+    0 =>
+    array (
+      'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+      'Location' => 'https://' . getenv('SAMLAUTH_HOST') . '/saml2/idp/SingleLogoutService.php',
+    ),
+  ),
+  'certData' => 'MIIDoDCCAogCCQCxx9H89VKn2DANBgkqhkiG9w0BAQsFADCBkTELMAkGA1UEBhMC
+  bXkxFTATBgNVBAgMDGt1YWxhIGx1bXB1cjEPMA0GA1UEBwwGYW1wYW5nMRMwEQYD
+  VQQKDApidWlsZHNwYWNlMQ0wCwYDVQQLDAQxMzM3MREwDwYDVQQDDAhlcHJvamVj
+  dDEjMCEGCSqGSIb3DQEJARYUYWRtaW5AZ2xvYmFsLXBjay5jb20wHhcNMTgwMzEy
+  MDgyMDQ2WhcNMjgwMzExMDgyMDQ2WjCBkTELMAkGA1UEBhMCbXkxFTATBgNVBAgM
+  DGt1YWxhIGx1bXB1cjEPMA0GA1UEBwwGYW1wYW5nMRMwEQYDVQQKDApidWlsZHNw
+  YWNlMQ0wCwYDVQQLDAQxMzM3MREwDwYDVQQDDAhlcHJvamVjdDEjMCEGCSqGSIb3
+  DQEJARYUYWRtaW5AZ2xvYmFsLXBjay5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IB
+  DwAwggEKAoIBAQDlW30CSzESnDlrHiP7mXyMi22+8nWp8ouYtfl1E5O7EJK/1wOh
+  ZxO0ViCH0pgSiLMjFV7/Ikx25tWkAq3RNG2AcMlDVZE2nl3O0mwJP6E89YSnN3P0
+  H/T4HGEuuhCygW6m9GO0fDrzGNIhUdzRveRFVN63/WAMYj/PXvm6OnO0NlfLH5jG
+  xphaQabE+p5Aor/lHwuSxca4Iu7vJQcb8W2YtZ5T6kaX/DzjwXjkF+s1xXADpI8U
+  O9fwcB/imFa4gjrq+bYJtDhsIOq3DiVkltamMGZ6VwkeMgk2c6dpzTIasIHgRpg7
+  xfgB6cCY32odcYXkn8ldcSLKqCT3d/DH4SpTAgMBAAEwDQYJKoZIhvcNAQELBQAD
+  ggEBAL424Hs+Z6LMeowU2WZ0A+sTtZ9T5B3z5TRYq0jx5JLePLDacsuLv3DRPvg7
+  Ke8ATmZFNh0V850gOfv/XN/PCnXyoZv8zIGY+Tr5BkK44JEio1BEDeJtaNe5v6q3
+  /I/M9g0TKOvYwIiv2EknEphxtebprrkRu+dbmp+dmJT7qylDfYlK0vmDqGj6dkcs
+  h/QgCP/Cz3PgVTFxN8FYWfJ/SMs/Tu6fAvlMFePXVz1Ao6sMHNeF6wrdr1HICFu4
+  PiCIoc5uo+wj6bJPfOBZa43trGx6g54Owq6XxuJZsxJAsuITzIAvWRco2rbxL5Yl
+  W1kukf00kp5V2zSVHdG0lJQ5qdY=',
+  'NameIDFormat' => 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+);

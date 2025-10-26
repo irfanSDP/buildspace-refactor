@@ -1,0 +1,13 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="eventForm">
+        <div><label style="display: inline;"><span class="required">*</span>${nls.country} :</label></div>
+        <div>
+            <div data-dojo-attach-point="countrySelectDivNode"></div>
+        </div>
+        <div style="margin-top:10px; text-align:right">
+            <span style="text-align:right">
+                <button data-dojo-attach-point="saveItemButton" data-dojo-type="dijit.form.Button">${nls.setAsDefaultCalendar}</button>
+            </span>
+        </div>
+    </form>
+</div>

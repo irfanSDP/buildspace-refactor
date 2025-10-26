@@ -1,0 +1,179 @@
+ItemCodeSetting:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+  tableName: item_code_settings
+  indexes:
+    item_code_settings_id_idx:
+      fields: [id, project_structure_id, account_code_id]
+    item_code_settings_fx_idx:
+      fields: [project_structure_id, account_code_id]
+  columns:
+    id:                          { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id:        { type: integer, notnull: true }
+    account_group_id:            { type: integer, notnull: true }
+    account_code_id:             { type: integer, notnull: false }
+    amount:                      { type: decimal, scale: 2, notnull: true , default: 0}
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ItemCodeSetting
+      foreignType: many
+    AccountCode:
+      local: account_code_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ItemCodeSetting
+      foreignType: many
+
+ItemCodeSettingObject:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: true
+  actAs:
+    Timestampable:
+    Signable:
+  tableName: item_code_setting_objects
+  indexes:
+    item_code_setting_object_id_idx:
+      fields: [id, project_structure_id]
+    item_code_setting_object_fx_idx:
+      fields: [project_structure_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id: { type: integer, notnull: true }
+    object_id:            { type: integer, notnull: true }
+    object_type:          { type: string(255), notnull: false }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignAlias: ItemCodeSettingObject
+      foreignType: one
+
+ItemCodeSettingObjectBreakdown:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: true
+  actAs:
+    Timestampable:
+    Signable:
+  tableName: item_code_setting_object_breakdowns
+  indexes:
+    item_code_setting_object_breakdown_id_idx:
+      fields: [id, item_code_setting_object_id, claim_certificate_id, item_code_setting_id]
+    item_code_setting_object_breakdown_fx_idx:
+      fields: [item_code_setting_object_id, claim_certificate_id, item_code_setting_id]
+    item_code_setting_object_breakdown_unique_idx:
+      fields: [item_code_setting_object_id, claim_certificate_id, item_code_setting_id]
+      type: unique
+  columns:
+    id:                              { type: integer, primary: true, notnull: true, autoincrement: true }
+    item_code_setting_object_id:     { type: integer, notnull: true }
+    claim_certificate_id:            { type: integer, notnull: true }
+    item_code_setting_id:            { type: integer, notnull: true }
+    amount:                          { type: decimal, scale: 5, notnull: false }
+  relations:
+    ItemCodeSettingObject:
+      local: item_code_setting_object_id
+      foreign: id
+      type: one
+      foreignAlias: ItemCodeSettingObjectBreakdowns
+      foreignType: many
+    ClaimCertificate:
+      local: claim_certificate_id
+      foreign: id
+      type: one
+      foreignAlias: ItemCodeSettingObjectBreakdowns
+      foreignType: many
+    ItemCodeSetting:
+      local: item_code_setting_id
+      foreign: id
+      type: one
+      foreignAlias: ItemCodeSettingObjectBreakdowns
+      foreignType: many
+
+# ItemCodeSettingBillBreakdown:
+#   connection: main_conn
+#   options:
+#     symfony:
+#       filter: false
+#       form: true
+#   actAs:
+#     Timestampable:
+#     Signable:
+#   tableName: item_code_setting_bill_breakdowns
+#   indexes:
+#     item_code_setting_bill_breakdown_id_idx:
+#       fields: [id, item_code_setting_id, post_contract_claim_revision_id, bill_id]
+#     item_code_setting_bill_breakdown_fx_idx:
+#       fields: [item_code_setting_id, post_contract_claim_revision_id]
+#   columns:
+#     id:                              { type: integer, primary: true, notnull: true, autoincrement: true }
+#     item_code_setting_id:            { type: integer, notnull: true }
+#     post_contract_claim_revision_id: { type: integer, notnull: true }
+#     bill_id:                         { type: integer, notnull: true }
+#     amount:                          { type: decimal, scale: 5, notnull: false }
+#   relations:
+#     ItemCodeSetting:
+#       local: item_code_setting_id
+#       foreign: id
+#       type: one
+#       foreignAlias: ItemCodeSettingBillBreakdowns
+#       foreignType: many
+#     PostContractClaimRevision:
+#       local: post_contract_claim_revision_id
+#       foreign: id
+#       type: one
+#       foreignAlias: ItemCodeSettingBillBreakdowns
+#       foreignType: many
+
+# ItemCodeSettingPostContractClaimBreakdown:
+#   connection: main_conn
+#   options:
+#     symfony:
+#       filter: false
+#       form: true
+#   actAs:
+#     Timestampable:
+#     Signable:
+#   tableName: item_code_setting_post_contract_claim_breakdowns
+#   indexes:
+#     item_code_setting_post_contract_claim_id_idx:
+#       fields: [id, item_code_setting_id, post_contract_claim_revision_id]
+#     item_code_setting_post_contract_claim_fx_idx:
+#       fields: [item_code_setting_id, post_contract_claim_revision_id]
+#   columns:
+#     id:                              { type: integer, primary: true, notnull: true, autoincrement: true }
+#     item_code_setting_id:            { type: integer, notnull: true }
+#     post_contract_claim_revision_id: { type: integer, notnull: true }
+#     object_type:                     { type: integer(4), notnull: true }
+#     amount:                          { type: decimal, scale: 5, notnull: false }
+#   relations:
+#     ItemCodeSetting:
+#       local: item_code_setting_id
+#       foreign: id
+#       type: one
+#       foreignAlias: ItemCodeSettingBillBreakdowns
+#       foreignType: many
+#     PostContractClaimRevision:
+#       local: post_contract_claim_revision_id
+#       foreign: id
+#       type: one
+#       foreignAlias: ItemCodeSettingBillBreakdowns
+#       foreignType: many

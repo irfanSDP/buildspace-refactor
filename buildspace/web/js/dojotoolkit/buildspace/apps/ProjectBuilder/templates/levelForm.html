@@ -1,0 +1,29 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="levelForm">
+        <fieldset>
+            <legend>${nls.levelInformation}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.title} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="project_level[title]" style="width:240px;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:true">
+                        <p class="alert-text-error" id="error-project_level_title"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.description} :</label>
+                    </td>
+                    <td>
+                        <textarea name="project_level[description]" style="width:240px;padding:2px;min-height:30px;_height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="project_level[_csrf_token]" value="">
+            <input type="hidden" name="parent_id" value="${parentId}">
+            <input type="hidden" name="id" value="${levelId}">
+        </fieldset>
+    </form>
+</div>

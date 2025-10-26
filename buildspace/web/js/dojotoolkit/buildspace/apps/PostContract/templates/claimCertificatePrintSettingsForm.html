@@ -1,0 +1,372 @@
+<div class="${baseClass}">
+        <style>
+        .claim_cert-sections {display: inline-block;height: 168px;width: 33.0%;margin: 0;padding: 0;}
+        </style>
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="claimCertificatePrintSettingsForm">
+        <div style="min-height:100%;height:100%;">
+            <fieldset>
+                <legend>${nls.claimCertificatePrintFormat}</legend>
+                <table class="table-form">
+                    <tr>
+                        <td style="width:4px;">
+                            <input name="claim_certificate_print_setting[certificate_print_format]" data-dojo-attach-point="standardPrintFormatNode" value="1" type="radio" data-dojo-type="dijit/form/RadioButton" />
+                        </td>
+                        <td class="label" style="width:70px;text-align:left;vertical-align: middle;">
+                            <label style="display: inline;">${nls.standard}</label>
+                        </td>
+                        <td style="width:4px;">
+                            <input name="claim_certificate_print_setting[certificate_print_format]" data-dojo-attach-point="formatAPrintFormatNode" value="2" type="radio" data-dojo-type="dijit/form/RadioButton" />
+                        </td>
+                        <td class="label" style="width:70px;text-align:left;vertical-align: middle;">
+                            <label style="display: inline;">${nls.formatA}</label>
+                        </td>
+                        <td style="width:4px;">
+                            <input name="claim_certificate_print_setting[certificate_print_format]" data-dojo-attach-point="formatBPrintFormatNode" value="3" type="radio" data-dojo-type="dijit/form/RadioButton" />
+                        </td>
+                        <td class="label" style="width:70px;text-align:left;vertical-align: middle;">
+                            <label style="display: inline;">${nls.formatB}</label>
+                        </td>
+                        <td style="width:4px;">
+                            <input name="claim_certificate_print_setting[certificate_print_format]" data-dojo-attach-point="NscPrintFormatNode" value="4" type="radio" data-dojo-type="dijit/form/RadioButton" />
+                        </td>
+                        <td class="label" style="width:70px;text-align:left;vertical-align: middle;">
+                            <label style="display: inline;">${nls.nsc}</label>
+                        </td>
+                        <td style="width:auto;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="7"><hr></td>
+                    </tr>
+                    <tr>
+                        <td class="gridCell" style="vertical-align:middle;" colspan="5">
+                            <input type="checkbox" name="claim_certificate_print_setting[display_tax_column]" data-dojo-attach-point="displayTaxColumn" data-dojo-type="dijit/form/CheckBox">
+                            <label style="display: inline;">${nls.displayTaxColumn}</label>
+                        </td>
+                        <td class="gridCell" style="vertical-align:middle;" colspan="5">
+                            <div data-dojo-attach-point="RfvCategoryToPrintNode">
+                                <label style="display:inline;font-weight:bold;">${nls.rfvCategoryToPrint}: </label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <div style="height:12px;">&nbsp;</div>
+            <fieldset>
+                <legend>${nls.claimCertificateTitle}</legend>
+                <table class="table-form">
+                    <tr>
+                        <td style="width:60%;">
+                            <input type="text" name="claim_certificate_print_setting[certificate_title]" data-dojo-attach-point="certificateTitleNode" style="width:80%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:100" />
+                            <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_certificate_title"></span>
+                        </td>
+                        <td style="width:auto;">&nbsp;</td>
+                    </tr>
+                </table>
+            </fieldset>
+            <div style="height:12px;">&nbsp;</div>
+            <fieldset>
+                    <legend>${nls.claimCertificateSectionLabels}</legend>
+                    <table class="table-form">
+                        <tr>
+                            <td>
+                                <label style="display:inline;font-weight:bold;">${nls.sectionA} :</label>
+                                <input type="text" name="claim_certificate_print_setting[section_a_label]" data-dojo-attach-point="sectionANode" style="width:60px;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:8" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_section_a_label"></span>
+                            </td>
+                            <td data-dojo-attach-point="sectionB-label">
+                                <label style="display:inline;font-weight:bold;">${nls.sectionB} :</label>
+                                <input type="text" name="claim_certificate_print_setting[section_b_label]" data-dojo-attach-point="sectionBNode" style="width:60px;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:8" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_section_b_label"></span>
+                            </td>
+                            <td data-dojo-attach-point="sectionC-label">
+                                <label style="display:inline;font-weight:bold;">${nls.sectionC} :</label>
+                                <input type="text" name="claim_certificate_print_setting[section_c_label]" data-dojo-attach-point="sectionCNode" style="width:60px;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:8" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_section_c_label"></span>
+                            </td>
+                            <td data-dojo-attach-point="sectionD-label">
+                                <label style="display:inline;font-weight:bold;">${nls.sectionD} :</label>
+                                <input type="text" name="claim_certificate_print_setting[section_d_label]" data-dojo-attach-point="sectionDNode" style="width:60px;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:8" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_section_d_label"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <div style="height:12px;">&nbsp;</div>
+            <div class="claim_cert-sections" data-dojo-attach-point="sectionB">
+                <fieldset style="min-height:100%;">
+                    <legend>${nls.sectionB}</legend>
+                    <table class="table-form">
+                        <tr>
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <label style="display:inline;font-weight:bold;">${nls.title} :</label>
+                                <input type="text" name="claim_certificate_print_setting[section_misc_label]" data-dojo-attach-point="sectionMiscLabelNode" style="width:80%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:100" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_section_misc_label"></span>
+                                <div style="height:4px;">&nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr data-dojo-attach-point="sectionB-include_advance_payment">
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <input type="checkbox" name="claim_certificate_print_setting[include_advance_payment]" data-dojo-attach-point="includeAdvancePaymentNode" data-dojo-type="dijit/form/CheckBox">
+                                <label style="display: inline;">${nls.advancePayment}</label>
+                            </td>
+                        </tr>
+                        <tr data-dojo-attach-point="sectionB-include_deposit">
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <input type="checkbox" name="claim_certificate_print_setting[include_deposit]" data-dojo-attach-point="includeDepositNode" data-dojo-type="dijit/form/CheckBox">
+                                <label style="display: inline;">${nls.deposit}</label>
+                            </td>
+                        </tr>
+                        <tr data-dojo-attach-point="sectionB-include_material_on_site">
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <input type="checkbox" name="claim_certificate_print_setting[include_material_on_site]" data-dojo-attach-point="includeMaterialOnSiteNode" data-dojo-type="dijit/form/CheckBox">
+                                <label style="display: inline;">${nls.materialOnSite}</label>
+                            </td>
+                        </tr>
+                        <tr data-dojo-attach-point="sectionB-include_ksk">
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <input type="checkbox" name="claim_certificate_print_setting[include_ksk]" data-dojo-attach-point="includeKSKNode" data-dojo-type="dijit/form/CheckBox">
+                                <label style="display: inline;">${nls.ksk}</label>
+                            </td>
+                        </tr>
+                        <tr data-dojo-attach-point="sectionB-include_work_on_behalf_mc">
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <input type="checkbox" name="claim_certificate_print_setting[include_work_on_behalf_mc]" data-dojo-attach-point="includeWorkOnBehalfMCNode" data-dojo-type="dijit/form/CheckBox">
+                                <label style="display: inline;">${nls.workOnBehalfMC}</label>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div class="claim_cert-sections" data-dojo-attach-point="sectionC">
+                <fieldset style="min-height:100%;">
+                    <legend>${nls.sectionC}</legend>
+                    <table class="table-form">
+                        <tr>
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <label style="display:inline;font-weight:bold;">${nls.title} :</label>
+                                <input type="text" name="claim_certificate_print_setting[section_others_label]" data-dojo-attach-point="sectionOthersLabelNode" style="width:80%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:100" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_section_others_label"></span>
+                                <div style="height:4px;">&nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr data-dojo-attach-point="sectionC-include_debit_credit_note">
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <input type="checkbox" name="claim_certificate_print_setting[include_debit_credit_note]" data-dojo-attach-point="includeDebitCreditNoteNode" data-dojo-type="dijit/form/CheckBox">
+                                <label style="display: inline;">${nls.debitCreditNote}</label>
+                                <div style="padding-left:18px;font-size:10px;">
+                                    <input type="checkbox" name="claim_certificate_print_setting[debit_credit_note_with_breakdown]" data-dojo-attach-point="debitCreditNoteWithBreakdownNode" data-dojo-type="dijit/form/CheckBox">
+                                    <label style="display: inline;">${nls.withBreakdown}</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-dojo-attach-point="sectionC-include_purchase_on_behalf">
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <input type="checkbox" name="claim_certificate_print_setting[include_purchase_on_behalf]" data-dojo-attach-point="includePurchaseOnBehalfNode" data-dojo-type="dijit/form/CheckBox">
+                                <label style="display: inline;">${nls.purchaseOnBehalf}</label>
+                            </td>
+                        </tr>
+                        <tr data-dojo-attach-point="sectionC-include_work_on_behalf">
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <input type="checkbox" name="claim_certificate_print_setting[include_work_on_behalf]" data-dojo-attach-point="includeWorkOnBehalfNode" data-dojo-type="dijit/form/CheckBox">
+                                <label style="display: inline;">${nls.workOnBehalf}</label>
+                            </td>
+                        </tr>
+                        <tr data-dojo-attach-point="sectionC-include_penalty">
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <input type="checkbox" name="claim_certificate_print_setting[include_penalty]" data-dojo-attach-point="includePenaltyNode" data-dojo-type="dijit/form/CheckBox">
+                                <label style="display: inline;">${nls.penalty}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="gridCell" style="width:100%;vertical-align:middle;"></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div class="claim_cert-sections" data-dojo-attach-point="sectionD">
+                <fieldset style="min-height:100%;">
+                    <legend>${nls.sectionD}</legend>
+                    <table class="table-form">
+                        <tr>
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <label style="display:inline;font-weight:bold;">${nls.title} :</label>
+                                <input type="text" name="claim_certificate_print_setting[section_payment_on_behalf_label]" data-dojo-attach-point="sectionPaymentOnBehalfLabelNode" style="width:80%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:100" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_section_payment_on_behalf_label"></span>
+                                <div style="height:4px;">&nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr data-dojo-attach-point="sectionD-include_utility">
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <input type="checkbox" name="claim_certificate_print_setting[include_utility]" data-dojo-attach-point="includeUtilityNode" data-dojo-type="dijit/form/CheckBox">
+                                <label style="display: inline;">${nls.utility}</label>
+                            </td>
+                        </tr>
+                        <tr data-dojo-attach-point="sectionD-include_permit">
+                            <td class="gridCell" style="width:100%;vertical-align:middle;">
+                                <input type="checkbox" name="claim_certificate_print_setting[include_permit]" data-dojo-attach-point="includePermitNode" data-dojo-type="dijit/form/CheckBox">
+                                <label style="display: inline;">${nls.permit}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="gridCell" style="width:100%;vertical-align:middle;height:100%;"></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div style="height:24px;">&nbsp;</div>
+            <fieldset>
+                <legend>${nls.labels}</legend>
+                <div style="height:2px;">&nbsp;</div>
+                <table class="buildspace-table">
+                    <thead>
+                        <tr class="gridHeader">
+                            <th class="gridCell" style="text-align:center;">${nls.label}</th>
+                            <th class="gridCell" style="text-align:center;">${nls.newLabel}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="label gridCell" style="width:200px;text-align:center;padding:5px;">${nls.tax}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[tax_label]" data-dojo-attach-point="taxLabelNode" style="width:90%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:80" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_tax_label"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label gridCell" style="width:200px;text-align:center;padding:5px;">${nls.taxInvoiceBySubContractor}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[tax_invoice_by_sub_contractor_label]" data-dojo-attach-point="taxInvoiceBySubContractorLabelNode" style="width:90%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:100" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_tax_invoice_by_sub_contractor_label"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label gridCell" style="width:200px;text-align:center;padding:5px;">${nls.taxInvoiceBySubsidiary}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[tax_invoice_by_subsidiary_label]" data-dojo-attach-point="taxInvoiceBySubsidiaryLabelNode" style="width:90%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:100" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_tax_invoice_by_subsidiary_label"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label gridCell" style="width:200px;text-align:center;padding:5px;">${nls.contractorSubmittedDate}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[contractor_submitted_date_label]" data-dojo-attach-point="contractorSubmittedDateLabelNode" style="width:90%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:64" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_contractor_submitted_date_label"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label gridCell" style="width:200px;text-align:center;padding:5px;">${nls.siteVerifiedDate}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[site_verified_date_label]" data-dojo-attach-point="siteVerifiedDateLabelNode" style="width:90%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:64" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_site_verified_date_label"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label gridCell" style="width:200px;text-align:center;padding:5px;">${nls.qsReceivedDate}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[certificate_received_date_label]" data-dojo-attach-point="certificateReceivedDateLabelNode" style="width:90%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:64" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_certificate_received_date_label"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            <div style="height:24px;">&nbsp;</div>
+            <fieldset>
+                <legend>${nls.footer}</legend>
+                <div style="height:2px;">&nbsp;</div>
+                <table class="table-form">
+                    <tr>
+                        <td style="width:4px;">
+                            <input name="claim_certificate_print_setting[footer_format]" data-dojo-attach-point="footerFormatNoneNode" value="2048" type="radio" data-dojo-type="dijit/form/RadioButton" />
+                        </td>
+                        <td class="label" style="width:70px;text-align:left;vertical-align: middle;">
+                            <label style="display: inline;">${nls.none}</label>
+                        </td>
+                        <td style="width:4px;">
+                            <input name="claim_certificate_print_setting[footer_format]" data-dojo-attach-point="footerFormatANode" value="1" type="radio" data-dojo-type="dijit/form/RadioButton" />
+                        </td>
+                        <td class="label" style="width:70px;text-align:left;vertical-align: middle;">
+                            <label style="display: inline;">${nls.formatA}</label>
+                        </td>
+                        <td style="width:4px;">
+                            <input name="claim_certificate_print_setting[footer_format]" data-dojo-attach-point="footerFormatBNode" value="2" type="radio" data-dojo-type="dijit/form/RadioButton" />
+                        </td>
+                        <td class="label" style="width:70px;text-align:left;vertical-align: middle;">
+                            <label style="display: inline;">${nls.formatB}</label>
+                        </td>
+                        <td style="width:auto;">&nbsp;</td>
+                    </tr>
+                </table>
+                <div style="height:2px;">&nbsp;</div>
+                <table class="buildspace-table" data-dojo-attach-point="footerFormatATableLblNode">
+                    <thead>
+                        <tr class="gridHeader">
+                            <th class="gridCell" style="text-align:center;border-bottom:none;" colspan="2">${nls.column1}</th>
+                            <th class="gridCell" style="text-align:center;border-bottom:none;" colspan="2">${nls.column2}</th>
+                            <th class="gridCell" style="text-align:center;border-bottom:none;" colspan="2">${nls.column3}</th>
+                            <th class="gridCell" style="text-align:center;border-bottom:none;" colspan="2">${nls.column4}</th>
+                        </tr>
+                        <tr class="gridHeader">
+                            <th class="gridCell" style="text-align:center;">${nls.label}</th>
+                            <th class="gridCell" style="text-align:center;">${nls.newLabel}</th>
+                            <th class="gridCell" style="text-align:center;">${nls.label}</th>
+                            <th class="gridCell" style="text-align:center;">${nls.newLabel}</th>
+                            <th class="gridCell" style="text-align:center;">${nls.label}</th>
+                            <th class="gridCell" style="text-align:center;">${nls.newLabel}</th>
+                            <th class="gridCell" style="text-align:center;">${nls.label}</th>
+                            <th class="gridCell" style="text-align:center;">${nls.newLabel}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="label gridCell" style="width:120px;text-align:center;padding:5px;">${nls.bankLabel}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[footer_bank_label]" data-dojo-attach-point="footerBankLabelNode" style="width:95%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:30" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_footer_bank_label"></span>
+                            </td>
+                            <td class="label gridCell" style="width:120px;text-align:center;padding:5px;">${nls.chequeNumberLabel}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[footer_cheque_number_label]" data-dojo-attach-point="footerChequeNumberLabelNode" style="width:95%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:30" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_footer_cheque_number_label"></span>
+                            </td>
+                            <td class="label gridCell" style="width:120px;text-align:center;padding:5px;">${nls.chequeDateLabel}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[footer_cheque_date_label]" data-dojo-attach-point="footerChequeDateLabelNode" style="width:95%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:30" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_footer_cheque_date_label"></span>
+                            </td>
+                            <td class="label gridCell" style="width:120px;text-align:center;padding:5px;">${nls.chequeAmountLabel}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[footer_cheque_amount_label]" data-dojo-attach-point="footerChequeAmountLabelNode" style="width:95%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:30" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_footer_cheque_amount_label"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label gridCell" style="width:120px;text-align:center;padding:5px;">${nls.bankSignatureLabel}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[footer_bank_signature_label]" data-dojo-attach-point="footerBankSignatureLabelNode" style="width:95%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:30" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_footer_bank_signature_label"></span>
+                            </td>
+                            <td class="label gridCell" style="width:120px;text-align:center;padding:5px;">${nls.chequeNumberSignatureLabel}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[footer_cheque_number_signature_label]" data-dojo-attach-point="footerChequeNumberSignatureLabelNode" style="width:95%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:30" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_footer_cheque_number_signature_label"></span>
+                            </td>
+                            <td class="label gridCell" style="width:120px;text-align:center;padding:5px;">${nls.chequeDateSignatureLabel}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[footer_cheque_date_signature_label]" data-dojo-attach-point="footerChequeDateSignatureLabelNode" style="width:95%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:30" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_footer_cheque_date_signature_label"></span>
+                            </td>
+                            <td class="label gridCell" style="width:120px;text-align:center;padding:5px;">${nls.chequeAmountSignatureLabel}</td>
+                            <td class="gridCell" style="width:auto;vertical-align:middle;padding:5px;">
+                                <input type="text" name="claim_certificate_print_setting[footer_cheque_amount_signature_label]" data-dojo-attach-point="footerChequeAmountSignatureLabelNode" style="width:95%;padding:2px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:false, maxlength:30" />
+                                <span class="alert-text-error" data-dojo-attach-point="error-claim_certificate_print_settings_footer_cheque_amount_signature_label"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            <div style="height:24px;">&nbsp;</div>
+        </div>
+        <input type="hidden" name="claim_certificate_print_setting[_csrf_token]" value="" />
+    </form>
+</div>

@@ -1,0 +1,155 @@
+<div class="{$baseClass} forms-inputs">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="myForm">
+        <fieldset>
+            <legend>Standard Page Text</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="toCollection">To Collection $ :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true" id="toCollection" name="toCollection">
+                    </td>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="descHeader">Description :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true" id="descHeader" name="descHeader">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="unitHeader">Unit :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true" id="unitHeader" name="unitHeader">
+                    </td>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="qtyHeader">Quantity :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true" id="qtyHeader" name="qtyHeader">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="rateHeader">Rate :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true" id="rateHeader" name="rateHeader">
+                    </td>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="amtHeader">Amount :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true" id="amtHeader" name="amtHeader">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="currencyPrefix">Currency :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true" id="currencyPrefix" name="currencyPrefix">
+                    </td>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="centPrefix">Cents :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true" id="centPrefix" name="centPrefix">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Collection Page Text</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="collectionInGridPrefix">Collection (Within Grid) :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="trim: true, propercase:true" id="collectionInGridPrefix" name="collectionInGridPrefix">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Summary Page Text</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:180px;"><label style="display: inline;width:180px;" for="summaryPrefix">Summary (Top Right Corner) :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="summaryPrefix" name="summaryPrefix">
+                    </td>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="summaryInGridPrefix">Summary (Within Grid) :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="trim: true, propercase:true" id="summaryInGridPrefix" name="summaryInGridPrefix">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;"><label style="display: inline;width:180px;" for="summaryPageNoPrefix">Page No. :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="summaryPageNoPrefix" name="summaryPageNoPrefix">
+                    </td>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="totalPerUnitPrefix">Total per Unit(s) :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="totalPerUnitPrefix" name="totalPerUnitPrefix">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;"><label style="display: inline;width:180px;" for="totalUnitPrefix">Total Unit(s) :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="totalUnitPrefix" name="totalUnitPrefix">
+                    </td>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="totalPerTypePrefix">Total per Type :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="totalPerTypePrefix" name="totalPerTypePrefix">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:180px;"><label style="display: inline;width:180px;" for="tenderPrefix">Tender :</label></td>
+                    <td style="width:250px;" colspan="3">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="tenderPrefix" name="tenderPrefix">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Summary Page Numbering</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;width:100px;" for="summaryPageNumbering[1]">Page 1 :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="summaryPageNumbering[1]" name="summaryPageNumbering[1]">
+                    </td>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="summaryPageNumbering[6]">Page 6 :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="summaryPageNumbering[6]" name="summaryPageNumbering[6]">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;width:100px;" for="summaryPageNumbering[2]">Page 2 :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="summaryPageNumbering[2]" name="summaryPageNumbering[2]">
+                    </td>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="summaryPageNumbering[7]">Page 7 :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="summaryPageNumbering[7]" name="summaryPageNumbering[7]">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;width:100px;" for="summaryPageNumbering[3]">Page 3 :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="summaryPageNumbering[3]" name="summaryPageNumbering[3]">
+                    </td>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="summaryPageNumbering[8]">Page 8 :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="summaryPageNumbering[8]" name="summaryPageNumbering[8]">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;width:100px;" for="summaryPageNumbering[4]">Page 4 :</label></td>
+                    <td style="width:250px;">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="summaryPageNumbering[4]" name="summaryPageNumbering[4]">
+                    </td>
+                    <td class="label" style="width:100px;"><label style="display: inline;" for="summaryPageNumbering[9]">Page 9 :</label></td>
+                    <td>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="summaryPageNumbering[9]" name="summaryPageNumbering[9]">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:100px;"><label style="display: inline;width:100px;" for="summaryPageNumbering[5]">Page 5 :</label></td>
+                    <td style="width:250px;" colspan="3">
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="summaryPageNumbering[5]" name="summaryPageNumbering[5]">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>

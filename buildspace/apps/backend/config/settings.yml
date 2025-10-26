@@ -1,0 +1,53 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/04-Settings
+
+prod:
+  .settings:
+    no_script_name:         true
+    logging_enabled:        false
+  .actions:
+    # keep SAML in prod (unchanged)
+    login_module:           sfSAMLAuth
+    login_action:           signin
+
+dev:
+  .settings:
+    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
+    web_debug:              true
+    cache:                  false
+    no_script_name:         false
+    etag:                   false
+  .actions:
+    # ⬅️ Use classic Symfony login in DEV (bypass SAML)
+    login_module:           default
+    login_action:           loginGate
+
+test:
+  .settings:
+    error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
+    cache:                  false
+    web_debug:              false
+    no_script_name:         false
+    etag:                   false
+  .actions:
+    # tests can use classic login as well, or keep SAML—your choice
+    login_module:           default
+    login_action:           loginGate
+
+all:
+  .settings:
+    enabled_modules:      [default, sfSAMLAuth, sfGuardGroup, sfGuardUser, sfGuardPermission, sfGuardAuth]
+    standard_helpers:     [Partial, Cache, JavascriptBase, I18N]
+    csrf_secret:          f1c73f43fbe980535120bf4da497183306c230fa-bs
+
+    escaping_strategy:    false
+    escaping_method:      ESC_SPECIALCHARS
+    use_database:         true
+    i18n:                 on
+    default_culture:      en_US
+    timeout:              false
+
+  .actions:
+    # 404 etc. unchanged
+    error_404_module:       default
+    error_404_action:       error404

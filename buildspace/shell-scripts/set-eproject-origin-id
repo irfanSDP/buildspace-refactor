@@ -1,0 +1,65 @@
+#!/bin/bash
+# Sets the eproject_origin_id and unique_id in bs_project_main_information table.
+
+#buildspace_project_id=$1;
+#eproject_origin_id=$2;
+
+echo -n "Database > ";
+read db_name;
+
+echo -n "User > ";
+read db_username;
+
+echo -n "Buildspace ID (as specified in app.yml) > ";
+read buildspace_id;
+
+# Checks if database with the given database name exists
+# by parsing the list of databases in postgres and returning the number of databases has a matching name.
+db_exists=`psql -U$db_username -lqt | cut -d \| -f 1 | grep -w $db_name | wc -l`;
+
+if [ $db_exists -ge 1 ]; then
+    # (Database exists)
+
+    echo -n "Project ID in Buildspace (SAML) > ";
+    read buildspace_project_id;
+
+    echo -n "Project ID in eProject > ";
+    read eproject_origin_id;
+
+    echo -n "eProject Database user > ";
+    read eproject_db_username;
+    echo -n "eProject Database host > ";
+    read eproject_db_host;
+    echo -n "eProject Database name > ";
+    read eproject_db_name;
+
+    eproject_project_id=$eproject_origin_id;
+    eproject_project_created_at=`psql -U $eproject_db_username -h $eproject_db_host -d $eproject_db_name -c "SELECT created_at FROM projects where id = $eproject_origin_id;" -t`;
+    eproject_project_created_by=`psql -U $eproject_db_username -h $eproject_db_host -d $eproject_db_name -c "SELECT created_by FROM projects where id = $eproject_origin_id;" -t`;
+
+    password=$buildspace_id-$eproject_project_id-$eproject_project_created_at-$eproject_project_created_by;
+
+    bs_project_main_information_unique_id=`
+        php -r '
+        //cost = 10 as set in the class BcryptHasher in eProject.
+        $hash = password_hash($argv[1], PASSWORD_BCRYPT, array("cost" => 10));
+
+        if ($hash === false)
+        {
+           throw new \RuntimeException("Bcrypt hashing not supported.");
+        }
+        echo $hash;' $password;`;
+
+
+    echo "unique_id:";
+    echo $bs_project_main_information_unique_id;
+
+    #update
+    psql -d $db_name -U $db_username -c "UPDATE bs_project_main_information set eproject_origin_id = $eproject_origin_id, unique_id = '$bs_project_main_information_unique_id' where id = $buildspace_project_id";
+
+else
+    # (Database does not exist)
+
+    echo "Database '$db_name' does not exist!";
+
+fi

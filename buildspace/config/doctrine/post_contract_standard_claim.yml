@@ -1,0 +1,86 @@
+PostContractStandardClaimTypeReference:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contract_standard_claim_type_reference
+  indexes:
+    post_contract_standard_claim_type_reference_id_idx:
+      fields: [id]
+    post_contract_standard_claim_type_reference_fk_idx:
+      fields: [post_contract_id, bill_column_setting_id]
+    post_contract_standard_claim_type_reference_unique_idx:
+      fields: [post_contract_id, bill_column_setting_id, counter]
+      type: unique
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    post_contract_id:        { type: integer, notnull: true }
+    bill_column_setting_id:  { type: integer, notnull: true }
+    counter:                 { type: integer, notnull: true }
+    new_name:                { type: string, notnull: false }
+  relations:
+    PostContract:
+      local: post_contract_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: StandardClaimTypesReference
+      foreignType: many
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: StandardClaimTypesReference
+      foreignType: many
+
+PostContractStandardClaim:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contract_standard_claim
+  indexes:
+    post_contract_standard_claim_id_idx:
+      fields: [id]
+    post_contract_standard_claim_fk_idx:
+      fields: [claim_type_ref_id, bill_item_id, revision_id]
+    post_contract_standard_claim_unique_idx:
+      fields: [claim_type_ref_id, bill_item_id, revision_id]
+      type: unique
+    post_contract_standard_claim_revision_id_idx:
+      fields: [revision_id]
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    revision_id:             { type: integer, notnull: true }
+    claim_type_ref_id:       { type: integer, notnull: true }
+    bill_item_id:            { type: integer, notnull: true }
+    current_percentage:      { type: decimal, scale: 5, default: 0 }
+    current_amount:          { type: decimal, scale: 5, default: 0 }
+    up_to_date_percentage:   { type: decimal, scale: 5, default: 0 }
+    up_to_date_amount:       { type: decimal, scale: 5, default: 0 }
+    up_to_date_qty:          { type: decimal, scale: 5, default: 0 }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractStandardClaims
+      foreignType: many
+    PostContractClaimRevision:
+      local: revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractStandardClaims
+      foreignType: many
+    PostContractStandardClaimTypeReference:
+      local: claim_type_ref_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractStandardClaims
+      foreignType: many

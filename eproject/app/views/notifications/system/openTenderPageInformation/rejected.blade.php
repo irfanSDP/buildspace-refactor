@@ -1,0 +1,1 @@
+"%s" has rejected Open Tender Page Information.

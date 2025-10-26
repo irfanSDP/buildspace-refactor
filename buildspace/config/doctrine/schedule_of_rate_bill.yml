@@ -1,0 +1,291 @@
+ScheduleOfRateBill:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: schedule_of_rate_bills
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    schedule_of_rate_bill_id_idx:
+      fields: [id, project_structure_id, deleted_at]
+    schedule_of_rate_bill_fk_idx:
+      fields: [project_structure_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    title:                { type: string(200), notnull: true }
+    description:          { type: string, notnull: false }
+    project_structure_id: { type: integer, notnull: true }
+    unit_type:            { type: integer(4), notnull: true }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfRateBill
+      foreignType: one
+    UnitOfMeasurementType:
+      local: unit_type
+      foreign: id
+      type: one
+      foreignAlias: ScheduleOfRateBills
+      foreignType: many
+
+ScheduleOfRateBillElement:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_of_rate_bill_elements
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    schedule_of_rate_bill_elem_id_idx:
+      fields: [id, project_structure_id]
+    schedule_of_rate_bill_elem_priority_unique_idx:
+      fields: [priority, project_structure_id, deleted_at]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    description:          { type: string, notnull: false }
+    note:                 { type: string, notnull: false }
+    project_structure_id: { type: integer, notnull: true }
+    tender_origin_id:     { type: string, notnull:false, default: null}
+    priority:             { type: integer, notnull: true, default: 0 }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfRateBillElements
+      foreignType: many
+
+ScheduleOfRateBillItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_of_rate_bill_items
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    schedule_of_rate_bill_items_id_idx:
+      fields: [id, root_id, lft, rgt]
+    schedule_of_rate_bill_items_type_idx:
+      fields: [type]
+    schedule_of_rate_bill_items_fk_idx:
+      fields: [element_id, root_id, uom_id, bill_import_item_id]
+  columns:
+    id:                  { type: integer, primary: true, notnull: true, autoincrement: true }
+    description:         { type: string, notnull: false }
+    note:                { type: string, notnull: false }
+    type:                { type: integer(4), notnull: true }
+    element_id:          { type: integer, notnull: true }
+    uom_id:              { type: integer, notnull: false }
+    estimation_rate:     { type: decimal, scale: 5, default: 0 }
+    contractor_rate:     { type: decimal, scale: 5, default: 0 }
+    difference:          { type: decimal, scale: 5, default: 0 }
+    bill_import_item_id: { type: integer, notnull: false }
+    tender_origin_id:    { type: string, notnull:false, default: null}
+    priority:            { type: integer, notnull: true, default: 0 }
+  relations:
+    Element:
+      class: ScheduleOfRateBillElement
+      local: element_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfRateBillItems
+      foreignType: many
+
+TenderScheduleOfRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_schedule_of_rates
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_schedule_of_rates_id_idx:
+      fields: [id]
+    tender_schedule_of_rates_fk_idx:
+      fields: [tender_company_id, schedule_of_rate_bill_item_id]
+    tender_schedule_of_rates_unique_idx:
+      fields: [tender_company_id, schedule_of_rate_bill_item_id]
+      type: unique
+  columns:
+    id:                            { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_company_id:             { type: integer, notnull: true }
+    schedule_of_rate_bill_item_id: { type: integer, notnull: true }
+    estimation_rate:               { type: decimal, scale: 5, default: 0 }
+    contractor_rate:               { type: decimal, scale: 5, default: 0 }
+    difference:                    { type: decimal, scale: 5, default: 0 }
+  relations:
+    TenderCompany:
+      local: tender_company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfRateBillRates
+      foreignType: many
+    ScheduleOfRateBillItem:
+      local: schedule_of_rate_bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderCompanyRates
+      foreignType: many
+
+TenderScheduleOfRateBillItemRateLog:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_schedule_of_rate_bill_item_rate_logs
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_schedule_of_rate_bill_item_rate_logs_id_idx:
+      fields: [id]
+    tender_schedule_of_rate_bill_item_rate_logs_fk_idx:
+      fields: [tender_company_id, schedule_of_rate_bill_item_id]
+    tender_schedule_of_rate_bill_item_rate_logs_unique_idx:
+      fields: [tender_company_id, schedule_of_rate_bill_item_id, changes_count]
+      type: unique
+  columns:
+    id:                            { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_company_id:             { type: integer, notnull: true }
+    schedule_of_rate_bill_item_id: { type: integer, notnull: true }
+    estimation_rate:               { type: decimal, scale: 5, default: 0 }
+    contractor_rate:               { type: decimal, scale: 5, default: 0 }
+    difference:                    { type: decimal, scale: 5, default: 0 }
+    type:                          { type: enum, values: [IMPORT, MANUAL], notnull: true }
+    changes_count:                 { type: integer, notnull: true, default: 0 }
+  relations:
+    TenderCompany:
+      local: tender_company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfRateBillItemRateLogs
+      foreignType: many
+    ScheduleOfRateBillItem:
+      local: schedule_of_rate_bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderCompanyRateLogs
+      foreignType: many
+
+ScheduleOfRateBillLayoutSetting:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: schedule_of_rate_bill_layout_settings
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sorb_layout_set_id_idx:
+      fields: [id, project_structure_id, deleted_at]
+    sorb_layout_set_fk_idx:
+      fields: [project_structure_id]
+  columns:
+    project_structure_id: { type: integer }
+    font:                 { type: string, default: "Arial" }
+    size:                 { type: integer, default: 11 }
+    comma_total:          { type: boolean, default: false }
+    comma_rate:           { type: boolean, default: false }
+    priceFormat:
+      type: enum
+      values: [normal, opposite]
+      default: normal
+    includeIAndOForBillRef:  { type: boolean, default: false }
+    add_cont:                { type: boolean, default: true }
+    contd:                   { type: string(150), default: "(CONT'd)" }
+    print_element_grid:      { type: boolean, default: true }
+    print_element_grid_once: { type: boolean, default: false }
+    page_no_prefix:          { type: string(150), default: null }
+    align_element_to_left:   { type: boolean, default: false }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignType: one
+      onDelete: CASCADE
+
+ScheduleOfRateBillLayoutHeadSetting:
+  connection: main_conn
+  options:
+    orderBy: head
+    symfony:
+      filter: false
+  tableName: schedule_of_rate_bill_layout_head_settings
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sorb_layout_hset_id_idx:
+      fields: [id, schedule_of_rate_bill_layout_setting_id, deleted_at]
+    sorb_layout_hset_fk_idx:
+      fields: [schedule_of_rate_bill_layout_setting_id]
+  columns:
+    schedule_of_rate_bill_layout_setting_id: { type: integer, notnull: false }
+    head:                                    { type: integer }
+    bold:                                    { type: boolean, default: false }
+    underline:                               { type: boolean, default: false }
+    italic:                                  { type: boolean, default: false }
+  relations:
+    ScheduleOfRateBillLayoutSetting:
+      local: schedule_of_rate_bill_layout_setting_id
+      foreign: id
+      foreignAlias: ScheduleOfRateBillLayoutHeadSettings
+      type: one
+      foreignType: many
+      onDelete: CASCADE
+
+ScheduleOfRateBillLayoutPhraseSetting:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: schedule_of_rate_bill_layout_phrase_settings
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sorb_layout_phrase_id_idx:
+      fields: [id, schedule_of_rate_bill_layout_setting_id, deleted_at]
+    sorb_layout_phrase_fk_idx:
+      fields: [schedule_of_rate_bill_layout_setting_id]
+  columns:
+    schedule_of_rate_bill_layout_setting_id: { type: integer, notnull: false }
+    to_collection:                           { type: string(150), default: 'To Collection' }
+    currency:                                { type: string(150), default: 'RM' }
+    collection_in_grid:                      { type: string(150), default: 'Collection' }
+    element_header_bold:                     { type: boolean, default: false }
+    element_header_underline:                { type: boolean, default: false }
+    element_header_italic:                   { type: boolean, default: false }
+    element_note_top_left_row1:              { type: string(150), notnull: false }
+    element_note_top_left_row2:              { type: string(150), notnull: false }
+    element_note_top_right_row1:             { type: string(150), notnull: false }
+  relations:
+    ScheduleOfRateBillLayoutSetting:
+      local: schedule_of_rate_bill_layout_setting_id
+      foreign: id
+      foreignAlias: ScheduleOfRateBillLayoutPhrase
+      type: one
+      foreignType: one
+      onDelete: CASCADE

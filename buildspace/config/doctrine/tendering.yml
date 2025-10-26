@@ -1,0 +1,554 @@
+TenderSetting:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_settings
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    tender_settings_id_idx:
+      fields: [id, project_structure_id]
+    tender_settings_priority_unique_idx:
+      fields: [priority, project_structure_id, deleted_at]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id:   { type: integer, notnull: true }
+    priority:               { type: integer, notnull: true, default: 0 }
+    contractor_sort_by:     { type: integer(2), notnull: true, default: 1 }
+    awarded_company_id:     { type: integer, notnull: false }
+    original_tender_value:  { type: decimal, scale: 5, default: 0 }
+    locked:                 { type: boolean, notnull: true, default: false }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderSetting
+      foreignType: one
+    AwardedCompany:
+      class: Company
+      local: awarded_company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: AwardedTenders
+      foreignType: many
+
+TenderCompany:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: tender_companies
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_companies_sub_package_id_idx:
+      fields: [project_structure_id]
+    tender_companies_company_id_idx:
+      fields: [company_id]
+    tender_companies_unique_idx:
+      fields: [project_structure_id, company_id]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id: { type: integer, notnull: true }
+    company_id:           { type: integer, notnull: true }
+    total_amount:         { type: decimal, scale: 5, default: 0 }
+    show:                 { type: boolean, default: false }
+    remarks:              { type: text, notnull: false }
+  relations:
+    ProjectStructure:
+      class: ProjectStructure
+      local: project_structure_id
+      foreignAlias: Companies
+      onDelete: CASCADE
+    Company:
+      class: Company
+      local: company_id
+      onDelete: CASCADE
+
+TenderBillItemRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_bill_item_rates
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_bill_item_rates_id_idx:
+      fields: [id]
+    tender_bill_item_rates_fk_idx:
+      fields: [tender_company_id, bill_item_id, tender_bill_item_not_listed_id]
+    tender_bill_item_rates_unique_idx:
+      fields: [tender_company_id, bill_item_id]
+      type: unique
+  columns:
+    id:                               { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_company_id:                { type: integer, notnull: true }
+    bill_item_id:                     { type: integer, notnull: true }
+    tender_bill_item_not_listed_id:   { type: integer, notnull: false }
+    rate:                             { type: decimal, scale: 5, default: 0 }
+    grand_total:                      { type: decimal, scale: 5, default: 0 }
+  relations:
+    TenderCompany:
+      local: tender_company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemRates
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderCompanyRates
+      foreignType: many
+    TenderBillItemNotListed:
+      local: tender_bill_item_not_listed_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Rates
+      foreignType: one
+
+TenderBillItemRateLog:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_bill_item_rate_logs
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_bill_item_rate_logs_id_idx:
+      fields: [id]
+    tender_bill_item_rate_logs_fk_idx:
+      fields: [tender_company_id, bill_item_id, project_revision_id]
+    tender_bill_item_rate_logs_unique_idx:
+      fields: [tender_company_id, bill_item_id, changes_count, project_revision_id]
+      type: unique
+  columns:
+    id:                  { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_company_id:   { type: integer, notnull: true }
+    bill_item_id:        { type: integer, notnull: true }
+    rate:                { type: decimal, scale: 5, default: 0 }
+    grand_total:         { type: decimal, scale: 5, default: 0 }
+    type:                { type: enum, values: [IMPORT, MANUAL], notnull: true }
+    changes_count:       { type: integer, notnull: true, default: 0 }
+    project_revision_id: { type: integer, notnull: true }
+  relations:
+    TenderCompany:
+      local: tender_company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemRateLogs
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderCompanyRateLogs
+      foreignType: many
+    ProjectRevision:
+      local: project_revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderCompanyRateLogs
+      foreignType: many
+
+TenderBillItemRationalizedRates:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_bill_item_rationalized_rates
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_bill_item_rationalized_rates_id_idx:
+      fields: [id]
+    tender_bill_item_rationalized_rates_fk_idx:
+      fields: [bill_item_id, tender_bill_not_listed_item_rationalized_id]
+    tender_bill_item_rationalized_rates_unique_idx:
+      fields: [bill_item_id]
+      type: unique
+  columns:
+    id:                                            { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_id:                                  { type: integer, notnull: true }
+    tender_bill_not_listed_item_rationalized_id:   { type: integer, notnull: false }
+    rate:                                          { type: decimal, scale: 5, default: 0 }
+    grand_total:                                   { type: decimal, scale: 5, default: 0 }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderCompanyRates
+      foreignType: many
+
+TenderBillItemNotListedRationalizedQuantity:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_bill_item_not_listed_rationalized_quantities
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_bill_item_not_listed_rationalized_quantities_id_idx:
+      fields: [id]
+    tender_bill_item_not_listed_rationalized_quantities_fk_idx:
+      fields: [tender_bill_not_listed_item_rationalized_id, bill_column_setting_id]
+    tender_bill_item_not_listed_rationalized_quantities_unique_idx:
+      fields: [tender_bill_not_listed_item_rationalized_id, bill_column_setting_id]
+      type: unique
+  columns:
+    id:                                            { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_bill_not_listed_item_rationalized_id:   { type: integer, notnull: true }
+    bill_column_setting_id:                        { type: integer, notnull: true }
+    final_value:                                   { type: decimal, scale: 5, default: 0 }
+  relations:
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemNotListedRationalizedQuantities
+      foreignType: many
+    TenderBillItemNotListedRationalized:
+      local: tender_bill_not_listed_item_rationalized_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Quantities
+      foreignType: one
+
+TenderBillItemNotListedRationalized:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_bill_item_not_listed_rationalized
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_bill_item_not_listed_rationalized_idx:
+      fields: [id]
+    tender_bill_item_not_listed_rationalized_fk_idx:
+      fields: [bill_item_id]
+    tender_bill_item_not_listed_rationalized_unique_idx:
+      fields: [bill_item_id]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_item_id:           { type: integer, notnull: true }
+    description:            { type: string, notnull: false }
+    uom_id:                 { type: integer, notnull: false }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderBillItemNotListedRationalized
+      foreignType: many
+
+TenderBillItemRationalizedPrimeCostRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: tender_bill_item_rationalized_prime_cost_rates
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    tender_bill_irpcr_id_idx:
+      fields: [id, tender_bill_item_rationalized_rates_id, total, deleted_at]
+    tender_bill_irpcr_unique_idx:
+      fields: [tender_bill_item_rationalized_rates_id, deleted_at]
+      type: unique
+  columns:
+    id:                                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_bill_item_rationalized_rates_id: { type: integer, notnull: true }
+    supply_rate:                            { type: decimal, scale: 5, notnull: true, default: 0 }
+    wastage_percentage:                     { type: decimal, scale: 5, notnull: true, default: 0 }
+    wastage_amount:                         { type: decimal, scale: 5, notnull: true, default: 0 }
+    labour_for_installation:                { type: decimal, scale: 5, notnull: true, default: 0 }
+    other_cost:                             { type: decimal, scale: 5, notnull: true, default: 0 }
+    profit_percentage:                      { type: decimal, scale: 5, notnull: true, default: 0 }
+    profit_amount:                          { type: decimal, scale: 5, notnull: true, default: 0 }
+    total:                                  { type: decimal, scale: 5, notnull: true, default: 0 }
+  relations:
+    TenderBillItemRationalizedRates:
+      local: tender_bill_item_rationalized_rates_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PrimeCostRate
+      foreignType: one
+
+TenderBillItemRationalizedLumpSumPercentage:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: tender_bill_item_rationalized_lump_sum_percentages
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_bill_irlsp_id_idx:
+      fields: [id, tender_bill_item_rationalized_rates_id, amount]
+    tender_bill_irlsp_unique_idx:
+      fields: [tender_bill_item_rationalized_rates_id]
+      type: unique
+  columns:
+    id:                                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_bill_item_rationalized_rates_id: { type: integer, notnull: true }
+    rate:                                   { type: decimal, scale: 5, notnull: true, default: 0 }
+    percentage:                             { type: decimal, notnull: true, default: 0 }
+    amount:                                 { type: decimal, scale: 5, notnull: true, default: 0 }
+  relations:
+    TenderBillItemRationalizedRates:
+      local: tender_bill_item_rationalized_rates_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: LumpSumPercentage
+      foreignType: one
+
+TenderBillElementRationalizedGrandTotal:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_bill_element_rationalized_grand_total
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_bill_element_rationalized_grand_total_id_idx:
+      fields: [id]
+    tender_bill_element_rationalized_grand_total_fk_idx:
+      fields: [bill_element_id]
+    tender_bill_element_rationalized_grand_total_unique_idx:
+      fields: [bill_element_id]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_element_id:        { type: integer, notnull: true }
+    grand_total:            { type: decimal, scale: 5, default: 0 }
+  relations:
+    BillElement:
+      local: bill_element_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderCompanyElementGrandTotals
+      foreignType: many
+
+TenderBillItemNotListedQuantity:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_bill_item_not_listed_quantities
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_bill_item_not_listed_quantities_id_idx:
+      fields: [id]
+    tender_bill_item_not_listed_quantities_fk_idx:
+      fields: [tender_bill_item_not_listed_id, bill_column_setting_id]
+    tender_bill_item_not_listed_quantities_unique_idx:
+      fields: [tender_bill_item_not_listed_id, bill_column_setting_id]
+      type: unique
+  columns:
+    id:                               { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_bill_item_not_listed_id:   { type: integer, notnull: true }
+    bill_column_setting_id:           { type: integer, notnull: true }
+    final_value:                      { type: decimal, scale: 5, default: 0 }
+  relations:
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderCompanyQuantities
+      foreignType: many
+    TenderBillItemNotListed:
+      local: tender_bill_item_not_listed_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Quantities
+      foreignType: one
+
+TenderBillItemNotListed:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_bill_item_not_listed
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_bill_item_not_listed_idx:
+      fields: [id]
+    tender_bill_item_not_listed_fk_idx:
+      fields: [tender_company_id, bill_item_id]
+    tender_bill_item_not_listed_unique_idx:
+      fields: [tender_company_id, bill_item_id]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_company_id:      { type: integer, notnull: true }
+    bill_item_id:           { type: integer, notnull: true }
+    description:            { type: string, notnull: false }
+    uom_id:                 { type: integer, notnull: false }
+  relations:
+    TenderCompany:
+      local: tender_company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillItemNotListed
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderBillItemNotListed
+      foreignType: many
+
+TenderBillItemLumpSumPercentage:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: tender_bill_item_lump_sum_percentages
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_bill_ilsp_id_idx:
+      fields: [id, tender_bill_item_rate_id, amount]
+    tender_bill_ilsp_unique_idx:
+      fields: [tender_bill_item_rate_id]
+      type: unique
+  columns:
+    id:                       { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_bill_item_rate_id: { type: integer, notnull: true }
+    rate:                     { type: decimal, scale: 5, notnull: true, default: 0 }
+    percentage:               { type: decimal, notnull: true, default: 0 }
+    amount:                   { type: decimal, scale: 5, notnull: true, default: 0 }
+  relations:
+    TenderBillItemRate:
+      local: tender_bill_item_rate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: LumpSumPercentage
+      foreignType: one
+
+TenderBillItemPrimeCostRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: tender_bill_item_prime_cost_rates
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    tender_bill_ipcr_id_idx:
+      fields: [id, tender_bill_item_rate_id, total, deleted_at]
+    tender_bill_ipcr_unique_idx:
+      fields: [tender_bill_item_rate_id, deleted_at]
+      type: unique
+  columns:
+    id:                       { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_bill_item_rate_id: { type: integer, notnull: true }
+    supply_rate:              { type: decimal, scale: 5, notnull: true, default: 0 }
+    wastage_percentage:       { type: decimal, scale: 5, notnull: true, default: 0 }
+    wastage_amount:           { type: decimal, scale: 5, notnull: true, default: 0 }
+    labour_for_installation:  { type: decimal, scale: 5, notnull: true, default: 0 }
+    other_cost:               { type: decimal, scale: 5, notnull: true, default: 0 }
+    profit_percentage:        { type: decimal, scale: 5, notnull: true, default: 0 }
+    profit_amount:            { type: decimal, scale: 5, notnull: true, default: 0 }
+    total:                    { type: decimal, scale: 5, notnull: true, default: 0 }
+  relations:
+    TenderBillItemRate:
+      local: tender_bill_item_rate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PrimeCostRate
+      foreignType: one
+
+TenderBillElementGrandTotal:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_bill_element_grand_total
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_bill_element_grand_total_id_idx:
+      fields: [id]
+    tender_bill_element_grand_total_fk_idx:
+      fields: [tender_company_id, bill_element_id]
+    tender_bill_element_grand_total_unique_idx:
+      fields: [tender_company_id, bill_element_id]
+      type: unique
+  columns:
+    id:                     { type: integer, primary: true, notnull: true, autoincrement: true }
+    tender_company_id:      { type: integer, notnull: true }
+    bill_element_id:        { type: integer, notnull: true }
+    grand_total:            { type: decimal, scale: 5, default: 0 }
+  relations:
+    TenderCompany:
+      local: tender_company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BillElementGrandTotals
+      foreignType: many
+    BillElement:
+      local: bill_element_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TenderCompanyElementGrandTotals
+      foreignType: many
+
+TenderCompanyAttachments:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: tender_company_attachments
+  actAs: [Timestampable, Signable]
+  indexes:
+    tender_company_attachments_id_idx:
+      fields: [project_structure_id]
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    project_structure_id: { type: integer, notnull: true }
+    company_id:           { type: integer, notnull: true }
+    filepath:             { type: string, notnull: true }
+    filename:             { type: string, notnull: true }
+    extension:            { type: string, notnull: false }
+  relations:
+    ProjectStructure:
+      class: ProjectStructure
+      local: project_structure_id
+      onDelete: CASCADE
+    Company:
+      class: Company
+      local: company_id
+      onDelete: CASCADE

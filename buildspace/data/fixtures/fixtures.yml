@@ -1,0 +1,178 @@
+sfGuardGroup:
+  Group_SuperAdmin:
+    name:           Super Admin
+    description:    Super Administrator group
+    Permissions:    [Permission_admin]
+    is_super_admin: true
+  Group_Admin:
+    name:           Admin
+    description:    Administrator group
+    Permissions:    [Permission_admin]
+
+sfGuardPermission:
+  Permission_admin:
+    name:           admin
+    description:    Administrator permission
+
+sfGuardGroupMenu:
+  SuperAdmin_Menu_1:
+    Group: Group_SuperAdmin
+    Menu: library_menu
+  SuperAdmin_Menu_2:
+    Group: Group_SuperAdmin
+    Menu: resource_library_menu
+  SuperAdmin_Menu_3:
+    Group: Group_SuperAdmin
+    Menu: schedule_of_rate_library_menu
+  SuperAdmin_Menu_4:
+    Group: Group_SuperAdmin
+    Menu: bq_library_menu
+  SuperAdmin_Menu_5:
+    Group: Group_SuperAdmin
+    Menu: project_builder_menu
+  SuperAdmin_Menu_6:
+    Group: Group_SuperAdmin
+    Menu: administration_menu
+  SuperAdmin_Menu_7:
+    Group: Group_SuperAdmin
+    Menu: printing_layout_setting_menu
+  SuperAdmin_Menu_8:
+    Group: Group_SuperAdmin
+    Menu: system_maintenance_menu
+  SuperAdmin_Menu_9:
+    Group: Group_SuperAdmin
+    Menu: system_administration_menu
+  SuperAdmin_Menu_10:
+    Group: Group_SuperAdmin
+    Menu: tendering_menu
+  SuperAdmin_Menu_11:
+    Group: Group_SuperAdmin
+    Menu: finance_menu
+  SuperAdmin_Menu_12:
+    Group: Group_SuperAdmin
+    Menu: company_directories_menu
+
+WorkCategory:
+  category_building:
+    name: BUILDING
+  category_civil:
+    name: CIVIL
+
+UnitOfMeasurementType:
+  uom_metric:
+    name: Metric
+  uom_imperial:
+    name: Imperial
+
+UnitOfMeasurement:
+  uom_kilogram:
+    name: Kilogram
+    symbol: kg
+    display: true
+    UnitOfMeasurementType: uom_metric
+  uom_tonne:
+    name: Tonne
+    symbol: tonne
+    display: true
+    UnitOfMeasurementType: uom_metric
+  uom_metre:
+    name: Metre
+    symbol: m
+    display: true
+    UnitOfMeasurementType: uom_metric
+  uom_metre_cube:
+    name: Cubic Metre
+    symbol: m3
+    display: true
+    UnitOfMeasurementType: uom_metric
+  uom_metre_square:
+    name: Square Metre
+    symbol: m2
+    display: true
+    UnitOfMeasurementType: uom_metric
+  uom_kilogram_per_square_metre:
+    name: Kilogram per square metre
+    symbol: kg/m2
+    display: true
+    UnitOfMeasurementType: uom_metric
+  uom_kilogram_per_cubic_metre:
+    name: Kilogram per cubic metre
+    symbol: kg/m3
+    display: true
+    UnitOfMeasurementType: uom_imperial
+
+Dimension:
+  dimension_length:
+    name: Length
+  dimension_width:
+    name: Width
+  dimension_depth:
+    name: Depth
+  dimension_number:
+    name: Number
+  dimension_mass:
+    name: Mass
+
+UnitOfMeasurementDimensions:
+  uom_kilogram_xref:
+    UnitOfMeasurement: uom_kilogram
+    Dimension: dimension_mass
+    priority: 1
+  uom_metre_cube_xref_1:
+    UnitOfMeasurement: uom_metre_cube
+    Dimension: dimension_length
+    priority: 1
+  uom_metre_cube_xref_2:
+    UnitOfMeasurement: uom_metre_cube
+    Dimension: dimension_width
+    priority: 2
+  uom_metre_cube_xref_3:
+    UnitOfMeasurement: uom_metre_cube
+    Dimension: dimension_depth
+    priority: 3
+  uom_tonne_xref:
+    UnitOfMeasurement: uom_tonne
+    Dimension: dimension_mass
+    priority: 1
+  uom_metre_xref:
+    UnitOfMeasurement: uom_metre
+    Dimension: dimension_length
+    priority: 1
+  uom_metre_square_xref_1:
+    UnitOfMeasurement: uom_metre_square
+    Dimension: dimension_length
+    priority: 1
+  uom_metre_square_xref_2:
+    UnitOfMeasurement: uom_metre_square
+    Dimension: dimension_width
+    priority: 2
+  uom_kilogram_per_square_metre_xref_1:
+    UnitOfMeasurement: uom_kilogram_per_square_metre
+    Dimension: dimension_length
+    priority: 1
+  uom_kilogram_per_square_metre_xref_2:
+    UnitOfMeasurement: uom_kilogram_per_square_metre
+    Dimension: dimension_width
+    priority: 2
+  uom_kilogram_per_cubic_metre_xref_1:
+    UnitOfMeasurement: uom_kilogram_per_cubic_metre
+    Dimension: dimension_length
+    priority: 1
+  uom_kilogram_per_cubic_metre_xref_2:
+    UnitOfMeasurement: uom_kilogram_per_cubic_metre
+    Dimension: dimension_width
+    priority: 2
+  uom_kilogram_per_cubic_metre_xref_3:
+    UnitOfMeasurement: uom_kilogram_per_cubic_metre
+    Dimension: dimension_depth
+    priority: 3
+
+CompanyBusinessType:
+  CompanyBusinessType_1:
+    name: Supplier
+  CompanyBusinessType_2:
+    name: Manufacturer
+  CompanyBusinessType_3:
+    name: Contractor
+  CompanyBusinessType_4:
+    name: Sub-Contractor

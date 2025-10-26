@@ -1,0 +1,66 @@
+<div>
+    <form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="rfqForm-${rfqId}" style="padding: 0 5px;">
+        <fieldset style="margin-bottom: 10px;">
+            <legend>${nls.rfqInformation}</legend>
+
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.rfqType}:</label>
+                    </td>
+                    <td>
+                        ${formInfo.typeText}
+                    </td>
+                </tr>
+                <tr data-dojo-attach-point="projectNameContainer" style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.project}:</label>
+                    </td>
+                    <td>
+                        ${formInfo.rfq[project_name]}
+                    </td>
+                </tr>
+                <tr data-dojo-attach-point="projectSiteAddressContainer" style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.projectSiteAddress}:</label>
+                    </td>
+                    <td>
+                        ${formInfo.rfq[site_address]}
+                    </td>
+                </tr>
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.rfqNo}:</label>
+                    </td>
+                    <td>
+                        ${formInfo.rfq[rfqNo]}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.country}:</label>
+                    </td>
+                    <td>
+                        ${formInfo.rfq[region_name]}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.state}:</label>
+                    </td>
+                    <td>
+                        ${formInfo.rfq[sub_region_name]}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.status}:</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="statusSelect-${rfqId}"></div>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>

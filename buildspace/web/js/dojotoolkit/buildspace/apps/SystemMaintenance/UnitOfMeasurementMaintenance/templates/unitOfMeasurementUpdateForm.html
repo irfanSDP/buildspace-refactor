@@ -1,0 +1,25 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.unitOfMeasurementMaintenance}</legend>
+        <table class="table-form" style="width:auto">
+            <tr>
+                <td class="label"><label style="display: inline;"><span class="required">*</span>${nls.name} :</label></td>
+                <td>
+                    <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:true" name="unit_of_measurement[name]" style="padding:2px;width:280px;">
+                    <p class="alert-text-error" data-dojo-attach-point="uom_${uomType}_error-name" id="uom_${uomType}_error-name"></p>
+                </td>
+                <td class="label"><label style="display: inline;"><span class="required">*</span>${nls.symbol} :</label></td>
+                <td>
+                    <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, required:true" name="unit_of_measurement[symbol]" style="padding:2px;width:50px;">
+                    <p class="alert-text-error" data-dojo-attach-point="uom_${uomType}_error-symbol" id="uom_${uomType}_error-symbol"></p>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <input type="hidden" name="id" value="">
+    <input type="hidden" name="unit_of_measurement[type]" value="">
+    <input type="hidden" name="unit_of_measurement[_csrf_token]" value="">
+    <br clear="all">
+    <div data-dojo-attach-point="dimensionBCNode${uomType}" style="width:100%;"></div>
+</form>
+

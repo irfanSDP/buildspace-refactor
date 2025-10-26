@@ -1,0 +1,3 @@
+<?php $hashTag = '#' . str_replace('%id%', $loe->contractorConfirmDelay->id, PCK\Forms\LOEContractorConfirmDelayForm::accordianId); ?>
+
+The Contractor {{ HTML::link($hashTag, 'confirmed') }} that "the matters referred to in the claim [that have led to the Loss And/Or Expense]" have ended on {{{ $loe->project->getProjectTimeZoneTime($loe->contractorConfirmDelay->date_on_which_delay_is_over) }}}. The deadline for the Contractor to submit the final claim for Loss and/or Expense is <strong>{{{ $loe->project->getProjectTimeZoneTime($loe->contractorConfirmDelay->deadline_to_submit_final_claim) }}}</strong> ({{{ $loe->project->pam2006Detail->deadline_submitting_final_claim_l_and_e }}} days from date the matters referred have ended).

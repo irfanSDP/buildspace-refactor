@@ -1,0 +1,1 @@
+define({root:{add:"Add","delete":"Delete",save:"Save",formDesc:"My Company Profile Form",changeCompanyLogoPic:"Change Company Logo",companyName:"Company Name",address:"Address",country:"Country",state:"State",city:"City",zipcode:"Zipcode",timezone:"Timezone",email:"E-mail Address",phoneNum:"Phone Number",faxNum:"Fax Number",website:"Website",pleaseWait:"Please Wait"}});

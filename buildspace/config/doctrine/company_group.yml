@@ -1,0 +1,33 @@
+CompanyGroup:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: company_group
+  indexes:
+    company_group_idx:
+      fields: [id, company_id, group_id]
+    company_group_fk_idx:
+      fields: [company_id, group_id]
+      type: unique
+  columns:
+    id:         { type: integer, primary: true, notnull: true, autoincrement: true }
+    company_id: { type: integer, notnull: true }
+    group_id:   { type: integer, notnull: true }
+  relations:
+    Company:
+      local: company_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Groups
+      foreignType: many
+    Group:
+      class: sfGuardGroup
+      local: group_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Companies
+      foreignType: many

@@ -1,0 +1,28 @@
+<div>
+    <form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="stockOutForm" style="padding: 0 5px;">
+        <fieldset style="margin-bottom: 10px;">
+            <table class="table-form">
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;">${nls.stockOutNo}:</label>
+                    </td>
+                    <td>
+                        ${formInfo.stock_out_used_quantity[running_number]}
+                    </td>
+                </tr>
+                <tr style="height:18px;">
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.stock_out_date}:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="stock_out_used_quantity[stock_out_date]" style="padding:2px;width:180px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="constraints:{ datePattern : 'dd/MM/yyyy' }" value="now" required="true">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-stock_out_date"></span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <input type="hidden" name="stock_out_used_quantity[project_structure_id]" value="">
+        <input type="hidden" name="stock_out_used_quantity[_csrf_token]" value="">
+    </form>
+</div>

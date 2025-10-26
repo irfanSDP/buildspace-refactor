@@ -1,0 +1,33 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="costDataInformationForm">
+        <fieldset>
+            <legend>${nls.costDataInformation}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.budgetDate} :</label>
+                    </td>
+                    <td id="cost_data-approved_date-column">
+                        <input type="text" id="cost_data-approved_date" name="cost_data[approved_date]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="trim:true, propercase:true" />
+                        <p class="alert-text-error" data-dojo-attach-point="cost_data_error-approved_date" id="cost_data_error-approved_date"></p>
+                    </td>
+                    <td class="label">
+                        <label style="display: inline;">${nls.contractSumDate} :</label>
+                    </td>
+                    <td id="cost_data-awarded_date-column">
+                        <input type="text" id="cost_data-awarded_date" name="cost_data[awarded_date]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="trim:true, propercase:true" />
+                        <p class="alert-text-error" data-dojo-attach-point="cost_data_error-awarded_date" id="cost_data_error-awarded_date"></p>
+                    </td>
+                    <td class="label">
+                        <label style="display: inline;">${nls.adjustedSumDate} :</label>
+                    </td>
+                    <td id="cost_data-adjusted_date-column">
+                        <input type="text" id="cost_data-adjusted_date" name="cost_data[adjusted_date]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="trim:true, propercase:true" />
+                        <p class="alert-text-error" data-dojo-attach-point="cost_data_error-adjusted_date" id="cost_data_error-adjusted_date"></p>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <input type="hidden" name="cost_data[_csrf_token]" value="" id="cost_data[_csrf_token]" data-dojo-type="dijit/form/ValidationTextBox">
+    </form>
+</div>

@@ -1,0 +1,1 @@
+define({root:{description:"Description",editItemNote:"Edit Item Note",editElementNote:"Edit Element Note",editTradeNote:"Edit Trade Note","delete":"Delete",close:"Close",save:"Save",error:"Error",pleaseWait:"Please wait",note:"Note",savingData:"Saving data"}});

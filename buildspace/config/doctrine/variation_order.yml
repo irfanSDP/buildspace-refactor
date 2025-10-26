@@ -1,0 +1,787 @@
+VariationOrder:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: variation_orders
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    variation_order_id_idx:
+      fields: [id, project_structure_id, type]
+    variation_order_priority_unique_idx:
+      fields: [priority, project_structure_id, deleted_at]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    description:          { type: string, notnull: false }
+    project_structure_id: { type: integer, notnull: true }
+    eproject_rfv_id:      { type: integer, notnull: false }
+    is_approved:          { type: boolean, notnull: true, default: false }
+    status:               { type: integer, notnull: true  }
+    type:                 { type: integer(4), notnull: true, default: 1 }
+    priority:             { type: integer, notnull: true, default: 0 }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: VariationOrders
+      foreignType: many
+
+VariationOrderClaimCertificate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+    Signable:
+  tableName: variation_order_claim_certificates
+  indexes:
+    variation_order_claim_certificates_fk_idx:
+      fields: [variation_order_id, claim_certificate_id]
+    variation_order_claim_certificates_unique_idx:
+      fields: [variation_order_id, claim_certificate_id]
+      type: unique
+  columns:
+    variation_order_id:   { type: integer, primary:true, notnull: true, autoincrement: false }
+    claim_certificate_id: { type: integer, notnull: true }
+  relations:
+    VariationOrder:
+      local: variation_order_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ClaimCertificateXref
+      foreignType: one
+    ClaimCertificate:
+      local: claim_certificate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: VariationOrders
+      foreignType: many
+
+VariationOrderItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: variation_order_items
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    vo_items_id_idx:
+      fields: [id, root_id, lft, rgt]
+    vo_items_type_idx:
+      fields: [type]
+    vo_items_fk_idx:
+      fields: [variation_order_id, bill_item_id, root_id, uom_id]
+  columns:
+    id:                             { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_ref:                       { type: string }
+    total_unit:                     { type: integer(4), notnull: true, default: 1 }
+    bill_item_id:                   { type: integer, notnull: false }
+    description:                    { type: string, notnull: false }
+    type:                           { type: integer(4), notnull: true }
+    variation_order_id:             { type: integer, notnull: true }
+    uom_id:                         { type: integer, notnull: false }
+    rate:                           { type: decimal, scale: 5, default: 0 }
+    omission_quantity:              { type: decimal, default: 0 }
+    has_omission_build_up_quantity: { type: boolean, default: false }
+    addition_quantity:              { type: decimal, default: 0 }
+    has_addition_build_up_quantity: { type: boolean, default: false }
+    priority:                       { type: integer, notnull: true, default: 0 }
+    reference_quantity:             { type: decimal, default: 0 }
+    reference_rate:                 { type: decimal, scale: 5, default: 0 }
+    reference_amount:               { type: decimal, scale: 5, default: 0 }
+    is_from_rfv:                    { type: boolean, default: false }
+    tender_origin_id:               { type: string, notnull: false, default: null}
+    remarks:                        { type: text, default: null }
+  relations:
+    VariationOrder:
+      local: variation_order_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: VariationOrderItems
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: VariationOrderItems
+      foreignType: many
+
+VariationOrderItemUnit:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: variation_order_item_units
+  actAs: [Timestampable, Signable]
+  indexes:
+    vo_item_units_id_idx:
+      fields: [variation_order_item_id, type_reference_id]
+    vo_item_units_unique_idx:
+      fields: [variation_order_item_id, type_reference_id]
+      type: unique
+  columns:
+    variation_order_item_id: { type: integer, notnull: true, primary: true }
+    type_reference_id:       { type: integer, notnull: true, primary: true }
+  relations:
+    PostContractStandardClaimTypeReference:
+      local: type_reference_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: VariationOrderItemReferences
+      foreignType: many
+    VariationOrderItem:
+      local: variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TypeReferences
+      foreignType: many
+
+VariationOrderClaim:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: variation_order_claims
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    vo_claims_id_idx:
+      fields: [id, variation_order_id]
+    vo_claims_revision_unique_idx:
+      fields: [revision, variation_order_id, deleted_at]
+      type: unique
+  columns:
+    id:                 { type: integer, primary: true, notnull: true, autoincrement: true }
+    variation_order_id: { type: integer, notnull: true }
+    status:             { type: integer(1), notnull: true, default: 1 }
+    revision:           { type: integer(4), notnull: true, default: 1 }
+    is_viewing:         { type: boolean, notnull: true, default: true }
+  relations:
+    VariationOrder:
+      local: variation_order_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Claims
+      foreignType: many
+
+VariationOrderClaimClaimCertificate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  actAs:
+    Timestampable:
+    Signable:
+  tableName: variation_order_claims_claim_certificates
+  indexes:
+    variation_order_claims_claim_certificates_fk_idx:
+      fields: [variation_order_claim_id, claim_certificate_id]
+    variation_order_claims_claim_certificates_unique_idx:
+      fields: [variation_order_claim_id, claim_certificate_id]
+      type: unique
+  columns:
+    variation_order_claim_id: { type: integer, primary:true, notnull: true, autoincrement: false }
+    claim_certificate_id:     { type: integer, notnull: true }
+  relations:
+    VariationOrderClaim:
+      local: variation_order_claim_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ClaimCertificateXref
+      foreignType: one
+    ClaimCertificate:
+      local: claim_certificate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: VariationOrderClaims
+      foreignType: many
+
+VariationOrderBuildUpQuantityItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: variation_order_build_up_quantity_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    vo_buq_item_id_idx:
+      fields: [id, variation_order_item_id, deleted_at]
+    vo_buq_item_fk_idx:
+      fields: [variation_order_item_id]
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    variation_order_item_id: { type: integer, notnull: true }
+    description:             { type: string, notnull: false }
+    total:                   { type: decimal, scale: 5, default: 0 }
+    sign:                    { type: integer(1), notnull: true, default: 1 }
+    priority:                { type: integer, notnull: true, default: 0 }
+    type:                    { type: integer(2), notnull: true }
+  relations:
+    VariationOrderItem:
+      local: variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpQuantities
+      foreignType: many
+
+VariationOrderBuildUpQuantityFormulatedColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: variation_order_build_up_quantity_formulated_columns
+  actAs: [FormulatedColumn, Timestampable, Signable, SoftDelete]
+  indexes:
+    vo_buqfc_id_idx:
+      fields: [id, relation_id, value, final_value, column_name, deleted_at]
+    vo_buqfc_rel_idx:
+      fields: [relation_id]
+  columns:
+    id: { type: integer, primary: true, notnull: true, autoincrement: true }
+  relations:
+    BuildUpQuantityItem:
+      class: VariationOrderBuildUpQuantityItem
+      local: relation_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: FormulatedColumns
+      foreignType: many
+
+VariationOrderBuildUpQuantityEdge:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: variation_order_build_up_quantity_edges
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    vo_buqe_id_idx:
+      fields: [id, node_from, node_to, column_name, deleted_at]
+    vo_buqe_fk_idx:
+      fields: [node_from, node_to]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    node_from:   { type: integer, notnull: true }
+    node_to:     { type: integer, notnull: true }
+    column_name: { type: string(50), notnull: true }
+  relations:
+    NodeFrom:
+      class: VariationOrderBuildUpQuantityFormulatedColumn
+      local: node_from
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeFromEdges
+      foreignType: many
+    NodeTo:
+      class: VariationOrderBuildUpQuantityFormulatedColumn
+      local: node_to
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeToEdges
+      foreignType: many
+
+VariationOrderBuildUpQuantitySummary:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: variation_order_build_up_quantity_summaries
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    vo_buq_summary_id_idx:
+      fields: [id, variation_order_item_id, deleted_at]
+    vo_buq_unique_idx:
+     fields: [variation_order_item_id, type, deleted_at]
+     type: unique
+  columns:
+    id:                         { type: integer, primary: true, notnull: true, autoincrement: true }
+    variation_order_item_id:    { type: integer, notnull: true }
+    linked_total_quantity:      { type: decimal, scale: 5, default: 0 }
+    total_quantity:             { type: decimal, scale: 5, default: 0 }
+    final_quantity:             { type: decimal, scale: 5, default: 0 }
+    apply_conversion_factor:    { type: boolean, default: false}
+    conversion_factor_amount:   { type: decimal, scale: 5, default: 0 }
+    conversion_factor_operator: { type: varchar(1), notnull: true }
+    rounding_type:              { type: integer(4), notnull: true }
+    type:                       { type: integer(2), notnull: true }
+  relations:
+    VariationOrderItem:
+      local: variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpQuantitySummaries
+      foreignType: many
+
+ScheduleOfQuantityVariationOrderItemXref:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: soq_vo_item_xrefs
+  actAs: [Timestampable, Signable]
+  indexes:
+    soq_vo_xref_id_idx:
+      fields: [id, schedule_of_quantity_item_id, variation_order_item_id, type]
+    soq_vo_xref_fk_idx:
+      fields: [schedule_of_quantity_item_id, variation_order_item_id]
+    soq_vo_xref_unique_idx:
+      fields: [schedule_of_quantity_item_id, variation_order_item_id, type]
+      type: unique
+  columns:
+    id:                           { type: integer, primary: true, notnull: true, autoincrement: true }
+    schedule_of_quantity_item_id: { type: integer, notnull: true }
+    variation_order_item_id:      { type: integer, notnull: true }
+    type:                         { type: integer(2), notnull: true }
+  relations:
+    ScheduleOfQuantityItem:
+      local: schedule_of_quantity_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: VariationOrderItems
+      foreignType: many
+    VariationOrderItem:
+      local: variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfQuantities
+      foreignType: many
+
+VariationOrderClaimItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: variation_order_claim_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    vo_claim_items_id_idx:
+      fields: [id, variation_order_claim_id]
+    vo_claim_items_fk_idx:
+      fields: [variation_order_claim_id, variation_order_item_id]
+    vo_claims_items_unique_idx:
+      fields: [variation_order_claim_id, variation_order_item_id, deleted_at]
+      type: unique
+  columns:
+    id:                       { type: integer, primary: true, notnull: true, autoincrement: true }
+    variation_order_claim_id: { type: integer, notnull: true }
+    variation_order_item_id:  { type: integer, notnull: true }
+    current_quantity:         { type: decimal, default: 0 }
+    current_amount:           { type: decimal, scale: 5, default: 0 }
+    current_percentage:       { type: decimal, default: 0 }
+    up_to_date_quantity:      { type: decimal, default: 0 }
+    up_to_date_amount:        { type: decimal, scale: 5, default: 0 }
+    up_to_date_percentage:    { type: decimal, default: 0 }
+    remarks:                  { type: text, default: null }
+  relations:
+    VariationOrderClaim:
+      local: variation_order_claim_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    VariationOrderItem:
+      local: variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ClaimItems
+      foreignType: many
+
+SubPackageVariationOrder:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_package_variation_orders
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sp_variation_order_id_idx:
+      fields: [id, sub_package_id]
+    sp_variation_order_priority_unique_idx:
+      fields: [priority, sub_package_id, deleted_at]
+      type: unique
+  columns:
+    id:             { type: integer, primary: true, notnull: true, autoincrement: true }
+    description:    { type: string, notnull: false }
+    sub_package_id: { type: integer, notnull: true }
+    is_approved:    { type: boolean, notnull: true, default: false }
+    priority:       { type: integer, notnull: true, default: 0 }
+  relations:
+    SubPackage:
+      local: sub_package_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: VariationOrders
+      foreignType: many
+
+SubPackageVariationOrderItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_package_vo_items
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    sp_vo_items_id_idx:
+      fields: [id, root_id, lft, rgt]
+    sp_vo_items_type_idx:
+      fields: [type]
+    sp_vo_items_fk_idx:
+      fields: [sub_package_variation_order_id, bill_item_id, root_id, uom_id]
+  columns:
+    id:                             { type: integer, primary: true, notnull: true, autoincrement: true }
+    bill_ref:                       { type: string }
+    total_unit:                     { type: integer(4), notnull: true, default: 1 }
+    bill_item_id:                   { type: integer, notnull: false }
+    description:                    { type: string, notnull: false }
+    type:                           { type: integer(4), notnull: true }
+    sub_package_variation_order_id: { type: integer, notnull: true }
+    uom_id:                         { type: integer, notnull: false }
+    rate:                           { type: decimal, scale: 5, default: 0 }
+    omission_quantity:              { type: decimal, default: 0 }
+    has_omission_build_up_quantity: { type: boolean, default: false }
+    addition_quantity:              { type: decimal, default: 0 }
+    has_addition_build_up_quantity: { type: boolean, default: false }
+    priority:                       { type: integer, notnull: true, default: 0 }
+  relations:
+    SubPackageVariationOrder:
+      local: sub_package_variation_order_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackageVariationOrderItems
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackageVariationOrderItems
+      foreignType: many
+
+SubPackageVariationOrderItemUnit:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_package_vo_item_units
+  actAs: [Timestampable, Signable]
+  indexes:
+    sp_vo_item_units_id_idx:
+      fields: [sub_package_variation_order_item_id, type_reference_id]
+    sp_vo_item_units_unique_idx:
+      fields: [sub_package_variation_order_item_id, type_reference_id]
+      type: unique
+  columns:
+    sub_package_variation_order_item_id: { type: integer, notnull: true, primary: true }
+    type_reference_id:                   { type: integer, notnull: true, primary: true }
+  relations:
+    PostContractStandardClaimTypeReference:
+      local: type_reference_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackageVariationOrderItemReferences
+      foreignType: many
+    SubPackageVariationOrderItem:
+      local: sub_package_variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: TypeReferences
+      foreignType: many
+
+SubPackageVariationOrderBuildUpQuantityItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_package_vo_build_up_quantity_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sp_vo_buq_item_id_idx:
+      fields: [id, sub_package_variation_order_item_id, deleted_at]
+    sp_vo_buq_item_fk_idx:
+      fields: [sub_package_variation_order_item_id]
+  columns:
+    id:                                  { type: integer, primary: true, notnull: true, autoincrement: true }
+    sub_package_variation_order_item_id: { type: integer, notnull: true }
+    description:                         { type: string, notnull: false }
+    total:                               { type: decimal, scale: 5, default: 0 }
+    sign:                                { type: integer(1), notnull: true, default: 1 }
+    priority:                            { type: integer, notnull: true, default: 0 }
+    type:                                { type: integer(2), notnull: true }
+  relations:
+    SubPackageVariationOrderItem:
+      local: sub_package_variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpQuantities
+      foreignType: many
+
+SubPackageVariationOrderBuildUpQuantityFormulatedColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_package_vo_build_up_quantity_formulated_columns
+  actAs: [FormulatedColumn, Timestampable, Signable, SoftDelete]
+  indexes:
+    sp_vo_buqfc_id_idx:
+      fields: [id, relation_id, value, final_value, column_name, deleted_at]
+    sp_vo_buqfc_rel_idx:
+      fields: [relation_id]
+  columns:
+    id: { type: integer, primary: true, notnull: true, autoincrement: true }
+  relations:
+    BuildUpQuantityItem:
+      class: SubPackageVariationOrderBuildUpQuantityItem
+      local: relation_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: FormulatedColumns
+      foreignType: many
+
+SubPackageVariationOrderBuildUpQuantityEdge:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_package_vo_build_up_quantity_edges
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sp_vo_buqe_id_idx:
+      fields: [id, node_from, node_to, column_name, deleted_at]
+    sp_vo_buqe_fk_idx:
+      fields: [node_from, node_to]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    node_from:   { type: integer, notnull: true }
+    node_to:     { type: integer, notnull: true }
+    column_name: { type: string(50), notnull: true }
+  relations:
+    NodeFrom:
+      class: SubPackageVariationOrderBuildUpQuantityFormulatedColumn
+      local: node_from
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeFromEdges
+      foreignType: many
+    NodeTo:
+      class: SubPackageVariationOrderBuildUpQuantityFormulatedColumn
+      local: node_to
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeToEdges
+      foreignType: many
+
+SubPackageVariationOrderBuildUpQuantitySummary:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_package_vo_build_up_quantity_summaries
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sp_vo_buq_summary_id_idx:
+      fields: [id, sub_package_variation_order_item_id, deleted_at]
+    sp_vo_buq_unique_idx:
+     fields: [sub_package_variation_order_item_id, type, deleted_at]
+     type: unique
+  columns:
+    id:                                  { type: integer, primary: true, notnull: true, autoincrement: true }
+    sub_package_variation_order_item_id: { type: integer, notnull: true }
+    linked_total_quantity:               { type: decimal, scale: 5, default: 0 }
+    total_quantity:                      { type: decimal, scale: 5, default: 0 }
+    final_quantity:                      { type: decimal, scale: 5, default: 0 }
+    apply_conversion_factor:             { type: boolean, default: false}
+    conversion_factor_amount:            { type: decimal, scale: 5, default: 0 }
+    conversion_factor_operator:          { type: varchar(1), notnull: true }
+    rounding_type:                       { type: integer(4), notnull: true }
+    type:                                { type: integer(2), notnull: true }
+  relations:
+    SubPackageVariationOrderItem:
+      local: sub_package_variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpQuantitySummaries
+      foreignType: many
+
+ScheduleOfQuantitySubPackageVOItemXref:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: soq_sp_vo_item_xrefs
+  actAs: [Timestampable, Signable]
+  indexes:
+    soq_sp_vo_xref_id_idx:
+      fields: [id, schedule_of_quantity_item_id, sub_package_variation_order_item_id, type]
+    soq_sp_vo_xref_fk_idx:
+      fields: [schedule_of_quantity_item_id, sub_package_variation_order_item_id]
+    soq_sp_vo_xref_unique_idx:
+      fields: [schedule_of_quantity_item_id, sub_package_variation_order_item_id, type]
+      type: unique
+  columns:
+    id:                                  { type: integer, primary: true, notnull: true, autoincrement: true }
+    schedule_of_quantity_item_id:        { type: integer, notnull: true }
+    sub_package_variation_order_item_id: { type: integer, notnull: true }
+    type:                                { type: integer(2), notnull: true }
+  relations:
+    ScheduleOfQuantityItem:
+      local: schedule_of_quantity_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: SubPackageVariationOrderItems
+      foreignType: many
+    SubPackageVariationOrderItem:
+      local: sub_package_variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfQuantities
+      foreignType: many
+
+SubPackageVariationOrderClaim:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_package_vo_claims
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sp_vo_claims_id_idx:
+      fields: [id, sub_package_variation_order_id]
+    sp_vo_claims_revision_unique_idx:
+      fields: [revision, sub_package_variation_order_id, deleted_at]
+      type: unique
+  columns:
+    id:                             { type: integer, primary: true, notnull: true, autoincrement: true }
+    sub_package_variation_order_id: { type: integer, notnull: true }
+    status:                         { type: integer(1), notnull: true, default: 1 }
+    revision:                       { type: integer(4), notnull: true, default: 1 }
+    is_viewing:                     { type: boolean, notnull: true, default: true }
+  relations:
+    SubPackageVariationOrder:
+      local: sub_package_variation_order_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Claims
+      foreignType: many
+
+SubPackageVariationOrderClaimItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: sub_package_vo_claim_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sp_vo_claim_items_id_idx:
+      fields: [id, sub_package_variation_order_claim_id]
+    sp_vo_claim_items_fk_idx:
+      fields: [sub_package_variation_order_claim_id, sub_package_variation_order_item_id]
+    sp_vo_claims_items_unique_idx:
+      fields: [sub_package_variation_order_claim_id, sub_package_variation_order_item_id, deleted_at]
+      type: unique
+  columns:
+    id:                                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    sub_package_variation_order_claim_id: { type: integer, notnull: true }
+    sub_package_variation_order_item_id:  { type: integer, notnull: true }
+    current_amount:                       { type: decimal, scale: 5, default: 0 }
+    current_percentage:                   { type: decimal, default: 0 }
+    up_to_date_amount:                    { type: decimal, scale: 5, default: 0 }
+    up_to_date_percentage:                { type: decimal, default: 0 }
+  relations:
+    SubPackageVariationOrderClaim:
+      local: sub_package_variation_order_claim_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    SubPackageVariationOrderItem:
+      local: sub_package_variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ClaimItems
+      foreignType: many

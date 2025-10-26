@@ -1,0 +1,35 @@
+<form data-dojo-attach-point="containerNode">
+    <fieldset>
+        <legend>${nls.billInformation}</legend>
+        <table class="table-form">
+            <tr>
+                <td class="label" style="width:20%;">
+                    <label style="display: inline;">${nls.title} :</label>
+                </td>
+                <td style="width:30%;">
+                    <div data-dojo-attach-point="titleNode" style="width:100%;padding:2px;"></div>
+                </td>
+                <td class="label" style="width:20%;">
+                    <label style="display: inline;">${nls.description} :</label>
+                </td>
+                <td style="width:30%;">
+                    <div data-dojo-attach-point="descriptionNode" style="width:100%;padding:2px;min-height:30px;_height:30px"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width:20%;">
+                    <label style="display: inline;">${nls.unitType} :</label>
+                </td>
+                <td style="width:30%;">
+                    <div data-dojo-attach-point="unitTypeTextNode"></div>
+                </td>
+                <td class="label" style="width:20%;">
+                    <label style="display: inline;">${nls.billType} :</label>
+                </td>
+                <td style="width:30%;">
+                    ${nls.supplyOfMaterialBill}
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

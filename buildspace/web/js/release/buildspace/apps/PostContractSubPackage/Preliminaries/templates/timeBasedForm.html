@@ -1,0 +1,38 @@
+<div>
+    <form class="${baseClass}" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="prelimTimeBasedClaimForm" style="padding: 0 5px;">
+        <fieldset style="margin-bottom: 10px;">
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.upToDateDuration}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="sub_package_preliminaries_time_based_claim[up_to_date_duration]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="height:18px;width:100%;" data-dojo-attach-point="upToDateDurationInput">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-up_to_date_duration"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.totalProjectDuration}:</label>
+                    </td>
+                    <td>
+                        <input type=text name="sub_package_preliminaries_time_based_claim[total_project_duration]" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required: true" style="height:18px;width:100%;" data-dojo-attach-point="totalProjectDurationInput">
+                        <span style="color:red; display: none;" data-dojo-attach-point="error-total_project_duration"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:150px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.total} (%):</label>
+                    </td>
+                    <td>
+                        <span data-dojo-attach-point="timeBasedClaimCalculatedRates">${total}</span>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <input type=hidden name="sub_package_preliminaries_time_based_claim[sub_package_post_contract_bill_item_rate_id]" value="">
+        <input type=hidden name="sub_package_preliminaries_time_based_claim[revision_id]" value="${currentClaimRevision.id}">
+        <input type=hidden name="sub_package_preliminaries_time_based_claim[_csrf_token]" value="">
+    </form>
+</div>

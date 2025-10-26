@@ -1,0 +1,328 @@
+PostContractImportedStandardClaim:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contract_imported_standard_claim
+  indexes:
+    post_contract_imported_standard_claim_id_idx:
+      fields: [id]
+    post_contract_imported_standard_claim_fk_idx:
+      fields: [claim_type_ref_id, bill_item_id, revision_id]
+    post_contract_imported_standard_claim_unique_idx:
+      fields: [claim_type_ref_id, bill_item_id, revision_id]
+      type: unique
+    post_contract_imported_standard_claim_revision_id_idx:
+      fields: [revision_id]
+  columns:
+    id:                      { type: integer, primary: true, notnull: true, autoincrement: true }
+    revision_id:             { type: integer, notnull: true }
+    claim_type_ref_id:       { type: integer, notnull: true }
+    bill_item_id:            { type: integer, notnull: true }
+    current_percentage:      { type: decimal, scale: 5, default: 0 }
+    current_amount:          { type: decimal, scale: 5, default: 0 }
+    up_to_date_percentage:   { type: decimal, scale: 5, default: 0 }
+    up_to_date_amount:       { type: decimal, scale: 5, default: 0 }
+    up_to_date_qty:          { type: decimal, scale: 5, default: 0 }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractStandardClaims
+      foreignType: many
+    PostContractClaimRevision:
+      local: revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractStandardClaims
+      foreignType: many
+    PostContractStandardClaimTypeReference:
+      local: claim_type_ref_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractStandardClaims
+      foreignType: many
+
+PostContractImportedPreliminaryClaim:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: post_contract_imported_preliminary_claim
+  indexes:
+    post_contract_imported_preliminary_claim_id_idx:
+      fields: [id]
+    post_contract_imported_preliminary_claim_fk_idx:
+      fields: [bill_item_id, revision_id]
+    post_contract_imported_preliminary_claim_unique_idx:
+      fields: [bill_item_id, revision_id]
+      type: unique
+    post_contract_imported_preliminary_claim_revision_id_idx:
+      fields: [revision_id]
+  columns:
+    id:                { type: integer, primary: true, notnull: true, autoincrement: true }
+    revision_id:       { type: integer, notnull: true }
+    bill_item_id:      { type: integer, notnull: true }
+    up_to_date_amount: { type: decimal, scale: 5, default: 0 }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractPreliminaryClaims
+      foreignType: many
+    PostContractClaimRevision:
+      local: revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractPreliminaryClaims
+      foreignType: many
+
+ImportedVariationOrder:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: imported_variation_orders
+  actAs: [Timestampable]
+  indexes:
+    imported_variation_order_id_idx:
+      fields: [id, project_structure_id, revision_id]
+    imported_variation_order_priority_unique_idx:
+      fields: [priority, project_structure_id]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    revision_id:          { type: integer, notnull: true }
+    project_structure_id: { type: integer, notnull: true }
+    tender_origin_id:     { type: string, notnull: false, default: null}
+    description:          { type: string, notnull: false }
+    priority:             { type: integer, notnull: true, default: 0 }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ImportedVariationOrders
+      foreignType: many
+    PostContractClaimRevision:
+      local: revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ImportedVariationOrders
+      foreignType: many
+
+ImportedVariationOrderItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: imported_variation_order_items
+  actAs:
+    Timestampable:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    imported_vo_items_id_idx:
+      fields: [id, root_id, lft, rgt]
+    imported_vo_items_fk_idx:
+      fields: [imported_variation_order_id, root_id]
+  columns:
+    id:                          { type: integer, primary: true, notnull: true, autoincrement: true }
+    imported_variation_order_id: { type: integer, notnull: true }
+    tender_origin_id:            { type: string, notnull: false, default: null}
+    description:                 { type: string, notnull: false }
+    priority:                    { type: integer, notnull: true, default: 0 }
+    type:                        { type: integer(4), notnull: true }
+    total_amount:                { type: decimal, scale: 5, default: 0 }
+    total_unit:                  { type: integer(4), notnull: true, default: 1 }
+    uom_symbol:                  { type: string, notnull: false, default: null}
+    rate:                        { type: decimal, scale: 5, default: 0 }
+    quantity:                    { type: decimal, default: 0 }
+  relations:
+    ImportedVariationOrder:
+      local: imported_variation_order_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+
+ImportedVariationOrderClaimItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: imported_variation_order_claim_items
+  indexes:
+    imported_vo_claim_items_id_idx:
+      fields: [id, revision_id]
+    imported_vo_claim_items_fk_idx:
+      fields: [revision_id, imported_variation_order_item_id]
+    imported_vo_claims_items_unique_idx:
+      fields: [revision_id, imported_variation_order_item_id]
+      type: unique
+  columns:
+    id:                               { type: integer, primary: true, notnull: true, autoincrement: true }
+    revision_id:                      { type: integer, notnull: true }
+    imported_variation_order_item_id: { type: integer, notnull: true }
+    up_to_date_quantity:              { type: decimal, scale: 5, default: 0 }
+    up_to_date_amount:                { type: decimal, scale: 5, default: 0 }
+    up_to_date_percentage:            { type: decimal, scale: 5, default: 0 }
+  relations:
+    ImportedVariationOrderItem:
+      local: imported_variation_order_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ClaimItems
+      foreignType: many
+    PostContractClaimRevision:
+      local: revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ImportedVariationOrders
+      foreignType: many
+
+ImportedMaterialOnSite:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: imported_materials_on_site
+  actAs: [Timestampable]
+  indexes:
+    imported_mos_id_idx:
+      fields: [id, project_structure_id, revision_id]
+    imported_mos_priority_unique_idx:
+      fields: [sequence, project_structure_id]
+      type: unique
+  columns:
+    id:                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    revision_id:          { type: integer, notnull: true }
+    project_structure_id: { type: integer, notnull: true }
+    tender_origin_id:     { type: string, notnull: false, default: null}
+    description:          { type: string, notnull: false }
+    sequence:             { type: integer, notnull: true, default: 0 }
+  relations:
+    ProjectStructure:
+      local: project_structure_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ImportedMaterialsOnSite
+      foreignType: many
+    PostContractClaimRevision:
+      local: revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ImportedMaterialsOnSite
+      foreignType: many
+
+ImportedMaterialOnSiteItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: imported_material_on_site_items
+  actAs:
+    Timestampable:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    imported_mos_items_id_idx:
+      fields: [id, root_id, lft, rgt]
+    imported_mos_items_fk_idx:
+      fields: [imported_material_on_site_id, root_id]
+  columns:
+    id:                           { type: integer, primary: true, notnull: true, autoincrement: true }
+    imported_material_on_site_id: { type: integer, notnull: true }
+    tender_origin_id:             { type: string, notnull: false, default: null}
+    description:                  { type: string, notnull: false }
+    sequence:                     { type: integer, notnull: true, default: 0 }
+    type:                         { type: integer(4), notnull: true }
+    uom_symbol:                   { type: varchar(10), notnull: false }
+    quantity:                     { type: decimal, default: 0 }
+    rate:                         { type: decimal, scale: 5, default: 0 }
+    final_amount:                 { type: decimal, scale: 5, default: 0 }
+    reduction_percentage:         { type: decimal, scale: 5, default: 0 }
+    reduction_amount:             { type: decimal, scale: 5, default: 0 }
+  relations:
+    ImportedMaterialOnSite:
+      local: imported_material_on_site_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+
+ClaimImportLog:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: claim_import_logs
+  actAs: [Timestampable, Signable]
+  indexes:
+    claim_import_logs_id_idx:
+      fields: [id]
+    claim_import_logs_fk_idx:
+      fields: [revision_id]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    revision_id: { type: integer, notnull: true }
+  relations:
+    PostContractClaimRevision:
+      local: revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ClaimImportLogs
+      foreignType: many
+
+UnlockClaimSubmissionLog:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: unlock_claim_submission_logs
+  actAs: [Timestampable, Signable]
+  indexes:
+    unlock_claim_submission_logs_id_idx:
+      fields: [id]
+    unlock_claim_submission_logs_fk_idx:
+      fields: [revision_id]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    revision_id: { type: integer, notnull: true }
+  relations:
+    ProjectRevision:
+      local: revision_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: UnlockClaimSubmissionLogs
+      foreignType: many

@@ -1,0 +1,56 @@
+GlobalCalendarSetting:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: global_calendar_setting
+  actAs: [Timestampable, Signable]
+  indexes:
+    global_calendar_setting_id_idx:
+      fields: [id, default_region_id]
+  columns:
+    id:                 { type: integer, primary: true, notnull: true, autoincrement: true }
+    default_region_id:  { type: integer, notnull: false }
+  relations:
+    Regions:
+      local: default_region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: CalendarSetting
+      foreignType: many
+
+GlobalCalendar:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: global_calendar
+  actAs: [Timestampable, Signable]
+  indexes:
+    global_calendar_id_idx:
+      fields: [id, region_id]
+  columns:
+    id:           { type: integer, primary: true, notnull: true, autoincrement: true }
+    description:  { type: string, notnull: true  }
+    region_id:    { type: integer, notnull: false }
+    subregion_id: { type: integer, notnull: false }
+    event_type:   { type: integer, notnull: true }
+    is_holiday:   { type: boolean, default: true }
+    start_date:   { type: date, notnull: true }
+    end_date:     { type: date, notnull: true }
+  relations:
+    Regions:
+      local: region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: GlobalCalendarEvents
+      foreignType: many
+    Subregions:
+      local: subregion_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: GlobalCalendarEvents
+      foreignType: many

@@ -1,0 +1,233 @@
+connection: main_conn
+
+PreliminariesClaim:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: prelim_claims
+  indexes:
+    prelim_claim_uniq_idx:
+      fields: [post_contract_bill_item_rate_id, claim_at_revision_id, deleted_at]
+      type: unique
+  actAs: [Timestampable, Signable, SoftDelete]
+  columns:
+    post_contract_bill_item_rate_id: { type: integer, notnull: true }
+    claim_at_revision_id:            { type: integer, default: null }
+  relations:
+    ItemRate:
+      class: PostContractBillItemRate
+      local: post_contract_bill_item_rate_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesClaim
+      foreignType: one
+      onDelete: CASCADE
+    ClaimedAtRevision:
+      class: PostContractClaimRevision
+      local: claim_at_revision_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesClaim
+      foreignType: one
+      onDelete: CASCADE
+
+PreliminariesIncludeInitial:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: prelim_include_initials
+  indexes:
+    prelim_include_initial_uniq_idx:
+      fields: [post_contract_bill_item_rate_id, include_at_revision_id]
+      type: unique
+  actAs: [Timestampable, Signable]
+  columns:
+    post_contract_bill_item_rate_id: { type: integer, notnull: true }
+    include_at_revision_id:          { type: integer, default: null }
+  relations:
+    ItemRate:
+      class: PostContractBillItemRate
+      local: post_contract_bill_item_rate_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesClaim
+      foreignType: one
+      onDelete: CASCADE
+    IncludeAtRevision:
+      class: PostContractClaimRevision
+      local: include_at_revision_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesClaim
+      foreignType: one
+      onDelete: CASCADE
+
+PreliminariesIncludeFinal:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: prelim_include_finals
+  indexes:
+    prelim_include_final_uniq_idx:
+      fields: [post_contract_bill_item_rate_id, include_at_revision_id]
+      type: unique
+  actAs: [Timestampable, Signable]
+  columns:
+    post_contract_bill_item_rate_id: { type: integer, notnull: true }
+    include_at_revision_id:          { type: integer, default: null }
+  relations:
+    ItemRate:
+      class: PostContractBillItemRate
+      local: post_contract_bill_item_rate_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesClaim
+      foreignType: one
+      onDelete: CASCADE
+    IncludeAtRevision:
+      class: PostContractClaimRevision
+      local: include_at_revision_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesClaim
+      foreignType: one
+      onDelete: CASCADE
+
+PreliminariesInitialClaim:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: prelim_initial_claims
+  indexes:
+    prelim_initial_claim_uniq_idx:
+      fields: [post_contract_bill_item_rate_id, revision_id, deleted_at]
+      type: unique
+  actAs: [Timestampable, Signable, SoftDelete]
+  columns:
+    post_contract_bill_item_rate_id: { type: integer, notnull: true }
+    percentage:                      { type: decimal, scale: 5, default: 0 }
+    amount:                          { type: decimal, scale: 5, default: 0 }
+    revision_id:                     { type: integer, notnull: true }
+  relations:
+    ItemRate:
+      class: PostContractBillItemRate
+      local: post_contract_bill_item_rate_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesInitialClaimRate
+      foreignType: one
+      onDelete: CASCADE
+    Revision:
+      class: PostContractClaimRevision
+      local: revision_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesInitialClaimRate
+      foreignType: one
+      onDelete: CASCADE
+
+PreliminariesTimeBasedClaim:
+  options:
+    symfony:
+      filter: false
+  tableName: prelim_time_based_claims
+  indexes:
+    prelim_time_based_claim_uniq_idx:
+      fields: [post_contract_bill_item_rate_id, revision_id, deleted_at]
+      type: unique
+  actAs: [Timestampable, Signable, SoftDelete]
+  columns:
+    post_contract_bill_item_rate_id: { type: integer, notnull: true }
+    up_to_date_duration:             { type: decimal, scale: 5, default: 0 }
+    total_project_duration:          { type: decimal, scale: 5, default: 0 }
+    total:                           { type: decimal, scale: 5, default: 0 }
+    revision_id:                     { type: integer, notnull: true }
+  relations:
+    ItemRate:
+      class: PostContractBillItemRate
+      local: post_contract_bill_item_rate_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesTimeBasedClaimRate
+      foreignType: one
+      onDelete: CASCADE
+    Revision:
+      class: PostContractClaimRevision
+      local: revision_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesTimeBasedClaimRate
+      foreignType: one
+      onDelete: CASCADE
+
+PreliminariesWorkBasedClaim:
+  options:
+    symfony:
+      filter: false
+  tableName: prelim_work_based_claims
+  indexes:
+    prelim_work_based_claim_uniq_idx:
+      fields: [post_contract_bill_item_rate_id, revision_id, deleted_at]
+      type: unique
+  actAs: [Timestampable, Signable, SoftDelete]
+  columns:
+    post_contract_bill_item_rate_id: { type: integer, notnull: true }
+    builders_work_done:              { type: decimal, scale: 5, default: 0 }
+    total_builders_work:             { type: decimal, scale: 5, default: 0 }
+    total:                           { type: decimal, scale: 5, default: 0 }
+    revision_id:                     { type: integer, notnull: true }
+  relations:
+    ItemRate:
+      class: PostContractBillItemRate
+      local: post_contract_bill_item_rate_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesWorkBasedClaimRate
+      foreignType: one
+      onDelete: CASCADE
+    Revision:
+      class: PostContractClaimRevision
+      local: revision_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesWorkBasedClaimRate
+      foreignType: one
+      onDelete: CASCADE
+
+PreliminariesFinalClaim:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: prelim_final_claims
+  indexes:
+    prelim_final_claim_uniq_idx:
+      fields: [post_contract_bill_item_rate_id, revision_id, deleted_at]
+      type: unique
+  actAs: [Timestampable, Signable, SoftDelete]
+  columns:
+    post_contract_bill_item_rate_id: { type: integer, notnull: true }
+    percentage:                      { type: decimal, scale: 5, default: 0 }
+    amount:                          { type: decimal, scale: 5, default: 0 }
+    revision_id:                     { type: integer, notnull: true }
+  relations:
+    ItemRate:
+      class: PostContractBillItemRate
+      local: post_contract_bill_item_rate_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesFinalClaimRate
+      foreignType: one
+      onDelete: CASCADE
+    Revision:
+      class: PostContractClaimRevision
+      local: revision_id
+      foreign: id
+      type: one
+      foreignAlias: PreliminariesFinalClaimRate
+      foreignType: one
+      onDelete: CASCADE

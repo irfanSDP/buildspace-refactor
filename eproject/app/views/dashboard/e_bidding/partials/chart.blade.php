@@ -1,0 +1,1 @@
+<div class="chart {{ $chartType }}" id="chart_{{ $chartId }}"></div>

@@ -1,0 +1,200 @@
+connection: main_conn
+
+RFQ:
+  options:
+    symfony:
+      filter: false
+  tableName: request_for_quotations
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    rfq_fk_idx:
+      fields: [project_structure_id, region_id, sub_region_id, deleted_at]
+    rfq_prefix_rfq_count_uniq_idx:
+      fields: [project_structure_id, prefix, rfq_count, type]
+      type: unique
+  columns:
+    project_structure_id: { type: integer, default: null }
+    prefix:               { type: string }
+    rfq_count:            { type: integer, default: 0 }
+    type:                 { type: integer, notnull: true }
+    region_id:            { type: integer, notnull: false }
+    sub_region_id:        { type: integer, notnull: false }
+    status:               { type: integer, default: 1 }
+  relations:
+    Project:
+      class: ProjectStructure
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: QuotationRequests
+    Region:
+      class: Regions
+      local: region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: QuotationRequests
+      foreignType: many
+    SubRegion:
+      class: Subregions
+      local: sub_region_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: QuotationRequests
+      foreignType: many
+
+RFQProject:
+  options:
+    symfony:
+      filter: false
+  tableName: request_for_quotation_projects
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    rfq_unique_idx:
+      fields: [request_for_quotation_id, project_structure_id, deleted_at]
+      type: unique
+  columns:
+    request_for_quotation_id: { type: integer, notnull: true }
+    project_structure_id:     { type: integer, default: null }
+  relations:
+    RFQ:
+      local: request_for_quotation_id
+      foreign: id
+      type: one
+      foreignType: one
+      foreignAlias: Quotation
+      onDelete: CASCADE
+    Project:
+      class: ProjectStructure
+      local: project_structure_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: Quotations
+
+RFQSupplier:
+  options:
+    symfony:
+      filter: false
+  tableName: request_for_quotation_suppliers
+  actAs: [Timestampable, Signable]
+  indexes:
+    rfq_supplier_uniq_idx:
+      fields: [request_for_quotation_id, company_id]
+      type: unique
+  columns:
+    request_for_quotation_id: { type: integer, notnull: true }
+    company_id:               { type: integer, notnull: true }
+    status:                   { type: integer, default: 1 }
+  relations:
+    RFQ:
+      local: request_for_quotation_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: RequestForQuotationSuppliers
+      onDelete: CASCADE
+    Company:
+      local: company_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: RequestForQuotations
+
+RFQItem:
+  options:
+    symfony:
+      filter: false
+  tableName: request_for_quotation_items
+  actAs: [Timestampable, Signable]
+  indexes:
+    rfq_item_idx:
+      fields: [request_for_quotation_id, resource_item_id]
+      type: unique
+  columns:
+    request_for_quotation_id: { type: integer, notnull: true }
+    resource_item_id:         { type: integer, notnull: true }
+    quantity:                 { type: decimal, scale: 5, default: 0 }
+    remark_id:                { type: integer, default: null, notnull: false }
+  relations:
+    RFQ:
+      local: request_for_quotation_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: RequestForQuotationItems
+      onDelete: CASCADE
+    ResourceItem:
+      local: resource_item_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: RequestForQuotationItems
+      onDelete: CASCADE
+    Remark:
+      class: RFQItemRemark
+      local: remark_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: RFQItem
+
+RFQItemRemark:
+  options:
+    symfony:
+      filter: false
+  tableName: request_for_quotation_item_remarks
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    rfq_item_remark_description_uniq_idx:
+      fields: [resource_item_id, description]
+      type: unique
+  columns:
+    resource_item_id: { type: integer, notnull: true }
+    description:      { type: string, notnull: true }
+  relations:
+    ResourceItem:
+      local: resource_item_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: RequestForQuotationItemRemarks
+
+RFQItemRate:
+  options:
+    symfony:
+      filter: false
+  tableName: request_for_quotation_item_rates
+  actAs: [Timestampable, Signable]
+  indexes:
+    rfq_item_supplier_rate_uniq_idx:
+      fields: [request_for_quotation_item_id, request_for_quotation_supplier_id]
+      type: unique
+  columns:
+    request_for_quotation_item_id:     { type: integer, notnull: true }
+    request_for_quotation_supplier_id: { type: integer, notnull: true }
+    rate:                              { type: decimal, scale: 5, default: 0 }
+  relations:
+    RFQItem:
+      local: request_for_quotation_item_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: Rates
+      onDelete: CASCADE
+    Supplier:
+      class: RFQSupplier
+      local: request_for_quotation_supplier_id
+      foreign: id
+      type: one
+      foreignType: many
+      foreignAlias: Rates
+      onDelete: CASCADE
+    ResourceItemSelectedRates:
+      class: ResourceItemSelectedRate
+      local: request_for_quotation_item_rate_id
+      foreign: resource_item_selection_of_rate_id
+      refClass: ResourceSelectionOfRateRfqItemRate
+      onDelete: CASCADE

@@ -1,0 +1,2 @@
+define(["dijit/form/Form", "dijit/form/ValidationTextBox", "dijit/form/DateTextBox", "dijit/layout/BorderContainer", "dijit/layout/AccordionContainer", "dijit/layout/TabContainer", "dijit/layout/ContentPane", "dijit/layout/AccordionPane", "dijit/Dialog", "dojox/grid/DataGrid"], function() {
+});

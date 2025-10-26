@@ -1,0 +1,1 @@
+"%s" has submitted an Account Code Setting for your approval.

@@ -1,0 +1,65 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="projectScheduleForm">
+        <fieldset>
+            <legend>${nls.projectSchedule}</legend>
+            <table class="table-form">
+                <tr data-dojo-attach-point="scheduleFormSubPackageName" style="display:none;">
+                    <td class="label" style="width:145px;">
+                        <label style="display: inline;">${nls.subPackage} :</label>
+                    </td>
+                    <td>${subPackageName}</td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:145px;">
+                        <label style="display: inline;"><span class="required">*</span>${nls.title} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="project_schedule[title]" style="padding:2px;width:395px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, required:true, maxLength:180">
+                        <p class="alert-text-error" id="error-project_schedule_title"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.description} :</label>
+                    </td>
+                    <td>
+                        <textarea name="project_schedule[description]" style="width:395px;padding:2px;min-height:30px;_height:30px;" data-dojo-type="dijit/form/Textarea" data-dojo-props="trim:true"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;"><span class="required">*</span>${nls.startDate} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="project_schedule[start_date]" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="constraints:{ datePattern : 'dd/MM/yyyy' }" value="now" required="true" />
+                        <p class="alert-text-error" id="error-project_schedule_start_date"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width: 150px;"><label style="text-align:right; line-height:18px;padding: 2px;"><span class="required">*</span>${nls.timezone} :</label></td>
+                    <td>
+                        <div data-dojo-attach-point="timezoneSelectDiv"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.excludeSaturdays} :</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="project_schedule[exclude_saturdays]" data-dojo-attach-point="elementMarkupEnabledNode" data-dojo-type="dijit/form/CheckBox">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.excludeSundays} :</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="project_schedule[exclude_sundays]" data-dojo-attach-point="elementMarkupEnabledNode" data-dojo-type="dijit/form/CheckBox">
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="project_schedule[project_structure_id]" value="">
+            <input type="hidden" name="project_schedule[_csrf_token]" value="">
+        </fieldset>
+    </form>
+</div>

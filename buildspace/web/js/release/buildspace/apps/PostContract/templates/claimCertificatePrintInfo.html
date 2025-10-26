@@ -1,0 +1,930 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="claimCertificatePrintInfoForm">
+        <fieldset style="border-bottom:none;">
+            <table class="table-form" style="border-spacing:0;">
+                <tr>
+                    <td class="label" style="width:50%;text-align:left;border-bottom:1pt solid black;">
+                        <label style="display:inline;font-size:15px" data-dojo-attach-point="companyName"></label>
+                    </td>
+                    <td class="label" style="width:50%;text-align:right;border-bottom:1pt solid black;">
+                        <label style="display:inline;font-size:15px" data-dojo-attach-point="certificateTitle"></label>
+                    </td>
+                </tr>
+            </table>
+            <table class="table-form" id="print-format-standard" data-dojo-attach-point="printFormatStandardTable">
+                <tr>
+                	<td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Contractor Name:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="contractorName"></label>
+                    </td>
+                    <td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Project Code:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="projectCode"></label>
+                    </td>
+                </tr>
+                <tr>
+                	<td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Address:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="contractorAddr"></label>
+                    </td>
+                    <td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Reference:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="reference"></label>
+                    </td>
+                </tr>
+                <tr>
+                	<td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Tel:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="contractorTel"></label>
+                    </td>
+                    <td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Fax:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="fax"></label>
+                    </td>
+                </tr>
+                <tr>
+                	<td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Date:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="date"></label>
+                    </td>
+                	<td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Payment Due Date:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="dueDate"></label>
+                    </td>
+                </tr>
+                <tr>
+                	<td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Person In Charge:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="contractorPIC"></label>
+                    </td>
+                    <td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Claim No:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="claimNo"></label>
+                    </td>
+                </tr>
+                <tr>
+                	<td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Sub Contract Works:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="subPackageTitle"></label>
+                    </td>
+                    <td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Percentage Completion:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="completionPercentage2"></label>
+                    </td>
+                </tr>
+                <tr>
+                	<td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                	<td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Accm Previous:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="cumulativePreviousAmountCertified2"></label>
+                    </td>
+                </tr>
+                <tr>
+                	<td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Remark:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="remark"></label>
+                    </td>
+                    <td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Prepared By:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="personInCharge"></label>
+                    </td>
+                </tr>
+                <tr>
+                	<td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Project Title:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="projectTitle"></label>
+                    </td>
+                    <td class="label" style="width:160px;text-align:left">
+                        <label style="display: inline;">Lab + Mat:</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="worksfromLA"></label>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+		<fieldset>
+            <table class="table-form custom-table">
+                <tr>
+                	<td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display: inline;">Contract Sum</label>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">%</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">Work Done</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;"><span data-dojo-attach-point="taxLabel"></span>&nbsp; (<span data-dojo-attach-point="taxPercentage"></span>%)</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">Amount</label>
+                    </td>
+                </tr>
+                <tr>
+                	<td>
+                        <label style="display:inline;font-weight:bold;" data-dojo-attach-point="sectionALabel"></label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Bill Total</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="billTotal"></label>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="billWorkDone"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr>
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Variation Order</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="voOverallTotal"></label>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="voWorkDone"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr data-dojo-attach-point="requestForVariationWorkDoneNode">
+                    <td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">RFV Claims</label>
+                    </td>
+                    <td class="label" style="text-align:right" colspan="4">
+                        <label style="display:inline;" data-dojo-attach-point="requestForVariationWorkDone"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr id="tr-main-contract-materialOnSite">
+                    <td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Material on site</label>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="materialOnSiteWorkDone"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="5" style="border-top:1px solid black"></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Total Work Done</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="contractSum"></label>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="completionPercentage"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="totalWorkDone"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+				<tr>
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Retention Sum</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <font color="red"><label style="display:inline;" data-dojo-attach-point="cumulativeTotalRetentionWithoutCurrentClaimRelease"></label></font>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Release Retention</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="currentReleaseRetentionAmount"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;" data-dojo-attach-point="releaseRetentionAmountAfterGST"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5"></td>
+                    <td style="border-top:1px solid black"></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Total Amount</label>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="cumulativeAmountCertified"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="cumulativeAmountGSTAmount"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Previous Certified</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <font color="red"><label style="display:inline;" data-dojo-attach-point="cumulativePreviousAmountCertified"></label></font>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5"></td>
+                    <td colspan="3" style="border-top:1px solid black"></td>
+                </tr>
+                <tr>
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Amount Certified </label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="amountCertified"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="amountCertifiedTaxAmount"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="amountCertifiedIncludingTax"></label>
+                    </td>
+                </tr>
+                <tr>
+				    <td colspan="8" style="border-top:1px solid black"></td>
+				</tr>
+                <tr class="section_b-row">
+                	<td>
+                        <label style="display:inline;font-weight:bold;" data-dojo-attach-point="sectionBLabel"></label>
+                    </td>
+                    <td class="label" style="text-align:left">
+                        <label style="display:inline;" data-dojo-attach-point="sectionMiscLabel"></label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;">ACCM Total</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;">Previous Claim</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;">This Claim</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_b-row" data-dojo-attach-point="includeAdvancePayment" style="display:none;">
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Advance Payment</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="advancePaymentOverallTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <font color="red"><label style="display:inline;" data-dojo-attach-point="advancePaymentPreviousClaim"></label></font>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="advancePaymentThisClaim"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="advancePaymentThisClaimAfterGST"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_b-row" data-dojo-attach-point="includeDeposit" style="display:none;">
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Deposit</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="depositOverallTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <font color="red"><label style="display:inline;" data-dojo-attach-point="depositPreviousClaim"></label></font>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="depositThisClaim"></label>
+                    </td>
+                   <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr id="tr-misc-materialOnSite" class="section_b-row" data-dojo-attach-point="includeMaterialOnSite" style="display:none;">
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Material On Site</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="materialOnSiteOverallTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <font color="red"><label style="display:inline;" data-dojo-attach-point="materialOnSitePreviousClaim"></label></font>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="materialOnSiteThisClaim"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="materialOnSiteThisClaimAfterGST"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_b-row" data-dojo-attach-point="includeKsk" style="display:none;">
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">KSK</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="kskOverallTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="kskPreviousClaim"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="kskThisClaim"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="kskThisClaimAfterGST"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_b-row" data-dojo-attach-point="includeWorkOnBehalfMc" style="display:none;">
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">WOB ( M/C )</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="wobMCOverallTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="wobMCPreviousClaim"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="wobMCThisClaim"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="wobMCThisClaimAfterGST"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_b-row">
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">Sub Total</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="miscThisClaimSubTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="miscThisClaimAfterGSTSubTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="miscThisClaimOverallTotal"></label>
+                    </td>
+                </tr>
+                <tr class="section_b-row">
+				    <td colspan="8" style="border-top:1px solid black"></td>
+				</tr>
+                <tr class="section_b-row">
+                    <td colSpan = "5" class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="taxInvoiceBySubContractorLabel"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="taxInvoiceBySubConSubTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="taxInvoiceBySubConAfterGSTSubTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="taxInvoiceBySubConOverallTotal"></label>
+                    </td>
+                </tr>
+                <tr class="section_b-row">
+				    <td colspan="8" style="border-top:1px solid black"></td>
+				</tr>
+                <tr class="section_c-row">
+                	<td>
+                        <label style="display:inline;font-weight:bold;" data-dojo-attach-point="sectionCLabel"></label>
+                    </td>
+                    <td class="label" style="text-align:left">
+                        <label style="display:inline;" data-dojo-attach-point="sectionOthersLabel"></label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_c-row" data-dojo-attach-point="includeDebitCreditNote" style="display:none;">
+                    <td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Credit/Debit Note</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="debitCreditNoteOverallTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="debitCreditNotePreviousClaim"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="debitCreditNoteThisClaim"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="debitCreditNoteThisClaimAfterGST"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_c-row" data-dojo-attach-point="includePurchaseOnBehalf" style="display:none;">
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">POB</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="pobOverallTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <font color="red"><label style="display:inline;" data-dojo-attach-point="pobPreviousClaim"></label></font>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="pobThisClaim"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="pobThisClaimAfterGST"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_c-row" data-dojo-attach-point="includeWorkOnBehalf" style="display:none;">
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">WOB</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="wobOverallTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="wobPreviousClaim"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="wobThisClaim"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="wobThisClaimAfterGST"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_c-row" data-dojo-attach-point="includePenalty" style="display:none;">
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Penalty</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="penaltyOverallTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="penaltyPreviousClaim"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="penaltyThisClaim"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_c-row">
+				    <td colspan="8" style="border-top:1px solid black"></td>
+				</tr>
+                <tr class="section_c-row">
+                    <td colSpan = "5" class="label" style="text-align:right">
+                        <label style="display:inline;"><span data-dojo-attach-point="taxInvoiceBySubsidiaryLabel"></span> <span data-dojo-attach-point="companyName2"></span></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="otherThisClaimSubTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="otherThisClaimAfterGSTSubTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="otherThisClaimOverallTotal"></label>
+                    </td>
+                </tr>
+                <tr class="section_c-row">
+				    <td colspan="8" style="border-top:1px solid black"></td>
+				</tr>
+                <tr class="section_d-row">
+                	<td>
+                        <label style="display:inline;font-weight:bold;" data-dojo-attach-point="sectionDLabel"></label>
+                    </td>
+                    <td class="label" style="text-align:left">
+                        <label style="display:inline;" data-dojo-attach-point="sectionPaymentOnBehalfLabel"></label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_d-row" data-dojo-attach-point="includeUtility" style="display:none;">
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Utility</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="waterDepositOverallTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="waterDepositPreviousClaim"></label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="waterDepositThisClaim"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_d-row" data-dojo-attach-point="includePermit" style="display:none;">
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">Permit</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="permitOverallTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <font color="red"><label style="display:inline;" data-dojo-attach-point="permitPreviousClaim"></label></font>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="permitThisClaim"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display: inline;">&nbsp;</label>
+                    </td>
+                </tr>
+                <tr class="section_d-row">
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">Sub Total</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="paymentOnBehalfThisClaimSubTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="paymentOnBehalfThisClaimAfterGSTSubTotal"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="paymentOnBehalfThisClaimOverallTotal"></label>
+                    </td>
+                </tr>
+                <tr class="section_d-row">
+				    <td colspan="8" style="border-top:1px solid black"></td>
+				</tr>
+                <tr>
+                	<td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;">&nbsp;</label>
+                    </td>
+                	<td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        &nbsp;
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display: inline;">Net Payable Amount (<span data-dojo-attach-point="currencyCode"></span>)</label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="netPayableAmount"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="netPayableAmountGST"></label>
+                    </td>
+                    <td class="label" style="text-align:right">
+                        <label style="display:inline;" data-dojo-attach-point="netPayableAmountOverallTotal"></label>
+                    </td>
+                </tr>
+                <tr>
+				    <td colspan="8" style="border-top:1px solid black"></td>
+				</tr>
+            </table>
+        </fieldset>
+    </form>
+</div>

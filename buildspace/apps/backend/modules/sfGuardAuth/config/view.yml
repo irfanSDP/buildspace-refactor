@@ -1,0 +1,10 @@
+signinSuccess:
+  layout: sfGuardAuthLayout
+  stylesheets:    [login.css, -themes/nihilo/nihilo.css, -buildspace/main.css]
+  javascripts:    [-dojotoolkit/dojo/dojo.js, -PxLoader/PxLoader.js, -PxLoader/PxLoaderImage.js, -spin.min.js, -lib/equationParser.js]
+
+logoutSuccess:
+  layout: sfGuardAuthLayout
+
+all:
+  has_layout: true

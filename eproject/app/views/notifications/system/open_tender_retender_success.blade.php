@@ -1,0 +1,1 @@
+A new {{ trans("tenders.tenderRevision") }} has been submitted

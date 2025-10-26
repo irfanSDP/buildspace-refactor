@@ -1,0 +1,1 @@
+"%s" has submitted an E-Bidding for your approval.

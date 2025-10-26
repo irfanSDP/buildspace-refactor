@@ -1,0 +1,93 @@
+Resource:
+  Resource_Material:
+    name: Material
+  Resource_Plant:
+    name: Plant
+  Resource_Labour:
+   name: Labour
+
+ResourceTrade:
+  Piling_resource_trade:
+    description: Piling
+    Resource: Resource_Material
+    priority: 1
+  Excavator_resource_trade:
+    description: Excavator
+    Resource: Resource_Material
+    priority: 2
+  Concretor_resource_trade:
+    description: Concretor
+    Resource: Resource_Material
+    priority: 3
+  Reinforcement_Bar_resource_trade:
+    description: Reinforcement Bar
+    Resource: Resource_Material
+    priority: 4
+  Steel_welded_fabric_reinforcement_resource_trade:
+    description: Steel welded fabric reinforcement
+    Resource: Resource_Material
+    priority: 5
+  Precast_prestressed_hollow_resource_trade:
+    description: Precast prestressed hollow core slab, plank and precast beam
+    Resource: Resource_Material
+    priority: 6
+  Bricklayer_resource_trade:
+    description: Bricklayer
+    Resource: Resource_Material
+    priority: 7
+  Drainlayer_resource_trade:
+    description: Drainlayer
+    Resource: Resource_Material
+    priority: 8
+  Carpenter_and_joiner_resource_trade:
+    description: Carpenter And Joiner
+    Resource: Resource_Material
+    priority: 9
+  Ironmongery_resource_trade:
+    description: Ironmongery
+    Resource: Resource_Material
+    priority: 10
+  Steel_&_Iron_resource_trade:
+    description: Steel & Iron
+    Resource: Resource_Material
+    priority: 11
+  Floor_Tiles_resource_trade:
+    description: Floor Tiles
+    Resource: Resource_Material
+    priority: 12
+  Wall_Tiles_resource_trade:
+    description: Wall Tiles
+    Resource: Resource_Material
+    priority: 13
+  Roof_Tiles_resource_trade:
+    description: Roof Tiles
+    Resource: Resource_Material
+    priority: 14
+  Roofer_resource_trade:
+    description: Roofer
+    Resource: Resource_Material
+    priority: 15
+  Ceiling_resource_trade:
+    description: Ceiling
+    Resource: Resource_Material
+    priority: 16
+  General_resource_trade:
+    description: General
+    Resource: Resource_Plant
+    priority: 1
+  Mobile_crane_20Tonne_resource_trade:
+    description: Mobile Crane 20Tonne
+    Resource: Resource_Plant
+    priority: 2
+  Conc_mixer_14T_resource_trade:
+    description: Conc Mixer 14T
+    Resource: Resource_Plant
+    priority: 3
+  Backhoe_resource_trade:
+    description: Backhoe
+    Resource: Resource_Plant
+    priority: 4
+  General_labour_resource_trade:
+    description: General
+    Resource: Resource_Labour
+    priority: 1

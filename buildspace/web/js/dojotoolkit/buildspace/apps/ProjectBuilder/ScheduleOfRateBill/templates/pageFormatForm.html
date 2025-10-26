@@ -1,0 +1,82 @@
+<div class="${baseClass} forms-inputs">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="scheduleOfRateBillPageFormatForm-${sorBillLayoutSettingId}">
+
+        <fieldset>
+            <legend>General Setting</legend>
+            <table class="table-form">
+                <tr>
+                    <td colspan="2">
+                        <label class="removeBlock" style="font-weight:bold;">Price Display Format</label>
+                        <input type="radio" data-dojo-type="dijit/form/RadioButton" name="priceFormat" id="scheduleOfRateBillPageFormatForm_priceFormat1-${sorBillLayoutSettingId}" value="normal">
+                        <label class="removeBlock">1,000.00</label>
+                        <input type="radio" data-dojo-type="dijit/form/RadioButton" name="priceFormat" id="scheduleOfRateBillPageFormatForm_priceFormat2-${sorBillLayoutSettingId}" value="opposite">
+                        <label class="removeBlock">1.000,00</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="scheduleOfRateBillPageFormatForm_printOption200-${sorBillLayoutSettingId}" name="includeIandO">
+                        <label for="scheduleOfRateBillPageFormatForm_printOption200-${sorBillLayoutSettingId}" class="removeBlock">Include item numbers I and O on BOQ Printout</label>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Continued</legend>
+            <table class="table-form">
+                <tr>
+                    <td>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="scheduleOfRateBillPageFormatForm_printOption9-${sorBillLayoutSettingId}" name="printContdEndDesc">
+                        <label for="scheduleOfRateBillPageFormatForm_printOption9-${sorBillLayoutSettingId}" class="removeBlock">Print (Cont'd) at end of the description</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="removeBlock" style="font-weight:bold;" for="scheduleOfRateBillPageFormatForm_contdPrefix-${sorBillLayoutSettingId}">(Cont'd) :</label>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" style="padding:2px;width:240px;" data-dojo-props="required: true, trim: true, propercase:true" id="scheduleOfRateBillPageFormatForm_contdPrefix-${sorBillLayoutSettingId}" name="contdPrefix">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Trade Name</legend>
+            <table class="table-form">
+                <tr>
+                    <td>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="scheduleOfRateBillPageFormatForm_printOption10-${sorBillLayoutSettingId}" name="printElementInGridOnce">
+                        <label for="scheduleOfRateBillPageFormatForm_printOption10-${sorBillLayoutSettingId}" class="removeBlock">Print trade name once per trade within grid on BOQ</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="scheduleOfRateBillPageFormatForm_printOption11-${sorBillLayoutSettingId}" name="printElementTitle">
+                        <label for="scheduleOfRateBillPageFormatForm_printOption11-${sorBillLayoutSettingId}" class="removeBlock">Print trade name at the top right corner on BOQ</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="scheduleOfRateBillPageFormatForm_printOption12-${sorBillLayoutSettingId}" name="printElementInGrid">
+                        <label for="scheduleOfRateBillPageFormatForm_printOption12-${sorBillLayoutSettingId}" class="removeBlock">Print trade name within grid on BOQ</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" data-dojo-type="dijit/form/CheckBox" value="t" id="scheduleOfRateBillPageFormatForm_printOption203-${sorBillLayoutSettingId}" name="alignElementTitleToTheLeft">
+                        <label for="scheduleOfRateBillPageFormatForm_printOption203-${sorBillLayoutSettingId}" class="removeBlock">Align trade name to the left <strong>(Only Applicable if generated with print trade name on)</strong></label>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Page Numbering</legend>
+            <table class="table-form">
+                <tr>
+                    <td>
+                        <label class="removeBlock" style="font-weight:bold;" for="scheduleOfRateBillPageFormatForm_pageNoPrefix-${sorBillLayoutSettingId}">Page No. Prefix :</label>
+                        <input type="text" data-dojo-type="dijit/form/ValidationTextBox" id="scheduleOfRateBillPageFormatForm_pageNoPrefix-${sorBillLayoutSettingId}" name="pageNoPrefix" style="padding:2px;width:240px;" data-dojo-props="trim: true, maxLength:9">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+    </form>
+</div>

@@ -1,0 +1,13 @@
+define({
+    root: {
+        refresh: 'Refresh',
+        search: 'Search',
+        findBy: 'Find by:',
+        pleaseWait: 'Please wait',
+        noFilterApplied: 'No filter applied',
+        noMatchingRecords: 'No matching records',
+        of: 'of',
+        matches: 'matches',
+        none: 'none'
+    }
+});

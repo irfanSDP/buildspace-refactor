@@ -1,0 +1,25 @@
+RecalculateBillItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: recalculate_bill_items
+  actAs: [Timestampable]
+  indexes:
+    recalculate_bill_item_id_id_idx:
+      fields: [bill_item_id, type]
+    recalculate_bill_item_unique_idx:
+      fields: [bill_item_id, type]
+      type: unique
+  columns:
+    bill_item_id: { type: integer, primary: true, notnull: true }
+    type:         { type: integer(4), notnull: true }
+  relations:
+    BillItem:
+      local: bill_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: RecalculateBillItem
+      foreignType: one

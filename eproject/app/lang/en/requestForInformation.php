@@ -1,0 +1,32 @@
+<?php
+
+return array(
+
+    'requestForInformation' => 'Request For Information',
+    'requestsForInformation' => 'Requests For Information',
+    'rfi' => 'RFI',
+    'reference' => 'Reference',
+    'dateIssued' => 'Date Issued',
+    'subject' => 'Subject',
+    'issuer' => 'Issuer',
+    'question' => 'Question',
+    'deadline' => 'Deadline',
+    'replyDeadline' => 'Reply Deadline',
+    'status' => 'Status',
+    'requesting' => 'Requesting',
+    'answered' => 'Answered',
+    'issueNew' => 'Issue New RFI',
+    'rfiIssued' => 'RFI has been issued.',
+    'requestedBy' => 'Requested By',
+    'requestedAt' => 'Requested At',
+    'response' => 'Response',
+    'costImpact' => 'Cost Impact',
+    'scheduleImpact' => 'Schedule Impact',
+    'messagePosted' => 'Message has been posted.',
+    'messageRevised' => 'Message has been revised.',
+    'answeredBy' => 'Answered By',
+    'answeredAt' => 'Answered At',
+    'ballInCourt' => 'Ball In Court',
+    'daysLeft' => 'Days left',
+    'attachments' => 'Attachment(s)',
+);

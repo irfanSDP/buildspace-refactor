@@ -1,0 +1,31 @@
+SupplyOfMaterialLayoutSetting:
+  Setting_1:
+    project_structure_id: null
+
+SupplyOfMaterialLayoutHeadSetting:
+  Head_Setting_1:
+    SupplyOfMaterialLayoutSetting: Setting_1
+    head: 1
+    bold: true
+    underline: true
+  Head_Setting_2:
+    SupplyOfMaterialLayoutSetting: Setting_1
+    head: 2
+    bold: true
+  Head_Setting_3:
+    SupplyOfMaterialLayoutSetting: Setting_1
+    head: 3
+    underline: true
+  Head_Setting_4:
+    SupplyOfMaterialLayoutSetting: Setting_1
+    head: 4
+  Head_Setting_5:
+    SupplyOfMaterialLayoutSetting: Setting_1
+    head: 5
+  Head_Setting_6:
+    SupplyOfMaterialLayoutSetting: Setting_1
+    head: 6
+
+SupplyOfMaterialLayoutPhraseSetting:
+  Phrase_1:
+    SupplyOfMaterialLayoutSetting: Setting_1

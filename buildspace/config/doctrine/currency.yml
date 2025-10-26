@@ -1,0 +1,17 @@
+Currency:
+  connection: main_conn
+  tableName: currency
+  columns:
+    id:
+      type: integer(8)
+      primary: true
+      autoincrement: true
+    currency_name:
+      type: string(60)
+      notnull: false
+      default: 'NULL'
+    currency_code:
+      type: string(3)
+      fixed: true
+      notnull: false
+      default: 'NULL'

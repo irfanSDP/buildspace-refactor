@@ -1,0 +1,362 @@
+ScheduleOfRate:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+  tableName: schedule_of_rates
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sor_lib_id_idx:
+      fields: [id]
+    sor_lib_name_unique_idx:
+      fields: [name, deleted_at]
+      type: unique
+  columns:
+    id:   { type: integer, primary: true, notnull: true, autoincrement: true }
+    name: { type: string(50), notnull: true }
+
+ScheduleOfRateTrade:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_of_rate_trades
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sor_trade_id_idx:
+      fields: [id, schedule_of_rate_id]
+    sor_trade_priority_unique_idx:
+      fields: [priority, schedule_of_rate_id, deleted_at]
+      type: unique
+  columns:
+    id:                                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    description:                          { type: string, notnull: false }
+    schedule_of_rate_id:                  { type: integer, notnull: true }
+    priority:                             { type: integer, notnull: true, default: 0 }
+    recalculate_resources_library_status: { type: boolean, default: false }
+  relations:
+    ScheduleOfRate:
+      local: schedule_of_rate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Trades
+      foreignType: many
+
+ScheduleOfRateItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_of_rate_items
+  actAs:
+    Timestampable:
+    Signable:
+    SoftDelete:
+    NestedSet:
+      levelColumnName: level
+      hasManyRoots: true
+      rootColumnName: root_id
+  indexes:
+    sor_item_id_idx:
+      fields: [id, root_id, lft, rgt]
+    sor_item_type_idx:
+      fields: [type]
+    sor_item_fk_idx:
+      fields: [root_id, trade_id, uom_id]
+  columns:
+    id:                                   { type: integer, primary: true, notnull: true, autoincrement: true }
+    description:                          { type: string, notnull: false }
+    type:                                 { type: integer(4), notnull: true }
+    trade_id:                             { type: integer, notnull: true }
+    uom_id:                               { type: integer, notnull: false }
+    import_resource_item_id:              { type: integer, default: null }
+    import_sor_item_id:                   { type: integer, default: null }
+    priority:                             { type: integer, notnull: true, default: 0 }
+    recalculate_resources_library_status: { type: boolean, default: false }
+  relations:
+    Trade:
+      class: ScheduleOfRateTrade
+      local: trade_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfRateItems
+      foreignType: many
+    ResourceItem:
+      local: import_resource_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ResourceItems
+      foreignType: many
+
+ScheduleOfRateItemFormulatedColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_of_rate_item_formulated_columns
+  actAs: [FormulatedColumn, Timestampable, Signable, SoftDelete]
+  indexes:
+    sor_ifc_id_idx:
+      fields: [id, relation_id, value, final_value, column_name, deleted_at]
+    sor_ifc_rel_idx:
+      fields: [relation_id]
+  columns:
+    id:           { type: integer, primary: true, notnull: true, autoincrement: true }
+    has_build_up: { type: boolean, default: false}
+  relations:
+    ScheduleOfRateItem:
+      local: relation_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: FormulatedColumns
+      foreignType: many
+
+ScheduleOfRateItemEdge:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_of_rate_item_edges
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sor_ie_id_idx:
+      fields: [id, node_from, node_to, column_name, deleted_at]
+    sor_ie_fk_idx:
+      fields: [node_from, node_to]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    node_from:   { type: integer, notnull: true }
+    node_to:     { type: integer, notnull: true }
+    column_name: { type: string(50), notnull: true }
+  relations:
+    NodeFrom:
+      class: ScheduleOfRateItemFormulatedColumn
+      local: node_from
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeFromEdges
+      foreignType: many
+    NodeTo:
+      class: ScheduleOfRateItemFormulatedColumn
+      local: node_to
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeToEdges
+      foreignType: many
+
+ScheduleOfRateBuildUpRateResource:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_of_rate_build_up_rate_resources
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sorbr_resource_id_idx:
+      fields: [id]
+    sorbr_resource_unique_idx:
+      fields: [schedule_of_rate_item_id, resource_library_id, deleted_at]
+      type: unique
+  columns:
+    id:                       { type: integer, primary: true, notnull: true, autoincrement: true }
+    name:                     { type: string(200), notnull: true }
+    schedule_of_rate_item_id: { type: integer, notnull: true }
+    resource_library_id:      { type: integer, notnull: false }
+  relations:
+    ScheduleOfRateItem:
+      local: schedule_of_rate_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpRateResources
+      foreignType: many
+    ResourceLibrary:
+      class: Resource
+      local: resource_library_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfRateBuildUpRateResources
+      foreignType: many
+
+ScheduleOfRateBuildUpRateItem:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_of_rate_build_up_rate_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sor_br_item_id_idx:
+      fields: [id, schedule_of_rate_item_id, build_up_rate_resource_id, resource_trade_library_id, resource_item_library_id, deleted_at]
+    sor_br_item_fk_idx:
+      fields: [schedule_of_rate_item_id, build_up_rate_resource_id, resource_trade_library_id, resource_item_library_id, uom_id]
+  columns:
+    id:                        { type: integer, primary: true, notnull: true, autoincrement: true }
+    schedule_of_rate_item_id:  { type: integer, notnull: true }
+    build_up_rate_resource_id: { type: integer, notnull: true }
+    resource_trade_library_id: { type: integer, notnull: false }
+    resource_item_library_id:  { type: integer, notnull: false }
+    description:               { type: string, notnull: false }
+    total:                     { type: decimal, scale: 5, default: 0 }
+    line_total:                { type: decimal, scale: 5, default: 0 }
+    uom_id:                    { type: integer, notnull: false }
+    priority:                  { type: integer, notnull: true, default: 0 }
+  relations:
+    ScheduleOfRateItem:
+      local: schedule_of_rate_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpRates
+      foreignType: many
+    ScheduleOfRateBuildUpRateResource:
+      local: build_up_rate_resource_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: Items
+      foreignType: many
+    ResourceTradeLibrary:
+      class: ResourceTrade
+      local: resource_trade_library_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfRateBuildUpRateItems
+      foreignType: many
+    ResourceItemLibrary:
+      class: ResourceItem
+      local: resource_item_library_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfRateBuildUpRateItems
+      foreignType: many
+    UnitOfMeasurement:
+      local: uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfRateBuilUpRateItems
+      foreignType: many
+
+ScheduleOfRateBuildUpRateFormulatedColumn:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_of_rate_build_up_rate_formulated_columns
+  actAs: [FormulatedColumn, Timestampable, Signable, SoftDelete]
+  indexes:
+    sor_burfc_id_idx:
+      fields: [id, relation_id, value, final_value, column_name, deleted_at]
+    sor_burfc_rel_idx:
+      fields: [relation_id]
+  columns:
+    id:     { type: integer, primary: true, notnull: true, autoincrement: true }
+    linked: { type: boolean, default: false}
+  relations:
+    BuildUpRateItem:
+      class: ScheduleOfRateBuildUpRateItem
+      local: relation_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: FormulatedColumns
+      foreignType: many
+
+ScheduleOfRateBuildUpRateEdge:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_of_rate_build_up_rate_edges
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sor_bure_id_idx:
+      fields: [id, node_from, node_to, column_name, deleted_at]
+    sor_bure_fk_idx:
+      fields: [node_from, node_to]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    node_from:   { type: integer, notnull: true }
+    node_to:     { type: integer, notnull: true }
+    column_name: { type: string(50), notnull: true }
+  relations:
+    NodeFrom:
+      class: ScheduleOfRateBuildUpRateFormulatedColumn
+      local: node_from
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeFromEdges
+      foreignType: many
+    NodeTo:
+      class: ScheduleOfRateBuildUpRateFormulatedColumn
+      local: node_to
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeToEdges
+      foreignType: many
+
+ScheduleOfRateBuildUpRateSummary:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: schedule_of_rate_build_up_rate_summaries
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    sor_burs_id_idx:
+      fields: [id, schedule_of_rate_item_id, deleted_at]
+    sor_burs_fk_idx:
+      fields: [schedule_of_rate_item_id]
+  columns:
+    id:                         { type: integer, primary: true, notnull: true, autoincrement: true }
+    schedule_of_rate_item_id:   { type: integer, notnull: true }
+    total_cost:                 { type: decimal, scale: 5, default: 0 }
+    markup:                     { type: decimal, default: 0 }
+    final_cost:                 { type: decimal, scale: 5, default: 0 }
+    apply_conversion_factor:    { type: boolean, default: false}
+    conversion_factor_amount:   { type: decimal, scale: 5, default: 0 }
+    conversion_factor_uom_id:   { type: integer, notnull: false }
+    conversion_factor_operator: { type: varchar(1), notnull: true }
+  relations:
+    ScheduleOfRateItem:
+      local: schedule_of_rate_item_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: BuildUpRateSummary
+      foreignType: one
+    UnitOfMeasurement:
+      local: conversion_factor_uom_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: ScheduleOfRateBuilUpRateSummaries
+      foreignType: many

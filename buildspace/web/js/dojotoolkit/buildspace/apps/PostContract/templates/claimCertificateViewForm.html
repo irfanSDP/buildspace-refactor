@@ -1,0 +1,193 @@
+<div class="${baseClass}">
+    <form data-dojo-type="dojox/form/Manager" data-dojo-attach-point="claimCertificateViewForm">
+        <fieldset>
+            <legend>${nls.initialInfo}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;" data-dojo-attach-point="contractorSubmittedDateLbl"></label>
+                    </td>
+                    <td>
+                        <input type="text" name="contractor_submitted_date" style="border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;" data-dojo-attach-point="siteVerifiedDateLbl"></label>
+                    </td>
+                    <td>
+                        <input type="text" name="site_verified_date" style="border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;" data-dojo-attach-point="certificateReceivedDateLbl"></label>
+                    </td>
+                    <td>
+                        <input type="text" name="qs_received_date" style="border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <div style="height:2px;">&nbsp;</div>
+        <fieldset>
+            <legend>${nls.claimCertificateInfo}</legend>
+            <table class="table-form">
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.company} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="company_name" style="width:100%;border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.contractor} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="contractor_name" style="width:100%;border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.letterOfAwardNumber} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="form_number" style="width:100px;border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.claimNumber} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="claim_number" style="border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.works} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="sub_package_work_1" style="width:200px;border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.works} 2 :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="sub_package_work_2" style="width:200px;border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.contractSum} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="contractSum"></label>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.retentionSum} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="retentionSum"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.workDoneAmount} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="workDoneAmount"></label>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.completionPercentage} :</label>
+                    </td>
+                    <td>
+                        <label style="display:inline;" data-dojo-attach-point="completionPercentage"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.releaseRetention} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="release_retention_percentage" style="width:38px;border:none;border-color:transparent;color:#000;" disabled>%
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.releaseRetentionAmount} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="release_retention_amount" style="width:200px;border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label style="display: inline;">${nls.preparedBy} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="person_in_charge" style="width:100%;border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                    <td class="label">
+                        <label style="display: inline;">${nls.amountCertified} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="amount_certified" style="width:100%;border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.dueDate} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="due_date" style="border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.budgetDueDate} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="budget_due_date" style="border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.budgetAmount} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="budget_amount" style="width:200px;border:none;border-color:transparent;color:#000;" disabled>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.tax} :</label>
+                    </td>
+                    <td>
+                        <input type="text" name="tax_percentage" style="width:38px;border:none;border-color:transparent;color:#000;" disabled>%
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.accRemarks} :</label>
+                    </td>
+                    <td style="width:36%;">
+                        <div data-dojo-attach-point="accRemarksNode" style="display:block;white-space:pre-wrap;"></div>
+                    </td>
+                    <td class="label" style="width:160px;">
+                        <label style="display: inline;">${nls.qsRemarks} :</label>
+                    </td>
+                    <td>
+                        <div data-dojo-attach-point="qsRemarksNode" style="display:block;white-space:pre-wrap;"></div>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <div style="height:2px;">&nbsp;</div>
+        <fieldset data-dojo-attach-point="topManagementVerifierSection">
+            <legend>${nls.topManagementVerifiers}</legend>
+            <div data-dojo-type="dijit/form/Button" data-dojo-attach-point="btnAddVerifier" data-dojo-props="iconClass:'icon-16-container icon-16-add'">${nls.addVerifier}</div>
+            <div style="height:2px;">&nbsp;</div>
+            <table class="buildspace-table">
+                <thead>
+                    <tr class="gridHeader">
+                        <th class="gridCell" style="text-align:center; width:50px;">No.</th>
+                        <th class="gridCell">Name</th>
+                        <th class="gridCell" style="text-align:center; width:400px;">Email</th>
+                        <th class="gridCell" style="text-align: center; width:50px;" data-dojo-attach-point="actionHeaderNode">Action</th>
+                        <th class="gridCell" style="text-align: center; width:50px;" data-dojo-attach-point="deleteHeaderNode">Delete</th>
+                    </tr>
+                </thead>
+                <tbody data-dojo-attach-point="topManagementVerifierRowContainer"></tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>

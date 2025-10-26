@@ -1,0 +1,1 @@
+define("buildspace/widget/forms/InlineEditBox","dojo/_base/declare dojo/_base/lang dijit/InlineEditBox dojo/dom-construct dijit/_Widget dijit/_TemplatedMixin dijit/_WidgetsInTemplateMixin".split(" "),function(a,d,b,c,e,f,g){return a("buildspace.widget.forms.InlineEditBox",b,{edit:function(){this.inherited(arguments);c.destroy(this.wrapperWidget.buttonContainer)}})});

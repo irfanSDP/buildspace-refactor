@@ -1,0 +1,36 @@
+<div>
+    <form enctype="multipart/form-data" data-dojo-type="dojox/form/Manager" data-dojo-attach-point="myProfileMaintenanceForm" style="margin: 10px 0;">
+        <div class="profileFormTopContainer" style="overflow: hidden;">
+            <div class="profilePhotoColumn" style="width: 40%; float: left;">
+                <div class="profilePhotoHolder">
+                    <img data-dojo-attach-point="profilePhotoHolder" src="${imgPath}" alt="" style="margin: 0 auto; padding: 3px; border: 1px dotted black; display: block; margin-bottom: 8px; height: 96px; width: 96px;">
+                </div>
+
+                <span style="color:red; display: none; text-align: center; margin: 4px 0;" data-dojo-attach-point="error-profile_photo"></span>
+
+                <div data-dojo-attach-point="myProfileImageUploader" style="text-align: center;"></div>
+            </div>
+
+            <div class="profileFieldsColumn" style="float: left;">
+                <table class="table-form">
+                    <tr>
+                        <td class="label"><label for="name">${nls.name}:</label></td>
+                        <td>${user.name}</td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="email">${nls.email}:</label></td>
+                        <td>${user.email}</td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="position">${nls.company}:</label></td>
+                        <td>${user.company}</td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="contact_num">${nls.contactNum}:</label></td>
+                        <td>${user.contact_number}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>

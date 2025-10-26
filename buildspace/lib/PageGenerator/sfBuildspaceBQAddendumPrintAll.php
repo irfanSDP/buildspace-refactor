@@ -1,0 +1,238 @@
+<?php
+
+class sfBuildSpaceBQAddendumPrintAll {
+
+    public $pdfGenerator = null;
+
+    public function __construct(ProjectStructure $projectStructure, $projectRevision, $elements = null)
+    {
+        sfProjectConfiguration::getActive()->loadHelpers('Partial');
+
+        $this->stylesheet          = file_get_contents(sfConfig::get('sf_web_dir').'/css/printBQ.css');
+        $this->projectStructure    = $projectStructure;
+        $this->projectRevision     = $projectRevision;
+        $this->elements            = $elements;
+        $this->billColumnSettings  = $this->projectStructure->getBillColumnSettings()->toArray();
+        $this->numberOfBillColumns = $projectStructure->getBillColumnSettings()->count();
+        $this->orientation         = ($this->numberOfBillColumns > 1 and !$projectStructure->BillLayoutSetting->print_grand_total_quantity) ? sfBuildspaceBQAddendumGenerator::ORIENTATION_LANDSCAPE : sfBuildspaceBQAddendumGenerator::ORIENTATION_PORTRAIT;
+    }
+
+    public function getOrientation()
+    {
+        return $this->orientation;
+    }
+
+    public function setPdfGenerator($pdfGenerator)
+    {
+        $this->pdfGenerator = $pdfGenerator;
+    }
+
+    public function generateFullBQPrintoutPages($withPrice = false, $sendToBrowser = true)
+    {
+        self::generateAddendumSummaryAndBillItemAndCollectionPages($withPrice, $sendToBrowser);
+    }
+
+    public function generateAddendumSummaryAndBillItemAndCollectionPages($withPrice, $sendToBrowser)
+    {
+        if(count($this->elements->toArray()) == 0)
+        {
+            throw new Exception('Sorry, currently there are no changes detected for Bill :: '.$this->projectStructure->title);
+        }
+
+        $bqPageGenerator      = new sfBuildspaceBQAddendumGenerator($this->projectStructure, $this->projectRevision, $this->elements);
+        $summaryPageLayout    = (count($this->billColumnSettings) > 1 and !$bqPageGenerator->printGrandTotalQty) ? 'multiTypeSummaryPage' : 'singleTypeSummaryPage';
+
+        try
+        {
+            $pages = $bqPageGenerator->generatePages();
+        }
+        catch(PageGeneratorException $e)
+        {
+            throw new PageGeneratorException($e->getMessage(), [
+                'data'            => $e->getData(),
+                'bqPageGenerator' => $bqPageGenerator
+            ]);
+        }
+        catch (Exception $e)
+        {
+            throw $e;
+        }
+
+        $billItemsLayout      = (count($this->billColumnSettings) > 1 and !$bqPageGenerator->printGrandTotalQty) ? 'multiTypeBillItemsLayout' : 'singleTypeBillItemsLayout';
+        $collectionPageLayout = (count($this->billColumnSettings) > 1 and !$bqPageGenerator->printGrandTotalQty) ? 'multiTypeCollectionPage' : 'singleTypeCollectionPage';
+        $currency             = $bqPageGenerator->getCurrency();
+        $printFullDecimal     = $bqPageGenerator->getPrintFullDecimal();
+
+        if ( $sendToBrowser )
+        {
+            foreach($pages['summary_pages'] as $pageNo => $summaryPage)
+            {
+                $maxRows = $bqPageGenerator->getSummaryMaxRows() - 16;
+
+                $isLastPage = $pageNo == count($pages['summary_pages']) ? true : false;
+
+                $layout = get_partial('printBQ/pageLayout', array(
+                        'stylesheet' => $this->stylesheet,
+                        'layoutStyling' => $bqPageGenerator->getLayoutStyling()
+                    )
+                );
+
+                $layout .= get_partial('printBQ/'.$summaryPageLayout, array(
+                    'summaryPage'                => $summaryPage,
+                    'billColumnSettings'         => $this->billColumnSettings,
+                    'currency'                   => $currency,
+                    'topLeftRow1'                => $bqPageGenerator->getTopLeftFirstRowHeader(),
+                    'topLeftRow2'                => $bqPageGenerator->getTopLeftSecondRowHeader(),
+                    'topRightRow1'               => $bqPageGenerator->getTopRightFirstRowHeader(),
+                    'botLeftRow1'                => $bqPageGenerator->getBottomLeftFirstRowHeader(),
+                    'botLeftRow2'                => $bqPageGenerator->getBottomLeftSecondRowHeader(),
+                    'summaryHeaderDescription'   => $bqPageGenerator->getSummaryHeaderDescription(),
+                    'totalPerUnitPrefix'         => $bqPageGenerator->getTotalPerUnitPrefix(),
+                    'totalPerTypePrefix'         => $bqPageGenerator->getTotalPerTypePrefix(),
+                    'totalUnitPrefix'            => $bqPageGenerator->getTotalUnitPrefix(),
+                    'tenderPrefix'               => $bqPageGenerator->getTenderPrefix(),
+                    'descHeader'                 => $bqPageGenerator->getTableHeaderDescriptionPrefix(),
+                    'summaryPageNoPrefix'        => $bqPageGenerator->getTableHeaderSummaryPageNoPrefix(),
+                    'amtHeader'                  => $bqPageGenerator->getTableHeaderAmtPrefix(),
+                    'maxRows'                    => $maxRows,
+                    'pageNo'                     => $bqPageGenerator->getSummaryPageNumberingPrefix($pageNo),
+                    'priceFormatting'            => $bqPageGenerator->getPriceFormatting(),
+                    'printNoPrice'               => $withPrice,
+                    'printFullDecimal'           => $printFullDecimal,
+                    'printElementTitle'          => $bqPageGenerator->getPrintElementTitle(),
+                    'printDollarAndCentColumn'   => $bqPageGenerator->getPrintDollarAndCentColumn(),
+                    'currencyFormat'             => $bqPageGenerator->getCurrencyFormat(),
+                    'amtCommaRemove'             => $bqPageGenerator->getAmtCommaRemove(),
+                    'isLastPage'                 => $isLastPage,
+                    'summaryInGridPrefix'        => $bqPageGenerator->getSummaryInGridPrefix(),
+                    'printDateOfPrinting'        => $bqPageGenerator->getPrintDateOfPrinting(),
+                    'printGrandTotalQty'         => $bqPageGenerator->printGrandTotalQty,
+                    'alignElementTitleToTheLeft' => $bqPageGenerator->getAlignElementToLeft(),
+                    'closeGrid'                  => $bqPageGenerator->getCloseGridConfiguration(),
+                ));
+
+                $this->pdfGenerator->addPage($layout);
+
+                unset($layout);
+            }
+
+            foreach($pages as $key => $page)
+            {
+                $maxRows = $bqPageGenerator->getMaxRows();
+
+                if ($key == 'summary_pages') continue;
+
+                foreach ( $page['item_pages'] as $pageNo => $pageInfo )
+                {
+                    $layout = get_partial('printBQ/pageLayout', array(
+                        'stylesheet' => $this->stylesheet,
+                        'layoutStyling' => $bqPageGenerator->getLayoutStyling()
+                        )
+                    );
+
+                    $layout .= get_partial('printBQ/'.$billItemsLayout, array(
+                        'itemPage'                   => $pageInfo,
+                        'billColumnSettings'         => $this->billColumnSettings,
+                        'maxRows'                    => $maxRows,
+                        'currency'                   => $currency,
+                        'elementHeaderDescription'   => $page['description'],
+                        'elementCount'               => $page['element_count'],
+                        'pageCount'                  => $pageNo,
+                        'topLeftRow1'                => $bqPageGenerator->getTopLeftFirstRowHeader(),
+                        'topLeftRow2'                => $bqPageGenerator->getTopLeftSecondRowHeader(),
+                        'topRightRow1'               => $bqPageGenerator->getTopRightFirstRowHeader(),
+                        'botLeftRow1'                => $bqPageGenerator->getBottomLeftFirstRowHeader(),
+                        'botLeftRow2'                => $bqPageGenerator->getBottomLeftSecondRowHeader(),
+                        'descHeader'                 => $bqPageGenerator->getTableHeaderDescriptionPrefix(),
+                        'unitHeader'                 => $bqPageGenerator->getTableHeaderUnitPrefix(),
+                        'rateHeader'                 => $bqPageGenerator->getTableHeaderRatePrefix(),
+                        'qtyHeader'                  => $bqPageGenerator->getTableHeaderQtyPrefix(),
+                        'amtHeader'                  => $bqPageGenerator->getTableHeaderAmtPrefix(),
+                        'toCollection'               => $bqPageGenerator->getToCollectionPrefix(),
+                        'priceFormatting'            => $bqPageGenerator->getPriceFormatting(),
+                        'printNoPrice'               => $withPrice,
+                        'printFullDecimal'           => $printFullDecimal,
+                        'toggleColumnArrangement'    => $bqPageGenerator->getToggleColumnArrangement(),
+                        'printElementTitle'          => $bqPageGenerator->getPrintElementTitle(),
+                        'printDollarAndCentColumn'   => $bqPageGenerator->getPrintDollarAndCentColumn(),
+                        'currencyFormat'             => $bqPageGenerator->getCurrencyFormat(),
+                        'rateCommaRemove'            => $bqPageGenerator->getRateCommaRemove(),
+                        'qtyCommaRemove'             => $bqPageGenerator->getQtyCommaRemove(),
+                        'amtCommaRemove'             => $bqPageGenerator->getAmtCommaRemove(),
+                        'printAmountOnly'            => $bqPageGenerator->getPrintAmountOnly(),
+                        'printElementInGridOnce'     => $bqPageGenerator->getPrintElementInGridOnce(),
+                        'indentItem'                 => $bqPageGenerator->getIndentItem(),
+                        'printElementInGrid'         => $bqPageGenerator->getPrintElementInGrid(),
+                        'pageNoPrefix'               => $bqPageGenerator->getPageNoPrefix(),
+                        'printDateOfPrinting'        => $bqPageGenerator->getPrintDateOfPrinting(),
+                        'printGrandTotalQty'         => $bqPageGenerator->printGrandTotalQty,
+                        'alignElementTitleToTheLeft' => $bqPageGenerator->getAlignElementToLeft(),
+                        'closeGrid'                  => $bqPageGenerator->getCloseGridConfiguration(),
+                    ));
+
+                    // Add page from URL
+                    $this->pdfGenerator->addPage($layout);
+
+                    unset($layout);
+                }
+
+                // get last collection's page page no.
+                end($page['collection_pages']);
+                $lastCollectionPageNo = key($page['collection_pages']);
+
+                foreach($page['collection_pages'] as $pageNo => $collectionPage)
+                {
+                    $isLastPage = ($lastCollectionPageNo == $pageNo);
+
+                    $layout = get_partial('printBQ/pageLayout', array(
+                            'stylesheet' => $this->stylesheet,
+                            'layoutStyling' => $bqPageGenerator->getLayoutStyling()
+                        )
+                    );
+
+                    $layout .= get_partial('printBQ/'.$collectionPageLayout, array(
+                        'collectionPage'             => $collectionPage,
+                        'billColumnSettings'         => $this->billColumnSettings,
+                        'maxRows'                    => count($this->billColumnSettings) > 1 ? $maxRows-4 : $maxRows,//less 4 rows for collection page
+                        'currency'                   => $currency,
+                        'elementHeaderDescription'   => $page['description'],
+                        'elementCount'               => $page['element_count'],
+                        'pageCount'                  => $pageNo,
+                        'topLeftRow1'                => $bqPageGenerator->getTopLeftFirstRowHeader(),
+                        'topLeftRow2'                => $bqPageGenerator->getTopLeftSecondRowHeader(),
+                        'topRightRow1'               => $bqPageGenerator->getTopRightFirstRowHeader(),
+                        'botLeftRow1'                => $bqPageGenerator->getBottomLeftFirstRowHeader(),
+                        'botLeftRow2'                => $bqPageGenerator->getBottomLeftSecondRowHeader(),
+                        'descHeader'                 => $bqPageGenerator->getTableHeaderDescriptionPrefix(),
+                        'amtHeader'                  => $bqPageGenerator->getTableHeaderAmtPrefix(),
+                        'toCollection'               => $bqPageGenerator->getToCollectionPrefix(),
+                        'priceFormatting'            => $bqPageGenerator->getPriceFormatting(),
+                        'printNoPrice'               => $withPrice,
+                        'printFullDecimal'           => $printFullDecimal,
+                        'printElementTitle'          => $bqPageGenerator->getPrintElementTitle(),
+                        'printDollarAndCentColumn'   => $bqPageGenerator->getPrintDollarAndCentColumn(),
+                        'currencyFormat'             => $bqPageGenerator->getCurrencyFormat(),
+                        'amtCommaRemove'             => $bqPageGenerator->getAmtCommaRemove(),
+                        'printElementInGrid'         => $bqPageGenerator->getPrintElementInGrid(),
+                        'isLastPage'                 => $isLastPage,
+                        'pageNoPrefix'               => $bqPageGenerator->getPageNoPrefix(),
+                        'printDateOfPrinting'        => $bqPageGenerator->getPrintDateOfPrinting(),
+                        'printGrandTotalQty'         => $bqPageGenerator->printGrandTotalQty,
+                        'alignElementTitleToTheLeft' => $bqPageGenerator->getAlignElementToLeft(),
+                        'closeGrid'                  => $bqPageGenerator->getCloseGridConfiguration(),
+                    ));
+
+                    // Add page from URL
+                    $this->pdfGenerator->addPage($layout);
+
+                    unset($layout, $collectionPage, $page['collection_pages'][$pageNo]);
+                }
+
+                unset($pages[$key]);
+            }
+
+            unset($element, $pages, $bqPageGenerator);
+        }
+    }
+
+}

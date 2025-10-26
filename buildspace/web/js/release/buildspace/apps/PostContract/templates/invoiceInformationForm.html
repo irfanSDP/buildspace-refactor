@@ -1,0 +1,24 @@
+<form data-dojo-attach-point="containerNode">
+    <table class="table-form">
+        <tr>
+            <td class="label" style="width:80px;"><label style="display: inline;"></span>${nls.invoiceDate} :</label></td>
+            <td>
+                <input type="text" data-dojo-attach-point="invoice_date" name="claim_certificate_invoice[invoiceDate]" value="now" style="padding:2px;" data-dojo-type="dijit/form/DateTextBox" data-dojo-props="trim:true, propercase:true, required:true" />
+            </td>
+        </tr>
+        <tr>
+            <td class="label" style="width:80px;"><label style="display: inline;"></span>${nls.invoiceNumber} :</label></td>
+            <td>
+                <input type="text" data-dojo-attach-point="invoice_number" name="claim_certificate_invoice[invoiceNumber]" style="padding:2px;width:220px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, maxlength:100, required: true">
+            </td>
+        </tr>
+        <tr>
+            <td class="label" style="width:80px;"><label style="display: inline;"></span>${nls.postMonth} :</label></td>
+            <td>
+                <input type="text" data-dojo-attach-point="post_month" name="claim_certificate_invoice[postMonth]" style="padding:2px;width:220px;" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="trim:true, propercase:true, maxlength:45, required: true">
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" name="claim_certificate_invoice[claimCertificateId]" value="">
+    <input type="hidden" name="claim_certificate_invoice[_csrf_token]" value="">
+</form>

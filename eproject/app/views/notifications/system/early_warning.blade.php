@@ -1,0 +1,1 @@
+{{ trans('earlyWarnings.unreadSystemMessage', array('senderName' => '%s')) }}

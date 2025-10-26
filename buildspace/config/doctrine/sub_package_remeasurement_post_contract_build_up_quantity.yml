@@ -1,0 +1,172 @@
+connection: main_conn
+
+PostContractSubPackageRemeasurementBuildUpQuantityItem:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: pcontract_sprm_build_up_quantity_items
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    pc_sprm_buq_item_id_idx:
+      fields: [id, sub_package_post_contract_bill_item_rate_id, bill_column_setting_id, type, deleted_at]
+    pc_sprm_buq_item_fk_idx:
+      fields: [sub_package_post_contract_bill_item_rate_id, bill_column_setting_id]
+  columns:
+    id:                                          { type: integer, primary: true, notnull: true, autoincrement: true }
+    sub_package_post_contract_bill_item_rate_id: { type: integer, notnull: true }
+    bill_column_setting_id:                      { type: integer, notnull: true }
+    description:                                 { type: string, notnull: false }
+    total:                                       { type: decimal, scale: 5, default: 0 }
+    sign:                                        { type: integer(1), notnull: true, default: 1 }
+    priority:                                    { type: integer, notnull: true, default: 0 }
+    type:                                        { type: integer(1), notnull: true }
+  relations:
+    SubPackagePostContractBillItemRate:
+      local: sub_package_post_contract_bill_item_rate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractSubPackageRemeasurementBuildUpQuantities
+      foreignType: many
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractSubPackageRemeasurementBillBuildUpQuantities
+      foreignType: many
+
+PostContractSubPackageRemeasurementBuildUpQuantityFormulatedColumn:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: pcontract_sprm_build_up_quantity_formulated_columns
+  actAs: [FormulatedColumn, Timestampable, Signable, SoftDelete]
+  indexes:
+    pc_sprm_buqfc_id_idx:
+      fields: [id, relation_id, value, final_value, column_name, deleted_at]
+    pc_sprm_buqfc_rel_idx:
+      fields: [relation_id]
+  columns:
+    id: { type: integer, primary: true, notnull: true, autoincrement: true }
+  relations:
+    BuildUpQuantityItem:
+      class: PostContractSubPackageRemeasurementBuildUpQuantityItem
+      local: relation_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: FormulatedColumns
+      foreignType: many
+
+PostContractSubPackageRemeasurementBuildUpQuantityEdge:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: pcontract_sprm_build_up_quantity_edges
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    pc_sprm_buqe_id_idx:
+      fields: [id, node_from, node_to, column_name, deleted_at]
+    pc_sprm_buqe_fk_idx:
+      fields: [node_from, node_to]
+  columns:
+    id:          { type: integer, primary: true, notnull: true, autoincrement: true }
+    node_from:   { type: integer, notnull: true }
+    node_to:     { type: integer, notnull: true }
+    column_name: { type: string(50), notnull: true }
+  relations:
+    NodeFrom:
+      class: PostContractSubPackageRemeasurementBuildUpQuantityFormulatedColumn
+      local: node_from
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeFromEdges
+      foreignType: many
+    NodeTo:
+      class: PostContractSubPackageRemeasurementBuildUpQuantityFormulatedColumn
+      local: node_to
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: NodeToEdges
+      foreignType: many
+
+PostContractSubPackageRemeasurementBuildUpQuantitySummary:
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: pcontract_sprm_build_up_quantity_summaries
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    pc_sprm_buq_summary_id_idx:
+      fields: [id, sub_package_post_contract_bill_item_rate_id, bill_column_setting_id, type, deleted_at]
+    pc_sprm_buq_unique_idx:
+      fields: [sub_package_post_contract_bill_item_rate_id, bill_column_setting_id, type, deleted_at]
+      type: unique
+  columns:
+    id:                                          { type: integer, primary: true, notnull: true, autoincrement: true }
+    sub_package_post_contract_bill_item_rate_id: { type: integer, notnull: true }
+    bill_column_setting_id:                      { type: integer, notnull: true }
+    total_quantity:                              { type: decimal, scale: 5, default: 0 }
+    final_quantity:                              { type: decimal, scale: 5, default: 0 }
+    apply_conversion_factor:                     { type: boolean, default: false}
+    conversion_factor_amount:                    { type: decimal, scale: 5, default: 0 }
+    conversion_factor_operator:                  { type: varchar(1), notnull: true }
+    rounding_type:                               { type: integer(4), notnull: true }
+    type:                                        { type: integer(1), notnull: true }
+  relations:
+    SubPackagePostContractBillItemRate:
+      local: sub_package_post_contract_bill_item_rate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractBuildUpQuantitySummaries
+      foreignType: many
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractBuildUpQuantitySummaries
+      foreignType: many
+
+PostContractSubPackageRemeasurementItemTypeReference:
+  connection: main_conn
+  options:
+    symfony:
+      filter: false
+      form: false
+  tableName: pcontract_sprm_item_type_references
+  actAs: [Timestampable, Signable, SoftDelete]
+  indexes:
+    pc_sprm_itr_id_idx:
+      fields: [id, sub_package_post_contract_bill_item_rate_id, bill_column_setting_id, deleted_at]
+    pc_sprm_itr_fk_idx:
+      fields: [sub_package_post_contract_bill_item_rate_id, bill_column_setting_id]
+  columns:
+    id:                                          { type: integer, primary: true, notnull: true, autoincrement: true }
+    sub_package_post_contract_bill_item_rate_id: { type: integer, notnull: true }
+    bill_column_setting_id:                      { type: integer, notnull: true }
+    total_quantity:                              { type: decimal, scale: 5, default: 0 }
+    grand_total:                                 { type: decimal, scale: 5, default: 0 }
+  relations:
+    SubPackagePostContractBillItemRate:
+      local: sub_package_post_contract_bill_item_rate_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractSubPackageRemeasurementItemTypeReferences
+      foreignType: many
+    BillColumnSetting:
+      local: bill_column_setting_id
+      foreign: id
+      onDelete: CASCADE
+      type: one
+      foreignAlias: PostContractSubPackageRemeasurementItemTypeReferences
+      foreignType: many
