@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
 
 // ---- SimpleSAMLphp autoload (local) ----
-$path = getenv('SAMLAUTH_PATH') ?: base_path('../samlauth');
+$path = getenv('SAMLAUTH_PATH') ?: base_path('../../samlauth');
 
 // Build the autoload path and require it
 $sspAutoload = rtrim($path, '/\\') . '/lib/_autoload.php';
