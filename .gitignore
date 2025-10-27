@@ -87,5 +87,15 @@ Thumbs.db
 .idea/
 .vscode/
 
+# We vendor Symfony core but don't need its internal test fixtures
+symfony/test/
+symfony/lib/plugins/sfDoctrinePlugin/test/
+symfony/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/
+symfony/lib/plugins/sfDoctrinePlugin/test/functional/
+symfony/lib/plugins/sfDoctrinePlugin/test/**
+
+# (belt + suspenders: ignore any remaining plugin tests)
+symfony/lib/plugins/*/test/
+
 # PHPUnit cache (in case)
 # .phpunit.result.cache
